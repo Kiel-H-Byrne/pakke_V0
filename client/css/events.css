@@ -1,0 +1,39 @@
+/* The main content */
+
+
+.event-map-wrapper {
+	display:grid;
+	grid: auto/ 500px auto;
+	/* row/colum colum */
+	grid-gap: 5px;
+	height: 100vh;
+}
+
+.event {
+	background-color: #2d2d2d;
+	color: white;
+	padding: 15px 60px;
+	margin:1px 1px;
+}
+
+.map-container {
+   	width: 100%;
+	grid-area:1/2/6/3;   
+	/* grid-column-start: 2; 
+	grid-column-end: 3; 
+  	grid-row-start: 1; 
+  	grid-row-end: 6;  */
+  }
+
+
+.event:hover {	
+	background-color: #3a3a3a;
+}
+
+.event a {
+	color: #FFF;
+	text-decoration: none;
+  }
+.event a:hover {
+	 color: gray;
+  }

@@ -1,29 +1,75 @@
-# README #
+![Logo of the project](./public/img/Pakke_logo.png)
 
-This README would normally document whatever steps are necessary to get your application up and running.
+# PAKKE
+> "Not your typical night out..."
 
-### What is this repository for? ###
+The Pakke web application is used by residents and business owners to publicize and host events at their residence or venues. It also allows revelers an opportunity to locate these unique local events.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+## Installing / Getting started
 
-### How do I get set up? ###
+This is a [meteorJS](http://docs.meteor.com) application. To get started with this application, one must:
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+1. [Install meteor](https://www.meteor.com/install)
+2. clone this repo
+3. create a new branch; and go wild!
 
-### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+## Developing
 
-### Who do I talk to? ###
+### Built With
+MeteorJS:
+BootStrap
+Feather Icons:
+mkicons: 
 
-* Repo owner or admin
-* Other community or team contact
+### Prerequisites
+All prerequisites are listed in package.json and will build with `npm install`
+
+### Setting up Dev
+
+Here's a brief intro about what a developer must do in order to start developing
+the project further:
+
+```shell
+git clone https://bitbucket.org/KHB/pakke.git
+cd pakke/
+npm install
+```
+Then connect to `http://localhost:3000` and you're up and running.
+
+
+### Building
+
+...
+
+### Deploying / Publishing
+
+...
+
+## Versioning
+
+...
+
+## Configuration
+
+...
+
+## Tests
+
+...
+
+## Style guide
+
+using AirBnB
+
+## Api Reference
+
+Utilizing Google Maps API, 
+
+
+## Database
+
+MongoDB, 
+utilizing [mLab](mlab.com) for live database, tied to "kiel@pakke.us"
+
+

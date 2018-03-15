@@ -1,0 +1,9 @@
+html,
+body {
+  box-sizing: border-box;
+  font-family: 'helvetica';
+}
+
+.main-content {
+  padding: 10px 10px 10px;
+}

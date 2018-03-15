@@ -1,0 +1,28 @@
+{
+  "public": {
+    "analyticsSettings": {
+      "Google Analytics" : {"trackingId": "UA-12892693-10"}
+    },
+    "keys": {
+      "googleClient" : {"key" : "AIzaSyArlnrkA-z5JR0T6C_2z7rGmAZ1Mpl9WSE"},
+      "googleServer" : {"key" : "AIzaSyB7SQmFyKOkbwG3C0osrAyGbllKb8Jdx-8"},
+      "googleAPI" : {"key" : " AIzaSyArlnrkA-z5JR0T6C_2z7rGmAZ1Mpl9WSE"},
+      "yelp" : {
+        "app_id" : "xxxx",
+        "app_secret" : "xxxx"
+      },
+      "openGraph": {"key":"590d6e3a20af04982477acec"},
+      "mailgun" : {
+        "pubKey" : "pubkey-xxxx",
+        "key" : "key-xxxx",
+        "password" : "xxxx"
+      }
+    }
+  },
+  "galaxy.meteor.com": { 
+    "env": { 
+     "ROOT_URL": "https://pakke.meteorapp.com", 
+     "MONGO_URL": "mongodb://pakkeadmin:pakkedHouse@ds025583.mlab.com:25583/pakkedb"
+    }
+  } 
+}
