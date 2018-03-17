@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import Events from '../api/Events';
+import Events from '../startup/collections/events';
 
 class EventDetail extends Component {
 

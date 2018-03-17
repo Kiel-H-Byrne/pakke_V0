@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session'
 
 import Event from './Event';
-import Events from '../api/Events';
+import Events from '../startup/collections/events';
 import LoginForm from './LoginPage';
 import { MapContainer } from './MapContainer';
 import MyMap from './MyMap';

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 // import Meteor from 'meteor/meteor';
-import Events from '../api/Events';
+import Events from '../startup/collections/events';
 import { withTracker } from 'meteor/react-meteor-data';
-
-
 
 
 class EventForm extends Component {
@@ -27,16 +25,29 @@ class EventForm extends Component {
 
       Bert.alert("something went wrong", "danger");
     }
+
   };
 
+
   render() {
+
+    Tracker.autorun(c => {
+
+        const completeFindAddress = new google.maps.places.Autocomplete(
+          /** @type {!HTMLInputElement} */
+          document.getElementById('findInput'),{
+            types: ['address'],
+            componentRestrictions: {country:'US'}
+        });
+      });
+    
     if (!this.props.ready) {
       return <div>Loading</div>;
   }
     return (
       <form onSubmit={this.addEvents.bind(this)}>
         <input type='text' ref='eventName' />
-        <input type='text' ref='eventAddress' />
+        <input id="findInput" type='text' ref='eventAddress' />
         <button type='submit'>Add Event</button>
       </form>
 

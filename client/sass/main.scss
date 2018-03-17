@@ -1,0 +1,66 @@
+// @import 'palettes/colors';
+
+// ELEMENTS
+html {
+  box-sizing: border-box;
+  line-height: 2em;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+* {
+  font-family: 'Kanit', sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-size: 16px;
+  color: #226199;
+
+  // color: $rgba-primary-grey-1;
+  // background-color: $rgba-primary-grey-4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+// font-family: 'Wire One', sans-serif;
+
+// font-family: 'Montserrat', sans-serif;
+
+// font-family: 'Raleway Dots', cursive;
+
+// font-family: 'Alegreya Sans', sans-serif;
+
+// font-family: 'Kanit', sans-serif;
+
+// font-family: 'Yanone Kaffeesatz', sans-serif;
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pac-container {
+  // background-color: $clr-grey;
+  //needs to be in front of modal which is at z-index: 1050
+  z-index: 1055;
+
+  ::after {
+    // display: none;
+ 
+  }
+}

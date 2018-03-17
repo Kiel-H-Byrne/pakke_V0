@@ -1,0 +1,3 @@
+
+Options.set('forbidClientAccountCreation', false);
+

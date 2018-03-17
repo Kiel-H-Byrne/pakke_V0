@@ -4,7 +4,7 @@
   "scripts": {
     "start": "meteor run --settings settings.json",
     "prod": "meteor run --production --settings settings.json",
-    "stage": "meteor deploy pakkestage.meteorapp.com --settings settings-dev.json",
+    "stage": "meteor deploy pakkestage.meteorapp.com --settings settings.json",
     "deploy": "meteor deploy pakke.meteorapp.com --settings settings.json",
     "ibuild": "meteor build /Users/KHB/Sites/Pakke/testbuild --server localhost:3000 --mobile-settings settings.json"
   },
@@ -15,33 +15,34 @@
     "last 2 versions"
   ],
   "main": "client/main.js",
+  "devDependencies": {
+    "eslint": "^4.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.7.0"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://KHB@bitbucket.org/pakke/pakke.git"
+    "url": "git+https://KHB@bitbucket.org/pakke/master.git"
   },
   "keywords": [
     "social",
     "capital"
   ],
   "author": "PAKKE Development Team",
+  "license": "ISC",
   "homepage": "www.pakke.us",
-  "devDependencies": {
-    "eslint": "^4.18.0",
-    "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.7.0"
-  },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.40",
-    "bcrypt": "^1.0.3",
+    "@babel/runtime": "^7.0.0-beta.42",
     "@okgrow/auto-analytics": "^2.0.0",
+    "bcrypt": "^1.0.3",
     "classnames": "^2.2.5",
     "feather-icons": "^4.0.1",
-    "google-maps-react": "^1.1.2",
-    "meteor-node-stubs": "^0.3.2",
     "history": "^4.7.2",
+    "meteor-node-stubs": "^0.3.2",
     "react": "^16.2.0",
     "react-addons-pure-render-mixin": "^15.6.2",
     "react-dom": "^16.2.0",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "simpl-schema": "^1.4.2"
   }
 }
