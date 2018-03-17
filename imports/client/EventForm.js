@@ -57,7 +57,7 @@ class EventForm extends Component {
 
 
 export default withTracker(() => {
-  let eventsSub = Meteor.subscribe('allEvents');
+  let eventsSub = Meteor.subscribe('events_current');
   return {
     ready: eventsSub.ready()
   }

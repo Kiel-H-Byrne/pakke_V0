@@ -129,7 +129,7 @@ class MyMap extends Component {
 
 
             markers[id] = marker;
-            console.log(markers);
+            
           },
           changed: function(newDocument, oldDocument) {
             markers[newDocument._id].setPosition({

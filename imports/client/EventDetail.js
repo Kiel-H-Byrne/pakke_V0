@@ -14,6 +14,7 @@ class EventDetail extends Component {
     const eventId = this.props.match.params.id;
     for (var i = 0; i < allEvents.length; i++) {
       if (allEvents[i]._id === eventId) {
+        console.log(allEvents[i])
         this.setState({
           event: allEvents[i]
         });
@@ -35,9 +36,9 @@ class EventDetail extends Component {
   render() {
     return (
       <div>
-        <h1>Event Address: {this.state.event.eventAddress}</h1>
-        <h1>Event Name: {this.state.event.eventName}</h1>
-        <h1>Host: {this.state.event.eventHostUserName}</h1>
+        <h1>Event Name: {this.state.event.byline}</h1>
+        <h2>Event Date: {this.state.event.date}</h2>
+        <p>Event Description: {this.state.event.description}</p>
         <button onClick={this.attendEvent.bind(this)} className="btn btn-lg btn-success">Attend Event</button>
       </div>
     )
@@ -45,7 +46,7 @@ class EventDetail extends Component {
 }
 
 export default withTracker(() => {
-  let eventsSub = Meteor.subscribe('allEvents');
+  let eventsSub = Meteor.subscribe('events_current');
   return {
     allEvents: Events.find({}).fetch(),
     thisUser: Meteor.user(),

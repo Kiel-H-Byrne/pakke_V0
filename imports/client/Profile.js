@@ -48,7 +48,7 @@ class Profile extends Component {
 
 
 export default withTracker(() => {
-  let eventsSub = Meteor.subscribe('allEvents');
+  let eventsSub = Meteor.subscribe('events_current');
   let userSub = Meteor.subscribe('currentUser');
   return {
     ready: eventsSub.ready() && userSub.ready(),

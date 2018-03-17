@@ -51,7 +51,7 @@ class EventList extends Component {
 };
 
 export default withTracker(() => {
-  let eventsSub = Meteor.subscribe('allEvents');
+  let eventsSub = Meteor.subscribe('events_current');
   // let showAll = Session.get('showAll');
   return {
     currentUser: Meteor.user(),
