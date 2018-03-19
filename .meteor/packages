@@ -20,9 +20,6 @@ shell-server@0.3.1            # Server-side component of the `meteor shell` comm
 react-meteor-data
 dburles:google-maps
 fourseven:scss
-accounts-base@1.4.2
-accounts-password@1.5.0
-std:accounts-ui
 session@1.1.7
 accounts-facebook@1.3.1
 accounts-google@1.3.1
@@ -40,3 +37,4 @@ check
 themeteorchef:bert
 meteortoys:allthings
 alanning:roles
+accounts-password

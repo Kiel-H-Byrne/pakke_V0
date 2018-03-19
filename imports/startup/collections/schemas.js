@@ -387,28 +387,31 @@ Schema.Event = new SimpleSchema({
   // 'optional: false' means that this field is required
   // If it's blank, the form won't submit and you'll get a red error message
   // 'type' is where you can set the expected data type for the 'title' key's value
-  hostID: {
+  "host": {
+    type: Object,
+    label: "Host"
+  },
+  "host.id": {
     type: String,
     optional: true,
     label: "Host ID",
     autoValue: function() {
-      if (Meteor.user()._id && this.isInsert && !this.isSet) {
-        return Meteor.user()._id;
+      if (Meteor.userID() && this.isInsert && !this.isSet) {
+        return Meteor.userID();
       }
     }
   },    
-  // host: orion.attribute('createdBy'),
-  // "host.name": {
-  //   type: String,
-  //   autoValue: function() {
-  //     // if (this.field("name").value) {
-  //     // let name = this.field("name").value;
-  //     let userID = Meteor.user()._id;
-  //     let profile = Meteor.user().profile;
-  //     console.log(profile.name);
-  //     return userID;
-  //   }
-  // },
+  "host.username": {
+    type: String,
+    autoValue: function() {
+      // if (this.field("name").value) {
+      // let name = this.field("name").value;
+      let userID = Meteor.user()._id;
+      let profile = Meteor.user().profile;
+      console.log(profile.name);
+      return userID;
+    }
+  },
   "host.email": {
     type: String,
     optional: true,
@@ -422,7 +425,7 @@ Schema.Event = new SimpleSchema({
   date: {
     type: Date,
     min: function() {
-      return Date.now()
+      return new Date;
     }
   },
   size: {
@@ -530,7 +533,7 @@ Schema.Event = new SimpleSchema({
   submitted: {
     type: String,
     autoValue: function() {
-      return Date.now();
+      return new Date;
     }
   }
 });

@@ -27,7 +27,7 @@ class Header extends Component {
             )
         } else {
             return (
-                <div className='header'>
+                <div className='header' id="header-target">
                     <div className='header-links-left'>
                         <ul>
                             <li><Link to='/'><img className="icon" src='/logo.jpg' /></Link></li>

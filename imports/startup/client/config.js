@@ -1,3 +1,0 @@
-
-Options.set('forbidClientAccountCreation', false);
-
