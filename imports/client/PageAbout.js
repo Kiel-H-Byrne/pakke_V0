@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react';
 
-const About = () => (
+class PageAbout extends Component {
+  render() {
+    return (
   <div>
     <p>Taxidermy intelligentsia butcher farm-to-table, ennui fam meh wolf marfa succulents schlitz ugh four</p>
     <p>dollar toast. Wolf keytar fam stumptown twee biodiesel. Cloud bread beard shabby chic polaroid pork belly,</p>
@@ -9,8 +11,9 @@ const About = () => (
     <p>scenester craft beer. Aesthetic hexagon viral gentrify.</p>
   </div>
 )
+}
+};
 
 
-
-export default About;
+export default PageAbout;
 

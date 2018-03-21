@@ -4,7 +4,7 @@ import { Session } from 'meteor/session'
 
 import Event from './Event';
 import Events from '../startup/collections/events';
-import LoginForm from './LoginPage';
+import LoginForm from './PageLogin';
 import { MapContainer } from './MapContainer';
 import MyMap from './MyMap';
 

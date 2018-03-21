@@ -80,7 +80,6 @@ class MyMap extends Component {
   });
 }
 
-
     GoogleMaps.ready(name, map => {
       Tracker.autorun(c => {
 

@@ -7,7 +7,7 @@ import Event from './Event';
 
 
 
-class Profile extends Component {
+class PageProfile extends Component {
 
   addHostRole() {
     Meteor.call('addHostRole');
@@ -58,4 +58,4 @@ export default withTracker(() => {
       attendees: { $in: [Meteor.userId()] }
     }).fetch(),
   };
-})(Profile);
+})(PageProfile);

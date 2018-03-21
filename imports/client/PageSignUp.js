@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withHistory, Link } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
 
-export default class SignupPage extends Component {
+class PageSignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -78,3 +78,5 @@ export default class SignupPage extends Component {
         );
     }
 }
+
+export default PageSignUp;
