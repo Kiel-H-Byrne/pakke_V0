@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Session } from 'meteor/session';
 import GoogleMap from './GoogleMap';
+
 import Events from '../startup/collections/events';
 
 
@@ -11,7 +12,7 @@ class MyMap extends Component {
   }
 
   handleMapOptions() {
-            let mapCenter
+        let mapCenter;
         if (!Session.get('browserLoc')) {
             mapCenter = {'lat':38.902635, 'lng':-77.022938};
         } else {
@@ -58,27 +59,25 @@ class MyMap extends Component {
   }
 
   handleOnReady(name) {
-
     if (!Session.get('browserLoc')) {
-  $.getJSON("https://freegeoip.net/json/?", {
-      format: "jsonp",
-  }).done(function(data){
-  /*
-      // ================== RESPONSE ================== 
-      // {"ip":"69.138.161.94","country_code":"US","country_name":"United States","region_code":"MD",
-      //  "region_name":"Maryland","city":"Silver Spring","zip_code":"20902","time_zone":"America/New_York",
-      //  "latitude":39.0409,"longitude":-77.0445,"metro_code":511}
-  */
+      $.getJSON("https://freegeoip.net/json/?", {
+          format: "jsonp",
+      }).done(function(data){
+        /*
+            // ================== RESPONSE ================== 
+            // {"ip":"69.138.161.94","country_code":"US","country_name":"United States","region_code":"MD",
+            //  "region_name":"Maryland","city":"Silver Spring","zip_code":"20902","time_zone":"America/New_York",
+            //  "latitude":39.0409,"longitude":-77.0445,"metro_code":511}
+        */
 
-    let lat = data.latitude;
-    let lng = data.longitude;
-    let browserLocation = _.object( ['lat', 'lng'], [lat, lng]);
-    // console.log("Coord from Browser: ", browserLocation);
-    Session.set('browserLoc', browserLocation);
-    Session.set('clientState', data.region_code);
-
-  });
-}
+        let lat = data.latitude;
+        let lng = data.longitude;
+        let browserLocation = _.object( ['lat', 'lng'], [lat, lng]);
+        // console.log("Coord from Browser: ", browserLocation);
+        Session.set('browserLoc', browserLocation);
+        Session.set('clientState', data.region_code);
+      });
+    }
 
     GoogleMaps.ready(name, map => {
       Tracker.autorun(c => {

@@ -11,10 +11,14 @@ import PageLogin from './PageLogin';
 import PageSignUp from './PageSignUp';
 import PageError from './PageError';
 import BecomeHost from './BecomeHost';
+
 import EventForm from './EventForm2';
+import PageTest from './PageTest';
 // import { LoginFormContainer } from './accounts/ui/components/LoginForm'
 
-const Router = () => (
+class Router extends Component {
+    render() {
+        return (
     <main>
         <Switch>
             <Route exact path='/' component={Home} />
@@ -22,13 +26,14 @@ const Router = () => (
             <Route path='/event/:id' component={EventDetail} />
             <Route path='/profile' component={PageProfile} />
             <Route path='/login' component={PageLogin} />
-            <Route path='/test' component={ EventForm } />
             <Route path='/signup' component={PageSignUp} />
             <Route path='/host' component={BecomeHost} />
+            <Route path='/test' component={ PageTest } />
             <Route component={PageError} />
 
         </Switch>
     </main>
 )
+}};
 
 export default Router;

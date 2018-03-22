@@ -4,9 +4,6 @@ import { Session } from 'meteor/session'
 
 import Event from './Event';
 import Events from '../startup/collections/events';
-import LoginForm from './PageLogin';
-import { MapContainer } from './MapContainer';
-import MyMap from './MyMap';
 
 class EventList extends Component {
 
@@ -20,30 +17,12 @@ class EventList extends Component {
   render() {
     if (!this.props.ready) {
       return <div>Loading</div>;
-    } else if (!this.props.currentUser) {
-      return (
-        <LoginForm />
-      )
     } else {
-
       return (
-        <div>
-          {/* <button onClick={this.showAll.bind(this)}>
-            Show {this.props.showAll ? 'One' : 'All'}
-          </button> */}
-
-          <div className='event-map-wrapper'>
-            <main>
-              {this.props.events.map((event) => {
-                return <Event event={event} key={event._id} />
-              })}
-            </main>
-
-            <div className='map-container'>
-              <MyMap />
-            </div>
-          
-          </div>
+        <div >
+            {this.props.events.map((event) => {
+              return <Event event={event} key={event._id} />
+            })}
         </div>
       )
     }
@@ -51,7 +30,7 @@ class EventList extends Component {
 };
 
 export default withTracker(() => {
-  let eventsSub = Meteor.subscribe('events_current');
+  const eventsSub = Meteor.subscribe('events_current');
   // let showAll = Session.get('showAll');
   return {
     currentUser: Meteor.user(),

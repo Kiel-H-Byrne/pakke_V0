@@ -13,12 +13,14 @@
 
 .header-links-left {
   display: inline-block;
+
   /* border-style: solid;
   border-width: 1px; */
 }
 
-.header-links-left li{
+.header-links-left li {
   display: inline-block;
+
   /* border-style: solid;
   border-width: 1px; */
 }
@@ -31,58 +33,57 @@
 }
 
 .icon {
-  /* margin: 0px 40px; */
+  margin-right: 2rem;
+
   /* top: 7px; */
   /* position: relative; */
-  
-  width: 60px;
+
+  width: 4rem;
+
   /* border-style: solid;
   border-width: 1px; */
 }
 
 .header-links-right {
   float: right;
+
   /* transform: translate(-25%, 50%); */
   /* border-style: solid;
   border-width: 1px; */
-
-
 }
- .header-links-right li {
+
+.header-links-right li {
   display: inline-block;
   padding: 10px 15px;
   color: black;
   font-size: 16px;
   font-weight: bold;
-  transform: translate(-25%, 25%); 
+  transform: translate(-25%, 25%);
+
   /* border-style: solid;
   border-width: 1px; */
-
 }
+
 .header a {
   color: black;
   text-decoration: none;
-  }
+}
+
 .header a:hover {
-	 color: gray;
-  }
+  color: gray;
+}
 
-
-.header li:hover{
+.header li:hover {
   /* background-color: rgba(255, 255, 255, 0.5); */
   /* color: #ffffff; */
   -webkit-transition: all 0.5s;
-     -moz-transition: all 0.5s;
-       -o-transition: all 0.5s;
-          transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 /* Making the sidebar responsive */
-@media (max-width: 900px) {
-
-}
+@media (max-width: 900px) {}
 
 /* Mobile phone layout */
-@media (max-width: 450px) {
-
-}
+@media (max-width: 450px) {}

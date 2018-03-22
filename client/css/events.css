@@ -1,39 +1,51 @@
 /* The main content */
 
-
 .event-map-wrapper {
-	display:grid;
-	grid: auto/ 500px auto;
-	/* row/colum colum */
-	grid-gap: 5px;
-	height: 100vh;
+  display: grid;
+  grid: auto/ 500px auto;
+
+  /* row/colum colum */
+  grid-gap: 5px;
+  height: 100vh;
 }
 
-.event {
-	background-color: #2d2d2d;
-	color: white;
-	padding: 15px 60px;
-	margin:1px 1px;
+.eventCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all .3s ease;
+  background-color: rgba(25, 25, 250, 1);
+  color: white;
+  padding: 1rem 5rem;
 }
 
 .map-container {
-   	width: 100%;
-	grid-area:1/2/6/3;   
-	/* grid-column-start: 2; 
-	grid-column-end: 3; 
-  	grid-row-start: 1; 
-  	grid-row-end: 6;  */
-  }
+  width: 100%;
+  grid-area: 1/2/6/3;
 
-
-.event:hover {	
-	background-color: #3a3a3a;
+  /* grid-column-start: 2; 
+  grid-column-end: 3; 
+    grid-row-start: 1; 
+    grid-row-end: 6;  */
 }
 
-.event a {
-	color: #FFF;
-	text-decoration: none;
-  }
-.event a:hover {
-	 color: gray;
-  }
+.eventCard:hover {
+  background-color: #3a3a3a;
+}
+
+.eventCard a {
+  color: #FFF;
+  text-decoration: none;
+}
+
+.eventCard a:hover {
+  color: gray;
+}
+
+.landingEvents {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1rem;
+  background-color: black;
+}

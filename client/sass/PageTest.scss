@@ -1,0 +1,34 @@
+.testWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 1px;
+  background-color: black;
+}
+
+.testLetter {
+  background-color: #0069b3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-size: 70px;
+  color: white;
+  line-height: 1;
+  font-family: 'Alegreya Sans', sans-serif;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+
+// Alegreya+Sans:100|Kanit:100|Montserrat:100|Raleway+Dots|Wire+One|Yanone+Kaffeesatz:200
+// font-family: 'Wire One', sans-serif;
+
+// font-family: 'Montserrat', sans-serif;
+
+// font-family: 'Raleway Dots', cursive;
+
+// font-family: 'Alegreya Sans', sans-serif;
+
+// font-family: 'Kanit', sans-serif;
+
+// font-family: 'Yanone Kaffeesatz', sans-serif;
