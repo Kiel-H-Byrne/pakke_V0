@@ -8,15 +8,16 @@ import LandingPage from './LandingPage';
 class Home extends Component {
 
   render() {
-    if (this.props.currentUser) {
-      return (
-        <EventList />
-      )
-    } else {
+    // if (this.props.currentUser) {
+    //   return (
+    //     <EventList />
+    //   )
+    // } else {
       return (
       <LandingPage />
 
-    )}
+    )
+    // }
   }
 }
 

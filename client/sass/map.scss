@@ -33,3 +33,22 @@
   top: 0;
   background: linear-gradient(rgba(0, 20, 150, 0.8), rgba(255, 255, 255, 0));
 }
+
+.map-container {
+  width: 100%;
+  grid-area: 1/2/6/3;
+
+  /* grid-column-start: 2; 
+  grid-column-end: 3; 
+    grid-row-start: 1; 
+    grid-row-end: 6;  */
+}
+
+.event-map-wrapper {
+  display: grid;
+  grid: auto/ 500px auto;
+
+  /* row/colum colum */
+  grid-gap: 5px;
+  height: 100vh;
+}

@@ -83,7 +83,7 @@ Meteor.methods({
                 this.stop();
                 return false;
             } else {
-                Events.update(eventId, { $addToSet: { attendees: thisUserId } });
+                Events.update(eventId, { $addToSet: { guests: thisUserId } });
             }
         },
 

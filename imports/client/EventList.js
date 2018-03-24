@@ -19,11 +19,10 @@ class EventList extends Component {
       return <div>Loading</div>;
     } else {
       return (
-        <div >
-            {this.props.events.map((event) => {
+            this.props.events.map((event) => {
               return <Event event={event} key={event._id} />
-            })}
-        </div>
+            })
+
       )
     }
   }

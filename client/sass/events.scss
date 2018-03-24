@@ -1,0 +1,47 @@
+.eventCard {
+  text-align: center;
+  cursor: pointer;
+  transition: all .3s ease;
+  color: rgba(25, 25, 250, 1);
+  padding: 0px;
+}
+
+.eventCard:hover {
+  background-color: rgba(125, 125, 150, 1);
+}
+
+.eventCard a {
+  color: rgba(25, 25, 250, 1);
+  text-decoration: none;
+}
+
+.eventCard a:hover {
+  color: gray;
+}
+
+.landingEvents {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1rem;
+}
+
+.eventCard_img {
+  position: relative;
+  opacity: .5;
+  vertical-align: bottom;
+  color: #ffec4f;
+  line-height: 100%;
+  font-size: 3rem;
+  font-weight: 900;
+  text-align: center;
+  width: 100%;
+  height: 200px;
+}
+
+.eventCard_loc {
+  margin: 0;
+  padding: .5rem;
+  text-align: left;
+  font-weight: 900;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+}
