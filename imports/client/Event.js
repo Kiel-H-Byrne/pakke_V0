@@ -12,26 +12,26 @@ export default class Event extends Component {
     let month = monthArray[(monthNumber-1)];
 
     const style = {
-      background: "url('img/holder1.jpg') no-repeat"
+      background: "url('img/holder1.jpg') no-repeat "
     };
 
 
-//turn into progressbar component props: 
+//turn into progressbar component w/ props: 
     let count = 0;
     if (this.props.event.guests) {
       count = this.props.event.guests.length;
     }
-    console.log(count);
     let weight = ((count/this.props.event.size) * 100).toFixed();
     const style2 = {
       width: `${weight}%`
     };
-    console.log(style2);
     return (
       
       <div className='eventCard'>
             <Link to={`/event/${this.props.event._id}`}>
-              <div className="eventCard_img" style={style}>{month}<br />{date}</div>
+              <div className="eventCard_img" style={style}>
+              <p>{month}<br />{date}</p>
+              </div>
             </Link>
             <h3 className="eventCard_loc">{this.props.event.eventAddress.city}, {this.props.event.eventAddress.zip}</h3>
             <h2 className="eventCard_name">{this.props.event.byline}</h2>
