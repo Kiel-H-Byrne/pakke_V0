@@ -1,9 +1,15 @@
 ![Logo of the project](./public/logo.jpg)
 
 # PAKKE
-> "Not your typical night out..."
+> "Discover. Connect. Experience."
 
-The Pakke web application is used by residents and business owners to publicize and host events at their residence or venues. It also allows revelers an opportunity to locate these unique local events.
+Pakke is a platform that connects guests, hosts, and talent. This platform brings people together to share unique and interesting experiences. 
+
+For guests, we enable people to find unique events around the city and connect with new and interesting people. 
+
+For hosts, we enable people to use their space to hold events.
+
+For talent, we enable people to share their unique talents with the world. 
 
 ## Installing / Getting started
 
