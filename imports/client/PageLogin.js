@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { withHistory, Link } from 'react-router-dom'
-import { Accounts } from 'meteor/std:accounts-ui';
+// import { Accounts } from 'meteor/std:accounts-ui';
+import './PageLoginSocial'
+
+
+
 
 class PageLogin extends Component {
     constructor(props) {
@@ -43,6 +47,7 @@ class PageLogin extends Component {
                                 {error.length > 0 ?
                                     <div className="alert alert-danger fade in">{error}</div>
                                     : ''}
+                                    <div id="testDiv"></div>
                                 <form id="login-form"
                                     className="form col-md-12 center-block"
                                     onSubmit={this.handleSubmit}>
