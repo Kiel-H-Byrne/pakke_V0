@@ -54,7 +54,7 @@
 <script>
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '168356840569104',
+      appId      : Meteor.settings.public.keys.facebook.app_id,
       xfbml      : true,
       version    : 'v2.12'
     });

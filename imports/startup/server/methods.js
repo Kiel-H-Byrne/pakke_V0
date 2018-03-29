@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 
-import Hosts from '/imports/startup/collections/hosts';
 import Events from '/imports/startup/collections/events';
 
 // import '/imports/api/OrionCache.js';
@@ -110,15 +109,8 @@ Meteor.methods({
     Roles.addUsersToRoles( id._id ,  role );
   },
 	addHost: function(doc) {
-    Hosts.insert(doc , function(err, res){
-      if (err) {
-        console.log("HOST INSERT FAILED:");
-        // console.log(doc);
-        console.log(doc.email + ": " + err);
-      } else {
-        // console.log(doc.name + ": Success");
-      }
-    });
+    //add 'host role' to user
+    alert('fix "addHost" method');
   },
   addRole: function (id, role) {
     // check(id, Meteor.Collection.ObjectID);

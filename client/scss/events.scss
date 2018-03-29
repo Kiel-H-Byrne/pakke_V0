@@ -1,9 +1,12 @@
+@import "palettes/_brandColors";
+
 .eventCard {
   text-align: center;
   cursor: pointer;
   transition: all .3s ease;
   color: rgba(25, 25, 250, 1);
   padding: 0px;
+  margin: 0 .5rem;
 }
 
 .eventCard:hover {
@@ -16,14 +19,10 @@
 }
 
 .eventCard a:hover {
-  color: gray;
+  color: $pakke-grey;
 }
 
-.landingEvents {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 1rem;
-}
+.landingEvents {}
 
 .eventCard_img {
   display: flex;
@@ -33,7 +32,7 @@
   // background: linear-gradient(rgba(0, 20, 150, 0.8), rgba(155, 155, 155, 0));
 
   opacity: .5;
-  color: #fff;
+  color: $pakke-white;
 
   // color: #ffec4f;
   line-height: 100%;
@@ -56,4 +55,39 @@
   text-align: left;
   font-weight: 900;
   font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+
+@media screen and (max-width: 768px) {
+  // vertical scroll vs. grid
+  .scroll-wrapper-x {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .eventCard {
+    width: 300px;
+    height: 430px;
+    flex: 0 0 auto;
+  }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media screen and (min-width: 768px) {}
+
+/* Medium devices (desktops, 992px and up) */
+@media screen and (min-width: 992px) {}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .scroll-wrapper-x {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1rem;
+  }
 }

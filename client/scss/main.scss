@@ -1,28 +1,23 @@
-// @import 'palettes/colors';
+@import "palettes/_brandColors";
 
 // ELEMENTS
-html {
-  box-sizing: border-box;
-  line-height: 2em;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
 * {
-  font-family: 'Kanit', sans-serif;
+  &::before,
+  &::after {
+    box-sizing: inherit;
+  }
 }
 
 html,
 body {
+  font-family: 'Kanit', sans-serif;
+  box-sizing: border-box;
   height: 100%;
   width: 100%;
   margin: 0;
+  padding: 0;
   font-size: 16px;
-  color: #226199;
+  color: $pakke-blue;
 
   // color: $rgba-primary-grey-1;
   // background-color: $rgba-primary-grey-4;
@@ -48,10 +43,13 @@ h5 {
 
 // font-family: 'Yanone Kaffeesatz', sans-serif;
 
+.main-content {
+  // padding: 10px 10px 10px;
+}
+
 .center-block {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
 }
 
 .pac-container {
@@ -59,7 +57,7 @@ h5 {
   //needs to be in front of modal which is at z-index: 1050
   z-index: 1055;
 
-  ::after {
+  &::after {
     // display: none;
  
   }

@@ -1,3 +1,7 @@
+.map-container {
+  height: 100%;
+}
+
 .map_canvas {
   position: relative;
   height: 100%;
@@ -12,9 +16,8 @@
 .landingMap, .mapOverlay {
   position: relative;
   height: 20rem;
-  width: 100%;
+  width: 100vw;
   z-index: -2;
-  border-radius: 1rem;
 
   h2 {
     position: absolute;
