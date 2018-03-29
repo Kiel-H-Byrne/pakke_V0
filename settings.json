@@ -4,6 +4,7 @@
       "Google Analytics" : {"trackingId": "UA-12892693-10"}
     },
     "keys": {
+      "googleAnalytics": {"trackingId": "UA-12892693-10"},
       "googleClient" : {"key" : "AIzaSyArlnrkA-z5JR0T6C_2z7rGmAZ1Mpl9WSE"},
       "googleServer" : {"key" : "AIzaSyB7SQmFyKOkbwG3C0osrAyGbllKb8Jdx-8"},
       "googleAPI" : {"key" : " AIzaSyArlnrkA-z5JR0T6C_2z7rGmAZ1Mpl9WSE"},

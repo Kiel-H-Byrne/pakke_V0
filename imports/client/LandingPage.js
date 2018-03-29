@@ -30,7 +30,7 @@ class LandingPage extends Component {
                         <EventList />
                     </div>
                 </div>
-                <div>
+                <div className="landingValue">
                     <h2>Why PAKKE?</h2>
                     <p>value value value</p>
                 </div>

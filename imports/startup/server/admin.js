@@ -12,7 +12,7 @@ if (Meteor.users.find().count() == 0) {
       username: "Soup",
       email: "soup@pakke.us",
       password: "password",
-      avatar: 'https://www.pakke.us/img/PAKKE_circle.png',
+      avatar: 'https://www.pakke.us/img/brand/PAKKE_circle.png',
       name: "Souper Youzer",
       firstName: "Souper",
       lastName: "Youzer"

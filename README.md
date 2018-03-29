@@ -1,4 +1,4 @@
-![Logo of the project](./public/img/Pakke_logo.png)
+![Logo of the project](./public/img/brand/Pakke_logo.png) 
 
 # PAKKE
 > "Not your typical night out..."
