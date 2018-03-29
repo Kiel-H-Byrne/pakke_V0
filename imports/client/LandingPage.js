@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import AccountsUIWrapper from './AccountsUIWrapper.js';
 import { Link } from 'react-router-dom';
 
 import MyMap from './MyMap';
-import '../../client/sass/map';
+import '../../client/scss/map';
 
 import EventList from './EventList';
 
@@ -25,11 +24,15 @@ class LandingPage extends Component {
                     <div className="mapOverlay"></div>
                     <h2>Explore your Area</h2>
                 </div>
-                <div>
+                <div className="landingEvents">
                     <h2>Featured Events</h2>
-                    <div className="landingEvents">
-                    <EventList />
+                    <div className="scroll-wrapper-x">
+                        <EventList />
                     </div>
+                </div>
+                <div className="landingValue">
+                    <h2>Why PAKKE?</h2>
+                    <p>value value value</p>
                 </div>
             </div>
         )

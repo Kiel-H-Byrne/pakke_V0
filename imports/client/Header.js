@@ -4,7 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 class Header extends Component {
     logOut() {
-        Meteor.logout(Bert.alert("you Are Now Logged Out", "success"))
+        Meteor.logout(Bert.alert("You Are Now Logged Out", "success"))
     }
 
     render() {

@@ -1,0 +1,81 @@
+@import "palettes/_brandColors";
+
+/* The header */
+
+.header {
+  /* background-color: #ffec4f; */
+  background-color: $pakke-white;
+  border-bottom: 3px solid $pakke-grey;
+
+  ul {
+    padding: 7px;
+  }
+
+  div {
+    /* display: inline-block; */
+    /* border-style: solid;
+    border-width: 1px; */
+  }
+}
+
+.header-links-left {
+  display: inline-block;
+
+  li {
+    display: inline-block;
+  }
+
+  p {
+    /* position: relative; */
+    /* top: 12px; */
+    /* border-style: solid;
+    border-width: 1px; */
+  }
+}
+
+.icon {
+  margin-right: 1rem;
+  height: 4rem;
+}
+
+.header-links-right {
+  float: right;
+
+  li {
+    display: inline-block;
+    padding: 10px 15px;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    transform: translate(-25%, 25%);
+
+    /* border-style: solid;
+    border-width: 1px; */
+  }
+}
+
+.header {
+  a {
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+      color: gray;
+    }
+  }
+
+  li:hover {
+    /* background-color: rgba(255, 255, 255, 0.5); */
+    /* color: #ffffff; */
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+  }
+}
+
+/* Making the sidebar responsive */
+@media (max-width: 900px) {}
+
+/* Mobile phone layout */
+@media (max-width: 450px) {}

@@ -1,4 +1,6 @@
-![Logo of the project](./public/logo.jpg)
+
+![Logo of the project](./public/img/brand/Pakke_logo.png) 
+
 
 # PAKKE
 > "Discover. Connect. Experience."
