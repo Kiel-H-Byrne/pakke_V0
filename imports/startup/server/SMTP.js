@@ -8,3 +8,4 @@ const smtp = {
 };
 
 process.env.MAIL_URL = `smtps://${encodeURIComponent(smtp.username)}:${encodeURIComponent(smtp.password)}@${encodeURIComponent(smtp.server)}:${smtp.port}`;
+pakkeP@RTY!!!
