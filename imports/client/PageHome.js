@@ -3,21 +3,22 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import EventList from './EventList';
 import LandingPage from './LandingPage';
+import PageProfile from './PageProfile';
 
 
 class Home extends Component {
 
   render() {
-    // if (this.props.currentUser) {
-    //   return (
-    //     <EventList />
-    //   )
-    // } else {
+    if (this.props.currentUser) {
+      return (
+        <PageProfile />
+      )
+    } else {
       return (
       <LandingPage />
 
     )
-    // }
+    }
   }
 }
 

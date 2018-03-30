@@ -23,7 +23,6 @@ fourseven:scss
 session@1.1.7
 accounts-facebook@1.3.1
 accounts-google@1.3.1
-twbs:bootstrap
 fortawesome:fontawesome
 std:accounts-bootstrap
 dynamic-import@0.3.0
@@ -37,3 +36,5 @@ check
 themeteorchef:bert
 alanning:roles
 accounts-password
+
+twbs:bootstrap

@@ -5,7 +5,7 @@
 .header {
   /* background-color: #ffec4f; */
   background-color: $pakke-white;
-  border-bottom: 3px solid $pakke-grey;
+  // border-bottom: 3px solid $pakke-grey;
 
   ul {
     padding: 7px;
@@ -44,7 +44,7 @@
   li {
     display: inline-block;
     padding: 10px 15px;
-    color: black;
+    // color: black;
     font-size: 16px;
     font-weight: bold;
     transform: translate(-25%, 25%);
@@ -52,6 +52,13 @@
     /* border-style: solid;
     border-width: 1px; */
   }
+}
+
+.profile-image {
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  background: red;
 }
 
 .header {
@@ -65,12 +72,51 @@
   }
 
   li:hover {
-    /* background-color: rgba(255, 255, 255, 0.5); */
+    // background-color: rgba(255, 255, 255, 0.5);
     /* color: #ffffff; */
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -o-transition: all 0.5s;
     transition: all 0.5s;
+  }
+}
+
+nav.navbar-default {
+  margin: 0;
+  z-index: 3;
+  // background-color: rgba(200, 200, 200, 0.7);
+  height: 3rem;
+  border-radius: 0;
+  border: none;
+
+  li {
+    height: 3rem;
+  }
+
+  .dropdown_menu {
+    // color: #000;
+  }
+
+  .navbar-brand {
+    padding: 3px;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  .select_wrapper {
+    height: 100%;
+  }
+
+  .user_avatar {
+    position: relative;
+    height: 100%;
+    margin: 0;
+  }
+
+  .navbar-nav li a {
+    // color: white;
   }
 }
 

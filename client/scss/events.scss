@@ -4,17 +4,17 @@
   text-align: center;
   cursor: pointer;
   transition: all .3s ease;
-  color: rgba(25, 25, 250, 1);
+  // color: rgba(25, 25, 250, 1);
   padding: 0px;
   margin: 0 .5rem;
 }
 
 .eventCard:hover {
-  // background-color: rgba(125, 125, 150, 1);
+  background-color: rgba(125, 125, 150, 1);
 }
 
 .eventCard a {
-  color: rgba(25, 25, 250, 1);
+  // color: rgba(25, 25, 250, 1);
   text-decoration: none;
 }
 
@@ -44,7 +44,7 @@
 
   p {
     opacity: 1;
-    text-shadow: 3px 3px rgba(125, 125, 150, 1);
+    // text-shadow: 3px 3px rgba(125, 125, 150, 1);
     margin: auto;
   }
 }
@@ -53,8 +53,8 @@
   margin: 0;
   padding: .5rem;
   text-align: left;
-  font-weight: 900;
-  font-family: 'Yanone Kaffeesatz', sans-serif;
+  // font-weight: 900;
+  // font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 
 @media screen and (max-width: 768px) {
