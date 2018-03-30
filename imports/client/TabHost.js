@@ -4,16 +4,14 @@ import { withTracker } from 'meteor/react-meteor-data';
 import EventForm from './EventForm';
 import Events from '../startup/collections/events';
 import Event from './Event';
-import TabGuest from './TabGuest';
-import TabHost from './TabHost';
 
 
 
-class PageProfile extends Component {
+class TabHost extends Component {
 
   addHostRole() {
     Meteor.call('addHostRole');
-    Bert.alert("You are now a Host!", "success");
+    // Bert.alert("You are now a Host!", "success");
 
   }
 
@@ -30,29 +28,10 @@ class PageProfile extends Component {
     } else {
 
       return (
+        
         <div>
-          {/* <h1>{this.props.currentUser}</h1> */}
-          <h1>This is Your Profile Page</h1>
-          <p>Name: {this.props.currentUser.username}</p>
-
-
-          <ul className="nav nav-tabs">
-            <li className="active"><a data-toggle="tab" href="#home">Guest</a></li>
-            <li><a data-toggle="tab" href="#menu1">Host</a></li>
-            <li><a data-toggle="tab" href="#menu2">Talent</a></li>
-          </ul>
-
-          <div className="tab-content">
-            <div id="home" className="tab-pane fade in active">
-              <TabGuest />
-            </div>
-            <div id="menu1" className="tab-pane fade">
-              <TabHost />
-            </div>
-            <div id="menu2" className="tab-pane fade">
-              <p>Some content in menu 2.</p>
-            </div>
-          </div>
+          <h2>You are currently not a host</h2>
+          {showEventForm}
         </div>
       )
     }
@@ -72,4 +51,4 @@ export default withTracker(() => {
       attendees: { $in: [Meteor.userId()] }
     }).fetch(),
   };
-})(PageProfile);
+})(TabHost);
