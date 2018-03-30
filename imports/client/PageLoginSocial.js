@@ -12,7 +12,7 @@ const handleSocialLoginFailure = (err) => {
   console.error(err)
 }
 
-const app_id = Meteor.settings.public.keys.facebook.app_id;
+const app_id = Meteor.settings.public.keys.facebookAuth.app_id;
 
 class PageLoginSocial extends Component {
   render() {
