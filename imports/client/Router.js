@@ -12,6 +12,7 @@ import PageSignUp from './PageSignUp';
 import PageError from './PageError';
 import BecomeHost from './BecomeHost';
 import BecomeTalent from './BecomeTalent';
+import TestLogin from './TestLogin';
 
 
 import EventForm from './EventForm2';
@@ -31,7 +32,7 @@ class Router extends Component {
             <Route path='/signup' component={PageSignUp} />
             <Route path='/host' component={BecomeHost} />
             <Route path='/talent' component={BecomeTalent} />
-            <Route path='/test' component={ PageTest } />
+            <Route path='/test' component={ TestLogin } />
             <Route component={PageError} />
 
         </Switch>
