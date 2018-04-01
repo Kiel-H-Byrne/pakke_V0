@@ -63,7 +63,7 @@ Accounts.emailTemplates.enrollAccount.text = (user, url) => {
 Accounts.emailTemplates.resetPassword.from = () => {
   // Overrides the value set in `Accounts.emailTemplates.from` when resetting
   // passwords.
-  return 'AwesomeSite Password Reset <noreply@pakke.us>';
+  return 'pakke.us Password Reset <noreply@pakke.us>';
 };
 Accounts.emailTemplates.verifyEmail = {
    subject() {
@@ -126,6 +126,8 @@ Accounts.validateNewUser(function(user) {
       throw new Meteor.Error(500, `You've been here before! Login with ${provider}.`);
     } else {
       console.log("New User!");
+      //SEND EMAIL! 
+      Accounts.sendEnrollmentEmail(user._id);
       return true;
     }
 });
