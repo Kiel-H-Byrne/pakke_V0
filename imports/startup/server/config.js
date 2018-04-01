@@ -89,7 +89,7 @@ Accounts.onCreateUser(function(options, user) {
     console.log(fb);
     myUser.username = fb.name;
     myUser.emails = [{address: fb.email, verified: true}];
-    myUser.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=small`;
+    myUser.profile.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=small`;
   }
   //CHECK & MERGE GOOGLE INFO
   if (user.services.google) {
@@ -97,7 +97,7 @@ Accounts.onCreateUser(function(options, user) {
     console.log(gg);
     myUser.username = gg.name;
     myUser.emails = [{address: gg.email, verified: true}];
-    myUser.avatar = gg.picture;
+    myUser.profile.avatar = gg.picture;
   }
   // console.log(myUser);
   //CHECK FOR SPECIFIC EMAILS & MAKE ADMINS

@@ -4,9 +4,13 @@ import Events from '../imports/startup/collections/events';
 import '../imports/startup/server/index';
 
 Meteor.publish('currentUser', function () {
+  console.log("-= PUBLISHING: USER DATA  =-");
   return Meteor.users.find({_id: this.userId}, {
     fields: {
-      roles: 1
+      'profile': 1,
+      'roles': 1,
+      'services.facebook': 1,
+      'services.google': 1
     }
   });
 });
