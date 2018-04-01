@@ -44,9 +44,18 @@ Accounts.validateNewUser(function(user) {
     const user_email = user.emails[0].address;
     let existing_user = Meteor.users.findOne({ 'services.facebook.email' : user_email}) || Meteor.users.findOne({ 'services.google.email' : user_email}) || Meteor.users.findOne({ 'emails.0.address' : user_email}) ;
     if (existing_user) {
-      console.log(existing_user);
-      let id = existing_user.services.facebook.id || existing_user.services.google.id;
-      let email = existing_user.services.facebook.email || existing_user.services.google.email || existing_user.emails[0].address
+      let socialID;
+      let email = existing_user.emails[0].address;
+
+      if (existing_user.services.facebook) {
+        socialID = existing_user.services.facebook.id
+        email = existing_user.services.facebook.email
+      }
+
+      if (existing_user.services.google) {
+        socialID = existing_user.services.google.id
+        email = existing_user.services.google.email
+      }
       console.log("User Exists Already");
       throw new Meteor.Error(500, "A user already exists with e-mail: " + email);
     } else {

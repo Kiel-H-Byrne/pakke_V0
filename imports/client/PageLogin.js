@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { withHistory, Link } from 'react-router-dom'
-// import { Accounts } from 'meteor/std:accounts-ui';
 import FacebookButton2 from './FacebookButton2'
 
 

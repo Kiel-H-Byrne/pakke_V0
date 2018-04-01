@@ -1,24 +1,10 @@
-import { Accounts } from 'meteor/std:accounts-ui';
-
-// Options.set('forbidClientAccountCreation', false);
-
+import { Accounts } from 'meteor/accounts-base';
 
 Accounts.config({
   sendVerificationEmail: true,
   forbidClientAccountCreation: false
 });
 
-Accounts.ui.config({
-  loginPath: '/login2',
-  signUpPath: '/signup2',
-  resetPasswordPath: '/reset-password',
-  profilePath: '/profile2',
-  minimumPasswordLength: 6,
-  requestOfflineToken: {
-    google: true
-  },
-  passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'
-});
 
 Accounts.onCreateUser(function(options, user) {
   //CREATE NEW MYUSER OBJECT AND COPY ALL DEFAULT ATTRIBUTS TO IT

@@ -61,9 +61,6 @@ class Header extends Component {
                     <div className="header-links-right">
                         <ul>
                             <li><AccountsUIWrapper /></li>
-                            <li><FacebookButton /></li>
-                            <li><FacebookButton2 /></li>
-                            
                         </ul>
                     </div>
                 </div>

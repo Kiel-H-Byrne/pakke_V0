@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { Accounts } from 'meteor/std:accounts-bootstrap';
 
 import PageHome from './PageHome';
 import PageAbout from './PageAbout';
