@@ -127,13 +127,11 @@ Accounts.validateNewUser(function(user) {
     } else {
       console.log("New User!");
       //SEND EMAIL! 
-      Accounts.sendEnrollmentEmail(user._id);
+      // Accounts.sendEnrollmentEmail(user._id, user_email);
+        // user object doesnt exist yet, so no email sent.
       return true;
     }
 });
-
-
-
 
 
 

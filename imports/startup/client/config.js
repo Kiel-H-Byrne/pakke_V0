@@ -16,9 +16,9 @@ Accounts.ui.config({
   passwordSignupFields: 'EMAIL_ONLY'
 });
 
-Accounts.onLoginFailure(function() {
+Accounts.onLoginFailure(function(Error) {
   console.log("LoginFail!");
-  console.log(this);
+  console.log(Error);
 });
 
 // Facebook: http://developers.facebook.com/docs/authentication/permissions/
