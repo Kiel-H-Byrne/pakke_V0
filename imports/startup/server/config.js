@@ -1,4 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
+
 
 //check for settings file
 console.log("-= Settings: Checking... =-");
@@ -39,30 +41,71 @@ if ( SOUP ) {
  console.log("-= ADMIN: No Admin =-");
 }
 
+
+Accounts.config({
+  sendVerificationEmail: true,
+  forbidClientAccountCreation: false
+});
+
+
+Accounts.onCreateUser(function(options, user) {
+  //CREATE NEW MYUSER OBJECT AND COPY ALL DEFAULT ATTRIBUTS TO IT
+  const myUser = Object.assign({}, user);
+
+  if (options.profile) {
+    myUser.profile = options.profile;
+  }
+  // console.log(user);
+
+  //CHECK & MERGE FACEBOOK INFO
+  if (user.services.facebook) {
+    const fb = user.services.facebook;
+    console.log(fb);
+    myUser.username = fb.name;
+    myUser.emails = [{address: fb.email, verified: true}];
+    myUser.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=small`;
+  }
+  //CHECK & MERGE GOOGLE INFO
+  if (user.services.google) {
+    const gg = user.services.google;
+    console.log(gg);
+    myUser.username = gg.name;
+    myUser.emails = [{address: gg.email, verified: true}];
+    myUser.avatar = gg.picture;
+  }
+  console.log(myUser);
+  //CHECK FOR SPECIFIC EMAILS & MAKE ADMINS
+
+  return myUser;
+});
+
+
 Accounts.validateNewUser(function(user) {
-    console.log('Validating...');
+    console.log('Checking for Existing E-mail...');
     const user_email = user.emails[0].address;
     let existing_user = Meteor.users.findOne({ 'services.facebook.email' : user_email}) || Meteor.users.findOne({ 'services.google.email' : user_email}) || Meteor.users.findOne({ 'emails.0.address' : user_email}) ;
     if (existing_user) {
-      let socialID;
-      let email = existing_user.emails[0].address;
-
-      if (existing_user.services.facebook) {
-        socialID = existing_user.services.facebook.id
-        email = existing_user.services.facebook.email
+      // login and merge data! 
+      let provider;
+      const cb = (Error) => { 
+        Error ? console.log(Error) : console.log("All Good!")
       }
-
+      if (existing_user.services.facebook) {
+        provider = "Facebook";
+      }
       if (existing_user.services.google) {
-        socialID = existing_user.services.google.id
-        email = existing_user.services.google.email
+        provider = "Google";
       }
       console.log("User Exists Already");
-      throw new Meteor.Error(500, "A user already exists with e-mail: " + email);
+      throw new Meteor.Error(500, `You've been here before! Login with ${provider}.`);
     } else {
       console.log("New User!");
       return true;
     }
 });
+
+
+
 
 
 

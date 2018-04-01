@@ -5,14 +5,16 @@
     },
     "keys": {
       "googleAnalytics": {"trackingId": "UA-12892693-10"},
-      "googleClient" : {"key" : "AIzaSyArlnrkA-z5JR0T6C_2z7rGmAZ1Mpl9WSE"},
-      "googleServer" : {"key" : "AIzaSyB7SQmFyKOkbwG3C0osrAyGbllKb8Jdx-8"},
       "googleAPI" : {"key" : " AIzaSyArlnrkA-z5JR0T6C_2z7rGmAZ1Mpl9WSE"},
       "yelp" : {
         "app_id" : "xxxx",
         "app_secret" : "xxxx"
       },
-      "facebook": {
+      "googleOAuth": {
+        "client_id": "481000997753-8e5tpr3k4p2lk9obdg48kig4ml5jp0jp.apps.googleusercontent.com",
+        "client_secret": "hjxBlHWdPtnutOAnJBPs6j0r"
+      },
+      "facebookOAuth": {
         "app_id": "168356840569104",
         "app_secret": "44c170e4944559b324d89ce3a77557b0"
       },
@@ -22,6 +24,11 @@
         "key" : "key-505f89ab46df69768503618f534e9a81",
         "password" : "8092210240438c3a66e1c13437ea3631-833f99c3-d4b5a944"
       }
+    }
+  },
+  "private": {
+    "keys": {
+      "googleAPI" : {"key" : "AIzaSyB7SQmFyKOkbwG3C0osrAyGbllKb8Jdx-8"}
     }
   },
   "galaxy.meteor.com": { 

@@ -16,7 +16,7 @@ Meteor.startup(() => {
   //=====  GoogleMaps load =====  
   GoogleMaps.load({
     v: '3',
-    key: Meteor.settings.public.keys.googleClient.key,
+    key: Meteor.settings.public.keys.googleAPI.key,
     libraries: ['places', 'geometry']
   });
 

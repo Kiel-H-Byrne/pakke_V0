@@ -137,7 +137,7 @@ Meteor.methods({
       urlParams = address;
     }
 
-    let apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + urlParams + '&key=' + Meteor.settings.public.keys.googleServer.key;
+    let apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + urlParams + '&key=' + Meteor.settings.private.keys.googleAPI.key;
     console.log("--URL--"+apiUrl);
     let response = Meteor.wrapAsync(apiCall)(apiUrl);
     if (response) {
@@ -153,7 +153,7 @@ Meteor.methods({
     paramsObj = {
       params: {
         address: address,
-        key: Meteor.settings.public.keys.googleServer.key
+        key: Meteor.settings.private.keys.googleAPI.key
       }
     };
     try {

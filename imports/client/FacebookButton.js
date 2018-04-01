@@ -14,7 +14,7 @@ class FacebookButton extends React.Component {
     }
 
     render() {
-        const app_id = Meteor.settings.public.keys.facebook.app_id;
+        const app_id = Meteor.settings.public.keys.facebookOAuth.app_id;
 
         return (
             <div>
