@@ -99,7 +99,7 @@ Accounts.onCreateUser(function(options, user) {
     myUser.emails = [{address: gg.email, verified: true}];
     myUser.avatar = gg.picture;
   }
-  console.log(myUser);
+  // console.log(myUser);
   //CHECK FOR SPECIFIC EMAILS & MAKE ADMINS
 
   return myUser;
@@ -109,7 +109,7 @@ Accounts.onCreateUser(function(options, user) {
 Accounts.validateNewUser(function(user) {
     console.log('Checking for Existing E-mail...');
     const user_email = user.emails[0].address;
-    let existing_user = Meteor.users.findOne({ 'services.facebook.email' : user_email}) || Meteor.users.findOne({ 'services.google.email' : user_email}) || Meteor.users.findOne({ 'emails.0.address' : user_email}) ;
+    const existing_user = Accounts.findUserByEmail(user_email)
     if (existing_user) {
       // login and merge data! 
       let provider;
