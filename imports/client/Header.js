@@ -14,7 +14,6 @@ class Header extends Component {
 
     render() {
         if (this.props.currentUser) {
-
             return (
                 <div className='header'>
                     <div className='header-links-left'>
@@ -27,24 +26,20 @@ class Header extends Component {
                         </div>
                     </div>
                     <div className="header-links-right">
-                        <li><AccountsUIWrapper /></li>
+                         <div className='dropdown'> 
+                             <span className="caret"></span> 
+                             <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar} /> 
 
-                        {/* <div className='dropdown'> */}
-                        {/* <span className="caret"></span> */}
-                        {/* <img data-toggle="dropdown" className="icon dropdown-toggle" src='/logo.jpg' /> */}
-
-                        {/* <ul className="dropdown-menu dropdown-menu-right"> */}
-                        {/* <li><Link to='/profile'><h5>Profile</h5></Link></li> */}
-                        {/* <li><Link to='/'><h5>Events</h5></Link></li>                                 */}
-                        {/* <li><Link to='/' onClick={this.logOut}><h5>Logout</h5></Link></li> */}
-
-                        {/* </ul> */}
+                             <ul className="dropdown-menu dropdown-menu-right"> 
+                             <li><Link to='/profile'><h5>Profile</h5></Link></li> 
+                             <li><Link to='/'><h5>Events</h5></Link></li>                                 
+                             <li><Link to='/' onClick={this.logOut}><h5>Logout</h5></Link></li> 
+                             </ul> 
+                        </div>
                     </div>
                 </div>
             )
         } else {
-
-
             return (
                 <div className='header' id="header-target">
                     <div className='header-links-left'>
