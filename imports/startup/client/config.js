@@ -17,8 +17,8 @@ Accounts.ui.config({
 });
 
 Accounts.onLoginFailure(function(Error) {
-  console.log("LoginFail!");
-  console.log(Error);
+
+  throw new Meteor.Error(Error.message);
 });
 
 // Facebook: http://developers.facebook.com/docs/authentication/permissions/
