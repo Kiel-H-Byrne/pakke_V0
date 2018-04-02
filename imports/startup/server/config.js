@@ -11,13 +11,9 @@ if (!Meteor.settings.public.keys) {
 if (Meteor.users.find().count() == 0) {
   console.log("CREATING FIRST USER: SOUP");
   const soupId = Accounts.createUser({
-      username: "Soup",
-      email: "soup@pakke.us",
-      password: "password",
-      avatar: 'https://www.pakke.us/img/brand/PAKKE_circle.png',
-      name: "Souper Youzer",
-      firstName: "Souper",
-      lastName: "Youzer"
+      "username": "Soup",
+      "email": "soup@pakke.us",
+      "password": "password",
   });
 
 }
@@ -33,6 +29,15 @@ if ( SOUP ) {
     // Roles.addUsersToRoles( Kiel._id ,  ["admin"] );
     // Meteor.call('addRole', SOUP._id, ['admin'])
     Roles.addUsersToRoles(SOUP._id, 'admin', Roles.GLOBAL_GROUP)
+    Meteor.users.update(
+      {_id: SOUP._id}, 
+      {$set: {
+        "profile.avatar": "/img/brand/PAKKE_circle.png",
+        "profile.name": "Souper Youzer",
+        "profile.firstName": "Souper",
+        "profile.lastName": "Youzer"
+        }
+      });
 
     // Roles.setUserRoles( SOUP._id , 'admin');
     console.log("-= ADMIN: 'Soup' is Admin =-");

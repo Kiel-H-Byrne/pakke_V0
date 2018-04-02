@@ -396,8 +396,8 @@ Schema.Event = new SimpleSchema({
     optional: true,
     label: "Host ID",
     autoValue: function() {
-      if (Meteor.userID() && this.isInsert && !this.isSet) {
-        return Meteor.userID();
+      if (Meteor.userId() && this.isInsert && !this.isSet) {
+        return Meteor.userId();
       }
     }
   },    
@@ -406,7 +406,7 @@ Schema.Event = new SimpleSchema({
     autoValue: function() {
       // if (this.field("name").value) {
       // let name = this.field("name").value;
-      let userID = Meteor.user()._id;
+      let userID = Meteor.userId();
       let profile = Meteor.user().profile;
       console.log(profile.name);
       return userID;
@@ -417,7 +417,7 @@ Schema.Event = new SimpleSchema({
     optional: true,
     autoValue: function() {
       //get email of logged in user
-      if (Meteor.user()._id && this.isInsert && !this.isSet) {
+      if (Meteor.userId() && this.isInsert && !this.isSet) {
         return Meteor.user().emails[0].address;
       }
     }

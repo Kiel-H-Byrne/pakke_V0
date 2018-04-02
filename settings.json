@@ -6,10 +6,6 @@
     "keys": {
       "googleAnalytics": {"trackingId": "UA-12892693-10"},
       "googleAPI" : {"key" : " AIzaSyArlnrkA-z5JR0T6C_2z7rGmAZ1Mpl9WSE"},
-      "googleAuth": {
-        "client_id": "481000997753-8e5tpr3k4p2lk9obdg48kig4ml5jp0jp.apps.googleusercontent.com",
-        "client_secret": "hjxBlHWdPtnutOAnJBPs6j0r"
-      },
       "yelp" : {
         "app_id" : "xxxx",
         "app_secret" : "xxxx"
