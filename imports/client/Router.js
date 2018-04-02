@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import PageHome from './PageHome';
 import PageAbout from './PageAbout';
 import Event from './Event';
+import EventList from './EventList';
 import EventDetail from './EventDetail';
 import PageProfile from './PageProfile';
 import PageLogin from './PageLogin';
@@ -25,6 +26,7 @@ class Router extends Component {
         <Switch>
             <Route exact path='/' component={PageHome} />
             <Route path='/about' component={PageAbout} />
+            <Route path='/events' component={EventList} />            
             <Route path='/event/:id' component={EventDetail} />
             <Route path='/profile' component={PageProfile} />
             <Route path='/login' component={PageLogin} />

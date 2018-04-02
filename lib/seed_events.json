@@ -14,7 +14,8 @@
         "state": "DC",
         "zip": "20037",
         "coords": "38.9065641,-77.05194210000002"
-      }
+      },
+      "guests": []
     }, {
       "host": {
         "email": "FS@pmail.com"
@@ -29,7 +30,8 @@
         "state": "DC",
         "zip": "20009",
         "coords": "38.9167879,-77.03710000000001"
-      }
+      },
+      "guests": []
     }, {
       "host": {
         "email": "RM@pmail.com"
@@ -44,7 +46,8 @@
         "state": "DC",
         "zip": "20011",
         "coords": "38.9065641,-77.0231101"
-      }
+      },
+      "guests": []
     }, {
       "host": {
         "email": "CIA@pmail.com"
@@ -59,7 +62,8 @@
         "state": "DC",
         "zip": "20001",
         "coords": "38.905433,-77.01930500000003"
-      }
+      },
+      "guests": []
     },{
       "host": {
         "email": "kiel.byrne@gmail.com"
@@ -74,7 +78,8 @@
         "state": "DC",
         "zip": "20015",
         "coords": "38.96882069999999,-77.0666324"
-      }
+      },
+      "guests": []
     }
   ]
 }

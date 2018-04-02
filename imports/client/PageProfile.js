@@ -6,24 +6,13 @@ import Events from '../startup/collections/events';
 import Event from './Event';
 import TabGuest from './TabGuest';
 import TabHost from './TabHost';
+import TabTalent from './TabTalent';
 
 
 
 class PageProfile extends Component {
 
-  addHostRole() {
-    Meteor.call('addHostRole');
-    Bert.alert("You are now a Host!", "success");
-
-  }
-
-
   render() {
-
-
-    const showEventForm = Roles.userIsInRole(Meteor.userId(), 'Host') ? (
-      <EventForm />
-    ) : <button onClick={this.addHostRole.bind(this)}>Become Host</button>;
 
     if (!this.props.ready) {
       return <div>Loading</div>;
@@ -31,9 +20,9 @@ class PageProfile extends Component {
 
       return (
         <div>
-          {/* <h1>{this.props.currentUser}</h1> */}
-          <h1>This is Your Profile Page</h1>
-          <p>Name: {this.props.currentUser.username}</p>
+          <h1>Profile Page</h1>
+          {/* This line causes erro on logout */}
+          {/* <p>I'm {this.props.currentUser.username}</p> */}
 
 
           <ul className="nav nav-tabs">
@@ -50,7 +39,7 @@ class PageProfile extends Component {
               <TabHost />
             </div>
             <div id="menu2" className="tab-pane fade">
-              <p>Some content in menu 2.</p>
+              <TabTalent />
             </div>
           </div>
         </div>

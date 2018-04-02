@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Link } from 'react-router-dom';
+
 
 import EventForm from './EventForm';
 import Events from '../startup/collections/events';
@@ -30,8 +32,11 @@ class TabHost extends Component {
       return (
         
         <div>
-          <h2>You are currently not a host</h2>
-          {showEventForm}
+          <h3>You are currently not a host</h3>
+          <Link to='/host'><button>Become a Host</button></Link>
+          
+          
+          {/* {showEventForm} */}
         </div>
       )
     }

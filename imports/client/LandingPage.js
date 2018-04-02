@@ -15,7 +15,7 @@ class LandingPage extends Component {
                 <div className='scroll-wrapper-x'>
 
                     <ul className='three-main-links'>
-                        <div><Link to='/login'>Find an Event </Link> </div>
+                        <div><Link to='/events'>Find an Event </Link> </div>
                         <div><Link to='/host'>Become a Host </Link></div>
                         <div><Link to='/talent'>Share Your Talent </Link></div>
                     </ul>

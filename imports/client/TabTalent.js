@@ -1,6 +1,7 @@
-
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Link } from 'react-router-dom';
+
 
 import EventForm from './EventForm';
 import Events from '../startup/collections/events';
@@ -8,22 +9,25 @@ import Event from './Event';
 
 
 
-class TabGuest extends Component {
+class TabHost extends Component {
 
-  render() {
+    render() {
+
+
+    if (!this.props.ready) {
+      return <div>Loading</div>;
+    } else {
 
       return (
+        
         <div>
-          <h2>Events I'm Attending</h2>
-          <main>
-            {this.props.eventsFromCollection.map((event) => {
-              return <Event event={event} key={event._id} />
-            })}
-          </main>
+          <h3>You are currently not a registered talent</h3>
+          <Link to='/talent'><button>Register your Talent</button></Link>
         </div>
       )
     }
   }
+}
 
 
 export default withTracker(() => {
@@ -35,8 +39,7 @@ export default withTracker(() => {
     currentUser: Meteor.user(),
     allEvents: Events.find({}, {}).fetch(),
     eventsFromCollection: Events.find({
-      guests: { $in: [Meteor.userId()] }
+      attendees: { $in: [Meteor.userId()] }
     }).fetch(),
   };
-})(TabGuest);
-
+})(TabHost);
