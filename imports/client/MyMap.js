@@ -90,8 +90,8 @@ class MyMap extends Component {
         // });
 
         const eventImage = {
-          // url: 'img/red_marker_sm.png'
-          url: 'img/mkicons/png/home.png',
+          // url: 'img/markers/red_marker_sm.png'
+          url: 'img/mkicons/home.png',
           size: {width: 25, height: 25},
           scaledSize: {width: 25, height: 25}
         };

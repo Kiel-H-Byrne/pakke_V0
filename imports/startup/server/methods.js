@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+import { Email } from 'meteor/email';
 
-import Hosts from '/imports/startup/collections/hosts';
 import Events from '/imports/startup/collections/events';
 
 // import '/imports/api/OrionCache.js';
@@ -53,53 +53,49 @@ apiCall = function (apiUrl, callback) {
 
 Meteor.methods({
   createEvent: function (eventName, eventAddress) {
-            console.log('hello')
-            if (!Meteor.userId()) {
-                throw new Meteor.Error('not authorized');
-                return false;
-            } else {
-                var userId = Meteor.userId();
-                var username = Meteor.user().username;
-                var year = new Date().getFullYear();
-                var month = new Date().getMonth() + 1;
-                var day = new Date().getDate();
-                var date = (month + "/" + day + "/" + year).toString();
+      if (!Meteor.userId()) {
+          throw new Meteor.Error('not authorized');
+          return false;
+      } else {
+          var userId = Meteor.userId();
+          var username = Meteor.user().username;
+          var year = new Date().getFullYear();
+          var month = new Date().getMonth() + 1;
+          var day = new Date().getDate();
+          var date = (month + "/" + day + "/" + year).toString();
 
-                Events.insert({
-                    eventHostUserId: userId,
-                    eventHostUserName: username,
-                    date: date,
-                    createdAt: new Date(),
-                    eventName: eventName,
-                    eventAddress: eventAddress,
-                    attendees: [userId],
-                });
-            }
-        },
-
-        attendEvent(thisUserId, eventId) {
-            if (!Meteor.userId()) {
-                throw new Meteor.Error('not authorized');
-                this.stop();
-                return false;
-            } else {
-                Events.update(eventId, { $addToSet: { guests: thisUserId } });
-            }
-        },
-
-        removeEvent(eventsId) {
-            if (!Meteor.userId()) {
-                throw new Meteor.Error('not authorized');
-                this.stop();
-                return false;
-            } else {
-                Events.remove(eventsId);
-            }
-        },
-
-        addHostRole(){
-            Roles.addUsersToRoles(Meteor.userId(),'Host');
-        },
+          Events.insert({
+              eventHostUserId: userId,
+              eventHostUserName: username,
+              date: date,
+              createdAt: new Date(),
+              eventName: eventName,
+              eventAddress: eventAddress,
+              attendees: [userId],
+          });
+      }
+  },
+  attendEvent(thisUserId, eventId) {
+      if (!Meteor.userId()) {
+          throw new Meteor.Error('not authorized');
+          this.stop();
+          return false;
+      } else {
+          Events.update(eventId, { $addToSet: { guests: thisUserId } });
+      }
+  },
+  removeEvent(eventsId) {
+      if (!Meteor.userId()) {
+          throw new Meteor.Error('not authorized');
+          this.stop();
+          return false;
+      } else {
+          Events.remove(eventsId);
+      }
+  },
+  addHostRole(){
+      Roles.addUsersToRoles(Meteor.userId(),'Host');
+  },
   addUser: function(email,password, role){
     check(email,String);
     check(password,String);    
@@ -110,15 +106,8 @@ Meteor.methods({
     Roles.addUsersToRoles( id._id ,  role );
   },
 	addHost: function(doc) {
-    Hosts.insert(doc , function(err, res){
-      if (err) {
-        console.log("HOST INSERT FAILED:");
-        // console.log(doc);
-        console.log(doc.email + ": " + err);
-      } else {
-        // console.log(doc.name + ": Success");
-      }
-    });
+    //add 'host role' to user
+    alert('fix "addHost" method');
   },
   addRole: function (id, role) {
     // check(id, Meteor.Collection.ObjectID);
@@ -147,7 +136,7 @@ Meteor.methods({
       urlParams = address;
     }
 
-    let apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + urlParams + '&key=' + Meteor.settings.public.keys.googleServer.key;
+    let apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + urlParams + '&key=' + Meteor.settings.private.keys.googleAPI.key;
     console.log("--URL--"+apiUrl);
     let response = Meteor.wrapAsync(apiCall)(apiUrl);
     if (response) {
@@ -163,7 +152,7 @@ Meteor.methods({
     paramsObj = {
       params: {
         address: address,
-        key: Meteor.settings.public.keys.googleServer.key
+        key: Meteor.settings.private.keys.googleAPI.key
       }
     };
     try {
@@ -176,6 +165,13 @@ Meteor.methods({
       // console.log(e);
       return false;
     }
+  },
+  sendEmail: function(to, from, subject, html) {
+    check([to, from, subject, html], [String]);
+    this.unblock();
+
+    //check if logged in and is admin user, or else anyone can send email from client
+    Email.send({to, from, subject, html });
   }
 });
 

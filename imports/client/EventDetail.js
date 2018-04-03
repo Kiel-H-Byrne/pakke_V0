@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import Events from '../startup/collections/events';
@@ -24,9 +25,8 @@ class EventDetail extends Component {
 
   attendEvent() {
     console.log('submit attendee')
-    let eventId = this.state.event._id;
-    let thisUser = this.props.thisUser.username;
-    let thisUserId = this.props.thisUserId
+    const eventId = this.state.event._id;
+    const thisUserId = Meteor.userId();
 		Meteor.call("attendEvent", thisUserId, eventId);
     
     Bert.alert("Your are attending this event", "success", "growl-top-right");
@@ -34,12 +34,18 @@ class EventDetail extends Component {
 
 
   render() {
+    const isLoggedIn = Meteor.userId();
     return (
       <div>
         <h1>Event Name: {this.state.event.byline}</h1>
         <h2>Event Date: {this.state.event.date}</h2>
         <p>Event Description: {this.state.event.description}</p>
-        <button onClick={this.attendEvent.bind(this)} className="btn btn-lg btn-success">Attend Event</button>
+        {isLoggedIn ? (
+          <button onClick={this.attendEvent.bind(this)} className="btn btn-lg btn-success">Attend Event</button>
+          ) : (
+          <Link to="/login"> <button className="btn btn-lg btn-success">Attend Event</button></Link>
+          )}
+        
       </div>
     )
   }

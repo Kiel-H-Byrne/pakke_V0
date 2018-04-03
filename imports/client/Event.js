@@ -12,7 +12,7 @@ export default class Event extends Component {
     let month = monthArray[(monthNumber-1)];
 
     const style = {
-      background: "url('img/holder1.jpg') no-repeat "
+      background: "url('img/holders/holder1.jpg') no-repeat "
     };
 
 

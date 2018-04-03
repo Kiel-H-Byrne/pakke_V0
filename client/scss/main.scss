@@ -1,0 +1,64 @@
+@import "palettes/_brandColors";
+
+// ELEMENTS
+* {
+  &::before,
+  &::after {
+    box-sizing: inherit;
+  }
+}
+
+html,
+body {
+  font-family: helvetica;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  color: $pakke-blue;
+
+  // color: $rgba-primary-grey-1;
+  // background-color: $rgba-primary-grey-4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: helvetica;
+}
+
+// font-family: 'Wire One', sans-serif;
+
+// font-family: 'Montserrat', sans-serif;
+
+// font-family: 'Raleway Dots', cursive;
+
+// font-family: 'Alegreya Sans', sans-serif;
+
+// font-family: 'Kanit', sans-serif;
+
+// font-family: 'Yanone Kaffeesatz', sans-serif;
+
+.main-content {
+  // padding: 10px 10px 10px;
+}
+
+.center-block {
+  display: block;
+  margin: auto;
+}
+
+.pac-container {
+  // background-color: $clr-grey;
+  //needs to be in front of modal which is at z-index: 1050
+  z-index: 1055;
+
+  &::after {
+    // display: none;
+ 
+  }
+}
