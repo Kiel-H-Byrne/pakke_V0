@@ -53,7 +53,6 @@ apiCall = function (apiUrl, callback) {
 
 Meteor.methods({
   createEvent: function (eventName, eventAddress) {
-      console.log('hello')
       if (!Meteor.userId()) {
           throw new Meteor.Error('not authorized');
           return false;
