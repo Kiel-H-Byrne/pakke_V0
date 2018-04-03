@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+
 if ( Meteor.isServer ) {
   Meteor.publish('roles', function (){
       let cursor = Meteor.roles.find();

@@ -6,9 +6,11 @@ import { Accounts } from 'meteor/accounts-base';
 console.log("-= Settings: Checking... =-");
 if (!Meteor.settings.public.keys) {
     console.log("--------------= SETTINGS FAILED. (USE 'NPM RUN' INSTEAD OF 'METEOR' AT COMMAND LINE) =--------------");
-} else {console.log ("-= Settings: Loaded =-");}
+}
 
-if (Meteor.users.find().count() == 0) {
+
+const SOUP = Meteor.users.findOne({username: 'Soup'});
+if (!SOUP) {
   console.log("CREATING FIRST USER: SOUP");
   const soupId = Accounts.createUser({
       "username": "Soup",
@@ -16,35 +18,27 @@ if (Meteor.users.find().count() == 0) {
       "password": "password",
   });
 
-}
-
-Meteor.users.allow({
-  update: (uid, doc) => {return uid ;},
-  remove: () => true,
-});
-
-const SOUP = Meteor.users.findOne({username: 'Soup'});
-if ( SOUP ) {
+} else {
     // console.log(SOUP);
     // Roles.addUsersToRoles( Kiel._id ,  ["admin"] );
     // Meteor.call('addRole', SOUP._id, ['admin'])
-    Roles.addUsersToRoles(SOUP._id, 'admin', Roles.GLOBAL_GROUP)
-    Meteor.users.update(
-      {_id: SOUP._id}, 
-      {$set: {
-        "profile.avatar": "/img/brand/PAKKE_circle.png",
-        "profile.name": "Souper Youzer",
-        "profile.firstName": "Souper",
-        "profile.lastName": "Youzer"
-        }
-      });
+    if (!Roles.userIsInRole(SOUP._id, ['admin']) ) {
+      Roles.addUsersToRoles(SOUP._id, 'admin', Roles.GLOBAL_GROUP)
+      Meteor.users.update(
+        {_id: SOUP._id}, 
+        {$set: {
+          "profile.avatar": "/img/brand/PAKKE_circle.png",
+          "profile.name": "Souper Youzer",
+          "profile.firstName": "Souper",
+          "profile.lastName": "Youzer"
+          }
+        });
 
-    // Roles.setUserRoles( SOUP._id , 'admin');
-    console.log("-= ADMIN: 'Soup' is Admin =-");
-  
-} else {
- console.log("-= ADMIN: No Admin =-");
+      // Roles.setUserRoles( SOUP._id , 'admin');
+      console.log("-= ADMIN: 'Soup' is Admin =-");
+    }
 }
+
 
 
 Accounts.config({

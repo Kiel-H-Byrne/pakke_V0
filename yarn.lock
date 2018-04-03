@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@babel/runtime@^7.0.0-beta.42":
-  version "7.0.0-beta.42"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0-beta.42.tgz#352e40c92e0460d3e82f49bd7e79f6cda76f919f"
+"@babel/runtime@^7.0.0-beta.43":
+  version "7.0.0-beta.44"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0-beta.44.tgz#ea5ad6c6fe9a2c1187b025bf42424d28050ee696"
   dependencies:
     core-js "^2.5.3"
     regenerator-runtime "^0.11.1"
@@ -2011,14 +2011,22 @@ react-addons-pure-render-mixin@^15.6.2:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
-react-dom@^16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
+react-dom@^16.3.0:
+  version "16.3.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.0.tgz#b318e52184188ecb5c3e81117420cca40618643e"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.0"
+
+react-facebook-login-component@^0.9.2:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/react-facebook-login-component/-/react-facebook-login-component-0.9.2.tgz#88adb33a09e9139972b3bec5012e2e4f4d75b234"
+
+react-facebook-login@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-facebook-login/-/react-facebook-login-4.0.1.tgz#7d43672ee86e3f2cd9e8758de1e61eb66a212611"
 
 react-router-dom@^4.2.2:
   version "4.2.2"
@@ -2063,9 +2071,9 @@ react@16.1.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react@^16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
+react@^16.3.0:
+  version "16.3.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.3.0.tgz#fc5a01c68f91e9b38e92cf83f7b795ebdca8ddff"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -2492,6 +2500,14 @@ uid-number@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
 
+uniforms-bootstrap3@^1.23.2:
+  version "1.23.2"
+  resolved "https://registry.yarnpkg.com/uniforms-bootstrap3/-/uniforms-bootstrap3-1.23.2.tgz#5ab6e4986e50aff35ac20a3b85b40359c21dd998"
+  dependencies:
+    babel-runtime "^6.20.0"
+    classnames "^2.2.5"
+    prop-types "^15.5.7"
+
 uniforms-bootstrap4@^1.23.1:
   version "1.23.2"
   resolved "https://registry.yarnpkg.com/uniforms-bootstrap4/-/uniforms-bootstrap4-1.23.2.tgz#32357a3822710cf201c694634e28d5ec8426a325"
@@ -2500,7 +2516,7 @@ uniforms-bootstrap4@^1.23.1:
     classnames "^2.2.5"
     prop-types "^15.5.7"
 
-uniforms@^1.23.1:
+uniforms@^1.23.2:
   version "1.23.2"
   resolved "https://registry.yarnpkg.com/uniforms/-/uniforms-1.23.2.tgz#3649f6d94d0f59930561c5a1c6ffa1ef4a74935f"
   dependencies:
@@ -2525,13 +2541,9 @@ util@0.10.3, util@^0.10.3:
   dependencies:
     inherits "2.0.1"
 
-uuid@3.1.0:
+uuid@3.1.0, uuid@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.1.0.tgz#3dd3d3e790abc24d7b0d3a034ffababe28ebbc04"
-
-uuid@^3.1.0:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
 
 validate-npm-package-license@^3.0.1:
   version "3.0.3"

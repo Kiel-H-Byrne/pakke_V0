@@ -1,10 +1,17 @@
 
-// //========================= ADMIN & CONFIG =========================
-import '/imports/startup/server/config.js';
 
+// //========================= ADMIN & CONFIG =========================
+import './config.js';
+import './SMTP.js';
+
+// //========================= COLLECTIONS =========================
+
+import Events from '/imports/startup/collections/events';
+import '/imports/startup/collections/users.js';
+import '/imports/startup/collections/schemas.js';
+import '/imports/startup/collections/roles.js';
 
 // //========================= GLOBALS AND METHODS =========================
-import '/imports/startup/server/SMTP.js';
-import '/imports/startup/server/methods.js';
+import './methods.js';
 
 

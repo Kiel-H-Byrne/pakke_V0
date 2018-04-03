@@ -1,4 +1,5 @@
-import './schemas.js';
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 
 Events = new Mongo.Collection('events');
 
@@ -49,8 +50,6 @@ if (Meteor.isServer) {
 
 }
 
-// Events.attachSchema(Schema.Event);
-
 Events.allow({
 
   // only allow event creation if you are logged in
@@ -58,7 +57,6 @@ Events.allow({
   // anyone can add themselves as guest to the event (update only guest scope of Event document).
   update: (userId, doc) => true
 });
-
 
 
 export default Events;

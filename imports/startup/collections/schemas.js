@@ -1,5 +1,5 @@
+import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-
 
 Schema = {};
 
@@ -275,109 +275,146 @@ Schema.Survey = new SimpleSchema({
   }
 });
 
-
-// Schema.Profile = new SimpleSchema({
-//   firstName: {
-//       type: String,
-//       label: 'First Name',
-//       optional: true
-//   },
-//   lastName: {
-//       type: String,
-//       label: 'Last Name',
-//       optional: true
-//   },
-//   birthDate: {
-//       type: Date,
-//       label: 'Birth Day',
-//       optional: true
-//   },
-//   address: {
-//     type: Schema.Address,
-//     optional: true
-//   },
-//   bio: {
-//     type: String,
-//     label: 'Bio',
-//     optional: true,
-//     max: 2000,
-//     autoform: {
-//       afFieldInput: {
-//         type: "textarea",
-//         rows: 7
-//       }
-//     }
-//   },
-//   social: {
-//     type: Object,
-//     optional: true,
-//     label: 'Social Media'
-//   },
-//   'social.facebook': {
-//     type: String,
-//     optional: true,
-//     label: 'Facebook Handle'
-//   },
-//     'social.instagram': {
-//     type: String,
-//     optional: true,
-//     label: 'Instagram Handle'
-//   },
-//     'social.twitter': {
-//     type: String,
-//     optional: true,
-//     label: 'Twitter Handle'
-//   },
-//   profession: {
-//     type: String,
-//     optional: true,
-//   },
-//   interests: {
-//     type: Schema.Survey,
-//     optional: true,
-//   },
-//   eventsHosted: {
-//     type: [String],
-//     optional: true
-//   },
-//   eventsAttended: {
-//     type: [String],
-//     optional: true
-//   }
-// });
-
-Schema.Guest = new SimpleSchema({
-
-  // We use `label` to put a custom label for this form field
-  // Otherwise it would default to `Title`
-  // 'optional: false' means that this field is required
-  // If it's blank, the form won't submit and you'll get a red error message
-  // 'type' is where you can set the expected data type for the 'title' key's value
-  guestName: {
-    type: String,
-    label: "Attendee",
+Schema.Profile = new SimpleSchema({
+  firstName: {
+      type: String,
+      label: 'First Name',
+      optional: true
+  },
+  lastName: {
+      type: String,
+      label: 'Last Name',
+      optional: true
+  },
+  birthDate: {
+      type: Date,
+      label: 'Enter your Age:',
+      optional: true,
+      autoValue: function() {
+        // check for two digits, calculate birthdate, save as date format.
+      }
+  },
+  address: {
+    type: Schema.Address,
     optional: true
   },
-  guestID: {
+  bio: {
+    type: String,
+    label: 'Bio',
+    optional: true,
+    max: 280
+  },
+  social: {
+    type: Object,
+    optional: true,
+    label: 'Social Media'
+  },
+  'social.facebook': {
     type: String,
     optional: true,
-    label: "Guest ID",
-    // autoform: {
-    //    type: 'hidden'
-    // },
-    autoValue: function() {
-      // console.log(Meteor.user().profile);
-      if (Meteor.user()._id && this.isUpdate&& !this.isSet) {
-        return Meteor.user()._id;
-      }
-    }
+    label: 'Facebook Handle'
   },
-  distinguisher: {
+    'social.instagram': {
+    type: String,
+    optional: true,
+    label: 'Instagram Handle'
+  },
+    'social.twitter': {
+    type: String,
+    optional: true,
+    label: 'Twitter Handle'
+  },
+  profession: {
+    type: String,
+    optional: true,
+  },
+  interests: {
+    type: Schema.Survey,
+    optional: true,
+  }
+});
+
+
+//NOT A REAL SCHEMA, WE NEED TO EXTEND THE USERS DOCUMENTS WITH EACH OF THESE FIELDS. 
+//WHERE DO WE DO THIS, UPON FIRST EVENT HOSTED/ATTENDED, ETC?
+//OR UPON USER CREATION WITH EMPTY FIELDS AND POPULATE LATER.
+Schema.User = new SimpleSchema( {
+  eventsHosted: {
+    type: Array,
+    optional: true
+  },
+  "eventsHosted.$": {
+    type: String,
+    optional: true
+  },
+  eventsAttended: {
+    type: Array,
+    optional: true
+  },
+  "eventsAttended.$": {
+    type: String,
+    optional: true
+  }
+})
+
+
+
+Schema.asGuest = new SimpleSchema({
+  //the editable profile
+  distinguisher: {  
     type: String,
     label: 'Unique Identifier',
     optional: true
   }
 });
+
+
+Schema.Venue = new SimpleSchema({
+  address: {
+    type: Schema.Address
+  },
+  venueType: { 
+    type: String 
+  },
+
+});
+
+Schema.asHost = new SimpleSchema({
+  residenceType: {
+    type: String,
+    label: 'Type of residence',
+    optional: true
+  },
+  ownership: {
+    type: String,
+    label: 'Do you rent or own your residence?',
+    optional: true
+  },
+  venues: {
+    type: Array,
+    label: 'Your Entertainment Venues',
+    optional: true
+  },
+  "venues.$": {
+    type: Schema.Venue,
+    optional: true
+  }
+});
+
+
+Schema.asTalent = new SimpleSchema({
+  talentType: {
+    type: String,
+    label: 'How do you entertain?',
+    optional: true
+  },
+  experience: {
+    type: String,
+    label: 'How long have you done this?',
+    optional: true
+  }
+});
+
 
 
 Schema.Event = new SimpleSchema({
@@ -464,17 +501,6 @@ Schema.Event = new SimpleSchema({
       // I WANT TO PUSH THE CATEGORY "ONLINE ONLY" TO THIS ARRAY
       //$set function on this key??
     // },
-    // autoform: {
-      // options: function () {
-      //   return Categories.find().map(function(c) {
-      //     return {label: c.name, value: c.name};
-      //   });
-      // },
-    //   afFieldInput: {
-    //     type: "select-checkbox",
-    //     class: "category-option"
-    //   }
-    // }
   },
   'categories.$': {
     type: String
@@ -494,7 +520,7 @@ Schema.Event = new SimpleSchema({
     optional: true
   },
   'guests.$': {
-    type: Schema.Guest
+    type: Schema.asGuest
   },
   guestCount: {
     type: Number,
@@ -537,4 +563,3 @@ Schema.Event = new SimpleSchema({
     }
   }
 });
-
