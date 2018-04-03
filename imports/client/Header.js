@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import AccountsUIWrapper from './AccountsUIWrapper';
-import FacebookButton from './FacebookButton';
-import FacebookButton2 from './FacebookButton2';
 
 
 class Header extends Component {

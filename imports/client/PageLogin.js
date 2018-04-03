@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { withHistory, Link } from 'react-router-dom'
-import FacebookButton2 from './FacebookButton2'
 
 
 class PageLogin extends Component {
@@ -44,7 +43,7 @@ class PageLogin extends Component {
                                 {error.length > 0 ?
                                     <div className="alert alert-danger fade in">{error}</div>
                                     : ''}
-                                    <div id="testDiv">  <FacebookButton2 /> </div>
+                                    
                                 <form id="login-form"
                                     className="form col-md-12 center-block"
                                     onSubmit={this.handleSubmit}>
