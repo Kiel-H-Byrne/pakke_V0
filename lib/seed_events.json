@@ -1,3 +1,5 @@
+
+
 {
   "events": [
     {
@@ -7,6 +9,7 @@
       "date": "07/17/2017",
       "size": "33",
       "byline": "Keys & Lockets Party",
+      "image": "Event1.jpg",
       "description": "Every guest has either a Locket or a Key. The first two pairs of matches wins the evening.",
       "eventAddress": {
         "street": "1250 24th st",
@@ -23,6 +26,7 @@
       "date": "06/19/2018",
       "size": "22",
       "byline": "Polo Shirts & Tennis Skirts",
+      "image": "Event1.jpg",      
       "description": "Party poolside on my rooftop.",
       "eventAddress": {      
         "street": "1600 U St., NW",
@@ -39,6 +43,7 @@
       "date": "08/12/2018",
       "size": "8",
       "byline": "Green Apron Party",
+      "image": "Event1.jpg",      
       "description": "This is a 420 friendly party where we are cooking cannabis-infused deserts and candies. We will make enough to take home.",
       "eventAddress": {
         "street": "4203 8th St. NW",
@@ -55,6 +60,7 @@
       "date": "09/12/2018",
       "size": "11",
       "byline": "Deep Dinner Party",
+      "image": "Event1.jpg",      
       "description": "Let's have a great dinner and discuss deep issues.",
       "eventAddress": {
         "street": "506 M St.",
@@ -71,6 +77,7 @@
       "date": "09/17/2020",
       "size": "33",
       "byline": "Birthday Bash",
+      "image": "Event1.jpg",      
       "description": "Virgo Season!!!",
       "eventAddress": {
         "street": "6000 33rd St NW",

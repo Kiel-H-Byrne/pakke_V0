@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Session } from 'meteor/session';
-import GoogleMap from './GoogleMap';
+// import GoogleMap from './GoogleMap';
+import GoogleMapContainer from './MapGoogle';
 
 import Events from '../startup/collections/events';
 
@@ -153,12 +154,12 @@ class MyMap extends Component {
 
   render() {
     return (
-      <GoogleMap
+      <GoogleMapContainer
         onReady={this.handleOnReady}
         mapOptions={this.handleMapOptions}
       >
         Loading!
-      </GoogleMap>
+      </GoogleMapContainer>
     );
   }
 }

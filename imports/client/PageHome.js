@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import EventList from './EventList';
-import PageLanding from './PageLanding';
+import PageLanding from './pageLanding/PageLanding';
 import PageProfile from './PageProfile';
 
 

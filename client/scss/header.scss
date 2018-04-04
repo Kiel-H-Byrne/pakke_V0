@@ -1,13 +1,12 @@
-@import "palettes/_brandColors";
-
 /* The header */
 
 .header {
-  /* background-color: #ffec4f; */
-  background-color: $pakke-white;
-  // border-bottom: 3px solid $pakke-grey;
+  background-color: white;
+  border-bottom: 1px solid lightgrey;
+  height: 80px;
 
   ul {
+    //keeps logo dropdown straight
     padding: 7px;
   }
 
@@ -39,7 +38,7 @@
 }
 
 .header-links-right {
-  // float: right;
+  float: right;
 
   li {
     display: inline-block;
@@ -119,22 +118,22 @@ nav.navbar-default {
   }
 }
 
-.AccountsUI {
-  // position: absolute;
-  right:30px;
-  background: red;
-  border: 15px;
-}
+// .AccountsUI {
+//   // position: absolute;
+//   right:30px;
+//   background: red;
+//   border: 15px;
+// }
 
-.AccountsUI2 {
-  background: green;
-  margin: auto;
-  width: 50%;
-}
+// .AccountsUI2 {
+//   background: green;
+//   margin: auto;
+//   width: 50%;
+// }
 
-.sign-in {
+// .sign-in {
 
-}
+// }
 
 /* Making the sidebar responsive */
 @media (max-width: 900px) {}

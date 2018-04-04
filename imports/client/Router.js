@@ -10,6 +10,9 @@ import PageProfile from './PageProfile';
 import PageError from './PageError';
 import BecomeHost from './forms/BecomeHost';
 import BecomeTalent from './forms/BecomeTalent';
+import PageEventMap from './PageEventMap';
+
+// import PageEventMap from './pageEventMap/PageEventMap';
 
 // import PageSignUp from './PageSignUp';
 // import EventForm from './EventForm2';
@@ -27,7 +30,7 @@ class Router extends Component {
         <Switch>
             <Route exact path='/' component={PageHome} />
             <Route path='/about' component={PageAbout} />
-            <Route path='/events' component={EventList} />            
+            <Route path='/events' component={PageEventMap} />            
             <Route path='/event/:id' component={EventDetail} />
             <Route path='/profile' component={PageProfile} />
             <Route path='/host' component={BecomeHost} />

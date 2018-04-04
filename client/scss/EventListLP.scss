@@ -1,0 +1,32 @@
+.landingEvents {
+  margin-top: 10%;
+}
+
+@media screen and (max-width: 768px) {
+  // vertical scroll vs. grid
+  .scroll-wrapper-x {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+       display: none;
+    }
+  }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media screen and (min-width: 768px) {}
+
+/* Medium devices (desktops, 992px and up) */
+@media screen and (min-width: 992px) {}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .scroll-wrapper-x {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1rem;
+  }
+}
