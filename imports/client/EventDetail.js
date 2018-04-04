@@ -27,19 +27,39 @@ class EventDetail extends Component {
     let eventId = this.state.event._id;
     let thisUser = this.props.thisUser.username;
     let thisUserId = this.props.thisUserId
-		Meteor.call("attendEvent", thisUserId, eventId);
-    
+    Meteor.call("attendEvent", thisUserId, eventId);
+
     Bert.alert("Your are attending this event", "success", "growl-top-right");
   }
 
-
   render() {
+
+    const style = {
+      background: "url('img/holders/holder1.jpg') no-repeat "
+    };
+
+
     return (
-      <div>
-        <h1>Event Name: {this.state.event.byline}</h1>
-        <h2>Event Date: {this.state.event.date}</h2>
-        <p>Event Description: {this.state.event.description}</p>
+
+      <div className='eventCard'>
+
+        <div className="eventCard_img" style={style}></div>
+
+        <div>
+          <h1>Event Name: {this.state.event.byline}</h1>
+          <h2>Event Date: {this.state.event.date}</h2>
+          <p>Event Description: {this.state.event.description}</p>
+        </div>
+
+
+
         <button onClick={this.attendEvent.bind(this)} className="btn btn-lg btn-success">Attend Event</button>
+
+        {/* <div className="progress">
+                <div className="progress-bar" role="progressbar" aria-valuenow={weight} aria-valuemin="0" aria-valuemax="100" style={style2}>
+                  {weight}%
+                </div>
+              </div> */}
       </div>
     )
   }

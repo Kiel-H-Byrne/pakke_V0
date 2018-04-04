@@ -28,7 +28,7 @@ class Header extends Component {
                     <div className="header-links-right">
                         <div className='dropdown'> 
                             <span className="caret"></span> 
-                            <img data-toggle="dropdown" className="icon dropdown-toggle" src='missing_profile.png'/>
+                            <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png'/>
 
                             {/* {Meteor.user().profile.avatar ? (
                                 <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar} />
