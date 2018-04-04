@@ -7,17 +7,18 @@ import Event from './Event';
 import EventList from './EventList';
 import EventDetail from './EventDetail';
 import PageProfile from './PageProfile';
-import PageLogin from './PageLogin';
-import PageSignUp from './PageSignUp';
 import PageError from './PageError';
-import BecomeHost from './BecomeHost';
-import BecomeTalent from './BecomeTalent';
-import TestLogin from './TestLogin';
+import BecomeHost from './forms/BecomeHost';
+import BecomeTalent from './forms/BecomeTalent';
 
-
-import EventForm from './EventForm2';
-import PageTest from './PageTest';
+// import PageSignUp from './PageSignUp';
+// import EventForm from './EventForm2';
+// import PageTest from './PageTest';
 // import { LoginFormContainer } from './accounts/ui/components/LoginForm'
+// import TestLogin from './TestLogin';
+// import PageLogin from './PageLogin';
+
+
 
 class Router extends Component {
     render() {
@@ -29,12 +30,14 @@ class Router extends Component {
             <Route path='/events' component={EventList} />            
             <Route path='/event/:id' component={EventDetail} />
             <Route path='/profile' component={PageProfile} />
-            <Route path='/login' component={PageLogin} />
-            <Route path='/signup' component={PageSignUp} />
             <Route path='/host' component={BecomeHost} />
             <Route path='/talent' component={BecomeTalent} />
-            <Route path='/test' component={ TestLogin } />
             <Route component={PageError} />
+            
+            {/* <Route path='/login' component={PageLogin} /> */}
+            {/* <Route path='/signup' component={PageSignUp} /> */}
+            {/* <Route path='/test' component={ TestLogin } /> */}
+            
 
         </Switch>
     </main>

@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
 
 
-import EventForm from './EventForm';
+import EventForm from './forms/EventForm';
 import Events from '../startup/collections/events';
 import Event from './Event';
 
