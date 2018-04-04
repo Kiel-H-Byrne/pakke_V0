@@ -5,7 +5,7 @@
     },
     "keys": {
       "googleAnalytics": {"trackingId": "UA-12892693-10"},
-      "googleAPI" : {"key" : " AIzaSyArlnrkA-z5JR0T6C_2z7rGmAZ1Mpl9WSE"},
+      "googleAPI" : {"key" : "AIzaSyArlnrkA-z5JR0T6C_2z7rGmAZ1Mpl9WSE"},
       "yelp" : {
         "app_id" : "xxxx",
         "app_secret" : "xxxx"

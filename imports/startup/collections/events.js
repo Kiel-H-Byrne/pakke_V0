@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
-Events = new Mongo.Collection('events');
+const Events = new Mongo.Collection('events');
 
 if (Meteor.isServer) {
   // ALLOW FOR SORTING (?) 

@@ -56,8 +56,24 @@ User.profile.Talent.InstrumentPLayed.
 new schemas for each.
 
 
-
-FirstMailerPage
+FirstMailerPage > Accounts.templates.html > emmett make copy
 
 Look at all methods; keep in one place
 
+
+
+
+
+
+Merge & Deploy from "style-all" branch
+investigate
+redirect off logout 
+try absolute paths for imports (instead of ../../..)
+get forms to work with image/file 
+"cleaning up" branch
+
+Forms: 
+becomeHost -> profile.asHost Schema
+becomeTalent -> profile.asTalent Schema
+createEvent -> Event Schema
+user profile -> User.profile schema (flat) -> enabled from avatar "edit profile" button
