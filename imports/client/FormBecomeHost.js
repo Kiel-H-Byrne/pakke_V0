@@ -4,7 +4,7 @@ import AutoForm from 'uniforms-bootstrap3/AutoForm';
 import '../startup/collections/schemas';
 
 const FormBecomeHost = ({model}) =>
-    <AutoForm schema={Schema.User} onSubmit={doc => db.save(doc)} model={model} />
+    <AutoForm schema={Schema.asHost} onSubmit={doc => db.save(doc)} model={model} />
 ;
 
 export default FormBecomeHost;
