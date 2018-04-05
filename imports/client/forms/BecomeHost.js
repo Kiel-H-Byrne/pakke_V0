@@ -1,4 +1,6 @@
 import React from 'react'
+import FormBecomeHost from '../FormBecomeHost';
+
 
 const BecomeHost = () => (
   <div className="container">
@@ -21,7 +23,7 @@ const BecomeHost = () => (
             <h4 className="modal-title">Host Sign Up Form</h4>
           </div>
           <div className="modal-body">
-            <p>Fill out this form to become a host.</p>
+            <FormBecomeHost />
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>

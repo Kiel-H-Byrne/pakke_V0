@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import ExplorePakke from './ExplorePakke';
 import EventList from '../EventList';
 import ValueProp from './ValueProp';
+import FormBecomeHost from '../FormBecomeHost';
 
 
 class LandingPage extends Component {
@@ -24,6 +25,7 @@ class LandingPage extends Component {
                 
                 <div className="landingValue">
                     <ValueProp />
+                    <FormBecomeHost />
                 </div>
             </div>
         )

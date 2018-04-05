@@ -25,7 +25,7 @@ class EventDetail extends Component {
 
   attendEvent() {
     console.log('submit attendee')
-    // const eventId = this.state.event._id;
+    const eventId = this.state.event._id;
     const thisUserId = Meteor.userId();
 		Meteor.call("attendEvent", thisUserId, eventId);
     
