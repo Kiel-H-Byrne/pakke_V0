@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-// Choose your theme
 import AutoForm from 'uniforms-bootstrap4/AutoForm';
 
+// Choose your theme
+// import '../startup/collections/schemas';
+
+
 // A compatible schema
-import '../startup/collections/schemas';
 
 // This will render an automatic, validated form, with labelled fields, inline
 // validation and a submit button. If model will be present, form will be filled

@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 
+// <<<<<<< HEAD:imports/client/Header.js
 import AccountsUIWrapper from './AccountsUIWrapper';
+import AccountsUIWrapper2 from './AccountsUIWrapper2';
+import FacebookButton from './FacebookButton';
+import FacebookButton2 from './FacebookButton2';
+// >>>>>>> feature/style-all:imports/client/header/Header.js
 
 
 class Header extends Component {
@@ -26,12 +31,14 @@ class Header extends Component {
                     <div className="header-links-right">
                         <div className='dropdown'> 
                             <span className="caret"></span> 
-                            {Meteor.user().profile.avatar ? (
+                            <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png'/>
+
+                            {/* {Meteor.user().profile.avatar ? (
                                 <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar} />
                                 ) : (
                                 <img data-toggle="dropdown" className="icon dropdown-toggle" src='missing_profile.png'/>
                                 )
-                            }
+                            } */}
                             <ul className="dropdown-menu dropdown-menu-right"> 
                             <li><Link to='/profile'><h5>Profile</h5></Link></li> 
                             <li><Link to='/events'><h5>Events</h5></Link></li>                                 
@@ -56,8 +63,8 @@ class Header extends Component {
                         </div>
                     </div>
                     <div className="header-links-right">
-                        <ul>
-                            <li><AccountsUIWrapper /></li>
+                        <ul className= 'AccountsUI2'>
+                            <li><AccountsUIWrapper2 /></li>
                         </ul>
                     </div>
                 </div>

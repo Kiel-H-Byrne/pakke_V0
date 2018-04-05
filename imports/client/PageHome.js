@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import EventList from './EventList';
-import LandingPage from './LandingPage';
+import PageLanding from './pageLanding/PageLanding';
 import PageProfile from './PageProfile';
 
 
@@ -15,7 +15,7 @@ class Home extends Component {
       )
     } else {
       return (
-      <LandingPage />
+      <PageLanding />
 
     )
     }

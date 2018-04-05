@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 
-import Header from './Header';
+import Header from './header/Header';
 import Router from './Router';
 
 class App extends Component {

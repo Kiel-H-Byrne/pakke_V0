@@ -10,6 +10,8 @@ const BecomeTalent = () => (
   // </div>
 
   <div className="container">
+    <img src='Event1.jpg' />
+
     <h1>Share Your Talent</h1>
     <h2>Do you have a talent?</h2>
     <h3>peform at venues across the city</h3>

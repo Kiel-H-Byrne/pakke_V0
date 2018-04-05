@@ -7,13 +7,6 @@ import Events from '../startup/collections/events';
 
 class EventList extends Component {
 
-  /* showAll() {
-    if (this.props.showAll) {
-      Session.set('showAll', false);
-    } else {
-      Session.set('showAll', true);
-    }
-  } */
   render() {
     if (!this.props.ready) {
       return <div>Loading</div>;
