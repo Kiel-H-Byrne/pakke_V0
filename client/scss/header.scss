@@ -93,6 +93,99 @@
 }
 
 
+//not mobile
+header {
+  background-color: white;
+  border-bottom: 1px solid lightgrey;
+  height: 80px;
+
+  ul {
+    //keeps logo dropdown straight
+    padding: 7px;
+  }
+
+  div {
+    /* display: inline-block; */
+    /* border-style: solid;
+    border-width: 1px; */
+  }
+  a {
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+      color: gray;
+    }
+  }
+
+  li:hover {
+    // background-color: rgba(255, 255, 255, 0.5);
+    /* color: #ffffff; */
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+  }
+}
+
+.header-links-left {
+  display: inline-block;
+
+  li {
+    display: inline-block;
+  }
+}
+
+.icon {
+  margin: .5rem .5rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.header-links-right {
+  float: right;
+
+  li {
+    display: inline-block;
+    padding: 10px 15px;
+    // color: black;
+    font-size: 16px;
+    font-weight: bold;
+    transform: translate(-25%, 25%);
+
+  }
+}
+
+.AccountsUI2 {
+  position: relative;
+  right: 110%;
+}
+
+.dropdown .dropdown-menu {
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+
+    max-height: 0;
+    display: block;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.dropdown:hover .dropdown-menu {
+    max-height: 200px;
+    opacity: .96;
+}
+
+.dropdown-menu {
+  // width: 300px;
+  // li {
+  // text-align: right;;
+  }
+
+
 /* Making the sidebar responsive */
 @media (max-width: 900px) {}
 

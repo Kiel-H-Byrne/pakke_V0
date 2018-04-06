@@ -94,3 +94,62 @@
     // width: 24%;
   }
 }
+
+
+//not mobile
+.three-main-links {
+  display: flex;
+  justify-content: space-evenly;
+  padding:0%;
+  margin: 0 .5rem;
+
+  div {
+    border: 1px solid lightgray;
+    margin: 1rem .5rem;
+    border-radius: 8px;
+  
+    img {
+      height: 200px;
+      width: 250px;
+    }
+
+    p {
+      text-align: center;
+      padding: 15px;
+      color: black;
+      font-weight: bold;
+    }
+  }
+}
+
+//Style the Value Prop
+.value-prop {
+  display: flex;
+  justify-content: space-evenly;
+  padding:0%;
+  margin: 0 .5rem;
+  background: lightgray;
+  width: 100%;
+  color: black;
+
+  div {
+    border: 1px solid lightgray;
+    margin: 1rem .5rem;
+    border-radius: 8px;
+    text-align: center;
+
+    img {
+      height: 200px;
+      width: 250px;
+    }
+    p {
+      padding: 15px;
+      color: black;
+      font-weight: normal;
+    }
+    h3 {
+      color: black
+    }
+  }
+}
+
