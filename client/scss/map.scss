@@ -1,3 +1,5 @@
+/* Mobile phone layout */
+@media (max-width: 450px) {
 .map-container {
   height: 100%;
 }
@@ -54,4 +56,5 @@
   /* row/colum colum */
   grid-gap: 5px;
   height: 100vh;
+}
 }

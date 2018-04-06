@@ -1,3 +1,5 @@
+/* Mobile phone layout */
+@media (max-width: 450px) {
 .landingEvents {
   margin-top: 10%;
 }
@@ -29,4 +31,5 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 1rem;
   }
+}
 }

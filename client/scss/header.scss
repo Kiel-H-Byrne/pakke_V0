@@ -1,5 +1,5 @@
-/* The header */
-
+/* Mobile phone layout */
+@media (max-width: 450px) {
 .header {
   background-color: white;
   border-bottom: 1px solid lightgrey;
@@ -66,9 +66,9 @@
   position: relative;
   right: 110%;
 }
+}
 
 /* Making the sidebar responsive */
 @media (max-width: 900px) {}
 
-/* Mobile phone layout */
-@media (max-width: 450px) {}
+
