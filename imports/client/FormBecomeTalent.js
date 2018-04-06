@@ -1,6 +1,6 @@
 import React from 'react';
 import AutoField from 'uniforms-unstyled/AutoField';
-import AutoForm from 'uniforms-unstyled/AutoForm';
+import AutoForm from 'uniforms-bootstrap3/AutoForm';
 import SubmitField from 'uniforms-unstyled/SubmitField';
 import TextField from 'uniforms-unstyled/TextField';
 import '../startup/collections/schemas';

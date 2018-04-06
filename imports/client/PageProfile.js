@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Route, Link, Switch, Redirect } from 'react-router-dom';
 
 import EventForm from './forms/EventForm';
 import Events from '../startup/collections/events';
@@ -16,13 +17,31 @@ class PageProfile extends Component {
 
     if (!this.props.ready) {
       return <div>Loading</div>;
-    } else {
+    } else if (!this.props.currentUser) {
+      return <Redirect to="/" />;
+    }
+
+    else {
 
       return (
         <div>
-          <h1>Profile Page</h1>
-          {/* This line causes erro on logout */}
-          {/* <p>I'm {this.props.currentUser.username}</p> */}
+          
+          <div className='profile-head'>
+            <div className='profile-head-image'>
+              <img src='/missing_profile.png' />
+            </div>
+            <div className='profile-head-text'>
+              {(this.props.currentUser.username) ? (
+                <h4>I'm {this.props.currentUser.username}</h4>
+              ) : (
+                  <h4> I'm a new user </h4>
+                )
+              }
+              <button className='btn btn-info btn-sm center-block'>Edit Profile</button>
+            </div>
+          </div>
+
+
 
 
           <ul className="nav nav-tabs">

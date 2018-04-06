@@ -25,7 +25,10 @@ class TabGuest extends Component {
             </main>
           </div>
         ) : (
-            <h3>I am not attending any events. See <Link to='/events'>Events</Link> to find something to do</h3>
+            <div className='guest-tab'>
+              <h3>I am not attending any events.</h3>
+              <h4>See <Link to='/events'>Events</Link> to find something to do</h4>
+            </div>
           )
         }
 

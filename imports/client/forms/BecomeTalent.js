@@ -5,7 +5,7 @@ import FormBecomeTalent from '../FormBecomeTalent';
 const BecomeTalent = () => (
 
   <div className="container">
-    <img src='Event1.jpg' />
+    <img src='Talent.jpg' />
 
     <h1>Share Your Talent</h1>
     <h2>Do you have a talent?</h2>

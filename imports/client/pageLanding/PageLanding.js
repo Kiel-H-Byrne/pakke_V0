@@ -25,7 +25,6 @@ class LandingPage extends Component {
                 
                 <div className="landingValue">
                     <ValueProp />
-                    <FormBecomeHost />
                 </div>
             </div>
         )

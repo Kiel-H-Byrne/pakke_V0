@@ -30,9 +30,9 @@ class TabHost extends Component {
 
       return (
         
-        <div>
+        <div className='host-block'>
           <h3>You are currently not a host</h3>
-          <Link to='/host'><button>Become a Host</button></Link>
+          <Link to='/host'><button className='btn btn-info center-block'>Become a Host</button></Link>
           
           
           {/* {showEventForm} */}

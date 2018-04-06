@@ -15,51 +15,6 @@
     /* border-style: solid;
     border-width: 1px; */
   }
-}
-
-.header-links-left {
-  display: inline-block;
-
-  li {
-    display: inline-block;
-  }
-
-  p {
-    /* position: relative; */
-    /* top: 12px; */
-    /* border-style: solid;
-    border-width: 1px; */
-  }
-}
-
-.icon {
-  margin-right: 1rem;
-  height: 4rem;
-}
-
-.header-links-right {
-  float: right;
-
-  li {
-    display: inline-block;
-    padding: 10px 15px;
-    // color: black;
-    font-size: 16px;
-    font-weight: bold;
-    transform: translate(-25%, 25%);
-
-    /* border-style: solid;
-    border-width: 1px; */
-  }
-}
-
-.profile-image {
-  height: 75px;
-  width: 75px;
-  border-radius: 50%;
-}
-
-.header {
   a {
     color: black;
     text-decoration: none;
@@ -79,61 +34,38 @@
   }
 }
 
-nav.navbar-default {
-  margin: 0;
-  z-index: 3;
-  // background-color: rgba(200, 200, 200, 0.7);
-  height: 3rem;
-  border-radius: 0;
-  border: none;
+.header-links-left {
+  display: inline-block;
 
   li {
-    height: 3rem;
-  }
-
-  .dropdown_menu {
-    // color: #000;
-  }
-
-  .navbar-brand {
-    padding: 3px;
-
-    img {
-      height: 100%;
-    }
-  }
-
-  .select_wrapper {
-    height: 100%;
-  }
-
-  .user_avatar {
-    position: relative;
-    height: 100%;
-    margin: 0;
-  }
-
-  .navbar-nav li a {
-    // color: white;
+    display: inline-block;
   }
 }
 
-// .AccountsUI {
-//   // position: absolute;
-//   right:30px;
-//   background: red;
-//   border: 15px;
-// }
+.icon {
+  margin: .5rem .5rem;
+  height: 4rem;
+  border-radius: 50%;
+}
 
-// .AccountsUI2 {
-//   background: green;
-//   margin: auto;
-//   width: 50%;
-// }
+.header-links-right {
+  float: right;
 
-// .sign-in {
+  li {
+    display: inline-block;
+    padding: 10px 15px;
+    // color: black;
+    font-size: 16px;
+    font-weight: bold;
+    transform: translate(-25%, 25%);
 
-// }
+  }
+}
+
+.AccountsUI2 {
+  position: relative;
+  right: 110%;
+}
 
 /* Making the sidebar responsive */
 @media (max-width: 900px) {}

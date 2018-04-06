@@ -1,53 +1,52 @@
-#profile-wrap {
-  background-color: #eaeaea;
-  padding: 50px 20px;
-  margin-bottom: 50px;
-}
+.nav {
+  
+  display: static;
+  margin-top: 10%;
 
-.profile-img {
-  max-width: 200px;
-  border-radius: 50%;
-  margin-bottom: 20px;
-}
-
-.profileImage {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-}
-
-#profile-btn {
-  margin: 20px 20px;
-}
-
-label {
-  color: #337ab7;
-  padding: 10px 10px;
-  border: 2px solid #337ab7;
-  border-radius: 5px;
-
-  &:hover {
-    color: #5593c6;
-    border-color: #5593c6;
+  li {
+    width: 33%;
+    text-align: center;
+    
   }
 }
 
-.profile-smiley {
-  width: 50px;
-  padding: 5px 5px;
+.tab-content {
 }
 
-.score {
-  padding-left: 22px;
+.profile-head {
+  margin-top: 5%;
+  // border: 1px solid black;
+  height: 150px;
+
 }
 
-#score-stable {
-  margin-left: 20px;
+.profile-head-image {
+  margin-left: 5%;
+  // border: 1px solid black;  
+  
+  img{
+  border-radius: 50%;
+  height: 125px;
+  float:left;
+  }
 }
 
-#left-margin-sm {
-  margin-left: 2px;
+.profile-head-text {
+  float: right;
+  text-align: center;
+  margin-right: 10%;
+  // border: 1px solid black;  
+  
+}
+
+.guest-tab {
+  text-align:center;
+}
+
+.host-block {
+  text-align:center;
+}
+
+.talent-block {
+  text-align: center;
 }

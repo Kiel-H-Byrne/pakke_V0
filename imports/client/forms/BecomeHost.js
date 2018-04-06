@@ -4,7 +4,7 @@ import FormBecomeHost from '../FormBecomeHost';
 
 const BecomeHost = () => (
   <div className="container">
-    <img src='Event1.jpg'/>
+    <img src='Events.jpg'/>
     <h1>Become a Host</h1>
     <h2>Share your passion</h2>
     <h3>host events at in your space</h3>

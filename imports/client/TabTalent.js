@@ -21,8 +21,8 @@ class TabHost extends Component {
       return (
         
         <div>
-          <h3>You are currently not a registered talent</h3>
-          <Link to='/talent'><button>Register your Talent</button></Link>
+          <h3 className='talent-block'>You are currently not a registered talent</h3>
+          <Link to='/talent'><button className='btn btn-info center-block'>Register your Talent</button></Link>
         </div>
       )
     }
