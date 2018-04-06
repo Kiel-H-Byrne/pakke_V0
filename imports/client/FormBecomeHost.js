@@ -1,23 +1,26 @@
 import React from 'react';
 import AutoForm from 'uniforms-bootstrap3/AutoForm';
-// import BookSchema from '../startup/collections/schemas';
+// import BookSchema from 'imports/startup/collections/schemas';
 import '../startup/collections/schemas';
 
 const handleSubmit = function(doc) {
-   console.log(doc); 
-  let uid = Meteor.userId();
-  Meteor.call('editProfile', 'asHost',doc);
+	let uid = Meteor.userId();
+	const type = "asHost"
+	if (! Roles.userIsInRole(Meteor.userId(), 'Host')) {
+		Meteor.call('addRole', uid, "host");
+	}
+	Meteor.call('editProfile', type, doc);
 
-  // Meteor.users.update(uid, {
-  //     $set: {"profile[type]": doc}
-  //   })
+	// Meteor.users.update(uid, {
+	//     $set: {"profile[type]": doc}
+	//   })
 
 
 }; 
 
 const FormBecomeHost = ({model}) => (
 <section>
-    <AutoForm value="Submit" schema={Schema.asHost} onSubmit={doc => handleSubmit(doc)} model={model} />
+    <AutoForm schema={Schema.asHost} onSubmit={doc => handleSubmit(doc)} model={model} />
 </section>
 );
 

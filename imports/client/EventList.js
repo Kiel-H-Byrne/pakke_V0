@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session'
 
 import Event from './Event';
-import Events from '../startup/collections/events';
+import Events from '/imports/startup/collections/events';
 
 class EventList extends Component {
 

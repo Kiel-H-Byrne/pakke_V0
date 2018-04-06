@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
+import uniforms from 'uniforms';
 
 Schema = {};
 
@@ -173,52 +174,52 @@ Schema.Address = new SimpleSchema({
   },
   coords: {
     type: String,
-    optional: true
-    // autoValue: function () {
-    //   let eventAddress = this.field("eventAddress").value;
-    //   let hostAddress = this.field("hostAddress").value;
-    //   let guestAddress = this.field("guestAddress").value;
-    //   // console.log(this.siblingField("street"));
-    //   let address = hostAddress || eventAddress || guestAddress ;
-    //   // console.log(address);
-    //   if (address) {
-    //     let street = address.street || address.corner;
-    //     let zip = address.zip;
-    //   // console.log(street);
-    //     if ( zip && this.isInsert && !this.isSet) {
-    //     // console.log(zip);
-    //       const params = {};
-    //       // console.log(this.docId);
-    //       if (street) params.street = street;
-    //       params.city = address.city;
-    //       params.state = address.state;
-    //       params.zip = zip;
-    //       let response = Meteor.call('geoCode', params);
+    optional: true,
+    autoValue: function () {
+      let eventAddress = this.field("eventAddress").value;
+      let hostAddress = this.field("hostAddress").value;
+      let guestAddress = this.field("guestAddress").value;
+      // console.log(this.siblingField("street"));
+      let address = hostAddress || eventAddress || guestAddress ;
+      // console.log(address);
+      if (address) {
+        let street = address.street || address.corner;
+        let zip = address.zip;
+      // console.log(street);
+        if ( zip && this.isInsert && !this.isSet) {
+        // console.log(zip);
+          const params = {};
+          // console.log(this.docId);
+          if (street) params.street = street;
+          params.city = address.city;
+          params.state = address.state;
+          params.zip = zip;
+          let response = Meteor.call('geoCode', params);
 
-    //       if (response && response.results.length) {
-    //         let loc = response.results[0].geometry.location;
-    //         // console.log("GOOGLE TYPES:") ;
-    //         // console.log(response.results[0].types);
-    //         // this.field("google_id").value = place_id;
-    //         //====== RETURN LAT/LONG OBJECT LITERAL ======
-    //         // return loc;
-    //         //====== RETURN STRINGIFIED LAT/LONG NUMBERS ======
-    //         let arr =  _.values(loc);
-    //         // console.log(arr.toLocaleString());
-    //         return arr.toLocaleString();
-    //       } else {
+          if (response && response.results.length) {
+            let loc = response.results[0].geometry.location;
+            // console.log("GOOGLE TYPES:") ;
+            // console.log(response.results[0].types);
+            // this.field("google_id").value = place_id;
+            //====== RETURN LAT/LONG OBJECT LITERAL ======
+            // return loc;
+            //====== RETURN STRINGIFIED LAT/LONG NUMBERS ======
+            let arr =  _.values(loc);
+            // console.log(arr.toLocaleString());
+            return arr.toLocaleString();
+          } else {
 
-    //         // console.log(response);
-    //         console.log("NO COORDINATES");
-    //         //no street name, so must be online Only. 
-    //         //set category to "Online"
-    //         // console.log(typeof street);
-    //         // console.log(this.docId);
-    //         this.unset();
-    //       } //if response else
-    //     } //if zip
-    //   } //if address
-    // }
+            // console.log(response);
+            console.log("NO COORDINATES");
+            //no street name, so must be online Only. 
+            //set category to "Online"
+            // console.log(typeof street);
+            // console.log(this.docId);
+            this.unset();
+          } //if response else
+        } //if zip
+      } //if address
+    }
   },  
 });
 
@@ -370,29 +371,30 @@ Schema.asGuest = new SimpleSchema({
 
 
 Schema.Venue = new SimpleSchema({
+  nickname: {
+    type: String,
+    label: 'A Nickname'
+  },
   address: {
     type: Schema.Address
   },
   venueType: { 
-    type: String 
+    type: String,
+    label: 'What Type of Venue is this (Commercial / Apartment / Condo / House? )',
+    optional: true
   },
+  ownedStatus: {
+    type: Boolean,
+    label: 'I own this venue?',
+    optional: true
+  }
 
 });
 
 Schema.asHost = new SimpleSchema({
-  residenceType: {
-    type: String,
-    label: 'Type of residence',
-    optional: true
-  },
-  ownership: {
-    type: String,
-    label: 'Do you rent or own your residence?',
-    optional: true
-  },
   venues: {
     type: Array,
-    label: 'Your Entertainment Venues',
+    label: 'Add A New Venue!',
     optional: true
   },
   "venues.$": {
@@ -412,6 +414,12 @@ Schema.asTalent = new SimpleSchema({
     type: String,
     label: 'How long have you done this?',
     optional: true
+  },
+  audienceSize: {
+    type: String,
+    label: 'Preferred audience size?',
+    optional: true
+
   }
 });
 
@@ -426,7 +434,8 @@ Schema.Event = new SimpleSchema({
   // 'type' is where you can set the expected data type for the 'title' key's value
   "host": {
     type: Object,
-    label: "Host"
+    label: "Host",
+    optional: true
   },
   "host.id": {
     type: String,
@@ -440,6 +449,7 @@ Schema.Event = new SimpleSchema({
   },    
   "host.username": {
     type: String,
+    optional: true,
     autoValue: function() {
       // if (this.field("name").value) {
       // let name = this.field("name").value;
@@ -454,15 +464,15 @@ Schema.Event = new SimpleSchema({
     optional: true,
     autoValue: function() {
       //get email of logged in user
-      if (Meteor.userId() && this.isInsert && !this.isSet) {
-        return Meteor.user().emails[0].address;
-      }
+      // if (Meteor.userId() && this.isInsert && !this.isSet) {
+      //   return Meteor.user().emails[0].address;
+      // }
     }
   },
   date: {
     type: Date,
     min: function() {
-      return new Date;
+      return new Date();
     }
   },
   size: {
@@ -557,9 +567,9 @@ Schema.Event = new SimpleSchema({
     }
   },
   submitted: {
-    type: String,
+    type: Date,
     autoValue: function() {
-      return new Date;
+      return new Date();
     }
   }
 });
