@@ -105,6 +105,12 @@ Meteor.methods({
     })    
     Roles.addUsersToRoles( id._id ,  role );
   },
+  editProfile: function(type, doc) {
+    const uid = Meteor.userId();
+    Meteor.users.update(uid, {
+      $set: { "profile.asHost": doc}
+    });
+  },
 	addHost: function(doc) {
     //add 'host role' to user
     alert('fix "addHost" method');
