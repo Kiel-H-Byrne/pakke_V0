@@ -29,22 +29,22 @@ class Header extends Component {
                         </div>
                     </div>
                     <div className="header-links-right">
-                        <div className='dropdown'> 
-                            <span className="caret"></span> 
-                            <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png'/>
+                        <div className='dropdown'>
+                            <span className="caret"></span>
+                            <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
                             {/* <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar}/> */}
-                            
+
                             {/* {(Meteor.user().profile.avatar) ? (
                                 <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar} />
                                 ) : (
                                 <img data-toggle="dropdown" className="icon dropdown-toggle" src='missing_profile.png'/>
                                 )
                             } */}
-                            <ul className="dropdown-menu dropdown-menu-right"> 
-                            <li><Link to='/profile'><h5>Profile</h5></Link></li> 
-                            <li><Link to='/events'><h5>Events</h5></Link></li>                                 
-                            <li><Link to='/' onClick={this.logOut}><h5>Logout</h5></Link></li> 
-                            </ul> 
+                            <ul className="dropdown-menu dropdown-menu-right">
+                                <li><Link to='/profile'><h5>Profile</h5></Link></li>
+                                <li><Link to='/events'><h5>Events</h5></Link></li>
+                                <li><Link to='/' onClick={this.logOut}><h5>Logout</h5></Link></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@ class Header extends Component {
                         </div>
                     </div>
                     <div className="header-links-right">
-                        <ul className= 'AccountsUI2'>
+                        <ul className='AccountsUI2'>
                             <li><AccountsUIWrapper2 /></li>
                         </ul>
                     </div>
