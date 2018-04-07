@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import PageHome from './PageHome';
 import PageAbout from './PageAbout';
+import PageLanding from './pageLanding/PageLanding';
 import Event from './Event';
 import EventList from './EventList';
 import EventDetail from './EventDetail';
@@ -29,7 +30,7 @@ class Router extends Component {
         return (
     <main>
         <Switch>
-            <Route exact path='/' component={PageHome} />
+            <Route exact path='/' component={PageLanding} />
             <Route path='/about' component={PageAbout} />
             <Route path='/events' component={PageEventMap} />            
             <Route path='/event/:id' component={EventDetail} />
