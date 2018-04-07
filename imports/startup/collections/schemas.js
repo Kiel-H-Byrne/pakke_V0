@@ -530,7 +530,8 @@ Schema.Event = new SimpleSchema({
     optional: true
   },
   'guests.$': {
-    type: Schema.asGuest
+    //stores array of guest_ids; which can be used for search later.
+    type: String
   },
   guestCount: {
     type: Number,

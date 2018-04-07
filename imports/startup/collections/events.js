@@ -1,7 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import './schemas';
 
-Events = new Mongo.Collection('events');
+const Events = new Mongo.Collection('events');
+
+Events.attachSchema(Schema.Event);
+
 
 if (Meteor.isServer) {
   // ALLOW FOR SORTING (?) 
@@ -56,6 +60,7 @@ if (Meteor.isServer) {
 
 }
 
+/// =============== SECURITY =============== ///////
 Events.allow({
 
   // only allow event creation if you are logged in
