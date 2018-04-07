@@ -5,7 +5,7 @@ import Blaze from 'meteor/gadicc:blaze-react-component';
 
 const AccountsUIWrapper2 = () => (
   <div className='sign-inS'>
-    <Blaze template="loginButtons" alight={"right"}/>
+    <Blaze template="loginButtons" align="right"/>
   </div>
 );
 

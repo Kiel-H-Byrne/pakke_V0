@@ -17,8 +17,7 @@ Accounts.ui.config({
 });
 
 Accounts.onLoginFailure(function(error) {
-  console.log(error);
-  throw new Meteor.Error(error.message);
+  Bert.alert(err.message, "danger", "growl-top-right")
 });
 
 // Facebook: http://developers.facebook.com/docs/authentication/permissions/

@@ -10,28 +10,44 @@ const BecomeHost = () => (
     <h3>host events at in your space</h3>
     <p>Lorem ipsum dolor amet schlitz letterpress gentrify squid migas glossier</p>
     {isLoggedIn ? (
-    <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Host an Event</button>
-    ) : (
-    <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#loginModal">Host an Event</button>
-    
-    )}
-
-    <div className="modal fade" id="myModal" role="dialog">
-      <div className="modal-dialog">
-
-
-        <div className="modal-content">
-          <div className="modal-header">
-            <button type="button" className="close" data-dismiss="modal">&times;</button>
-            <h4 className="modal-title">Host Sign Up Form</h4>
+      <>
+      <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Host an Event</button>
+      <div className="modal fade" id="myModal" role="dialog">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal">&times;</button>
+              <h4 className="modal-title">Host Sign Up Form</h4>
+            </div>
+            <div className="modal-body">
+              <FormCreateEvent />
+            </div>
           </div>
-          <div className="modal-body">
-            <FormCreateEvent />
-          </div>
+
         </div>
-
       </div>
-    </div>
+      </>
+      ) : (
+      <>
+      <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#loginModal">Host an Event</button>
+      <div className="modal fade" id="loginModal" role="dialog">
+        <div className="modal-dialog">
+
+
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal">&times;</button>
+              <h4 className="modal-title">Log In</h4>
+            </div>
+            <div className="modal-body">
+              
+            </div>
+          </div>
+
+        </div>
+      </div>
+      </>
+    )}
 
   </div>
 )

@@ -1,7 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import './schemas';
 
-Meteor.users.attachSchema(Schema.User);
 
 Meteor.publish('currentUser', function () {
   console.log("-= PUBLISHING: USER DATA  =-");
