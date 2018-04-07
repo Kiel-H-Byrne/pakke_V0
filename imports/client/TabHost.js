@@ -20,22 +20,27 @@ class TabHost extends Component {
   render() {
 
 
-    const showEventForm = Roles.userIsInRole(Meteor.userId(), 'Host') ? (
-      <EventForm />
-    ) : <button onClick={this.addHostRole.bind(this)}>Become Host</button>;
+    const isHost = Roles.userIsInRole(Meteor.userId(), 'Host')
 
     if (!this.props.ready) {
       return <div>Loading</div>;
     } else {
 
       return (
-        
         <div className='host-block'>
+        {isHost ? (
+          <>
+          <h3>Create Event</h3>
+          <p>Host Profile</p>
+          </>
+          ) : (
+          <>
           <h3>You are currently not a host</h3>
           <Link to='/host'><button className='btn btn-info center-block'>Become a Host</button></Link>
+          </>
+          )
+        }
           
-          
-          {/* {showEventForm} */}
         </div>
       )
     }

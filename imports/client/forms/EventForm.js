@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 
 // import Meteor from 'meteor/meteor';
-// import Events from '../startup/collections/events';
+// import Events from 'imports/startup/collections/events';
 
 
 class EventForm extends Component {

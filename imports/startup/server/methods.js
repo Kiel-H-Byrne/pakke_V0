@@ -107,8 +107,11 @@ Meteor.methods({
   },
   editProfile: function(type, doc) {
     const uid = Meteor.userId();
+    let obj = {};
+    obj[type] = doc;
+    console.log(obj);
     Meteor.users.update(uid, {
-      $set: { "profile.asHost": doc}
+      $set: { "profile" : obj}
     });
   },
 	addHost: function(doc) {
@@ -122,12 +125,13 @@ Meteor.methods({
     Roles.addUsersToRoles( id , role );
   },
   addEvent: function(doc) {
+    console.log(doc);
     Events.insert(doc , function(err, res){
       if (err) {
         console.log("EVENT INSERT FAILED:");
         console.log(doc.byline + ": " + err);
       } else {
-        // console.log(doc.name + ": Success");
+        console.log(doc.byline + ": Success");
       }
     });
   },
