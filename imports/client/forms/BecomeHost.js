@@ -32,8 +32,6 @@ const BecomeHost = () => (
       <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#loginModal">Host an Event</button>
       <div className="modal fade" id="loginModal" role="dialog">
         <div className="modal-dialog">
-
-
           <div className="modal-content">
             <div className="modal-header">
               <button type="button" className="close" data-dismiss="modal">&times;</button>
