@@ -18,21 +18,26 @@ class Header extends Component {
     render() {
         if (this.props.currentUser) {
             return (
-                <div className='header'>
-                    <div className='header-links-left'>
+                <div className='header' id="header-target">
+                    <div className='header-links-left-signedin'>
                         <div className='dropdown'>
-                            <Link to='/profile'><img data-toggle="dropdown" className="icon dropdown-toggle" src='/logo.jpg' /></Link>
+                            <Link to='/'><img className="icon" src='/logo.jpg' /></Link>
                             {/* <span className="caret"></span> */}
                             {/* <ul className="dropdown-menu">
                                 <li><Link to='/'><h5>Home</h5></Link></li>
                             </ul> */}
                         </div>
                     </div>
-                    <div className="header-links-right">
+                    <div className="header-links-right-signedin">
                         <div className='dropdown'>
                             <span className="caret"></span>
-                            <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
-                            {/* <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar}/> */}
+                            {Meteor.user().profile.avatar ? (
+                                <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar}/>
+                                ): (
+                                <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
+                                )}
+                            
+                            {/*  */}
 
                             {/* {(Meteor.user().profile.avatar) ? (
                                 <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar} />
@@ -52,7 +57,7 @@ class Header extends Component {
         } else {
             return (
                 <div className='header' id="header-target">
-                    <div className='header-links-left'>
+                    <div className='header-links-left-signedout'>
                         <div className='dropdown'>
                             <img data-toggle="dropdown" className="icon dropdown-toggle" src='/logo.jpg' />
                             <span className="caret"></span>
@@ -63,7 +68,7 @@ class Header extends Component {
                             </ul>
                         </div>
                     </div>
-                    <div className="header-links-right">
+                    <div className="header-links-right-signedout">
                         <ul className='AccountsUI2'>
                             <li><AccountsUIWrapper2 /></li>
                         </ul>

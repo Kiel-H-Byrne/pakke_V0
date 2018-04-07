@@ -1,12 +1,22 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import './schemas';
 
-Events = new Mongo.Collection('events');
+const Events = new Mongo.Collection('events');
+
+Events.attachSchema(Schema.Event);
+
 
 if (Meteor.isServer) {
   // ALLOW FOR SORTING (?) 
   Events._ensureIndex( { lastUpdated: 1 } );
 
+  Meteor.publish('events_all', function () {
+      const cursor = Events.find();
+
+    console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] EVENTS =-");
+    return cursor;
+  });
 
   Meteor.publish('events_current', function () {
       const cursor = Events.find({
@@ -50,6 +60,7 @@ if (Meteor.isServer) {
 
 }
 
+/// =============== SECURITY =============== ///////
 Events.allow({
 
   // only allow event creation if you are logged in

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import AutoForm from 'uniforms-bootstrap4/AutoForm';
+import AutoForm from 'uniforms-bootstrap3/AutoForm';
 
 // Choose your theme
-// import '../startup/collections/schemas';
+// import 'imports/startup/collections/schemas';
 
 
 // A compatible schema

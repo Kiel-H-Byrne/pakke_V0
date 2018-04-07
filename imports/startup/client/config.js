@@ -2,7 +2,7 @@ import { Accounts } from 'meteor/accounts-base';
 
 Accounts.ui.config({
   requestPermissions: {
-    facebook: ["user_birthday", "user_location", "user_education_history", "user_work_history", "user_actions.music"],
+    facebook: ["user_birthday", "user_location"],
     google: [
     "https://www.googleapis.com/auth/userinfo.profile", 
     "https://www.googleapis.com/auth/user.addresses.read", 
@@ -16,9 +16,9 @@ Accounts.ui.config({
   passwordSignupFields: 'EMAIL_ONLY'
 });
 
-Accounts.onLoginFailure(function(Error) {
-
-  throw new Meteor.Error(Error.message);
+Accounts.onLoginFailure(function(error) {
+  console.log(error);
+  throw new Meteor.Error(error.message);
 });
 
 // Facebook: http://developers.facebook.com/docs/authentication/permissions/

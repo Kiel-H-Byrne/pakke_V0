@@ -43,4 +43,4 @@ facebook-config-ui@1.0.1
 google-config-ui@1.0.0
 gadicc:blaze-react-component
 meteortoys:allthings
-aldeed:simple-schema
+aldeed:collection2-core@2.0.0

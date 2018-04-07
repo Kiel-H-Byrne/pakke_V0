@@ -38,6 +38,7 @@ class EventDetail extends Component {
       <div>
         <h1>Event Name: {this.state.event.byline}</h1>
         <h2>Event Date: {this.state.event.date}</h2>
+        <img src={this.state.event.image} />
         <p>Event Description: {this.state.event.description}</p>
         {isLoggedIn ? (
           <button onClick={this.attendEvent.bind(this)} className="btn btn-lg btn-success">Attend Event</button>
