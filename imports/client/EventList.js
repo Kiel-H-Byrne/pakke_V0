@@ -3,17 +3,10 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session'
 
 import Event from './Event';
-import Events from '../startup/collections/events';
+import Events from '/imports/startup/collections/events';
 
 class EventList extends Component {
 
-  /* showAll() {
-    if (this.props.showAll) {
-      Session.set('showAll', false);
-    } else {
-      Session.set('showAll', true);
-    }
-  } */
   render() {
     if (!this.props.ready) {
       return <div>Loading</div>;

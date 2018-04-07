@@ -1,15 +1,17 @@
-// //========================= ROUTES =========================
-// import '/lib/routes.js';
 
-// //========================= PUBLICATIONS =========================
-// // import '/imports/api/hosts/server/publications.js';
-// import '/imports/api/roles/server/publications.js';
-// import '/imports/api/events/server/publications.js';
-// import '/imports/api/users/server/publications.js';
-
-// //========================= GLOBALS AND METHODS =========================
-import '/imports/startup/server/methods.js';
 
 // //========================= ADMIN & CONFIG =========================
-import '/imports/startup/server/admin.js';
+import './config.js';
+import './SMTP.js';
+
+// //========================= COLLECTIONS =========================
+
+import Events from '/imports/startup/collections/events';
+import '/imports/startup/collections/users.js';
+import '/imports/startup/collections/schemas.js';
+import '/imports/startup/collections/roles.js';
+
+// //========================= GLOBALS AND METHODS =========================
+import './methods.js';
+
 

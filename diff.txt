@@ -1,0 +1,1686 @@
+diff --git a/.meteor/packages b/.meteor/packages
+index 538b598..f3a2a82 100644
+--- a/.meteor/packages
++++ b/.meteor/packages
+@@ -21,20 +21,23 @@ react-meteor-data
+ dburles:google-maps
+ fourseven:scss
+ session@1.1.7
+-accounts-facebook@1.3.1
+-accounts-google@1.3.1
+ fortawesome:fontawesome
+-std:accounts-bootstrap
+ dynamic-import@0.3.0
+ http@1.4.0
+ manuel:reactivearray
+ service-configuration@1.0.11
+-facebook-config-ui@1.0.1
+-google-config-ui@1.0.0
++
+ server-render@0.3.0
+ check
+ themeteorchef:bert
+ alanning:roles
+-accounts-password
+-
+ twbs:bootstrap
++
++accounts-base
++accounts-ui
++accounts-password
++accounts-facebook
++accounts-google@1.3.1
++facebook-config-ui@1.0.1
++google-config-ui@1.0.0
++gadicc:blaze-react-component
+diff --git a/.meteor/versions b/.meteor/versions
+index b6a4a81..ed6cb27 100644
+--- a/.meteor/versions
++++ b/.meteor/versions
+@@ -3,6 +3,8 @@ accounts-facebook@1.3.1
+ accounts-google@1.3.1
+ accounts-oauth@1.1.15
+ accounts-password@1.5.1
++accounts-ui@1.3.0
++accounts-ui-unstyled@1.4.0
+ alanning:roles@1.2.16
+ allow-deny@1.1.0
+ autoupdate@1.4.0
+@@ -39,6 +41,7 @@ facebook-config-ui@1.0.1
+ facebook-oauth@1.4.0
+ fortawesome:fontawesome@4.7.0
+ fourseven:scss@4.5.4
++gadicc:blaze-react-component@1.4.0
+ geojson-utils@1.0.10
+ google-config-ui@1.0.0
+ google-oauth@1.2.5
+@@ -49,6 +52,7 @@ http@1.4.0
+ id-map@1.1.0
+ jquery@1.11.11
+ launch-screen@1.1.1
++less@2.7.12
+ livedata@1.0.18
+ localstorage@1.2.0
+ logging@1.1.20
+@@ -87,14 +91,11 @@ sha@1.0.9
+ shell-server@0.3.1
+ shim-common@0.1.0
+ socket-stream-client@0.1.0
+-softwarerero:accounts-t9n@1.3.11
+ spacebars@1.0.15
+ spacebars-compiler@1.1.3
+ srp@1.0.10
+ standard-minifier-css@1.4.1
+ standard-minifier-js@2.3.2
+-std:accounts-bootstrap@1.2.0
+-std:accounts-ui@1.3.1
+ templating@1.3.2
+ templating-compiler@1.3.3
+ templating-runtime@1.3.2
+diff --git a/client/main.html b/client/main.html
+index e0d1e29..adf72f3 100644
+--- a/client/main.html
++++ b/client/main.html
+@@ -54,7 +54,7 @@
+ <script>
+   window.fbAsyncInit = function() {
+     FB.init({
+-      appId      : Meteor.settings.public.keys.facebookAuth.app_id,
++      appId      : Meteor.settings.public.keys.facebookOAuth.app_id,
+       xfbml      : true,
+       version    : 'v2.12'
+     });
+diff --git a/client/main.js b/client/main.js
+index e845302..2b00e9d 100644
+--- a/client/main.js
++++ b/client/main.js
+@@ -2,4 +2,6 @@ import React, { Component } from 'react';
+ import { Meteor } from 'meteor/meteor';
+ import { render } from 'react-dom';
+ 
+-import '../imports/client/index';
+\ No newline at end of file
++import '../imports/client/index';
++import '../imports/startup/client/config';
++import '../imports/startup/client/OKGAnalytics';
+\ No newline at end of file
+diff --git a/eslint.json b/eslint.json
+index f94da3c..c5c4c37 100644
+--- a/eslint.json
++++ b/eslint.json
+@@ -1,12 +1,473 @@
+ {
+-  "parser": "babel-eslint",
+   "env": {
+     "browser": true,
+     "node": true,
+     "es6": true
+   },
+-  "ecmaFeatures": {
+-    "modules": true,
+-    "jsx": true
++  "parser": "babel-eslint",  
++  "parserOptions": {
++    "ecmaVersion": 8,
++    "ecmaFeatures": {
++      "modules": true,
++      "experimentalObjectRestSpread": true,
++      "jsx": true
++    },
++    "sourceType": "module"
++  },
++
++  "plugins": [
++    "react"
++  ],
++
++  "extends": [
++    "standard-jsx",
++    "airbnb"
++  ],
++
++  "rules": {
++    "jsx-quotes": ["error", "prefer-double"],
++
++    "class-methods-use-this": ["error", {
++      "exceptMethods": [
++        "render",
++        "getInitialState",
++        "getDefaultProps",
++        "getChildContext",
++        "componentWillMount",
++        "componentDidMount",
++        "componentWillReceiveProps",
++        "shouldComponentUpdate",
++        "componentWillUpdate",
++        "componentDidUpdate",
++        "componentWillUnmount",
++        "componentDidCatch",
++      ],
++    }],
++
++    // Prevent missing displayName in a React component definition
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/display-name.md
++    "react/display-name": ["off", { "ignoreTranspilerName": false }],
++
++    // Forbid certain propTypes (any, array, object)
++    // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/forbid-prop-types.md
++    "react/forbid-prop-types": ["error", {
++      "forbid": ["any", "array", "object"],
++      "checkContextTypes": true,
++      "checkChildContextTypes": true,
++    }],
++
++    // Forbid certain props on DOM Nodes
++    // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/forbid-dom-props.md
++    "react/forbid-dom-props": ["off", { "forbid": [] }],
++
++    // Enforce boolean attributes notation in JSX
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md
++    "react/jsx-boolean-value": ["error", "never", { "always": [] }],
++
++    // Validate closing bracket location in JSX
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md
++    "react/jsx-closing-bracket-location": ["error", "line-aligned"],
++
++    // Validate closing tag location in JSX
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-tag-location.md
++    "react/jsx-closing-tag-location": "error",
++
++    // Enforce or disallow spaces inside of curly braces in JSX attributes
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md
++    "react/jsx-curly-spacing": ["error", "never", { "allowMultiline": true }],
++
++    // Enforce event handler naming conventions in JSX
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-handler-names.md
++    "react/jsx-handler-names": ["off", {
++      "eventHandlerPrefix": "handle",
++      "eventHandlerPropPrefix": "on",
++    }],
++
++    // Validate props indentation in JSX
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-indent-props.md
++    "react/jsx-indent-props": ["error", 2],
++
++    // Validate JSX has key prop when in array or iterator
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-key.md
++    "react/jsx-key": "off",
++
++    // Limit maximum of props on a single line in JSX
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-max-props-per-line.md
++    "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "multiline" }],
++
++    // Prevent usage of .bind() in JSX props
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md
++    "react/jsx-no-bind": ["error", {
++      "ignoreRefs": true,
++      "allowArrowFunctions": true,
++      "allowBind": false,
++    }],
++
++    // Prevent duplicate props in JSX
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-duplicate-props.md
++    "react/jsx-no-duplicate-props": ["error", { "ignoreCase": true }],
++
++    // Prevent usage of unwrapped JSX strings
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-literals.md
++    "react/jsx-no-literals": ["off", { "noStrings": true }],
++
++    // Disallow undeclared variables in JSX
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-undef.md
++    "react/jsx-no-undef": "error",
++
++    // Enforce PascalCase for user-defined JSX components
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md
++    "react/jsx-pascal-case": ["error", {
++      "allowAllCaps": true,
++      "ignore": [],
++    }],
++
++    // Enforce propTypes declarations alphabetical sorting
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/sort-prop-types.md
++    "react/sort-prop-types": ["off", {
++      "ignoreCase": true,
++      "callbacksLast": false,
++      "requiredFirst": false,
++      "sortShapeProp": true,
++    }],
++
++    // Deprecated in favor of react/jsx-sort-props
++    "react/jsx-sort-prop-types": "off",
++
++    // Enforce props alphabetical sorting
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-sort-props.md
++    "react/jsx-sort-props": ["off", {
++      "ignoreCase": true,
++      "callbacksLast": false,
++      "shorthandFirst": false,
++      "shorthandLast": false,
++      "noSortAlphabetically": false,
++      "reservedFirst": true,
++    }],
++
++    // Enforce defaultProps declarations alphabetical sorting
++    // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/jsx-sort-default-props.md
++    "react/jsx-sort-default-props": ["off", {
++      "ignoreCase": true,
++    }],
++
++    // Prevent React to be incorrectly marked as unused
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-uses-react.md
++    "react/jsx-uses-react": ["error"],
++
++    // Prevent variables used in JSX to be incorrectly marked as unused
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-uses-vars.md
++    "react/jsx-uses-vars": "error",
++
++    // Prevent usage of dangerous JSX properties
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-danger.md
++    "react/no-danger": "warn",
++
++    // Prevent usage of deprecated methods
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-deprecated.md
++    "react/no-deprecated": ["error"],
++
++    // Prevent usage of setState in componentDidMount
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-did-mount-set-state.md
++    // this is necessary for server-rendering
++    "react/no-did-mount-set-state": "off",
++
++    // Prevent usage of setState in componentDidUpdate
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-did-update-set-state.md
++    "react/no-did-update-set-state": "error",
++
++    // Prevent usage of setState in componentWillUpdate
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-will-update-set-state.md
++    "react/no-will-update-set-state": "error",
++
++    // Prevent direct mutation of this.state
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-direct-mutation-state.md
++    "react/no-direct-mutation-state": "off",
++
++    // Prevent usage of isMounted
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md
++    "react/no-is-mounted": "error",
++
++    // Prevent multiple component definition per file
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md
++    "react/no-multi-comp": ["error", { "ignoreStateless": true }],
++
++    // Prevent usage of setState
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-set-state.md
++    "react/no-set-state": "off",
++
++    // Prevent using string references
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md
++    "react/no-string-refs": "error",
++
++    // Prevent usage of unknown DOM property
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-unknown-property.md
++    "react/no-unknown-property": "error",
++
++    // Require ES6 class declarations over React.createClass
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-es6-class.md
++    "react/prefer-es6-class": ["error", "always"],
++
++    // Require stateless functions when not using lifecycle methods, setState or ref
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md
++    "react/prefer-stateless-function": ["error", { "ignorePureComponents": true }],
++
++    // Prevent missing props validation in a React component definition
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md
++    "react/prop-types": ["error", {
++      "ignore": [],
++      "customValidators": [],
++      "skipUndeclared": false
++    }],
++
++    // Prevent missing React when using JSX
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/react-in-jsx-scope.md
++    "react/react-in-jsx-scope": "error",
++
++    // Require render() methods to return something
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-render-return.md
++    "react/require-render-return": "error",
++
++    // Prevent extra closing tags for components without children
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md
++    "react/self-closing-comp": "error",
++
++    // Enforce component methods order
++    // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/sort-comp.md
++    "react/sort-comp": ["error", {
++      "order": [
++        "static-methods",
++        "instance-variables",
++        "lifecycle",
++        "/^on.+$/",
++        "getters",
++        "setters",
++        "/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/",
++        "instance-methods",
++        "everything-else",
++        "rendering",
++      ],
++      "groups": {
++        "lifecycle": [
++          "displayName",
++          "propTypes",
++          "contextTypes",
++          "childContextTypes",
++          "mixins",
++          "statics",
++          "defaultProps",
++          "constructor",
++          "getDefaultProps",
++          "getInitialState",
++          "state",
++          "getChildContext",
++          "componentWillMount",
++          "componentDidMount",
++          "componentWillReceiveProps",
++          "shouldComponentUpdate",
++          "componentWillUpdate",
++          "componentDidUpdate",
++          "componentWillUnmount",
++        ],
++        "rendering": [
++          "/^render.+$/",
++          "render"
++        ],
++      },
++    }],
++
++    // Prevent missing parentheses around multilines JSX
++    // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/jsx-wrap-multilines.md
++    "react/jsx-wrap-multilines": ["error", {
++      "declaration": "parens-new-line",
++      "assignment": "parens-new-line",
++      "return": "parens-new-line",
++      "arrow": "parens-new-line",
++      "condition": "parens-new-line",
++      "logical": "parens-new-line",
++      "prop": "parens-new-line",
++    }],
++
++    // Require that the first prop in a JSX element be on a new line when the element is multiline
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-first-prop-new-line.md
++    "react/jsx-first-prop-new-line": ["error", "multiline-multiprop"],
++
++    // Enforce spacing around jsx equals signs
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-equals-spacing.md
++    "react/jsx-equals-spacing": ["error", "never"],
++
++    // Enforce JSX indentation
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-indent.md
++    "react/jsx-indent": ["error", 2],
++
++    // Disallow target="_blank" on links
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-target-blank.md
++    "react/jsx-no-target-blank": "error",
++
++    // only .jsx files may have JSX
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
++    "react/jsx-filename-extension": ["error", { "extensions": [".jsx"] }],
++
++    // prevent accidental JS comments from being injected into JSX as text
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-comment-textnodes.md
++    "react/jsx-no-comment-textnodes": "error",
++
++    // disallow using React.render/ReactDOM.render"s return value
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-render-return-value.md
++    "react/no-render-return-value": "error",
++
++    // require a shouldComponentUpdate method, or PureRenderMixin
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-optimization.md
++    "react/require-optimization": ["off", { "allowDecorators": [] }],
++
++    // warn against using findDOMNode()
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-find-dom-node.md
++    "react/no-find-dom-node": "error",
++
++    // Forbid certain props on Components
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-component-props.md
++    "react/forbid-component-props": ["off", { "forbid": [] }],
++
++    // Forbid certain elements
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-elements.md
++    "react/forbid-elements": ["off", { "forbid": [], }],
++
++    // Prevent problem with children and props.dangerouslySetInnerHTML
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-danger-with-children.md
++    "react/no-danger-with-children": "error",
++
++    // Prevent unused propType definitions
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-unused-prop-types.md
++    "react/no-unused-prop-types": ["error", {
++      "customValidators": [
++      ],
++      "skipShapeProps": true,
++    }],
++
++    // Require style prop value be an object or var
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/style-prop-object.md
++    "react/style-prop-object": "error",
++
++    // Prevent invalid characters from appearing in markup
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-unescaped-entities.md
++    "react/no-unescaped-entities": "error",
++
++    // Prevent passing of children as props
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-children-prop.md
++    "react/no-children-prop": "error",
++
++    // Validate whitespace in and around the JSX opening and closing brackets
++    // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/jsx-tag-spacing.md
++    "react/jsx-tag-spacing": ["error", {
++      "closingSlash": "never",
++      "beforeSelfClosing": "always",
++      "afterOpening": "never",
++      "beforeClosing": "never",
++    }],
++
++    // Enforce spaces before the closing bracket of self-closing JSX elements
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-space-before-closing.md
++    // Deprecated in favor of jsx-tag-spacing
++    "react/jsx-space-before-closing": ["off", "always"],
++
++    // Prevent usage of Array index in keys
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-array-index-key.md
++    "react/no-array-index-key": "error",
++
++    // Enforce a defaultProps definition for every prop that is not a required prop
++    // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/require-default-props.md
++    "react/require-default-props": ["error", {
++      "forbidDefaultForRequired": true,
++    }],
++
++    // Forbids using non-exported propTypes
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-foreign-prop-types.md
++    // TODO: enable?
++    "react/forbid-foreign-prop-types": ["off", { "allowInPropTypes": true }],
++
++    // Prevent void DOM elements from receiving children
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/void-dom-elements-no-children.md
++    "react/void-dom-elements-no-children": "error",
++
++    // Enforce all defaultProps have a corresponding non-required PropType
++    // https://github.com/yannickcr/eslint-plugin-react/blob/9e13ae2c51e44872b45cc15bf1ac3a72105bdd0e/docs/rules/default-props-match-prop-types.md
++    "react/default-props-match-prop-types": ["error", { "allowRequiredDefaults": false }],
++
++    // Prevent usage of shouldComponentUpdate when extending React.PureComponent
++    // https://github.com/yannickcr/eslint-plugin-react/blob/9e13ae2c51e44872b45cc15bf1ac3a72105bdd0e/docs/rules/no-redundant-should-component-update.md
++    "react/no-redundant-should-component-update": "error",
++
++    // Prevent unused state values
++    // https://github.com/yannickcr/eslint-plugin-react/pull/1103/
++    "react/no-unused-state": "error",
++
++    // Enforces consistent naming for boolean props
++    // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/boolean-prop-naming.md
++    "react/boolean-prop-naming": ["off", {
++      "propTypeNames": ["bool", "mutuallyExclusiveTrueProps"],
++      "rule": "^(is|has)[A-Z]([A-Za-z0-9]?)+",
++      "message": "",
++    }],
++
++    // Prevents common casing typos
++    // https://github.com/yannickcr/eslint-plugin-react/blob/73abadb697034b5ccb514d79fb4689836fe61f91/docs/rules/no-typos.md
++    "react/no-typos": "error",
++
++    // Enforce curly braces or disallow unnecessary curly braces in JSX props and/or children
++    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-brace-presence.md
++    "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never" }],
++
++    // One JSX Element Per Line
++    // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/jsx-one-expression-per-line.md
++    "react/jsx-one-expression-per-line": "error",
++
++    // Enforce consistent usage of destructuring assignment of props, state, and context
++    // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/destructuring-assignment.md
++    "react/destructuring-assignment": ["error", "always"],
++
++    // Prevent using this.state within a this.setState
++    // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/no-access-state-in-setstate.md
++    "react/no-access-state-in-setstate": "error",
++
++    // Prevent usage of button elements without an explicit type attribute
++    // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/button-has-type.md
++    "react/button-has-type": ["error", {
++      "button": true,
++      "submit": true,
++      "reset": false,
++    }],
++
++    // Ensures inline tags are not rendered without spaces between them
++    "react/jsx-child-element-spacing": "off",
++
++    // Prevent this from being used in stateless functional components
++    // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/no-this-in-sfc.md
++    "react/no-this-in-sfc": "error",
++
++    // Validate JSX maximum depth
++    // https://github.com/yannickcr/eslint-plugin-react/blob/abe8381c0d6748047224c430ce47f02e40160ed0/docs/rules/jsx-max-depth.md
++    "react/jsx-max-depth": "off",
++    "react/jsx-no-bind": ["error", {
++      "allowArrowFunctions": true,
++      "allowBind": false,
++      "ignoreRefs": true
++    }],
++  },
++  "settings": {
++    "import/resolver": {
++      "node": {
++        "extensions": [".js", ".jsx", ".json"]
++      }
++    },
++    "react": {
++      "pragma": "React",
++      "version": "16.0"
++    },
++    "propWrapperFunctions": [
++      "forbidExtraProps", // https://www.npmjs.com/package/airbnb-prop-types
++      "exact", // https://www.npmjs.com/package/prop-types-exact
++      "Object.freeze", // https://tc39.github.io/ecma262/#sec-object.freeze
++    ],
+   }
+-}
+\ No newline at end of file
++}
++  
+\ No newline at end of file
+diff --git a/imports/client/AccountsUIWrapper.js b/imports/client/AccountsUIWrapper.js
+new file mode 100644
+index 0000000..e94905d
+--- /dev/null
++++ b/imports/client/AccountsUIWrapper.js
+@@ -0,0 +1,24 @@
++import React, { Component } from 'react';
++import ReactDOM from 'react-dom';
++import { Template } from 'meteor/templating';
++import { Blaze } from 'meteor/blaze';
++
++export default class AccountsUIWrapper extends Component {
++  componentDidMount() {
++    // Use Meteor Blaze to render login buttons
++    this.view = Blaze.render(Template.loginButtons,
++      ReactDOM.findDOMNode(this.refs.container));
++  }
++  componentWillUnmount() {
++    // Clean up Blaze view
++    Blaze.remove(this.view);
++  }
++  render() {
++    // Just render a placeholder container that will be filled in
++    return (
++      <div>
++        <span ref="container" />
++      </div>
++    )
++  }
++}
+\ No newline at end of file
+diff --git a/imports/client/FacebookButton.js b/imports/client/FacebookButton.js
+new file mode 100644
+index 0000000..8e383b4
+--- /dev/null
++++ b/imports/client/FacebookButton.js
+@@ -0,0 +1,36 @@
++import React from 'react';
++import { withHistory, Link } from 'react-router-dom'
++import { FacebookLogin } from 'react-facebook-login-component';
++
++class FacebookButton extends React.Component {
++
++    constructor(props, context) {
++        super(props, context);
++    }
++
++    responseFacebook(response) {
++        console.log(response);
++        
++    }
++
++    render() {
++        const app_id = Meteor.settings.public.keys.facebookOAuth.app_id;
++
++        return (
++            <div>
++                <FacebookLogin socialId={app_id}
++                    language="en_US"
++                    scope="public_profile,email"
++                    responseHandler={this.responseFacebook}
++                    xfbml={true}
++                    fields="id, email,first_name,last_name,name,picture"
++                    version="v2.5"
++                    className="facebook-login"
++                    buttonText="Login With Facebook" />
++            </div>
++        );
++    }
++
++}
++
++export default FacebookButton;
+\ No newline at end of file
+diff --git a/imports/client/FacebookButton2.js b/imports/client/FacebookButton2.js
+new file mode 100644
+index 0000000..a576875
+--- /dev/null
++++ b/imports/client/FacebookButton2.js
+@@ -0,0 +1,33 @@
++import React, { Component } from 'react'
++ 
++import SocialButton from './SocialButton'
++ 
++const handleSocialLogin = (user) => {
++  console.log(user.profile)
++  //check if email exists, if so merge and login
++  // if not exist, create new user and login
++}
++ 
++const handleSocialLoginFailure = (err) => {
++  console.error(err)
++}
++
++const app_id = Meteor.settings.public.keys.facebookOAuth.app_id;
++
++class FacebookButton2 extends Component {
++  render() {
++    return (
++        <SocialButton
++          provider="facebook"
++          appId={app_id}
++          redirect="https://www.pakke.us/login"
++          onLoginSuccess={handleSocialLogin}
++          onLoginFailure={handleSocialLoginFailure}
++        >
++          Login with Facebook
++        </SocialButton>
++            )
++  }
++};
++
++export default FacebookButton2;
+\ No newline at end of file
+diff --git a/imports/client/Header.js b/imports/client/Header.js
+index 50f5e1a..8eab620 100644
+--- a/imports/client/Header.js
++++ b/imports/client/Header.js
+@@ -2,6 +2,11 @@ import React, { Component } from 'react';
+ import { Link } from 'react-router-dom';
+ import { withTracker } from 'meteor/react-meteor-data';
+ 
++import AccountsUIWrapper from './AccountsUIWrapper';
++import FacebookButton from './FacebookButton';
++import FacebookButton2 from './FacebookButton2';
++
++
+ class Header extends Component {
+     logOut() {
+         Meteor.logout(Bert.alert("You Are Now Logged Out", "success"))
+@@ -22,17 +27,18 @@ class Header extends Component {
+                         </div>
+                     </div>
+                     <div className="header-links-right">
+-                        <div className='dropdown'>
+-                            <span className="caret"></span>
+-                            <img data-toggle="dropdown" className="icon dropdown-toggle" src='/logo.jpg' />
++                        <li><AccountsUIWrapper /></li>
+ 
+-                            <ul className="dropdown-menu dropdown-menu-right">
+-                                <li><Link to='/profile'><h5>Profile</h5></Link></li>
+-                                <li><Link to='/'><h5>Events</h5></Link></li>                                
+-                                <li><Link to='/' onClick={this.logOut}><h5>Logout</h5></Link></li>
++                        {/* <div className='dropdown'> */}
++                        {/* <span className="caret"></span> */}
++                        {/* <img data-toggle="dropdown" className="icon dropdown-toggle" src='/logo.jpg' /> */}
+ 
+-                            </ul>
+-                        </div>
++                        {/* <ul className="dropdown-menu dropdown-menu-right"> */}
++                        {/* <li><Link to='/profile'><h5>Profile</h5></Link></li> */}
++                        {/* <li><Link to='/'><h5>Events</h5></Link></li>                                 */}
++                        {/* <li><Link to='/' onClick={this.logOut}><h5>Logout</h5></Link></li> */}
++
++                        {/* </ul> */}
+                     </div>
+                 </div>
+             )
+@@ -49,13 +55,12 @@ class Header extends Component {
+                                 <li><Link to='/'><h5>Home</h5></Link></li>
+                                 <li><Link to='/about'><h5>About</h5></Link></li>
+                                 <li><Link to='/host'><h5>Become Host</h5></Link></li>
+-                                <li><Link to='/login'><h5>Login</h5></Link></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div className="header-links-right">
+                         <ul>
+-                            <li><Link to='/login'><h5>Login</h5></Link></li>
++                            <li><AccountsUIWrapper /></li>
+                         </ul>
+                     </div>
+                 </div>
+diff --git a/imports/client/PageLogin.js b/imports/client/PageLogin.js
+index 2302490..296312f 100644
+--- a/imports/client/PageLogin.js
++++ b/imports/client/PageLogin.js
+@@ -1,7 +1,6 @@
+ import React, { Component } from 'react'
+ import { withHistory, Link } from 'react-router-dom'
+-// import { Accounts } from 'meteor/std:accounts-ui';
+-import PageLoginSocial from './PageLoginSocial'
++import FacebookButton2 from './FacebookButton2'
+ 
+ 
+ class PageLogin extends Component {
+@@ -45,7 +44,7 @@ class PageLogin extends Component {
+                                 {error.length > 0 ?
+                                     <div className="alert alert-danger fade in">{error}</div>
+                                     : ''}
+-                                    <div id="testDiv">  <PageLoginSocial /> </div>
++                                    <div id="testDiv">  <FacebookButton2 /> </div>
+                                 <form id="login-form"
+                                     className="form col-md-12 center-block"
+                                     onSubmit={this.handleSubmit}>
+diff --git a/imports/client/PageProfile.js b/imports/client/PageProfile.js
+index df891c4..5908592 100644
+--- a/imports/client/PageProfile.js
++++ b/imports/client/PageProfile.js
+@@ -4,6 +4,8 @@ import { withTracker } from 'meteor/react-meteor-data';
+ import EventForm from './EventForm';
+ import Events from '../startup/collections/events';
+ import Event from './Event';
++import TabGuest from './TabGuest';
++import TabHost from './TabHost';
+ 
+ 
+ 
+@@ -18,6 +20,7 @@ class PageProfile extends Component {
+ 
+   render() {
+ 
++
+     const showEventForm = Roles.userIsInRole(Meteor.userId(), 'Host') ? (
+       <EventForm />
+     ) : <button onClick={this.addHostRole.bind(this)}>Become Host</button>;
+@@ -25,21 +28,31 @@ class PageProfile extends Component {
+     if (!this.props.ready) {
+       return <div>Loading</div>;
+     } else {
++
+       return (
+         <div>
+           {/* <h1>{this.props.currentUser}</h1> */}
+           <h1>This is Your Profile Page</h1>
+-          <p>Name:</p>
++          <p>Name: {this.props.currentUser.username}</p>
++
+ 
+-          <h2>See Events Attending here</h2>
+-          <main>
+-            {this.props.eventsFromCollection.map((event) => {
+-              return <Event event={event} key={event._id} />
+-            })} 
+-          </main>
++          <ul className="nav nav-tabs">
++            <li className="active"><a data-toggle="tab" href="#home">Guest</a></li>
++            <li><a data-toggle="tab" href="#menu1">Host</a></li>
++            <li><a data-toggle="tab" href="#menu2">Talent</a></li>
++          </ul>
+ 
+-          <h2>Add Event Here</h2>
+-          {showEventForm}
++          <div className="tab-content">
++            <div id="home" className="tab-pane fade in active">
++              <TabGuest />
++            </div>
++            <div id="menu1" className="tab-pane fade">
++              <TabHost />
++            </div>
++            <div id="menu2" className="tab-pane fade">
++              <p>Some content in menu 2.</p>
++            </div>
++          </div>
+         </div>
+       )
+     }
+@@ -52,7 +65,8 @@ export default withTracker(() => {
+   let userSub = Meteor.subscribe('currentUser');
+   return {
+     ready: eventsSub.ready() && userSub.ready(),
+-    currentUser: Meteor.userId(),
++    currentUserId: Meteor.userId(),
++    currentUser: Meteor.user(),
+     allEvents: Events.find({}, {}).fetch(),
+     eventsFromCollection: Events.find({
+       attendees: { $in: [Meteor.userId()] }
+diff --git a/imports/client/ProfileTabs.js b/imports/client/ProfileTabs.js
+deleted file mode 100644
+index aa6c97b..0000000
+--- a/imports/client/ProfileTabs.js
++++ /dev/null
+@@ -1,22 +0,0 @@
+-import React, { Component } from 'react';
+-import Tabs from './Tabs';
+-import TabContent from './TabContent';
+-
+-export class ProfileTabs extends Component {
+-  getInitialState() {
+-    return {
+-      activeTab: tabData[0]
+-    }
+-  }, 
+-  handleClick(tab) {
+-    this.setState({activeTab: tab});
+-  },
+-  render() {
+-    return (
+-      <div>
+-        <Tabs activeTab={this.state.activeTab} changeTab={this.handleClick} />
+-        <TabContent activeTab={this.state.activeTab} />
+-      </div>
+-    );
+-  }
+-};
+diff --git a/imports/client/Router.js b/imports/client/Router.js
+index 9a04332..d3acb62 100644
+--- a/imports/client/Router.js
++++ b/imports/client/Router.js
+@@ -1,6 +1,5 @@
+ import React, { Component } from 'react';
+ import { Switch, Route } from 'react-router-dom';
+-import { Accounts } from 'meteor/std:accounts-bootstrap';
+ 
+ import PageHome from './PageHome';
+ import PageAbout from './PageAbout';
+@@ -12,6 +11,7 @@ import PageSignUp from './PageSignUp';
+ import PageError from './PageError';
+ import BecomeHost from './BecomeHost';
+ import BecomeTalent from './BecomeTalent';
++import TestLogin from './TestLogin';
+ 
+ 
+ import EventForm from './EventForm2';
+@@ -31,7 +31,7 @@ class Router extends Component {
+             <Route path='/signup' component={PageSignUp} />
+             <Route path='/host' component={BecomeHost} />
+             <Route path='/talent' component={BecomeTalent} />
+-            <Route path='/test' component={ PageTest } />
++            <Route path='/test' component={ TestLogin } />
+             <Route component={PageError} />
+ 
+         </Switch>
+diff --git a/imports/client/Tab.js b/imports/client/Tab.js
+deleted file mode 100644
+index c6e609b..0000000
+--- a/imports/client/Tab.js
++++ /dev/null
+@@ -1,11 +0,0 @@
+-import React, { Component } from 'react';
+-
+-export class Tab extends Component {
+-  render() {
+-    return (
+-      <li onClick={this.props.handleClick} className={this.props.isActive ? "active" : null}>
+-        <a href="#">{this.props.data.name}</a>
+-      </li>
+-    );
+-  }
+-};
+diff --git a/imports/client/TabContent.js b/imports/client/TabContent.js
+deleted file mode 100644
+index 2aeb3a7..0000000
+--- a/imports/client/TabContent.js
++++ /dev/null
+@@ -1,33 +0,0 @@
+-import React, { Component } from 'react';
+-
+-
+-
+-export class TabContent extends Component {
+-  render() {
+-    return (
+-      <div>
+-        {this.props.activeTab.name === 'Tab 1' ? 
+-        <section className="panel panel-success">
+-          <h2 className="panel-heading">Content 1</h2>
+-          <p className="panel-body">Bacon ham hock kevin boudin rump leberkas. Spare ribs kielbasa shankle hamburger tongue jerky pork chop bresaola. Shoulder pork belly short loin strip steak prosciutto frankfurter. Beef kevin t-bone venison pork belly meatball chuck short loin bresaola doner picanha. Cupim short ribs short loin brisket bacon rump porchetta venison t-bone drumstick pork chop hamburger meatball. Pork loin frankfurter shankle pork picanha pastrami. Pork loin pancetta venison short loin frankfurter.</p>
+-          <p className="panel-body">Shoulder doner swine ball tip venison porchetta. Capicola beef meatball, tri-tip strip steak kevin jowl cupim venison. Tongue fatback ribeye leberkas biltong t-bone. Pancetta frankfurter meatloaf, pig t-bone picanha ham fatback chicken drumstick short loin cupim short ribs cow. Beef short ribs ribeye meatball filet mignon andouille frankfurter swine turducken bresaola spare ribs cupim picanha cow. Drumstick tenderloin ham hock shoulder ground round, beef strip steak flank. Salami rump beef ground round.</p>
+-         </section>
+-        :null} 
+-        {this.props.activeTab.name === 'Tab 2' ? 
+-        <section className="panel panel-warning">
+-          <h2 className="panel-heading">Content 2</h2>
+-          <p className="panel-body">Atlantic herring jellynose fish Siamese fighting fish pollock: cobbler snakehead sea raven! Freshwater shark sergeant major clingfish sweeper galjoen fish mudfish longjaw mudsucker. Death Valley pupfish pomfret electric ray zingel African glass catfish squawfish yellowtail snapper grunt sculpin.</p>
+-          <p className="panel-body">Pike ribbon sawtail fish common tunny, yellowfin grouper pearl perch mooneye three-toothed puffer Bengal danio. Black sea bass turbot, "madtom swallower northern anchovy Red whalefish; Redhorse sucker." Filefish yellow jack Japanese eel longfin smelt stargazer saury yellow weaver flounder white croaker pink salmon. Pacific herring, whiff pink salmon jack wallago! Yellow jack alfonsino pike chubsucker, yellowtail collared dogfish rivuline tailor eelblenny silver carp; smalltooth sawfish--sea chub powen giant gourami. Inconnu false trevally pompano, half-gill roundhead black dragonfish damselfish: king of herring.</p>
+-        </section>
+-        :null} 
+-        {this.props.activeTab.name === 'Tab 3' ? 
+-        <section className="panel panel-danger">
+-          <h2 className="panel-heading">Content 3</h2>
+-          <p className="panel-body">Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish spinach carrot soko. Lotus root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea. Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress. Corn amaranth salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke.</p>
+-          <p className="panel-body">Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnut broccoli arugula.</p>
+-        </section>
+-        :null} 
+-      </div>
+-    );
+-  }
+-};
+diff --git a/imports/client/TabGuest.js b/imports/client/TabGuest.js
+new file mode 100644
+index 0000000..cac770c
+--- /dev/null
++++ b/imports/client/TabGuest.js
+@@ -0,0 +1,42 @@
++
++import React, { Component } from 'react';
++import { withTracker } from 'meteor/react-meteor-data';
++
++import EventForm from './EventForm';
++import Events from '../startup/collections/events';
++import Event from './Event';
++
++
++
++class TabGuest extends Component {
++
++  render() {
++
++      return (
++        <div>
++          <h2>See Events Attending here</h2>
++          <main>
++            {this.props.eventsFromCollection.map((event) => {
++              return <Event event={event} key={event._id} />
++            })}
++          </main>
++        </div>
++      )
++    }
++  }
++
++
++export default withTracker(() => {
++  let eventsSub = Meteor.subscribe('events_current');
++  let userSub = Meteor.subscribe('currentUser');
++  return {
++    ready: eventsSub.ready() && userSub.ready(),
++    currentUserId: Meteor.userId(),
++    currentUser: Meteor.user(),
++    allEvents: Events.find({}, {}).fetch(),
++    eventsFromCollection: Events.find({
++      attendees: { $in: [Meteor.userId()] }
++    }).fetch(),
++  };
++})(TabGuest);
++
+diff --git a/imports/client/TabHost.js b/imports/client/TabHost.js
+new file mode 100644
+index 0000000..f8fd16b
+--- /dev/null
++++ b/imports/client/TabHost.js
+@@ -0,0 +1,54 @@
++import React, { Component } from 'react';
++import { withTracker } from 'meteor/react-meteor-data';
++
++import EventForm from './EventForm';
++import Events from '../startup/collections/events';
++import Event from './Event';
++
++
++
++class TabHost extends Component {
++
++  addHostRole() {
++    Meteor.call('addHostRole');
++    // Bert.alert("You are now a Host!", "success");
++
++  }
++
++
++  render() {
++
++
++    const showEventForm = Roles.userIsInRole(Meteor.userId(), 'Host') ? (
++      <EventForm />
++    ) : <button onClick={this.addHostRole.bind(this)}>Become Host</button>;
++
++    if (!this.props.ready) {
++      return <div>Loading</div>;
++    } else {
++
++      return (
++        
++        <div>
++          <h2>You are currently not a host</h2>
++          {showEventForm}
++        </div>
++      )
++    }
++  }
++}
++
++
++export default withTracker(() => {
++  let eventsSub = Meteor.subscribe('events_current');
++  let userSub = Meteor.subscribe('currentUser');
++  return {
++    ready: eventsSub.ready() && userSub.ready(),
++    currentUserId: Meteor.userId(),
++    currentUser: Meteor.user(),
++    allEvents: Events.find({}, {}).fetch(),
++    eventsFromCollection: Events.find({
++      attendees: { $in: [Meteor.userId()] }
++    }).fetch(),
++  };
++})(TabHost);
+\ No newline at end of file
+diff --git a/imports/client/Tabs.js b/imports/client/Tabs.js
+deleted file mode 100644
+index 50d06c7..0000000
+--- a/imports/client/Tabs.js
++++ /dev/null
+@@ -1,21 +0,0 @@
+-import React, { Component } from 'react';
+-
+-const tabData = [
+-  { name: 'Tab 1', isActive: true },
+-  { name: 'Tab 2', isActive: false },
+-  { name: 'Tab 3', isActive: false }
+-];
+-
+-export class Tabs extends Component {
+-  render() {
+-    return (
+-      <ul className="nav nav-tabs">
+-        {tabData.map(function(tab){
+-          return (
+-            <Tab data={tab} isActive={this.props.activeTab === tab} handleClick={this.props.changeTab.bind(this,tab)} />
+-          );
+-        }.bind(this))}      
+-      </ul>
+-    );
+-  }
+-}
+\ No newline at end of file
+diff --git a/imports/client/PageLoginSocial.js b/imports/client/TestLogin.js
+similarity index 87%
+rename from imports/client/PageLoginSocial.js
+rename to imports/client/TestLogin.js
+index dadc51a..01f9bf5 100644
+--- a/imports/client/PageLoginSocial.js
++++ b/imports/client/TestLogin.js
+@@ -12,7 +12,7 @@ const handleSocialLoginFailure = (err) => {
+   console.error(err)
+ }
+ 
+-const app_id = Meteor.settings.public.keys.facebookAuth.app_id;
++const app_id = Meteor.settings.public.keys.facebookOAuth.app_id;
+ 
+ class PageLoginSocial extends Component {
+   render() {
+diff --git a/imports/client/index.js b/imports/client/index.js
+index b060a57..5bbbe1c 100644
+--- a/imports/client/index.js
++++ b/imports/client/index.js
+@@ -16,7 +16,7 @@ Meteor.startup(() => {
+   //=====  GoogleMaps load =====  
+   GoogleMaps.load({
+     v: '3',
+-    key: Meteor.settings.public.keys.googleClient.key,
++    key: Meteor.settings.public.keys.googleAPI.key,
+     libraries: ['places', 'geometry']
+   });
+ 
+diff --git a/imports/startup/client/OKGAnalytics.js b/imports/startup/client/OKGAnalytics.js
+index 19efce1..d44d05c 100644
+--- a/imports/startup/client/OKGAnalytics.js
++++ b/imports/startup/client/OKGAnalytics.js
+@@ -1,5 +1,5 @@
+ import { initAnalytics } from '@okgrow/auto-analytics';
+-import analytics from 'lib/analytics/analytics.min.js';
++import analytics from '../../../lib/analytics/analytics.min.js';
+ 
+ 
+ // Add your analytics integrations and their tracking ids + config options here.
+diff --git a/imports/startup/client/config.js b/imports/startup/client/config.js
+new file mode 100644
+index 0000000..471927c
+--- /dev/null
++++ b/imports/startup/client/config.js
+@@ -0,0 +1,25 @@
++import { Accounts } from 'meteor/accounts-base';
++
++Accounts.ui.config({
++  requestPermissions: {
++    facebook: ["user_birthday", "user_location", "user_education_history", "user_work_history", "user_actions.music"],
++    google: [
++    "https://www.googleapis.com/auth/userinfo.profile", 
++    "https://www.googleapis.com/auth/user.addresses.read", 
++    "https://www.googleapis.com/auth/user.birthday.read", 
++    "https://www.googleapis.com/auth/user.phonenumbers.read"
++    ]
++  },
++  requestOfflineToken: {
++    google: true
++  },
++  passwordSignupFields: 'EMAIL_ONLY'
++});
++
++Accounts.onLoginFailure(function(Error) {
++  console.log("LoginFail!");
++  console.log(Error);
++});
++
++// Facebook: http://developers.facebook.com/docs/authentication/permissions/
++// Google: https://developers.google.com/identity/protocols/googlescopes
+\ No newline at end of file
+diff --git a/imports/startup/collections/events.js b/imports/startup/collections/events.js
+index 9794722..d6e2db8 100644
+--- a/imports/startup/collections/events.js
++++ b/imports/startup/collections/events.js
+@@ -2,48 +2,53 @@ import './schemas.js';
+ 
+ Events = new Mongo.Collection('events');
+ 
+-if ( Meteor.isServer ) {
++if (Meteor.isServer) {
+   // ALLOW FOR SORTING (?) 
+-  Events._ensureIndex( { date: 1 } );
++  Events._ensureIndex( { lastUpdated: 1 } );
+ 
+-  Meteor.publish('allEvents', function () {
+-        return Events.find({}, {
+-            limit: 50,
+-            sort: { lastUpdated: 1 }
+-        });
+-    });
+ 
+-Meteor.publish('events_current', function () {
+-    const cursor = Events.find({
+-      $and: [
+-        {"eventAddress.coords": { $exists : 1 }}
+-      ]
+-    });
++  Meteor.publish('events_current', function () {
++      const cursor = Events.find({
++        $and: [
++          {"eventAddress.coords": { $exists : 1 }}
++        ]
++      },
++      {
++        sort: { lastUpdated: 1 }
++      });
+ 
+-  console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] CURRENT EVENTS WITH LOCATIONS =-");
+-  return cursor;
+-});
++    console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] CURRENT EVENTS WITH LOCATIONS =-");
++    return cursor;
++  });
+ 
+-Meteor.publish('events_retired', function () {
+-  let cursor = Events.find({
+-    retired: true, 
++  Meteor.publish('events_retired', function () {
++    let cursor = Events.find({
++      retired: true, 
++    });
++    console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] RETIRED EVENTS =-");
++    return cursor;
+   });
+-  console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] RETIRED EVENTS =-");
+-  return cursor;
+-});
+ 
+-Meteor.publish('event.host', function (id) {
+-  //event id = id
+-  //find host id , find and return one host document.
+-  const hostId = Events.findOne({_id: id}).hostID;
+-  let cursor = Meteor.users.find({
+-    _id: hostId, 
++  Meteor.publish('event', function (id) {
++    let cursor = Events.findOne({
++      _id: id
++    });
++    return cursor;
++  });
++
++  Meteor.publish('event.host', function (id) {
++    //event id = id
++    //find host id , find and return one host document.
++    const hostId = Events.findOne({_id: id}).hostID;
++    let cursor = Meteor.users.find({
++      _id: hostId, 
++    });
++    console.log(`-= PUBLISHING: HOST OF [${id}] EVENT =-`);
++    return cursor;
+   });
+-  console.log(`-= PUBLISHING: HOST OF [${id}] EVENT =-`);
+-  return cursor;
+-});
+ 
+ }
++
+ // Events.attachSchema(Schema.Event);
+ 
+ Events.allow({
+diff --git a/imports/startup/server/accounts.js b/imports/startup/server/accounts.js
+deleted file mode 100644
+index 90d3fc5..0000000
+--- a/imports/startup/server/accounts.js
++++ /dev/null
+@@ -1,52 +0,0 @@
+-import { Accounts } from 'meteor/std:accounts-ui';
+-
+-// Options.set('forbidClientAccountCreation', false);
+-
+-
+-Accounts.config({
+-  sendVerificationEmail: true,
+-  forbidClientAccountCreation: false
+-});
+-
+-Accounts.ui.config({
+-  loginPath: '/login2',
+-  signUpPath: '/signup2',
+-  resetPasswordPath: '/reset-password',
+-  profilePath: '/profile2',
+-  minimumPasswordLength: 6,
+-  requestOfflineToken: {
+-    google: true
+-  },
+-  passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'
+-});
+-
+-Accounts.onCreateUser(function(options, user) {
+-  //CREATE NEW MYUSER OBJECT AND COPY ALL DEFAULT ATTRIBUTS TO IT
+-  const myUser = Object.assign({}, user);
+-
+-  if (options.profile) {
+-    myUser.profile = options.profile;
+-  }
+-  // console.log(user);
+-
+-  //CHECK & MERGE FACEBOOK INFO
+-  if (user.services.facebook) {
+-    console.log(user.services.facebook);
+-    myUser.username = user.services.facebook.name;
+-    myUser.emails = [{address: user.services.facebook.email, verified: true}];
+-    myUser.avatar = `https://graph.facebook.com/${user.services.facebook.id}/picture/?type=small`;
+-
+-  }
+-  //CHECK & MERGE GOOGLE INFO
+-  if (user.services.google) {
+-    console.log(user.services.google);
+-    myUser.username = user.services.google.name;
+-    myUser.emails = [{address: user.services.google.email, verified: true}];
+-    myUser.avatar = user.services.google.picture;
+-
+-  }
+-  console.log(myUser);
+-  //CHECK FOR SPECIFIC EMAILS & MAKE ADMINS
+-
+-  return myUser;
+-});
+\ No newline at end of file
+diff --git a/imports/startup/server/admin.js b/imports/startup/server/admin.js
+deleted file mode 100644
+index 764e16c..0000000
+--- a/imports/startup/server/admin.js
++++ /dev/null
+@@ -1,73 +0,0 @@
+-import { Meteor } from 'meteor/meteor';
+-
+-//check for settings file
+-console.log("-= Settings: Checking... =-");
+-if (!Meteor.settings.public.keys) {
+-    console.log("--------------= SETTINGS FAILED. (USE 'NPM RUN' INSTEAD OF 'METEOR' AT COMMAND LINE) =--------------");
+-} else {console.log ("-= Settings: Loaded =-");}
+-
+-if (Meteor.users.find().count() == 0) {
+-  console.log("CREATING FIRST USER: SOUP");
+-  const soupId = Accounts.createUser({
+-      username: "Soup",
+-      email: "soup@pakke.us",
+-      password: "password",
+-      avatar: 'https://www.pakke.us/img/brand/PAKKE_circle.png',
+-      name: "Souper Youzer",
+-      firstName: "Souper",
+-      lastName: "Youzer"
+-  });
+-
+-}
+-
+-Meteor.users.allow({
+-  update: (uid, doc) => {return uid ;},
+-  remove: () => true,
+-});
+-
+-const SOUP = Meteor.users.findOne({username: 'Soup'});
+-if ( SOUP ) {
+-    // console.log(SOUP);
+-    // Roles.addUsersToRoles( Kiel._id ,  ["admin"] );
+-    // Meteor.call('addRole', SOUP._id, ['admin'])
+-    Roles.addUsersToRoles(SOUP._id, 'admin', Roles.GLOBAL_GROUP)
+-
+-    // Roles.setUserRoles( SOUP._id , 'admin');
+-    console.log("-= ADMIN: 'Soup' is Admin =-");
+-  
+-} else {
+- console.log("-= ADMIN: No Admin =-");
+-}
+-
+-Accounts.validateNewUser(function(user) {
+-    console.log('Validating...');
+-    const user_email = user.emails[0].address;
+-    let existing_user = Meteor.users.findOne({ 'services.facebook.email' : user_email}) || Meteor.users.findOne({ 'services.google.email' : user_email}) || Meteor.users.findOne({ 'emails.0.address' : user_email}) ;
+-    if (existing_user) {
+-      console.log(existing_user);
+-      let id = existing_user.services.facebook.id || existing_user.services.google.id;
+-      let email = existing_user.services.facebook.email || existing_user.services.google.email || existing_user.emails[0].address
+-      console.log("User Exists Already");
+-      throw new Meteor.Error(500, "A user already exists with e-mail: " + email);
+-    } else {
+-      console.log("New User!");
+-      return true;
+-    }
+-});
+-
+-
+-
+-// // this is for handling # in verifyEmail url
+-// (function () {
+-//     "use strict";
+-//     Accounts.urls.resetPassword = function (token) {
+-//         return Meteor.absoluteUrl('reset-password/' + token);
+-//     };
+-//     Accounts.urls.verifyEmail = function (token) {
+-//         return Meteor.absoluteUrl('verify-email/' + token);
+-//     };
+-//     Accounts.urls.enrollAccount = function (token) {
+-//         return Meteor.absoluteUrl('enroll-account/' + token);
+-//     };
+-
+-// })();
+\ No newline at end of file
+diff --git a/imports/startup/server/config.js b/imports/startup/server/config.js
+new file mode 100644
+index 0000000..4b1d680
+--- /dev/null
++++ b/imports/startup/server/config.js
+@@ -0,0 +1,151 @@
++import { Meteor } from 'meteor/meteor';
++import { Accounts } from 'meteor/accounts-base';
++
++
++//check for settings file
++console.log("-= Settings: Checking... =-");
++if (!Meteor.settings.public.keys) {
++    console.log("--------------= SETTINGS FAILED. (USE 'NPM RUN' INSTEAD OF 'METEOR' AT COMMAND LINE) =--------------");
++} else {console.log ("-= Settings: Loaded =-");}
++
++if (Meteor.users.find().count() == 0) {
++  console.log("CREATING FIRST USER: SOUP");
++  const soupId = Accounts.createUser({
++      username: "Soup",
++      email: "soup@pakke.us",
++      password: "password",
++      avatar: 'https://www.pakke.us/img/brand/PAKKE_circle.png',
++      name: "Souper Youzer",
++      firstName: "Souper",
++      lastName: "Youzer"
++  });
++
++}
++
++Meteor.users.allow({
++  update: (uid, doc) => {return uid ;},
++  remove: () => true,
++});
++
++const SOUP = Meteor.users.findOne({username: 'Soup'});
++if ( SOUP ) {
++    // console.log(SOUP);
++    // Roles.addUsersToRoles( Kiel._id ,  ["admin"] );
++    // Meteor.call('addRole', SOUP._id, ['admin'])
++    Roles.addUsersToRoles(SOUP._id, 'admin', Roles.GLOBAL_GROUP)
++
++    // Roles.setUserRoles( SOUP._id , 'admin');
++    console.log("-= ADMIN: 'Soup' is Admin =-");
++  
++} else {
++ console.log("-= ADMIN: No Admin =-");
++}
++
++
++Accounts.config({
++  sendVerificationEmail: true,
++  forbidClientAccountCreation: false
++});
++
++Accounts.emailTemplates.siteName = 'pakke.us';
++Accounts.emailTemplates.from = 'pakke.us <noreply@pakke.us>';
++
++Accounts.emailTemplates.enrollAccount.subject = (user) => {
++  return `Welcome to pakke!, ${user.profile.name}`;
++};
++
++Accounts.emailTemplates.enrollAccount.text = (user, url) => {
++  return 'You have been selected to participate in building a better future!'
++    + ' To activate your account, simply click the link below:\n\n'
++    + url;
++};
++
++Accounts.emailTemplates.resetPassword.from = () => {
++  // Overrides the value set in `Accounts.emailTemplates.from` when resetting
++  // passwords.
++  return 'pakke.us Password Reset <noreply@pakke.us>';
++};
++Accounts.emailTemplates.verifyEmail = {
++   subject() {
++      return "Activate your pakke account now!";
++   },
++   text(user, url) {
++      return `Hey ${user}! Verify your e-mail by following this link: ${url}`;
++   }
++};
++
++Accounts.onCreateUser(function(options, user) {
++  //CREATE NEW MYUSER OBJECT AND COPY ALL DEFAULT ATTRIBUTS TO IT
++  const myUser = Object.assign({}, user);
++
++  if (options.profile) {
++    myUser.profile = options.profile;
++  }
++  // console.log(user);
++
++  //CHECK & MERGE FACEBOOK INFO
++  if (user.services.facebook) {
++    const fb = user.services.facebook;
++    console.log(fb);
++    myUser.username = fb.name;
++    myUser.emails = [{address: fb.email, verified: true}];
++    myUser.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=small`;
++  }
++  //CHECK & MERGE GOOGLE INFO
++  if (user.services.google) {
++    const gg = user.services.google;
++    console.log(gg);
++    myUser.username = gg.name;
++    myUser.emails = [{address: gg.email, verified: true}];
++    myUser.avatar = gg.picture;
++  }
++  // console.log(myUser);
++  //CHECK FOR SPECIFIC EMAILS & MAKE ADMINS
++
++  return myUser;
++});
++
++
++Accounts.validateNewUser(function(user) {
++    console.log('Checking for Existing E-mail...');
++    const user_email = user.emails[0].address;
++    const existing_user = Accounts.findUserByEmail(user_email)
++    if (existing_user) {
++      // login and merge data! 
++      let provider;
++      const cb = (Error) => { 
++        Error ? console.log(Error) : console.log("All Good!")
++      }
++      if (existing_user.services.facebook) {
++        provider = "Facebook";
++      }
++      if (existing_user.services.google) {
++        provider = "Google";
++      }
++      console.log("User Exists Already");
++      throw new Meteor.Error(500, `You've been here before! Login with ${provider}.`);
++    } else {
++      console.log("New User!");
++      //SEND EMAIL! 
++      // Accounts.sendEnrollmentEmail(user._id, user_email);
++        // user object doesnt exist yet, so no email sent.
++      return true;
++    }
++});
++
++
++
++// // this is for handling # in verifyEmail url
++// (function () {
++//     "use strict";
++//     Accounts.urls.resetPassword = function (token) {
++//         return Meteor.absoluteUrl('reset-password/' + token);
++//     };
++//     Accounts.urls.verifyEmail = function (token) {
++//         return Meteor.absoluteUrl('verify-email/' + token);
++//     };
++//     Accounts.urls.enrollAccount = function (token) {
++//         return Meteor.absoluteUrl('enroll-account/' + token);
++//     };
++
++// })();
+\ No newline at end of file
+diff --git a/imports/startup/server/index.js b/imports/startup/server/index.js
+index f1fbd99..d6a071e 100644
+--- a/imports/startup/server/index.js
++++ b/imports/startup/server/index.js
+@@ -1,18 +1,10 @@
+-// //========================= ROUTES =========================
+-// import '/lib/routes.js';
+ 
+-// //========================= PUBLICATIONS =========================
+-// // import '/imports/api/hosts/server/publications.js';
+-// import '/imports/api/roles/server/publications.js';
+-// import '/imports/api/events/server/publications.js';
+-// import '/imports/api/users/server/publications.js';
++// //========================= ADMIN & CONFIG =========================
++import '/imports/startup/server/config.js';
++
+ 
+ // //========================= GLOBALS AND METHODS =========================
+ import '/imports/startup/server/SMTP.js';
+-
+ import '/imports/startup/server/methods.js';
+ 
+-// //========================= ADMIN & CONFIG =========================
+-import '/imports/startup/server/admin.js';
+-import '/imports/startup/server/accounts.js';
+ 
+diff --git a/imports/startup/server/methods.js b/imports/startup/server/methods.js
+index db2efa5..995825f 100644
+--- a/imports/startup/server/methods.js
++++ b/imports/startup/server/methods.js
+@@ -137,7 +137,7 @@ Meteor.methods({
+       urlParams = address;
+     }
+ 
+-    let apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + urlParams + '&key=' + Meteor.settings.public.keys.googleServer.key;
++    let apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + urlParams + '&key=' + Meteor.settings.private.keys.googleAPI.key;
+     console.log("--URL--"+apiUrl);
+     let response = Meteor.wrapAsync(apiCall)(apiUrl);
+     if (response) {
+@@ -153,7 +153,7 @@ Meteor.methods({
+     paramsObj = {
+       params: {
+         address: address,
+-        key: Meteor.settings.public.keys.googleServer.key
++        key: Meteor.settings.private.keys.googleAPI.key
+       }
+     };
+     try {
+diff --git a/package-lock.json b/package-lock.json
+index 0b489e3..097dd4d 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -2948,6 +2948,16 @@
+         "prop-types": "15.6.1"
+       }
+     },
++    "react-facebook-login": {
++      "version": "4.0.1",
++      "resolved": "https://registry.npmjs.org/react-facebook-login/-/react-facebook-login-4.0.1.tgz",
++      "integrity": "sha512-DQlkvFE31xv+Xu9kLfqu3m4QA7dAs3T6YcYU42ibIbW7LeX/2iHNbvXaP00sGfVyK+0k3t103eC4rx+N64qIEw=="
++    },
++    "react-facebook-login-component": {
++      "version": "0.9.2",
++      "resolved": "https://registry.npmjs.org/react-facebook-login-component/-/react-facebook-login-component-0.9.2.tgz",
++      "integrity": "sha1-iK2zOgnpE5lys77FAS4uT011sjQ="
++    },
+     "react-router": {
+       "version": "4.2.0",
+       "resolved": "https://registry.npmjs.org/react-router/-/react-router-4.2.0.tgz",
+diff --git a/package.json b/package.json
+index 13f6411..b414878 100644
+--- a/package.json
++++ b/package.json
+@@ -45,6 +45,8 @@
+     "react": "^16.2.0",
+     "react-addons-pure-render-mixin": "^15.6.2",
+     "react-dom": "^16.2.0",
++    "react-facebook-login": "^4.0.1",
++    "react-facebook-login-component": "^0.9.2",
+     "react-router-dom": "^4.2.2",
+     "react-social-login": "^3.4.2",
+     "simpl-schema": "^1.4.2",
+diff --git a/settings.json b/settings.json
+index 3ebe88f..e149681 100644
+--- a/settings.json
++++ b/settings.json
+@@ -5,8 +5,6 @@
+     },
+     "keys": {
+       "googleAnalytics": {"trackingId": "UA-12892693-10"},
+-      "googleClient" : {"key" : "AIzaSyArlnrkA-z5JR0T6C_2z7rGmAZ1Mpl9WSE"},
+-      "googleServer" : {"key" : "AIzaSyB7SQmFyKOkbwG3C0osrAyGbllKb8Jdx-8"},
+       "googleAPI" : {"key" : " AIzaSyArlnrkA-z5JR0T6C_2z7rGmAZ1Mpl9WSE"},
+       "googleAuth": {
+         "client_id": "481000997753-8e5tpr3k4p2lk9obdg48kig4ml5jp0jp.apps.googleusercontent.com",
+@@ -16,7 +14,11 @@
+         "app_id" : "xxxx",
+         "app_secret" : "xxxx"
+       },
+-      "facebookAuth": {
++      "googleOAuth": {
++        "client_id": "481000997753-8e5tpr3k4p2lk9obdg48kig4ml5jp0jp.apps.googleusercontent.com",
++        "client_secret": "hjxBlHWdPtnutOAnJBPs6j0r"
++      },
++      "facebookOAuth": {
+         "app_id": "168356840569104",
+         "app_secret": "44c170e4944559b324d89ce3a77557b0"
+       },
+@@ -28,6 +30,11 @@
+       }
+     }
+   },
++  "private": {
++    "keys": {
++      "googleAPI" : {"key" : "AIzaSyB7SQmFyKOkbwG3C0osrAyGbllKb8Jdx-8"}
++    }
++  },
+   "galaxy.meteor.com": { 
+     "env": { 
+      "ROOT_URL": "https://pakke.meteorapp.com", 

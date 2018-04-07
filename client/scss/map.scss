@@ -1,3 +1,5 @@
+/* Mobile phone layout */
+
 .map-container {
   height: 100%;
 }
@@ -17,7 +19,8 @@
   position: relative;
   height: 20rem;
   width: 100vw;
-  z-index: -2;
+
+  // z-index: -2;
 
   h2 {
     position: absolute;
@@ -34,7 +37,8 @@
   position: absolute;
   z-index: 0;
   top: 0;
-  background: linear-gradient(rgba(0, 20, 150, 0.8), rgba(255, 255, 255, 0));
+
+  // background: linear-gradient(rgba(0, 20, 150, 0.8), rgba(255, 255, 255, 0));
 }
 
 .map-container {
