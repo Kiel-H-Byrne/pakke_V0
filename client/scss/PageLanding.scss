@@ -1,7 +1,7 @@
 
 
 /* Mobile phone layout */
-@media (max-width: 450px) {
+@media screen and (max-width: 450px) {
 .three-main-links {
   display: flex;
   justify-content: space-evenly;

@@ -1,16 +1,15 @@
 /* Mobile phone layout */
-@media (max-width: 450px) {
-.container {
+@media screen and (max-width: 450px) {
+  .container {
     img {
-        width: 100%;
+      width: 100%;
     }
+  }
 }
-}
-
 
 //not mobile
 .container {
-    img {
-        width: 100%;
-    }
+  img {
+    width: 100%;
+  }
 }
