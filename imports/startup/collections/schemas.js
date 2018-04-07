@@ -2,102 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import uniforms from 'uniforms';
 
+
 Schema = {};
-
-//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-//======================  DON'T TOUCH ME!!!!!!!!! ==========================
-//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-
-Schema.User = new SimpleSchema({
-    username: {
-        type: String,
-        // For accounts-password, either emails or username is required, but not both. It is OK to make this
-        // optional here because the accounts-password package does its own validation.
-        // Third-party login packages may not require either. Adjust this schema as necessary for your usage.
-        optional: true
-    },
-    emails: {
-        type: Array,
-        // For accounts-password, either emails or username is required, but not both. It is OK to make this
-        // optional here because the accounts-password package does its own validation.
-        // Third-party login packages may not require either. Adjust this schema as necessary for your usage.
-        optional: true
-    },
-    "emails.$": {
-        type: Object
-    },
-    "emails.$.address": {
-        type: String,
-        regEx: SimpleSchema.RegEx.Email
-    },
-    "emails.$.verified": {
-        type: Boolean
-    },
-    // Use this registered_emails field if you are using splendido:meteor-accounts-emails-field / splendido:meteor-accounts-meld
-    registered_emails: {
-        type: Array,
-        optional: true
-    },
-    'registered_emails.$': {
-        type: Object,
-        blackbox: true
-    },
-    createdAt: {
-        type: Date
-    },
-    profile: {
-        type: Object,
-        optional: true
-    },
-    // Make sure this services field is in your schema if you're using any of the accounts packages
-    services: {
-        type: Object,
-        optional: true,
-        blackbox: true
-    },
-    // Add `roles` to your schema if you use the meteor-roles package.
-    // Option 1: Object type
-    // If you specify that type as Object, you must also specify the
-    // `Roles.GLOBAL_GROUP` group whenever you add a user to a role.
-    // Example:
-    // Roles.addUsersToRoles(userId, ["admin"], Roles.GLOBAL_GROUP);
-    // You can't mix and match adding with and without a group since
-    // you will fail validation in some cases.
-    // roles: {
-    //     type: Object,
-    //     optional: true,
-    //     blackbox: true
-    // },
-    // Option 2: [String] type
-    // If you are sure you will never need to use role groups, then
-    // you can specify [String] as the type
-    roles: {
-        type: Array,
-        optional: true
-    },
-    'roles.$': {
-        type: String
-    },
-    // In order to avoid an 'Exception in setInterval callback' from Meteor
-    heartbeat: {
-        type: Date,
-        optional: true
-    }
-});
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//======================  DON'T TOUCH ME!!!!!!!!! ==========================
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Meteor.users.attachSchema(Schema.User);
 
 Schema.Address = new SimpleSchema({
   zip: {
@@ -224,6 +130,67 @@ Schema.Address = new SimpleSchema({
   },  
 });
 
+Schema.Venue = new SimpleSchema({
+  nickname: {
+    type: String,
+    label: 'A Nickname'
+  },
+  address: {
+    type: Schema.Address
+  },
+  venueType: { 
+    type: String,
+    label: 'What Type of Venue is this (Commercial / Apartment / Condo / House? )',
+    optional: true
+  },
+  ownedStatus: {
+    type: Boolean,
+    label: 'I own this venue?',
+    optional: true
+  }
+
+});
+
+Schema.asHost = new SimpleSchema({
+  venues: {
+    type: Array,
+    label: 'Add A New Venue!',
+    optional: true
+  },
+  "venues.$": {
+    type: Schema.Venue,
+    optional: true
+  }
+});
+
+Schema.asGuest = new SimpleSchema({
+  //the editable profile
+  preferences: {  
+    type: String,
+    label: 'What do you look for in a "fun time"? ',
+    optional: true
+  }
+});
+
+Schema.asTalent = new SimpleSchema({
+  talentType: {
+    type: String,
+    label: 'How do you entertain?',
+    optional: true
+  },
+  experience: {
+    type: String,
+    label: 'How long have you done this?',
+    optional: true
+  },
+  audienceSize: {
+    type: String,
+    label: 'Preferred audience size?',
+    optional: true
+
+  }
+});
+
 Schema.Survey = new SimpleSchema({
   partyMusic: {
     type: String,
@@ -278,15 +245,9 @@ Schema.Survey = new SimpleSchema({
 });
 
 Schema.Profile = new SimpleSchema({
-  firstName: {
-      type: String,
-      label: 'First Name',
-      optional: true
-  },
-  lastName: {
-      type: String,
-      label: 'Last Name',
-      optional: true
+  name: {
+    type: String,
+    optional: true
   },
   birthDate: {
       type: Date,
@@ -295,6 +256,10 @@ Schema.Profile = new SimpleSchema({
       autoValue: function() {
         // check for two digits, calculate birthdate, save as date format.
       }
+  },
+  avatar: {
+    type: String,
+    optional: true
   },
   address: {
     type: Schema.Address,
@@ -333,98 +298,123 @@ Schema.Profile = new SimpleSchema({
   interests: {
     type: Schema.Survey,
     optional: true,
-  }
+  },
+  asHost: {
+    type: Schema.asHost,
+    optional: true
+  },
+  asGuest: {
+    type: Schema.asGuest,
+    optional: true
+  },
+  asTalent: {
+    type: Schema.asTalent,
+    optional: true
+  }  
 });
 
-
-//NOT A REAL SCHEMA, WE NEED TO EXTEND THE USERS DOCUMENTS WITH EACH OF THESE FIELDS. 
-//WHERE DO WE DO THIS, UPON FIRST EVENT HOSTED/ATTENDED, ETC?
-//OR UPON USER CREATION WITH EMPTY FIELDS AND POPULATE LATER.
-Schema.User = new SimpleSchema( {
-  eventsHosted: {
-    type: Array,
-    optional: true
-  },
-  "eventsHosted.$": {
-    type: String,
-    optional: true
-  },
-  eventsAttended: {
-    type: Array,
-    optional: true
-  },
-  "eventsAttended.$": {
-    type: String,
-    optional: true
-  }
-})
-
-
-
-Schema.asGuest = new SimpleSchema({
-  //the editable profile
-  distinguisher: {  
-    type: String,
-    label: 'Unique Identifier',
-    optional: true
-  }
+Schema.User = new SimpleSchema({
+    username: {
+        type: String,
+        // For accounts-password, either emails or username is required, but not both. It is OK to make this
+        // optional here because the accounts-password package does its own validation.
+        // Third-party login packages may not require either. Adjust this schema as necessary for your usage.
+        optional: true
+    },
+    emails: {
+        type: Array,
+        // For accounts-password, either emails or username is required, but not both. It is OK to make this
+        // optional here because the accounts-password package does its own validation.
+        // Third-party login packages may not require either. Adjust this schema as necessary for your usage.
+        optional: true
+    },
+    "emails.$": {
+        type: Object
+    },
+    "emails.$.address": {
+        type: String,
+        regEx: SimpleSchema.RegEx.Email
+    },
+    "emails.$.verified": {
+        type: Boolean
+    },
+    // Use this registered_emails field if you are using splendido:meteor-accounts-emails-field / splendido:meteor-accounts-meld
+    registered_emails: {
+        type: Array,
+        optional: true
+    },
+    'registered_emails.$': {
+        type: Object,
+        blackbox: true
+    },
+    createdAt: {
+        type: Date
+    },
+    profile: {
+        type: Schema.Profile,
+        optional: true
+    },
+    // Make sure this services field is in your schema if you're using any of the accounts packages
+    services: {
+        type: Object,
+        optional: true,
+        blackbox: true
+    },
+    // Add `roles` to your schema if you use the meteor-roles package.
+    // Option 1: Object type
+    // If you specify that type as Object, you must also specify the
+    // `Roles.GLOBAL_GROUP` group whenever you add a user to a role.
+    // Example:
+    // Roles.addUsersToRoles(userId, ["admin"], Roles.GLOBAL_GROUP);
+    // You can't mix and match adding with and without a group since
+    // you will fail validation in some cases.
+    // roles: {
+    //     type: Object,
+    //     optional: true,
+    //     blackbox: true
+    // },
+    // Option 2: [String] type
+    // If you are sure you will never need to use role groups, then
+    // you can specify [String] as the type
+    roles: {
+        type: Array,
+        optional: true
+    },
+    'roles.$': {
+        type: String
+    },
+    // In order to avoid an 'Exception in setInterval callback' from Meteor
+    heartbeat: {
+        type: Date,
+        optional: true
+    },
+    eventsHosted: {
+      type: Array,
+      optional: true
+    },
+    "eventsHosted.$": {
+      type: String,
+      optional: true
+    },
+    eventsAttended: {
+      type: Array,
+      optional: true
+    },
+    "eventsAttended.$": {
+      type: String,
+      optional: true
+    },
+    eventsEntertained: {
+      type: Array,
+      optional: true
+    },
+    "eventsEntertained.$": {
+      type: String,
+      optional: true
+    }        
 });
-
-
-Schema.Venue = new SimpleSchema({
-  nickname: {
-    type: String,
-    label: 'A Nickname'
-  },
-  address: {
-    type: Schema.Address
-  },
-  venueType: { 
-    type: String,
-    label: 'What Type of Venue is this (Commercial / Apartment / Condo / House? )',
-    optional: true
-  },
-  ownedStatus: {
-    type: Boolean,
-    label: 'I own this venue?',
-    optional: true
-  }
-
-});
-
-Schema.asHost = new SimpleSchema({
-  venues: {
-    type: Array,
-    label: 'Add A New Venue!',
-    optional: true
-  },
-  "venues.$": {
-    type: Schema.Venue,
-    optional: true
-  }
-});
-
-
-Schema.asTalent = new SimpleSchema({
-  talentType: {
-    type: String,
-    label: 'How do you entertain?',
-    optional: true
-  },
-  experience: {
-    type: String,
-    label: 'How long have you done this?',
-    optional: true
-  },
-  audienceSize: {
-    type: String,
-    label: 'Preferred audience size?',
-    optional: true
-
-  }
-});
-
-
+ 
+Meteor.users.attachSchema(Schema.User);
 
 Schema.Event = new SimpleSchema({
 

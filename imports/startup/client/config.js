@@ -17,7 +17,7 @@ Accounts.ui.config({
 });
 
 Accounts.onLoginFailure(function(error) {
-  Bert.alert(err.message, "danger", "growl-top-right")
+  Bert.alert(error.error.reason, "info", "growl-top-right")
 });
 
 // Facebook: http://developers.facebook.com/docs/authentication/permissions/

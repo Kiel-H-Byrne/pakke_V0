@@ -17,20 +17,17 @@ if (!SOUP) {
       "email": "soup@pakke.us",
       "password": "password",
   });
-
 } else {
     // console.log(SOUP);
     // Roles.addUsersToRoles( Kiel._id ,  ["admin"] );
     // Meteor.call('addRole', SOUP._id, ['admin'])
     if (!Roles.userIsInRole(SOUP._id, ['admin']) ) {
-      Roles.addUsersToRoles(SOUP._id, 'admin', Roles.GLOBAL_GROUP)
+      Roles.addUsersToRoles(SOUP._id, 'admin');
       Meteor.users.update(
         {_id: SOUP._id}, 
         {$set: {
           "profile.avatar": "/img/brand/PAKKE_circle.png",
           "profile.name": "Souper Youzer",
-          "profile.firstName": "Souper",
-          "profile.lastName": "Youzer"
           }
         });
 
