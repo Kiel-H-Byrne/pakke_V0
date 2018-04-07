@@ -12,8 +12,8 @@ class LandingPage extends Component {
             <div>
                 <div className="landingMap">
                     <Map />
-                    <div className="mapOverlay"></div>
-                    <h2>Explore your Area</h2>
+                    {/* < div className="mapOverlay"></div>
+                    <h2>Explore your Area</h2> */}
                 </div>
 
 
