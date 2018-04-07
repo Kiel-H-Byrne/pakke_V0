@@ -50,10 +50,29 @@ Accounts.emailTemplates.enrollAccount.subject = (user) => {
   return `Welcome to pakke!, ${user.profile.name}`;
 };
 
+// Accounts.emailTemplates.enrollAccount.text = (user, url) => {
+//   return 'You have been selected to participate in building a better future!'
+//     + ' To activate your account, simply click the link below:\n\n'
+//     + url;
+// };
+
 Accounts.emailTemplates.enrollAccount.text = (user, url) => {
-  return 'You have been selected to participate in building a better future!'
-    + ' To activate your account, simply click the link below:\n\n'
-    + url;
+  return `
+  Welcome to Pakke ${user.profile.name}!
+
+  Knowing this may be your first introduction to Pakke, we would like to start off with who we are but more importantly, what you will NOT find here. To start, our team isn’t one flavor of ice cream. Instead, think of us as a desert experience that rivals any fancy French restaurant but replace the stuffy waiter with Tina Fey, the cook with Anthony Bourdain and the pianist with Chance the Rapper. 
+
+  So what are we not? We are not the crowded bar. Certainly not the restaurant that serves over-priced “squid pasta.” And more emphatically, we are not the art gallery or concert venue that reaps the overwhelming benefits from the artists talent. Pakke focuses on the experience because we know it doesn’t really matter where people gather, what’s important is what happens when they get there. Our goal is you will discover, connect and experience something new every time you attend a Pakke event. So first things first: get out there.
+
+  Any questions, send us an email!
+
+  Discover. Connect. Experience.
+
+  To activate your account, simply click the link below:
+      ${url}
+
+  The Pakke Team 
+  `
 };
 
 Accounts.emailTemplates.resetPassword.from = () => {
