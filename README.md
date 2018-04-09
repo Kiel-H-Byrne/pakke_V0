@@ -25,9 +25,24 @@ This is a [meteorJS](http://docs.meteor.com) application. To get started with th
 
 ### Built With
 MeteorJS:
-BootStrap
-Feather Icons:
-mkicons: 
+
+[react-meteor-data](https://github.com/meteor/react-packages/)
+[dburles:google-maps](https://github.com/dburles/meteor-google-maps)
+[fortawesome:fontawesome](https://github.com/MeteorPackaging/Font-Awesome/)
+[server-render](https://atmospherejs.com/meteor/server-render)
+[themeteorchef:bert](https://github.com/themeteorchef/bert)
+[alanning:roles](https://github.com/alanning/meteor-roles)
+[twbs:bootstrap](https://github.com/twbs/bootstrap)
+
+[accounts-base]
+[accounts-ui]
+[accounts-password]
+[accounts-facebook]
+[accounts-google@1.3.1]
+[facebook-config-ui@1.0.1]
+[google-config-ui@1.0.0]
+[gadicc:blaze-react-component]
+[aldeed:collection2-core@2.0.0]
 
 ### Prerequisites
 All prerequisites are listed in package.json and will build with `npm install`
