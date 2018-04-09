@@ -11,7 +11,7 @@ const BecomeHost = () => (
     <p>Lorem ipsum dolor amet schlitz letterpress gentrify squid migas glossier</p>
     {isLoggedIn ? (
       <>
-      <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Host an Event</button>
+      <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Become a Host</button>
       <div className="modal fade" id="myModal" role="dialog">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -29,7 +29,7 @@ const BecomeHost = () => (
       </>
       ) : (
       <>
-      <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#loginModal">Host an Event</button>
+      <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#loginModal">Become a Host</button>
       <div className="modal fade" id="loginModal" role="dialog">
         <div className="modal-dialog">
           <div className="modal-content">

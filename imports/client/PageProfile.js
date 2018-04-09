@@ -25,10 +25,14 @@ class PageProfile extends Component {
 
       return (
         <div>
-          
+
           <div className='profile-head'>
             <div className='profile-head-image'>
-              <img src='/missing_profile.png' />
+              {Meteor.user().profile.avatar ? (
+                <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar} />
+              ) : (
+                  <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
+                )}
             </div>
             <div className='profile-head-text'>
               {(this.props.currentUser.username) ? (
