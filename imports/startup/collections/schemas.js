@@ -474,6 +474,10 @@ Schema.Event = new SimpleSchema({
     type: String,
     label: 'Tag Line'
   },
+  image: {
+    type: String,
+    optional: true
+  },
   description: {
     type: String,
     optional: true

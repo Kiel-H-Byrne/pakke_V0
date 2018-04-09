@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 
-// <<<<<<< HEAD:imports/client/Header.js
 import AccountsUIWrapper from './AccountsUIWrapper';
 import AccountsUIWrapper2 from './AccountsUIWrapper2';
 import FacebookButton from './FacebookButton';
 import FacebookButton2 from './FacebookButton2';
-// >>>>>>> feature/style-all:imports/client/header/Header.js
 
 
 class Header extends Component {
@@ -22,22 +20,20 @@ class Header extends Component {
                     <div className='header-links-left-signedin'>
                         <div className='dropdown'>
                             <Link to='/'><img className="icon" src='/logo.jpg' /></Link>
-                            {/* <span className="caret"></span> */}
-                            {/* <ul className="dropdown-menu">
-                                <li><Link to='/'><h5>Home</h5></Link></li>
-                            </ul> */}
+                            
                         </div>
                     </div>
                     <div className="header-links-right-signedin">
                         <div className='dropdown'>
                             <span className="caret"></span>
+                            {/* <img data-toggle="dropdown" className= 'icon dropdown-toggle' src='/missing_profile.png' /> */}
                             {Meteor.user().profile.avatar ? (
                                 <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar}/>
                                 ): (
                                 <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
                                 )}
                             
-                            {/*  */}
+            
 
                             {/* {(Meteor.user().profile.avatar) ? (
                                 <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar} />
