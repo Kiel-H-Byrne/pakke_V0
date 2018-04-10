@@ -1,5 +1,3 @@
-/* Mobile phone layout */
-@media screen and (max-width: 450px) {
 
 .nav {
   
@@ -18,18 +16,16 @@
 
 .profile-head {
   margin-top: 5%;
-  // border: 1px solid black;
-  height: 100px;
+  height: 8rem;
 
 }
 
 .profile-head-image {
   margin-left: 5%;
-  // border: 1px solid black;  
   
   img{
   border-radius: 50%;
-  height: 100px;
+  height: 7rem;
   float:left;
   }
 }
@@ -38,7 +34,6 @@
   float: right;
   text-align: center;
   margin-right: 5%;
-  // border: 1px solid black;  
   
 }
 
@@ -52,62 +47,4 @@
 
 .talent-block {
   text-align: center;
-}
-}
-
-//not mobile
-@media screen and (min-width: 450px) {
-
-.nav {
-  
-  display: static;
-  margin-top: 10%;
-
-  li {
-    width: 33%;
-    text-align: center;
-    
-  }
-}
-
-.tab-content {
-}
-
-.profile-head {
-  margin-top: 5%;
-  // border: 1px solid black;
-  height: 150px;
-
-}
-
-.profile-head-image {
-  margin-left: 5%;
-  // border: 1px solid black;  
-  
-  img{
-  border-radius: 50%;
-  height: 125px;
-  float:left;
-  }
-}
-
-.profile-head-text {
-  float: right;
-  text-align: center;
-  margin-right: 10%;
-  // border: 1px solid black;  
-  
-}
-
-.guest-tab {
-  text-align:center;
-}
-
-.host-block {
-  text-align:center;
-}
-
-.talent-block {
-  text-align: center;
-}
 }
