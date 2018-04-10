@@ -15,7 +15,6 @@ import PageEventMap from './PageEventMap';
 import PostForm from './FormBecomeHost';
 
 // import PageEventMap from './pageEventMap/PageEventMap';
-
 // import PageSignUp from './PageSignUp';
 // import EventForm from './EventForm2';
 // import PageTest from './PageTest';
@@ -30,7 +29,8 @@ class Router extends Component {
         return (
     <main>
         <Switch>
-            <Route exact path='/' component={PageLanding} />
+            <Route exact path='/' component={PageHome} />
+            <Route path='/landing' component={PageLanding} />
             <Route path='/about' component={PageAbout} />
             <Route path='/events' component={PageEventMap} />            
             <Route path='/event/:id' component={EventDetail} />

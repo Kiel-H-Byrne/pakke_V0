@@ -19,7 +19,7 @@ class Header extends Component {
                 <div className='header' id="header-target">
                     <div className='header-links-left-signedin'>
                         <div className='dropdown'>
-                            <Link to='/'><img className="icon" src='/logo.jpg' /></Link>
+                            <Link to='/landing'><img className="icon" src='/logo.jpg' /></Link>
                             
                         </div>
                     </div>
