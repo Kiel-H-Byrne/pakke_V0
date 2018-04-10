@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 
-class ValueProp extends Component {
+class AboutPakke extends Component {
     render() {
         return (
             <div>
-                <h2>Why Pakke? </h2>
+                <h2>What is Pakke? </h2>
                 <div className='value-prop'>
 
 
@@ -57,5 +57,4 @@ class ValueProp extends Component {
 };
 
 
-export default ValueProp;
-
+export default AboutPakke;

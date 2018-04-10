@@ -34,7 +34,7 @@ const BecomeTalent = () => (
       </>
       ) : (
       <>
-      <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#loginModal">Host an Event</button>
+      <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#loginModal">Register Your Talent</button>
       <div className="modal fade" id="loginModal" role="dialog">
         <div className="modal-dialog">
           <div className="modal-content">

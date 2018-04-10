@@ -1,10 +1,10 @@
 /* Mobile phone layout */
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 1200px) {
   .landingEvents {
     margin-top: 10%;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1200px) {
     // vertical scroll vs. grid
     .scroll-wrapper-x {
       display: flex;
@@ -18,13 +18,7 @@
     }
   }
 
-  /* Small devices (tablets, 768px and up) */
-  @media screen and (min-width: 768px) {}
-
-  /* Medium devices (desktops, 992px and up) */
-  @media screen and (min-width: 992px) {}
-
-  /* Large devices (large desktops, 1200px and up) */
+  /* Large devices */
   @media screen and (min-width: 1200px) {
     .scroll-wrapper-x {
       display: grid;
@@ -40,25 +34,6 @@ landingEvents {
   margin-top: 10%;
 }
 
-@media screen and (max-width: 768px) {
-  // vertical scroll vs. grid
-  .scroll-wrapper-x {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-}
-
-/* Small devices (tablets, 768px and up) */
-@media screen and (min-width: 768px) {}
-
-/* Medium devices (desktops, 992px and up) */
-@media screen and (min-width: 992px) {}
 
 /* Large devices (large desktops, 1200px and up) */
 @media screen and (min-width: 1200px) {
