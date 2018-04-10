@@ -1,50 +1,59 @@
 import { Meteor } from 'meteor/meteor';
+import React, { Component } from 'react';
+
 import SimpleSchema from 'simpl-schema';
 import uniforms from 'uniforms';
-
+// import ImageUpload from '../../client/ImageUpload';
 
 Schema = {};
 
-Schema.Address = new SimpleSchema({
-  zip: {
-    type: String,
-    regEx: SimpleSchema.RegEx.ZipCode,
-    optional: true
-  },
-  address: {
-    type: String,
-    optional: true,
-    // custom: function() {
-    //   //if street has no value and isSet(), and this has no value, throw error 
-    //   const hasStreet = this.field('street').isSet ;
-    //   if (!hasStreet) {
-    //     // inserts
-    //     if (!this.operator) {
-    //       if (!this.isSet || this.value === null || this.value === "") return "required";
-    //     }
+class ImageUploadSingle extends Component {
+  render() {
+    return (
+      <div><input type="file" /></div>
+    );
+  }
+};
 
-    //     // updates
-    //     else if (this.isSet) {
-    //       if (this.operator === "$set" && this.value === null || this.value === "") return "required";
-    //       if (this.operator === "$unset") return "required";
-    //       if (this.operator === "$rename") return "required";
-    //     }
-    //   } else {
-    //     let addressString =  `${this.field('street').value} ${this.field('city').value}, ${this.field('state').value} ${this.field('zip').value}`;
+
+Schema.Address = new SimpleSchema({
+   // address: {
+  //   type: String,
+  //   optional: true,
+  //   // custom: function() {
+  //   //   //if street has no value and isSet(), and this has no value, throw error 
+  //   //   const hasStreet = this.field('street').isSet ;
+  //   //   if (!hasStreet) {
+  //   //     console.log('no street');
+  //   //     // inserts
+  //   //     if (!this.operator) {
+  //   //       if (!this.isSet || this.value === null || this.value === "") return "required";
+  //   //     }
+
+  //   //     // updates
+  //   //     else if (this.isSet) {
+  //   //       console.log('street is set');
+  //   //       if (this.operator === "$set" && this.value === null || this.value === "") return "required";
+  //   //       if (this.operator === "$unset") return "required";
+  //   //       if (this.operator === "$rename") return "required";
+  //   //     }
+  //   //   } else {
+  //   //     console.log('or else what??');
+  //   //     let addressString =  `${this.field('street').value} ${this.field('city').value}, ${this.field('state').value} ${this.field('zip').value}`;
         
-    //     // let el = $('input[name="address")')[0];
-    //     this.value = addressString;
-    //     return {$set: addressString};
-    //   }
-    //   return;
-    // },
-    // autoValue: function() {
-    //   if ( (this.isInsert || this.isUpdate) && this.field('street').isSet) {
-    //     let addressString =  `${this.field('street').value} ${this.field('city').value}, ${this.field('state').value} ${this.field('zip').value}`;
-    //     return addressString;
-    //   }
-    // }
-  },
+  //   //     // let el = $('input[name="address")')[0];
+  //   //     this.value = addressString;
+  //   //     return {$set: addressString};
+  //   //   }
+  //   //   return;
+  //   // },
+  //   autoValue: function() {
+  //     if ( (this.isInsert || this.isUpdate) && this.field('street').isSet) {
+  //       let addressString =  `${this.field('street').value} ${this.field('city').value}, ${this.field('state').value} ${this.field('zip').value}`;
+  //       return addressString;
+  //     }
+  //   }
+  // },
   street: {
     type: String,
     max: 100,
@@ -53,7 +62,8 @@ Schema.Address = new SimpleSchema({
   place: {
     type: String,
     max: 30,
-    label: 'Apt., Floor, Suite',
+    label: 'Apt. #, Floor #, Suite #',
+    // allowedValues: ["APT", "FL", "STE"]
     optional: true
   },
   corner: {
@@ -65,69 +75,53 @@ Schema.Address = new SimpleSchema({
     type: String,
     max: 50,
     optional: true,
-    defaultValue: 'Washington'
+    defaultValue: 'District of Columbia'
   },
   state: {
     type: String,
     allowedValues: ["AL","AK","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
     optional: true
   },
-  country: {
+  zip: {
     type: String,
-    min: 2,
-    max: 3,
-    optional: true,
-    defaultValue: 'US'
+    regEx: SimpleSchema.RegEx.ZipCode,
+    optional: true
   },
+  // country: {
+  //   type: String,
+  //   min: 2,
+  //   max: 3,
+  //   optional: true,
+  //   defaultValue: 'US'
+  // },
   coords: {
     type: String,
-    optional: true,
     autoValue: function () {
-      let eventAddress = this.field("eventAddress").value;
-      let hostAddress = this.field("hostAddress").value;
-      let guestAddress = this.field("guestAddress").value;
-      // console.log(this.siblingField("street"));
-      let address = hostAddress || eventAddress || guestAddress ;
-      // console.log(address);
-      if (address) {
-        let street = address.street || address.corner;
-        let zip = address.zip;
-      // console.log(street);
-        if ( zip && this.isInsert && !this.isSet) {
-        // console.log(zip);
-          const params = {};
-          // console.log(this.docId);
-          if (street) params.street = street;
-          params.city = address.city;
-          params.state = address.state;
-          params.zip = zip;
-          let response = Meteor.call('geoCode', params);
-
-          if (response && response.results.length) {
-            let loc = response.results[0].geometry.location;
-            // console.log("GOOGLE TYPES:") ;
-            // console.log(response.results[0].types);
-            // this.field("google_id").value = place_id;
-            //====== RETURN LAT/LONG OBJECT LITERAL ======
-            // return loc;
-            //====== RETURN STRINGIFIED LAT/LONG NUMBERS ======
-            let arr =  _.values(loc);
-            // console.log(arr.toLocaleString());
-            return arr.toLocaleString();
-          } else {
-
-            // console.log(response);
-            console.log("NO COORDINATES");
-            //no street name, so must be online Only. 
-            //set category to "Online"
-            // console.log(typeof street);
-            // console.log(this.docId);
-            this.unset();
-          } //if response else
-        } //if zip
-      } //if address
+      // const address = this.field("address").value;
+      if (this.siblingField('street').isSet) {
+        const street = this.siblingField("street").value;
+        console.log(street);
+        let addressString =  `${this.siblingField('street').value}, ${this.siblingField('state').value} ${this.siblingField('zip').value}`;
+        console.log(addressString);
+        const geo = new google.maps.Geocoder;
+        geo.geocode(
+          { address: addressString },
+          (res,err) => {
+            console.log(res,err);
+            let locObj = res[0].geometry.location;
+            console.log(locObj);
+            let locStr = `${locObj.lat()}, ${locObj.lng()}`
+            if (locStr) {
+              // this.value = locStr;
+              return locStr;  
+            }
+          }
+        );
+      } else {
+        console.log("Street is required");
+      }
     }
-  },  
+  }  
 });
 
 Schema.Venue = new SimpleSchema({
@@ -147,6 +141,17 @@ Schema.Venue = new SimpleSchema({
     type: Boolean,
     label: 'I own this venue?',
     optional: true
+  },
+  images: {
+    type: Array,
+    optional: true
+  },
+  'images.$': {
+    type: Object,
+    optional: true
+  },
+  'images.$.url': {
+    type: String
   }
 
 });
@@ -172,11 +177,10 @@ Schema.asGuest = new SimpleSchema({
   }
 });
 
-Schema.asTalent = new SimpleSchema({
+Schema.Talent = new SimpleSchema({
   talentType: {
     type: String,
     label: 'How do you entertain?',
-    optional: true
   },
   experience: {
     type: String,
@@ -187,9 +191,24 @@ Schema.asTalent = new SimpleSchema({
     type: String,
     label: 'Preferred audience size?',
     optional: true
-
+  },
+  fee: {
+    type: Number,
+    label: 'Fee for this performance?',
+    optional: true
   }
 });
+
+Schema.asTalent = new SimpleSchema({
+  talents: {
+    type: Array
+  },
+  "talents.$": {
+    type: Schema.Talent,
+    optional: true
+  }
+});
+
 
 Schema.Survey = new SimpleSchema({
   partyMusic: {
@@ -259,7 +278,8 @@ Schema.Profile = new SimpleSchema({
   },
   avatar: {
     type: String,
-    optional: true
+    optional: true,
+    uniforms: ImageUploadSingle
   },
   address: {
     type: Schema.Address,
@@ -308,7 +328,7 @@ Schema.Profile = new SimpleSchema({
     optional: true
   },
   asTalent: {
-    type: Schema.asTalent,
+    type: Schema.Talent,
     optional: true
   }  
 });
@@ -423,42 +443,10 @@ Schema.Event = new SimpleSchema({
   // 'optional: false' means that this field is required
   // If it's blank, the form won't submit and you'll get a red error message
   // 'type' is where you can set the expected data type for the 'title' key's value
-  "host": {
-    type: Object,
+  "hostId": {
+    type: String,
     label: "Host",
     optional: true
-  },
-  "host.id": {
-    type: String,
-    optional: true,
-    label: "Host ID",
-    autoValue: function() {
-      if (Meteor.userId() && this.isInsert && !this.isSet) {
-        return Meteor.userId();
-      }
-    }
-  },    
-  "host.username": {
-    type: String,
-    optional: true,
-    autoValue: function() {
-      // if (this.field("name").value) {
-      // let name = this.field("name").value;
-      let userID = Meteor.userId();
-      let profile = Meteor.user().profile;
-      console.log(profile.name);
-      return userID;
-    }
-  },
-  "host.email": {
-    type: String,
-    optional: true,
-    autoValue: function() {
-      //get email of logged in user
-      // if (Meteor.userId() && this.isInsert && !this.isSet) {
-      //   return Meteor.user().emails[0].address;
-      // }
-    }
   },
   date: {
     type: Date,
@@ -468,28 +456,33 @@ Schema.Event = new SimpleSchema({
   },
   size: {
     type: String,
-    max: 2,
+    max: 2
   },
   byline: {
     type: String,
-    label: 'Tag Line'
+    label: 'Event Name'
   },
   image: {
     type: String,
+    uniforms: ImageUploadSingle,
     optional: true
   },
   description: {
     type: String,
+    label: 'Event Description',
     optional: true
   },
   eventAddress: {
     type: Schema.Address,
-    label: 'Event Address',
-    optional: true
+    label: 'Event Address'
   },
   atHost: {
     type: Boolean,
     label: 'At My House',
+    optional: true
+  },
+  venueId: {
+    type: String,
     optional: true
   },
   contact: {
@@ -501,11 +494,7 @@ Schema.Event = new SimpleSchema({
   categories: {
     type: Array,
     label: 'Categories',
-    optional: true,
-    // custom: function () {
-      // I WANT TO PUSH THE CATEGORY "ONLINE ONLY" TO THIS ARRAY
-      //$set function on this key??
-    // },
+    optional: true
   },
   'categories.$': {
     type: String
@@ -528,20 +517,6 @@ Schema.Event = new SimpleSchema({
     //stores array of guest_ids; which can be used for search later.
     type: String
   },
-  guestCount: {
-    type: Number,
-    optional: true,
-    minCount: 0,
-    autoValue: function() {
-      if (this.siblingField("guests").value) {
-        let arr = this.siblingField("guests").value;
-        console.log (arr.length);
-        return arr.length;
-      } else {
-        return 0
-      }
-    }
-  },
   retired: {
     type: Boolean,
     optional: true,
@@ -555,6 +530,14 @@ Schema.Event = new SimpleSchema({
         return false
       }
     }
+  },
+  entertainers: {
+    type: Array,
+    optional: true
+  },
+  "entertainers.$": {
+    type: String,
+    optional: true
   },
   creator: {
     type: String,
