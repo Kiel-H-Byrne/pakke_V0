@@ -1,13 +1,12 @@
-
 <head>
   <meta charset="utf-8" />
-  <title>PAKKE</title> 
+  <title>PAKKE</title>
 
   <meta name="format-detection" content="telephone=no" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
   <meta name="HandheldFriendly" content="true" />
-  
+
   <meta name="theme-color" content="#333" />
   <meta name="msapplication-TileColor" content="#333" />
   <meta name="msapplication-TileImage" content="i" />
@@ -29,18 +28,20 @@
   <meta property="og:site_name" content="PAKKE" />
   <meta property="fb:app_id" content="" />
 
-<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:100|Kanit:100|Montserrat:100|Raleway+Dots|Wire+One|Yanone+Kaffeesatz:200" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:100|Kanit:100|Montserrat:100|Raleway+Dots|Wire+One|Yanone+Kaffeesatz:200"
+    rel="stylesheet">
 
 
-  
+
 
   <noscript>
     <style>
-      body{
+      body {
         font-size: 52px;
         text-align: center;
         line-height: 100vh;
       }
+
       body:after {
         /*white-space: pre;*/
         /*content: "Please enable Javascript to properly use this site.";*/
@@ -51,29 +52,29 @@
 </head>
 
 <body>
-<script type="text/javascript">
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : Meteor.settings.public.keys.facebookOAuth.app_id,
-      xfbml      : true,
-      version    : 'v2.12'
-    });
-  
-    FB.AppEvents.logPageView();
-  
-  };
+  <script type="text/javascript">
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: Meteor.settings.public.keys.facebookOAuth.app_id,
+        xfbml: true,
+        version: 'v2.12'
+      });
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+      FB.AppEvents.logPageView();
+
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 /*
   var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode:"aace4bc9f527e3c896a60f32f20cae528cb82946e24eb884ff595655d92a68a8", values:{},ready:function(){$zoho.salesiq.floatbutton.visible('hide');}};var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;s.src="https://salesiq.zoho.com/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);
 */
-</script>
+  </script>
 
   <div id="render-target"></div>
 </body>

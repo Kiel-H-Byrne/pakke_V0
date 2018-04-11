@@ -1,11 +1,9 @@
-/* Mobile phone layout */
-@media screen and (max-width: 1200px) {
+
   .landingEvents {
     margin-top: 10%;
   }
 
-  @media screen and (max-width: 1200px) {
-    // vertical scroll vs. grid
+   
     .scroll-wrapper-x {
       display: flex;
       flex-wrap: nowrap;
@@ -16,30 +14,13 @@
         display: none;
       }
     }
-  }
+  
 
   /* Large devices */
-  @media screen and (min-width: 1200px) {
-    .scroll-wrapper-x {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-gap: 1rem;
-    }
-  }
-}
-
-//not mobile
-
-landingEvents {
-  margin-top: 10%;
-}
-
-
-/* Large devices (large desktops, 1200px and up) */
-@media screen and (min-width: 1200px) {
-  .scroll-wrapper-x {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 1rem;
-  }
-}
+  // @media screen and (min-width: 1200px) {
+  //   .scroll-wrapper-x {
+  //     display: grid;
+  //     grid-template-columns: 1fr 1fr 1fr;
+  //     grid-gap: 1rem;
+  //   }
+  // }
