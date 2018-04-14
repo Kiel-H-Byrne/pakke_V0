@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Email } from 'meteor/email';
 
 import Events from '/imports/startup/collections/events';
+import Venues from '/imports/startup/collections/events';
 
 // import '/imports/api/OrionCache.js';
 // const OCache = new OrionCache('rest', 100000);
@@ -52,29 +53,6 @@ apiCall = function (apiUrl, callback) {
 };
 
 Meteor.methods({
-  createEvent: function (eventName, eventAddress) {
-      if (!Meteor.userId()) {
-          throw new Meteor.Error('not authorized');
-          return false;
-      } else {
-          var userId = Meteor.userId();
-          var username = Meteor.user().username;
-          var year = new Date().getFullYear();
-          var month = new Date().getMonth() + 1;
-          var day = new Date().getDate();
-          var date = (month + "/" + day + "/" + year).toString();
-
-          Events.insert({
-              eventHostUserId: userId,
-              eventHostUserName: username,
-              date: date,
-              createdAt: new Date(),
-              eventName: eventName,
-              eventAddress: eventAddress,
-              attendees: [userId],
-          });
-      }
-  },
   attendEvent(thisUserId, eventId) {
       if (!Meteor.userId()) {
           throw new Meteor.Error('not authorized');
@@ -83,18 +61,6 @@ Meteor.methods({
       } else {
           Events.update(eventId, { $addToSet: { guests: thisUserId } });
       }
-  },
-  removeEvent(eventsId) {
-      if (!Meteor.userId()) {
-          throw new Meteor.Error('not authorized');
-          this.stop();
-          return false;
-      } else {
-          Events.remove(eventsId);
-      }
-  },
-  addHostRole(){
-      Roles.addUsersToRoles(Meteor.userId(),'Host');
   },
   addUser: function(email,password, role){
     check(email,String);
@@ -113,10 +79,6 @@ Meteor.methods({
     Meteor.users.update(uid, {
       $set: { "profile" : obj}
     });
-  },
-	addHost: function(doc) {
-    //add 'host role' to user
-    alert('fix "addHost" method');
   },
   addRole: function (id, role) {
     // check(id, Meteor.Collection.ObjectID);

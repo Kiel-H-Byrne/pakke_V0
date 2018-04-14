@@ -41,8 +41,6 @@ onSubmitSuccess={handleSuccess}
 onSubmitFailure={handleFailure} >
 
     <AutoFields omitFields={omitFields} />
-    <TextField name="image" type="file" />
-
     <SubmitField value="Submit"  />
     <ErrorsField />
 </AutoForm>

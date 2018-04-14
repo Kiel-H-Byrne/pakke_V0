@@ -67,6 +67,7 @@ Events.allow({
   insert: (userId, doc) => !! userId,
   // anyone can add themselves as guest to the event (update only guest scope of Event document).
   update: (userId, doc) => true
+  // remove not authorized if not owner and not inside of a "creator" field of events.
 });
 
 
