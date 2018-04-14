@@ -17,6 +17,7 @@ const handleSubmit = function(doc) {
 	if (! Roles.userIsInRole(Meteor.userId(), 'Host')) {
 		Meteor.call('addRole', uid, "host");
 	}
+  console.log(doc);
 	Meteor.call('addEvent', doc);
 
 	// Meteor.users.update(uid, {
@@ -25,14 +26,14 @@ const handleSubmit = function(doc) {
 
 
 }; 
-const omitFields = ["creator", "submitted", "retired", "guests", "guestCount", "attended", "host", "eventAddress.address", "eventAddress.coords"];
+const omitFields = ["creator", "submitted", "retired", "guests", "guestCount", "attended", "hostId", "venueId", "eventAddress.address", "eventAddress.coords"];
 
 const EventForm = ({model}) =>(
     // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}
     // onSubmitFailure={() => console.log('Promise rejected!')}/>
 <AutoForm  schema={Schema.Event} >
     <AutoFields omitFields={omitFields} />
-    <SubmitField value="Submit" />
+    <SubmitField value="Submit" onSubmit={handleSubmit} />
     <ErrorsField />
 </AutoForm>
 );

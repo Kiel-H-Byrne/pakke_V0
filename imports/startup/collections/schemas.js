@@ -66,11 +66,6 @@ Schema.Address = new SimpleSchema({
     // allowedValues: ["APT", "FL", "STE"]
     optional: true
   },
-  corner: {
-    type: String,
-    label: 'Cross Streets',
-    optional: true
-  },
   city: {
     type: String,
     max: 50,
@@ -80,7 +75,8 @@ Schema.Address = new SimpleSchema({
   state: {
     type: String,
     allowedValues: ["AL","AK","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
-    optional: true
+    optional: true,
+    defaultValue: 'DC'
   },
   zip: {
     type: String,
@@ -96,31 +92,32 @@ Schema.Address = new SimpleSchema({
   // },
   coords: {
     type: String,
-    autoValue: function () {
-      // const address = this.field("address").value;
-      if (this.siblingField('street').isSet) {
-        const street = this.siblingField("street").value;
-        console.log(street);
-        let addressString =  `${this.siblingField('street').value}, ${this.siblingField('state').value} ${this.siblingField('zip').value}`;
-        console.log(addressString);
-        const geo = new google.maps.Geocoder;
-        geo.geocode(
-          { address: addressString },
-          (res,err) => {
-            console.log(res,err);
-            let locObj = res[0].geometry.location;
-            console.log(locObj);
-            let locStr = `${locObj.lat()}, ${locObj.lng()}`
-            if (locStr) {
-              // this.value = locStr;
-              return locStr;  
-            }
-          }
-        );
-      } else {
-        console.log("Street is required");
-      }
-    }
+    optional: true,
+    // autoValue: function () {
+    //   // const address = this.field("address").value;
+    //   if (this.siblingField('street').isSet) {
+    //     const street = this.siblingField("street").value;
+    //     console.log(street);
+    //     let addressString =  `${this.siblingField('street').value}, ${this.siblingField('state').value} ${this.siblingField('zip').value}`;
+    //     console.log(addressString);
+    //     const geo = new google.maps.Geocoder;
+    //     geo.geocode(
+    //       { address: addressString },
+    //       (res,err) => {
+    //         console.log(res,err);
+    //         let locObj = res[0].geometry.location;
+    //         console.log(locObj);
+    //         let locStr = `${locObj.lat()}, ${locObj.lng()}`
+    //         if (locStr) {
+    //           this.value = locStr;
+    //           return locStr;  
+    //         }
+    //       }
+    //     );
+    //   } else {
+    //     console.log("Street is required");
+    //   }
+    // }
   }  
 });
 
@@ -193,7 +190,7 @@ Schema.Talent = new SimpleSchema({
     optional: true
   },
   fee: {
-    type: Number,
+    type: SimpleSchema.Integer,
     label: 'Fee for this performance?',
     optional: true
   }
@@ -472,14 +469,12 @@ Schema.Event = new SimpleSchema({
     label: 'Event Description',
     optional: true
   },
+  price: {
+    type: SimpleSchema.Integer
+  },
   eventAddress: {
     type: Schema.Address,
     label: 'Event Address'
-  },
-  atHost: {
-    type: Boolean,
-    label: 'At My House',
-    optional: true
   },
   venueId: {
     type: String,
@@ -498,16 +493,6 @@ Schema.Event = new SimpleSchema({
   },
   'categories.$': {
     type: String
-  },
-  attended: {
-    type: Boolean,
-    label: 'Attended?',
-    optional: true,
-    // autoValue: function() {
-    //   // if isn't set, 
-    //   //if meteor.user.id is in the array of events.guests, set value to true
-        // if user.id = creator of event (host) set to true.
-    // }
   },
   guests: {
     type: Array,

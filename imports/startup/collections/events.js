@@ -4,7 +4,7 @@ import './schemas';
 
 const Events = new Mongo.Collection('events');
 
-Events.attachSchema(Schema.Event);
+// Events.attachSchema(Schema.Event);
 
 
 if (Meteor.isServer) {
