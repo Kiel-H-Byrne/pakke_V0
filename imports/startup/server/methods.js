@@ -83,7 +83,6 @@ Meteor.methods({
   addRole: function (id, role) {
     // check(id, Meteor.Collection.ObjectID);
     check(role, Array);
-    console.log(typeof id, typeof role);
     Roles.addUsersToRoles( id , role );
   },
   addEvent: function(doc) {
@@ -93,10 +92,9 @@ Meteor.methods({
 
     Events.insert(doc , function(err, res){
       if (err) {
-        console.log("EVENT INSERT FAILED:");
-        console.log(doc.byline + ": " + err);
+        console.log(`EVENT INSERT FAILED: ${doc.byline}: ${err}`);
       } else {
-        console.log(doc.byline + ": Success");
+        console.log(`EVENT INSERT SUCCESS: ${doc.byline}`);
       }
     });
   },
