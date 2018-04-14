@@ -39,8 +39,7 @@ if (!SOUP) {
 
 
 Accounts.config({
-  sendVerificationEmail: true,
-  forbidClientAccountCreation: false
+  sendVerificationEmail: true
 });
 
 Accounts.emailTemplates.siteName = 'pakke.us';

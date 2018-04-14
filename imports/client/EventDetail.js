@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { withTracker, createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import Events from '../startup/collections/events';
 
 class EventDetail extends Component {
-
+  
   state = {
-    event: {},
+    event: {}
   }
 
   componentDidMount() {
     const allEvents = this.props.allEvents;
     const eventId = this.props.match.params.id;
+    // const event = Events.findOne( eventId );
+
+    // console.log(Events.findOne( eventId ) );
+    // this.setState({
+    //   event: Events.findOne( eventId )
+    // });
+    //this will be very inefficient as the database grows.
     for (let i = 0; i < allEvents.length; i++) {
       if (allEvents[i]._id === eventId) {
-        console.log(allEvents[i])
+        // console.log(allEvents[i])
         this.setState({
           event: allEvents[i]
         });
@@ -23,8 +30,9 @@ class EventDetail extends Component {
   }
 
   attendEvent() {
-    console.log('submit attendee')
+    // console.log('submit attendee')
     const eventId = this.state.event._id;
+
     const thisUserId = Meteor.userId();
     Meteor.call("attendEvent", thisUserId, eventId);
 
@@ -37,7 +45,7 @@ class EventDetail extends Component {
   //       <div>
   //         <img className='event-detail-image' src={this.state.event.image} alt='image'/>
   //         <h1>{this.state.event.byline}</h1>        
-  //         <p>{this.state.event.description}</p>
+  //         <p>{this.state.event.des`cr`iption}</p>
 
   //         <button onClick={this.attendEvent.bind(this)} className="btn btn-lg btn-success">Attend Event</button>
 
@@ -64,7 +72,6 @@ class EventDetail extends Component {
     return (
       <div>
         <img className='event-detail-image' src={this.state.event.image} alt='image' />
-        {this.props.thisUserId}
         <h1>{this.state.event.byline}</h1>
         <p>{this.state.event.description}</p>
 
@@ -109,7 +116,7 @@ class EventDetail extends Component {
 export default withTracker(() => {
   let eventsSub = Meteor.subscribe('events_current');
   return {
-    allEvents: Events.find({}).fetch(),
+    allEvents: Events.find().fetch(),
     thisUser: Meteor.user(),
     thisUserId: Meteor.userId(),
   }

@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import './schemas';
 
-const Events = new Mongo.Collection('events');
+Events = new Mongo.Collection('events');
 
 // Events.attachSchema(Schema.Event);
 
