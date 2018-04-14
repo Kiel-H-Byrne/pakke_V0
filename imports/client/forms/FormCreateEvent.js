@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AutoFields   from 'uniforms-bootstrap3/AutoFields';
+import AutoFields  from 'uniforms-bootstrap3/AutoFields';
 import AutoForm    from 'uniforms-bootstrap3/AutoForm';
 import SubmitField from 'uniforms-bootstrap3/SubmitField';
 import TextField   from 'uniforms-bootstrap3/TextField';
@@ -12,28 +12,38 @@ import '../../startup/collections/schemas';
 // with appropriate values.
 
 const handleSubmit = function(doc) {
-	const uid = Meteor.userId();
-	
-	if (! Roles.userIsInRole(Meteor.userId(), 'Host')) {
-		Meteor.call('addRole', uid, "host");
-	}
-  console.log(doc);
-	Meteor.call('addEvent', doc);
-
-	// Meteor.users.update(uid, {
-	//     $set: {"profile[type]": doc}
-	//   })
-
-
+    Meteor.call('addEvent', doc);
 }; 
-const omitFields = ["creator", "submitted", "retired", "guests", "guestCount", "attended", "hostId", "venueId", "eventAddress.address", "eventAddress.coords"];
 
-const EventForm = ({model}) =>(
+const handleSuccess = () => {
+    Bert.alert("Your Event Was Posted!", "success");
+};
+
+const handleFailure = () => {
+    Bert.alert("Sorry, Something Went Wrong", "danger", "growl-top-right");
+};
+
+const omitFields = ["submitted","guests", "guestCount", "hostId", "venueId", "eventAddress.address", "eventAddress.coords", "image"];
+
+
+const model = Schema.Event.clean({});
+//ALLOWS FOR DEFAULT VALUES TO GET PULLED INTO FORM VALUES FOR VALIDATION/SUBMISSION. 
+//WITHOUT THIS, AUTOVALUES/DEFAULTVALUES ARE EMPTY WHEN FORM IS SUBMITTED!!!
+
+const EventForm = () =>(
     // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}
     // onSubmitFailure={() => console.log('Promise rejected!')}/>
-<AutoForm  schema={Schema.Event} >
+<AutoForm  
+schema={Schema.Event} 
+model={model} 
+onSubmit={handleSubmit} 
+onSubmitSuccess={handleSuccess} 
+onSubmitFailure={handleFailure} >
+
     <AutoFields omitFields={omitFields} />
-    <SubmitField value="Submit" onSubmit={handleSubmit} />
+    <TextField name="image" type="file" />
+
+    <SubmitField value="Submit"  />
     <ErrorsField />
 </AutoForm>
 );

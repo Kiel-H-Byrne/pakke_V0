@@ -7,7 +7,7 @@ import uniforms from 'uniforms';
 
 Schema = {};
 
-class ImageUploadSingle extends Component {
+class ImageUploadComponent extends Component {
   render() {
     return (
       <div><input type="file" /></div>
@@ -70,7 +70,7 @@ Schema.Address = new SimpleSchema({
     type: String,
     max: 50,
     optional: true,
-    defaultValue: 'District of Columbia'
+    // defaultValue: 'District of Columbia'
   },
   state: {
     type: String,
@@ -141,15 +141,16 @@ Schema.Venue = new SimpleSchema({
   },
   images: {
     type: Array,
-    optional: true
+    optional: true,
   },
   'images.$': {
     type: Object,
-    optional: true
+    optional: true,
+    uniforms: ImageUploadComponent
   },
-  'images.$.url': {
-    type: String
-  }
+  // 'images.$.url': {
+  //   type: String
+  // }
 
 });
 
@@ -276,7 +277,7 @@ Schema.Profile = new SimpleSchema({
   avatar: {
     type: String,
     optional: true,
-    uniforms: ImageUploadSingle
+    uniforms: ImageUploadComponent
   },
   address: {
     type: Schema.Address,
@@ -440,34 +441,28 @@ Schema.Event = new SimpleSchema({
   // 'optional: false' means that this field is required
   // If it's blank, the form won't submit and you'll get a red error message
   // 'type' is where you can set the expected data type for the 'title' key's value
-  "hostId": {
+  hostId: {
     type: String,
-    label: "Host",
-    optional: true
+    autoValue: () => Meteor.userId()
   },
   date: {
-    type: Date,
-    min: function() {
-      return new Date();
-    }
+    type: Date
   },
   size: {
-    type: String,
-    max: 2
+    type: Number,
+    min: 7,
+    max: 99
   },
   byline: {
     type: String,
-    label: 'Event Name'
-  },
-  image: {
-    type: String,
-    uniforms: ImageUploadSingle,
-    optional: true
+    label: 'Event Name',
+    max: '33'
   },
   description: {
     type: String,
     label: 'Event Description',
-    optional: true
+    optional: true,
+    max: 120
   },
   price: {
     type: SimpleSchema.Integer
@@ -479,6 +474,7 @@ Schema.Event = new SimpleSchema({
   venueId: {
     type: String,
     optional: true
+    //SOMEHOW SHOW RADIO BOXES WITH NAMES OF VENUES FROM HOSTS VENUEARRAY
   },
   contact: {
     type: String,
@@ -502,20 +498,6 @@ Schema.Event = new SimpleSchema({
     //stores array of guest_ids; which can be used for search later.
     type: String
   },
-  retired: {
-    type: Boolean,
-    optional: true,
-    autoValue: function() {
-      //RETURN FALSE IF DATE.NOW() > DATE SIBLING FIELD.
-      
-      let age = Date.now() - Date.parse(this.siblingField("date").value);
-      if (age > 10) {
-        return true;
-      } else {
-        return false
-      }
-    }
-  },
   entertainers: {
     type: Array,
     optional: true
@@ -524,16 +506,9 @@ Schema.Event = new SimpleSchema({
     type: String,
     optional: true
   },
-  creator: {
-    type: String,
-    autoValue: function() {
-      return Meteor.userId();
-    }
-  },
   submitted: {
     type: Date,
-    autoValue: function() {
-      return new Date();
-    }
+    autoValue: () => new Date()
   }
 });
+

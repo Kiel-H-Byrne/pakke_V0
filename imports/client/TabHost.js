@@ -20,7 +20,7 @@ class TabHost extends Component {
   render() {
 
 
-    const isHost = Roles.userIsInRole(Meteor.userId(), 'Host')
+    const isHost = Roles.userIsInRole(Meteor.userId(), ["host"])
 
     if (!this.props.ready) {
       return <div>Loading</div>;

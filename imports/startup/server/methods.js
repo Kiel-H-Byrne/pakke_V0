@@ -125,7 +125,10 @@ Meteor.methods({
     Roles.addUsersToRoles( id , role );
   },
   addEvent: function(doc) {
-    console.log(doc);
+    if (! Roles.userIsInRole(Meteor.userId(), ["host"])) {
+      Meteor.call('addRole', Meteor.userId(), ["host"]);
+    }
+
     Events.insert(doc , function(err, res){
       if (err) {
         console.log("EVENT INSERT FAILED:");

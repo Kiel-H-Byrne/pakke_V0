@@ -6,7 +6,7 @@ import '../startup/collections/schemas';
 const handleSubmit = function(doc) {
 	let uid = Meteor.userId();
 	const type = "asHost"
-	if (! Roles.userIsInRole(Meteor.userId(), 'Host')) {
+	if (! Roles.userIsInRole(Meteor.userId(), ["host"])) {
 		Meteor.call('addRole', uid, "host");
 	}
 	Meteor.call('editProfile', type, doc);
