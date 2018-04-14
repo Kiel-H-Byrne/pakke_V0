@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { withTracker } from 'meteor/react-meteor-data';
-
+import { withTracker, createContainer } from 'meteor/react-meteor-data';
 import Events from '../startup/collections/events';
 
 class EventDetail extends Component {
@@ -13,7 +12,7 @@ class EventDetail extends Component {
   componentDidMount() {
     const allEvents = this.props.allEvents;
     const eventId = this.props.match.params.id;
-    for (var i = 0; i < allEvents.length; i++) {
+    for (let i = 0; i < allEvents.length; i++) {
       if (allEvents[i]._id === eventId) {
         console.log(allEvents[i])
         this.setState({
@@ -62,10 +61,10 @@ class EventDetail extends Component {
   // }
 
   render() {
-    const isLoggedIn = Meteor.userId();
     return (
       <div>
         <img className='event-detail-image' src={this.state.event.image} alt='image' />
+        {this.props.thisUserId}
         <h1>{this.state.event.byline}</h1>
         <p>{this.state.event.description}</p>
 
@@ -78,7 +77,7 @@ class EventDetail extends Component {
 
 
           <div className='attend-event-button-area'>
-            {isLoggedIn ? (
+            {this.props.thisUserId ? (
               <div className='attend-event-button'><button onClick={this.attendEvent.bind(this)} className="btn btn-lg btn-success">Attend Event</button></div>
             ) : (
                 <div className='attend-event-button'>
