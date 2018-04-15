@@ -7,13 +7,14 @@ class BecomeHost extends Component {
     super(props);
   }
   render() {
+    const loginAlert = () => Bert.alert("Please Log In First.", "warning", "growl-top-right");
     return (
       <div className="container">
         <img src='Events.jpg'/>
         <h1>Host an Event</h1>
         <h2>Share your passion</h2>
         <h3>host events at in your space</h3>
-        <p>Lorem ipsum dolor amet schlitz letterpress gentrify squid migas glossier</p>
+        <p>Lorem ipsum dolor amet schlitz letterpress gentrify squid migas glossierz</p>
         {this.props.authenticated ? (
           <>
             <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Become a Host</button>
@@ -33,23 +34,7 @@ class BecomeHost extends Component {
             </div>
           </>
         ) : (
-          <>
-            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#loginModal">Become a Host</button>
-            <div className="modal fade" id="loginModal" role="dialog">
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <button type="button" className="close" data-dismiss="modal">&times;</button>
-                    <h4 className="modal-title">Log In</h4>
-                  </div>
-                  <div className="modal-body">
-                    
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </>
+            <button className="btn btn-info btn-lg" onClick={loginAlert}>Become a Host</button>
         )}
       </div>
     );

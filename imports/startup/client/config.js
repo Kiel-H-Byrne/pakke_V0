@@ -8,10 +8,10 @@ Meteor.startup(() => {
     'lang': 'en'
   });
   
-  if (location.host.indexOf('www.pakke.us') !== 0) {
-    console.log('redirecting...');
-      location.replace("https://www.pakke.us")
-  }
+  // if (location.host.indexOf('www.pakke.us') !== 0) {
+  //   console.log('redirecting...');
+  //     location.replace("https://www.pakke.us")
+  // }
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
@@ -29,7 +29,7 @@ Meteor.startup(() => {
 
 Accounts.ui.config({
   requestPermissions: {
-    facebook: ["email", "user_birthday", "user_location", ],
+    facebook: ["email", "user_birthday", "user_location"],
     google: [
     "https://www.googleapis.com/auth/userinfo.profile", 
     "https://www.googleapis.com/auth/user.addresses.read", 

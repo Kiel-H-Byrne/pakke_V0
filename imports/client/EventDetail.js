@@ -69,6 +69,7 @@ class EventDetail extends Component {
   // }
 
   render() {
+    const loginAlert = () => Bert.alert("Please Log In First.", "warning", "growl-top-right");
     return (
       <div>
         <img className='event-detail-image' src={this.state.event.image} alt='image' />
@@ -84,27 +85,13 @@ class EventDetail extends Component {
 
 
           <div className='attend-event-button-area'>
-            {this.props.thisUserId ? (
-              <div className='attend-event-button'><button onClick={this.attendEvent.bind(this)} className="btn btn-lg btn-success">Attend Event</button></div>
-            ) : (
-                <div className='attend-event-button'>
-                  <button type="button" className="btn btn-success btn-lg" data-toggle="modal" data-target="#loginModal">Attend Event</button>
-                  <div className="modal fade" id="loginModal" role="dialog">
-                    <div className="modal-dialog">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <button type="button" className="close" data-dismiss="modal">&times;</button>
-                          <h4 className="modal-title">Log In</h4>
-                        </div>
-                        <div className="modal-body">
-
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
+            <div className='attend-event-button'>
+              {this.props.thisUserId ? ( 
+                <button onClick={this.attendEvent.bind(this)} className="btn btn-lg btn-success">Attend Event</button> 
+              ) : (
+                <button onClick={loginAlert} className="btn btn-success btn-lg" >Attend Event</button>
               )}
+            </div>
           </div>
         </div>
 
