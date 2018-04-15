@@ -29,7 +29,7 @@ Meteor.startup(() => {
 
 Accounts.ui.config({
   requestPermissions: {
-    facebook: ["user_birthday", "user_location"],
+    facebook: ["email", "user_birthday", "user_location", ],
     google: [
     "https://www.googleapis.com/auth/userinfo.profile", 
     "https://www.googleapis.com/auth/user.addresses.read", 
