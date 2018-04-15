@@ -30,7 +30,7 @@
   },
   "galaxy.meteor.com": { 
     "env": { 
-     "ROOT_URL": "https://pakke.meteorapp.com", 
+     "ROOT_URL": "https://www.pakke.us", 
      "MONGO_URL": "mongodb://pakkeadmin:pakkedHouse@ds025583.mlab.com:25583/pakkedb"
     }
   } 
