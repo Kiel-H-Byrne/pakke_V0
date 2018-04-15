@@ -24,7 +24,7 @@ Meteor.startup(() => {
       });
     });
   }
-}
+});
 
 
 Accounts.ui.config({
