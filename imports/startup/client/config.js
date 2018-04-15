@@ -1,5 +1,9 @@
 import { Accounts } from 'meteor/accounts-base';
 
+if (location.host.indexOf('www.pakke.us') !== 0) {
+    location = 'https://www.pakke.us'
+}
+
 Accounts.ui.config({
   requestPermissions: {
     facebook: ["user_birthday", "user_location"],
