@@ -1,8 +1,31 @@
 import { Accounts } from 'meteor/accounts-base';
 
-if (location.host.indexOf('www.pakke.us') !== 0) {
-    location = 'https://www.pakke.us'
+Meteor.startup(() => {
+    //=====  HTML Attributes for Facebook opengraph api =====
+  $('html').attr({
+    'xmlns': 'https://www.w3.org/1999/xhtml',
+    'xmlns:fb': 'https://ogp.me/ns/fb#',
+    'lang': 'en'
+  });
+  
+  if (location.host.indexOf('www.pakke.us') !== 0) {
+    console.log('redirecting...');
+      location = 'https://www.pakke.us'
+  }
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js').then(function(registration) {
+        // Registration was successful
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }).catch(function(err) {
+        // registration failed :(
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
 }
+
 
 Accounts.ui.config({
   requestPermissions: {
