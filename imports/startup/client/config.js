@@ -10,7 +10,7 @@ Meteor.startup(() => {
   
   if (location.host.indexOf('www.pakke.us') !== 0) {
     console.log('redirecting...');
-      window.location = 'https://www.pakke.us'
+      location.replace("https://www.pakke.us")
   }
 
   if ('serviceWorker' in navigator) {
