@@ -12,21 +12,25 @@ class ExplorePakke extends Component {
                     <div className='FindEvent'>
                         <Link to='/events'>
                             <img src='Events.jpg'></img>
-                            <p>Find Events</p>
+                            <h3>Find Events</h3>
+                            <p><span className="branded_pakke">Pakke</span> brings you the different and the unique above the surface. Find local events here!</p>
                         </Link>
                     </div>
 
                     <div className='BecomeHost'>
                         <Link to='/host'>
                             <img src='Host.jpg'></img>
-                            <p> Become a Host </p>
+                            <h3> Become a Host </h3>
+                            <p>Show off your hosting skills and open space for unique events. Learn more about hosting here!</p>
                         </Link>
                     </div>
 
                     <div className='ShareTalent'>
                         <Link to='/talent'>
                             <img src='Talent.jpg'></img>
-                            <p> Share Your Talent </p>
+                            <h3> Share Your Talent </h3>
+                            <p><span className="branded_pakke">Pakke</span> encourages performers and artists to show the world what it means to be a creative. Join other creatives in your community!</p>
+    
                         </Link>
                     </div>
                 </ul>

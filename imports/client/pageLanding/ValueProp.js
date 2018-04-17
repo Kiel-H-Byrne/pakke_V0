@@ -17,23 +17,24 @@ class ValueProp extends Component {
                                     {/* <img src='Events.jpg'></img> */}
                                     <div className='idea-border'>
                                         <div className='glyphicon glyphicon-glass'></div>
-                                        <h3>Guest</h3>
+                                        <h3>Discover</h3>
                                     </div>
-                                    <p> Guests are the lifeblood of any event.
-                                    Enjoy unique experiences around the city  </p>
+                                    <p> Pakke’s vision is to focus on the overall experience of how we socialize and more importantly, where and with who. As a guest, this is your opportunity to meet new people, learn about your city, and save money.
+ </p>
 
                                 </Link>
                             </div>
 
-                            <div className='idea2'>
+                            <div className='Connect'>
                                 <Link to='/host'>
                                     {/* <img src='Host.jpg'></img> */}
                                     <div className='idea-border'>
                                         <div className='glyphicon glyphicon-home'></div>
                                         <h3> Host </h3>
                                     </div>
-                                    <p> Host hold events in their space.
-                                    They can make the experience theirs  </p>
+                                    <p> 
+                                        The physical environment is just as important to a day or night out that, if done right, we are willing to open our doors as hosts for curated events. For all hosts, there will be a dedicated experience curator that will provide professional support so your event is successful and profitable.
+                                    </p>
 
                                 </Link>
                             </div>
@@ -43,10 +44,10 @@ class ValueProp extends Component {
                                     {/* <img src='Talent.jpg'></img> */}
                                     <div className='idea-border'>
                                         <div className='glyphicon glyphicon-music'></div>
-                                        <h3> Talent </h3>
+                                        <h3> Experience </h3>
                                     </div>
-                                    <p> Talent make the events come alive.
-                                    Perform at events across the city.  </p>
+                                    <p> Pakke believes in the power of experiences but finding ways to tap into a unique social outting, we need creative people to guide us there. This is why we pay very close attention to our talented professionals who choose Pakke as a way to bring their art, craft or trade to our communities. Join us today and see how your talent can earn recognition and money.
+ </p>
                                 </Link>
                             </div>
                         </ul>

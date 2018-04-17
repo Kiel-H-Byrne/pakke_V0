@@ -23,6 +23,7 @@ class Header extends Component {
                             
                         </div>
                     </div>
+                    <h4> Discover | Connect | Experience </h4>
                     <div className="header-links-right-signedin">
                         <div className='dropdown'>
                             <span className="caret"></span>
@@ -64,6 +65,7 @@ class Header extends Component {
                             </ul>
                         </div>
                     </div>
+                    <h4> Discover | Connect | Experience </h4>
                     <div className="header-links-right-signedout">
                         <ul className='AccountsUI2'>
                             <li><AccountsUIWrapper2 /></li>
