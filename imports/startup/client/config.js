@@ -8,10 +8,10 @@ Meteor.startup(() => {
     'lang': 'en'
   });
   
-  // if (location.host.indexOf('www.pakke.us') !== 0) {
-  //   console.log('redirecting...');
-  //     location.replace("https://www.pakke.us")
-  // }
+  if (((location.host.indexOf('localhost:3000') !== 0)) && (location.host.indexOf('www.pakke.us') !== 0) ) {
+    console.log('redirecting...');
+      location.replace("https://www.pakke.us")
+  }
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
