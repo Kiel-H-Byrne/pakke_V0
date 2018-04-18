@@ -1,7 +1,57 @@
 /* Mobile phone layout */
 
   .container {
+    position: relative;
     img {
       width: 100%;
+    }
+  }
+
+  .container-text-host {
+    // line-height: 1rem;
+    border: 1px solid lightgray;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+    padding: 1rem;
+   
+
+    h1 {
+      position: absolute;
+      height: 7rem;
+      width: 25rem;
+      top: 10%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      opacity: .8;
+      border-radius: 1rem;
+      text-align: center;
+      padding-top: 1rem;
+    }
+  }
+
+  .container-text-talent {
+    // line-height: 1rem;
+    border: 1px solid lightgray;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    
+   
+
+    h1 {
+      position: absolute;
+      height: 10rem;
+      width: 25rem;
+      top: 10%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      opacity: .8;
+      border-radius: 1rem;
+      text-align: center;
+      padding-top: 1rem;
     }
   }

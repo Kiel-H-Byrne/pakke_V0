@@ -20,6 +20,8 @@ export default class Event extends Component {
     const style2 = {
       width: `${weight}%`
     };
+
+    let remainingTickets = this.props.event.size - this.props.event.guests.length
     return (
 
       <div className='eventCard'>
@@ -28,12 +30,10 @@ export default class Event extends Component {
 
 
           <img className="eventCard_img" src={this.props.event.image} alt='image' />
-          <h3 className="eventCard_name">{this.props.event.byline}</h3>
-          {/* <p>{month} {date}</p> */}
-
+          <h4 className="eventCard_name">{this.props.event.byline}</h4>
           <p className="eventCard_loc">{this.props.event.eventAddress.city}, {this.props.event.eventAddress.zip}</p>
-          <p className="eventCard_desc">{this.props.event.description}</p>
-
+          <p>25$ per person | {remainingTickets} tickets remain</p>
+          {/* <p className='event-ticket-count'>  </p> */}
         </Link>
 
         {/* <div className="progress">
