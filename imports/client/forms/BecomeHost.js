@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import FormCreateEvent from '../forms/FormCreateEvent';
+import EditProfileHostForm from '../forms/FormEditProfileHost';
 import { createContainer } from "meteor/react-meteor-data";
 
 class BecomeHost extends Component {
@@ -26,7 +26,7 @@ class BecomeHost extends Component {
                     <h4 className="modal-title">Host Sign Up Form</h4>
                   </div>
                   <div className="modal-body">
-                    <FormCreateEvent />
+                    <EditProfileHostForm />
                   </div>
                 </div>
 
