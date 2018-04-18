@@ -14,7 +14,7 @@ class BecomeHost extends Component {
         <div className='container-text-host'>
           <h1>Host an Event</h1>
           <h3>Have a unique open space? Looking to Host an Event?</h3>
-          <h3>Show off your hosting skills and open space for unique events</h3>
+          <h3>Show off your hosting skills and cool venues!</h3>
           <p>Fill out the form below to become a host</p>
         </div>
         {this.props.authenticated ? (

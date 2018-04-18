@@ -469,7 +469,9 @@ Schema.Event = new SimpleSchema({
   // 'type' is where you can set the expected data type for the 'title' key's value
   hostId: {
     type: String,
-    autoValue: () => this.userId
+    autoValue: function() {
+      return this.userId;
+    }
   },
   date: {
     type: Date
