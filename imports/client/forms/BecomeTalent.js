@@ -12,15 +12,16 @@ class BecomeTalent extends Component {
     return (
       <div className="container">
         <img src='Talent.jpg' />
-
-        <h1>Share Your Talent</h1>
-        <h2>Do you have a talent?</h2>
-        <h3>peform at venues across the city</h3>
-        <p>Lorem ipsum dolor amet schlitz letterpress gentrify squid migas glossier</p>
+        <div className='container-text-talent'>
+          <h1>Share Your Talent</h1>
+          <h2>Show us what you got</h2>
+          <h3>Perform at new venues around the city and make extra cash.</h3>
+          <p>Click the button below to register your tallent with Pakke</p>
+        </div>
         {this.props.authenticated ? (
           <>
-            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Register Your Talent</button>
-            <div className="modal fade" id="myModal" role="dialog">
+            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#talentProfileModal">Register Your Talent</button>
+            <div className="modal fade" id="talentProfileModal" role="dialog">
               <div className="modal-dialog">
                 <div className="modal-content">
                   <div className="modal-header">
@@ -31,11 +32,11 @@ class BecomeTalent extends Component {
                     <EditProfileTalentForm />
                   </div>
                 </div>
-
               </div>
+
             </div>
           </>
-          ) : (
+        ) : (
             <button className="btn btn-info btn-lg" onClick={loginAlert}>Register Your Talent</button>
           )
         }

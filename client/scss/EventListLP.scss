@@ -1,6 +1,7 @@
 
   .landingEvents {
-    margin-top: 10%;
+    margin-top: 5rem;
+    margin-left: 2rem;
   }
 
    
@@ -17,10 +18,9 @@
   
 
   /* Large devices */
-  // @media screen and (min-width: 1200px) {
-  //   .scroll-wrapper-x {
-  //     display: grid;
-  //     grid-template-columns: 1fr 1fr 1fr;
-  //     grid-gap: 1rem;
-  //   }
-  // }
+  @media screen and (min-width: 900px) {
+     .scroll-wrapper-x {
+      display: grid; 
+       grid-template-columns: 1fr 1fr 1fr;
+     }
+   }

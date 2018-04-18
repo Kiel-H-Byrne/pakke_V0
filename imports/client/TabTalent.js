@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
 
 
-import EventForm from './forms/EventForm';
+import EditProfileTalentForm from './forms/FormEditProfileTalent';
 import Events from '../startup/collections/events';
 import Event from './Event';
 
@@ -20,9 +20,24 @@ class TabHost extends Component {
 
       return (
         
-        <div>
-          <h3 className='talent-block'>You are currently not a registered talent</h3>
-          <Link to='/talent'><button className='btn btn-info center-block'>Register your Talent</button></Link>
+        <div className='host-block'>
+
+          <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#talentProfileModal">Entertain a Pakke</button>
+
+            <div className="modal fade" id="talentProfileModal" role="dialog">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                    <h4 className="modal-title">Host Sign Up Form</h4>
+                  </div>
+                  <div className="modal-body">
+                    <EditProfileTalentForm />
+                  </div>
+                </div>
+              </div>
+
+            </div>
         </div>
       )
     }

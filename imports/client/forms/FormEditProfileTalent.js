@@ -11,39 +11,50 @@ import '../../startup/collections/schemas';
 // validation and a submit button. If model will be present, form will be filled
 // with appropriate values.
 
-const handleSubmit = function(doc) {
-    Meteor.call('editProfile', "asTalent", doc);
-}; 
-
-const handleSuccess = () => {
-    Bert.alert("Your Profile Was Updated!", "success");
-    console.log(this);
-};
-
-const handleFailure = () => {
-    Bert.alert("Sorry, Something Went Wrong", "danger", "growl-top-right");
-};
-
 const omitFields = ["$.address.coords"];
 
 const model = Schema.asTalent.clean({});
 //ALLOWS FOR DEFAULT VALUES TO GET PULLED INTO FORM VALUES FOR VALIDATION/SUBMISSION. 
 //WITHOUT THIS, AUTOVALUES/DEFAULTVALUES ARE EMPTY WHEN FORM IS SUBMITTED!!!
-const EditProfileTalentForm = () => (
-    // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}
-    // onSubmitFailure={() => console.log('Promise rejected!')}/>
-<AutoForm  
-validate="onChangeAfterSubmit"
-schema={Schema.asTalent} 
-model={model} 
-onSubmit={handleSubmit} 
-onSubmitSuccess={handleSuccess} 
-onSubmitFailure={handleFailure} >
+class EditProfileTalentForm extends Component {
+  constructor(props) {
+    super(props);
+    this.formRef = null;
+  }
 
-    <AutoFields omitFields={omitFields} />
-    <SubmitField value="Submit"  />
-    <ErrorsField />
-</AutoForm>
-);
+  handleSubmit(doc) {
+    Meteor.call('editProfile', "asTalent", doc);
+  }; 
+
+  handleSuccess() {
+      Bert.alert("Your Profile Was Updated!", "success");
+      $('form[name="TalentProfileForm"]').reset()
+  };
+  
+  handleFailure() {
+    Bert.alert("Sorry, Something Went Wrong", "danger", "growl-top-right");
+  };
+
+  render() {
+    return(
+      // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}
+      // onSubmitFailure={() => console.log('Promise rejected!')}/>
+      <AutoForm  
+      name="TalentProfileForm"
+      ref={(ref) => { this.formRef = ref; }}
+      validate="onChangeAfterSubmit"
+      schema={Schema.asTalent} 
+      model={model} 
+      onSubmit={this.handleSubmit} 
+      onSubmitSuccess={this.handleSuccess} 
+      onSubmitFailure={this.handleFailure} >
+
+          <AutoFields omitFields={omitFields} />
+          <SubmitField value="Submit"  />
+          <ErrorsField />
+      </AutoForm>
+    );
+  }
+}
 
 export default EditProfileTalentForm;

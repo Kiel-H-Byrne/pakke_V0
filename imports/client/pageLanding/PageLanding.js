@@ -12,9 +12,10 @@ class LandingPage extends Component {
 
         return (
             <div className='landingPage'>
-                <h1>Explore Pakke </h1>
-                <ExplorePakke />
-                
+                <div className='explore-pakke'>
+                    <ExplorePakke />
+                </div>
+
 
                 <div className="landingEvents">
                     <h2>Featured Events</h2>
@@ -22,11 +23,11 @@ class LandingPage extends Component {
                         <EventList />
                     </div>
                 </div>
-                
+
                 <div className="landingValue">
                     <ValueProp />
                 </div>
-            </div>
+            </div >
         )
     }
 };

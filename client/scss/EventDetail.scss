@@ -12,9 +12,14 @@
 
     .attend-event-button-area {
         float: right;
+        border: 1px solid gray;
+        border-radius: 1rem;
     }
 
     .attend-event-button {
+        padding: 2rem;
+
+        // position: absolute;
         
     }
 

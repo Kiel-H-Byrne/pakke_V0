@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
 
-import EventForm from './forms/EventForm';
+import EventForm from './forms/FormCreateEvent';
 import Events from '../startup/collections/events';
 import Event from './Event';
 
@@ -30,8 +30,22 @@ class TabHost extends Component {
         <div className='host-block'>
         {isHost ? (
           <>
-          <h3>Create Event</h3>
           <p>Host Profile</p>
+          <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Form a Pakke!</button>
+            <div className="modal fade" id="myModal" role="dialog">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                    <h4 className="modal-title">Host Sign Up Form</h4>
+                  </div>
+                  <div className="modal-body">
+                    <EventForm />
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </>
           ) : (
           <>
