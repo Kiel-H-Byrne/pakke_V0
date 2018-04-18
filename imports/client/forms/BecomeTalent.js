@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import FormBecomeTalent from '../FormBecomeTalent';
+import EditProfileTalentForm from './FormEditProfileTalent';
 import { createContainer } from 'meteor/react-meteor-data';
 
 
@@ -28,10 +28,7 @@ class BecomeTalent extends Component {
                     <h4 className="modal-title">Talent Sign Up Form</h4>
                   </div>
                   <div className="modal-body">
-                    <FormEditProfileTalent />
-                  </div>
-                  <div className="modal-footer">
-                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                    <EditProfileTalentForm />
                   </div>
                 </div>
 

@@ -17,6 +17,7 @@ const handleSubmit = function(doc) {
 
 const handleSuccess = () => {
     Bert.alert("Your Profile Was Updated!", "success");
+    console.log(this);
 };
 
 const handleFailure = () => {

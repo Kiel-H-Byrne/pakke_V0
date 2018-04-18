@@ -57,7 +57,6 @@ Schema.Address = new SimpleSchema({
   street: {
     type: String,
     max: 100,
-    optional: true
   },
   place: {
     type: String,
@@ -69,13 +68,11 @@ Schema.Address = new SimpleSchema({
   city: {
     type: String,
     max: 50,
-    optional: true,
     // defaultValue: 'District of Columbia'
   },
   state: {
     type: String,
     allowedValues: ["AL","AK","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
-    optional: true,
     defaultValue: 'DC'
   },
   zip: {
@@ -93,31 +90,43 @@ Schema.Address = new SimpleSchema({
   coords: {
     type: String,
     optional: true,
-    // autoValue: function () {
-    //   // const address = this.field("address").value;
-    //   if (this.siblingField('street').isSet) {
-    //     const street = this.siblingField("street").value;
-    //     console.log(street);
-    //     let addressString =  `${this.siblingField('street').value}, ${this.siblingField('state').value} ${this.siblingField('zip').value}`;
-    //     console.log(addressString);
-    //     const geo = new google.maps.Geocoder;
-    //     geo.geocode(
-    //       { address: addressString },
-    //       (res,err) => {
-    //         console.log(res,err);
-    //         let locObj = res[0].geometry.location;
-    //         console.log(locObj);
-    //         let locStr = `${locObj.lat()}, ${locObj.lng()}`
-    //         if (locStr) {
-    //           this.value = locStr;
-    //           return locStr;  
-    //         }
-    //       }
-    //     );
-    //   } else {
-    //     console.log("Street is required");
-    //   }
-    // }
+    uniforms: {
+      disabled: true,
+      hidden: true
+    },
+    autoValue: function () {
+      // const address = this.field("address").value;
+      if (this.siblingField('street').isSet) {
+        const street = this.siblingField("street").value;
+        let addressString =  `${this.siblingField('street').value}, ${this.siblingField('state').value} ${this.siblingField('zip').value}`;
+        console.log(addressString);
+        //CLIENT SIDE GEOCODE
+        // const geo = new google.maps.Geocoder;
+        // geo.geocode(
+        //   { address: addressString },
+        //   (res,err) => {
+        //     console.log(res,err);
+        //     let locObj = res[0].geometry.location;
+        //     let locStr = `${locObj.lat()}, ${locObj.lng()}`
+        //     if (locStr) {
+        //       return locStr;  
+        //     }
+        //   });
+
+        //SERVER SIDE GEOCODE
+        const response = Meteor.call('geoCode', addressString);
+
+        if (response && response.results.length) {
+          const loc = response.results[0].geometry.location;
+          //====== RETURN STRINGIFIED LAT/LONG NUMBERS ======
+          const arr =  _.values(loc);
+          const locationString = arr.toLocaleString();
+          return locationString;
+        } 
+      } else {
+        console.log("Street is required");
+      }
+    }
   }  
 });
 
@@ -126,17 +135,29 @@ Schema.Venue = new SimpleSchema({
     type: String,
     label: 'A Nickname'
   },
+  description: {
+    type: String,
+    label: "A brief description:",
+    max: 240
+  },
   address: {
-    type: Schema.Address
+    type: Schema.Address,
+    label: "Where is it?"
   },
   venueType: { 
     type: String,
-    label: 'What Type of Venue is this (Commercial / Apartment / Condo / House? )',
+    label: 'What type of venue is this?',
+    allowedValues: ["Commercial", "Apartment", "Condo", "Town Home", "Detached Home"],
     optional: true
+  },
+  capacity: {
+    type: Number,
+    label: "How many people can comfortably fit?",
+    max: 99
   },
   ownedStatus: {
     type: Boolean,
-    label: 'I own this venue?',
+    label: 'I own this venue.',
     optional: true
   },
   images: {
@@ -198,6 +219,11 @@ Schema.Talent = new SimpleSchema({
 });
 
 Schema.asTalent = new SimpleSchema({
+  name: {
+    type: String,
+    label: 'Stage Name?',
+    optional: true
+  },
   talents: {
     type: Array
   },
@@ -443,7 +469,7 @@ Schema.Event = new SimpleSchema({
   // 'type' is where you can set the expected data type for the 'title' key's value
   hostId: {
     type: String,
-    autoValue: () => Meteor.userId()
+    autoValue: () => this.userId
   },
   date: {
     type: Date

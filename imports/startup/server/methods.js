@@ -72,12 +72,20 @@ Meteor.methods({
     Roles.addUsersToRoles( id._id ,  role );
   },
   editProfile: function(type, doc) {
+    if ( (type == 'asHost') && (! Roles.userIsInRole(Meteor.userId(), ["host"])) ) {
+      Meteor.call('addRole', Meteor.userId(), ["host"]);
+    } 
+    
+    if ( (type == 'asTalent') && (! Roles.userIsInRole(Meteor.userId(), ["talent"])) ) {
+      Meteor.call('addRole', Meteor.userId(), ["talent"]);
+    }
+
     const uid = Meteor.userId();
-    let obj = {};
-    obj[type] = doc;
-    console.log(obj);
+    let profile = Meteor.user().profile;
+    profile[type] = doc;
+    
     Meteor.users.update(uid, {
-      $set: { "profile" : obj}
+      $set: { "profile" : profile}
     });
   },
   addRole: function (id, role) {
