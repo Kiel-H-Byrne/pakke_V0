@@ -7,9 +7,11 @@ class AboutPakke extends Component {
         return (
             <div>
                 <h2>What is Pakke? </h2>
+                <p>Our vision is to enhance and enrich the experience of socializing--the Where, and the Who. The physical environment i sjust as important to a day or night out that (if done right) we may open our doors as hosts for curated events that keep us all yearning for more Pakke'd Events.
+                <br />
+                <br />
+                Moreover, Pakke's network of hosts, guests, and entertainers, will drive another revenue stream that would have otherwise went to traditional establishments like bars and restaurants. </p>
                 <div className='value-prop'>
-
-
                         <ul className='value-prop-items'>
 
                             <div className='idea1'>
@@ -46,9 +48,8 @@ class AboutPakke extends Component {
                                         <div className='glyphicon glyphicon-music'></div>
                                         <h3> Talent </h3>
                                     </div>
-                                    <p> Pakke believes in the power of experiences but finding ways to tap into a unique social outting, we need creative people to guide us there. This is why we pay very close attention to our talented professionals who choose Pakke as a way to bring their art, craft or trade to our communities. Join us today and see how your talent can earn recognition and money.
- </p>
-                                </Link>
+                                    <p> Pakke believes in the power of experiences but finding ways to tap into a unique social outting, we need creative people to guide us there. This is why we pay very close attention to our talented professionals who choose Pakke as a way to bring their art, craft or trade to our communities. Join us today and see how your talent can earn recognition and money.</p>
+                                    </Link>
                             </div>
                         </ul>
                     </div>
