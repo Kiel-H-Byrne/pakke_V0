@@ -18,7 +18,7 @@ class LandingPage extends Component {
 
 
                 <div className="landingEvents">
-                    <h2>Featured Events</h2>
+                    <h2>Pakke Inspired Events</h2>
                     <div className="scroll-wrapper-x">
                         <EventList />
                     </div>
