@@ -7,7 +7,7 @@ class AboutPakke extends Component {
         return (
             <div>
                 <h2>What is Pakke? </h2>
-                <p style={}>Our vision is to enhance and enrich the experience of socializing--the Where, and the Who. The physical environment i sjust as important to a day or night out that (if done right) we may open our doors as hosts for curated events that keep us all yearning for more Pakke'd Events.
+                <p>Our vision is to enhance and enrich the experience of socializing--the Where, and the Who. The physical environment i sjust as important to a day or night out that (if done right) we may open our doors as hosts for curated events that keep us all yearning for more Pakke'd Events.
                 <br />
                 <br />
                 Moreover, Pakke's network of hosts, guests, and entertainers, will drive another revenue stream that would have otherwise went to traditional establishments like bars and restaurants. </p>
