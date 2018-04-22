@@ -28,7 +28,7 @@ class EditProfileTalentForm extends Component {
 
   handleSuccess() {
       Bert.alert("Your Profile Was Updated!", "success");
-      $('form[name="TalentProfileForm"]').reset()
+      // $('form[name="TalentProfileForm"]').reset()
   };
   
   handleFailure() {
