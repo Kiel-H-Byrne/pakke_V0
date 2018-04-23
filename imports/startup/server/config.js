@@ -103,7 +103,7 @@ Accounts.onCreateUser(function(options, user) {
     console.log(fb);
     myUser.username = fb.name;
     myUser.emails = [{address: fb.email, verified: true}];
-    myUser.profile.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=small`;
+    myUser.profile.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=large`;
   }
   //CHECK & MERGE GOOGLE INFO
   if (user.services.google) {

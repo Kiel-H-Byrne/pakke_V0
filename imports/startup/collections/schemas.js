@@ -99,7 +99,7 @@ Schema.Address = new SimpleSchema({
       if (this.siblingField('street').isSet) {
         const street = this.siblingField("street").value;
         let addressString =  `${this.siblingField('street').value}, ${this.siblingField('state').value} ${this.siblingField('zip').value}`;
-        console.log(addressString);
+        // console.log(addressString);
         //CLIENT SIDE GEOCODE
         // const geo = new google.maps.Geocoder;
         // geo.geocode(
@@ -114,15 +114,34 @@ Schema.Address = new SimpleSchema({
         //   });
 
         //SERVER SIDE GEOCODE
-        const response = Meteor.call('geoCode', addressString);
+        let response = Meteor.call('geoCode', addressString, (error, result) => {
+          if (result) {
+            const loc =result.results[0].geometry.location;
+            // ====== RETURN STRINGIFIED LAT/LONG NUMBERS ======
+            const arr =  _.values(loc);
+            const locationString = arr.toLocaleString();
+            console.log(locationString);
+            this.value = locationString;
+            return locationString;
+          } else {
+            console.log(error);
+          }
+        });
+        if (response) {
+          console.log(response);
+          this.value = response;
+        // if (response ) {
+        //   console.log(response);
+        //   const loc = response.results[0].geometry.location;
+        //   //====== RETURN STRINGIFIED LAT/LONG NUMBERS ======
+        //   const arr =  _.values(loc);
+        //   const locationString = arr.toLocaleString();
+        //   console.log(locationString);
+        //   return locationString;
+        // } else {
+        //   console.log("no response");
+        }
 
-        if (response && response.results.length) {
-          const loc = response.results[0].geometry.location;
-          //====== RETURN STRINGIFIED LAT/LONG NUMBERS ======
-          const arr =  _.values(loc);
-          const locationString = arr.toLocaleString();
-          return locationString;
-        } 
       } else {
         console.log("Street is required");
       }
@@ -470,6 +489,7 @@ Schema.Event = new SimpleSchema({
   hostId: {
     type: String,
     autoValue: function() {
+      console.log(Meteor.userId());
       return this.userId;
     }
   },
@@ -485,6 +505,9 @@ Schema.Event = new SimpleSchema({
     type: String,
     label: 'Event Name',
     max: '33'
+  },
+  image: {
+    type: String
   },
   description: {
     type: String,
@@ -537,6 +560,15 @@ Schema.Event = new SimpleSchema({
   submitted: {
     type: Date,
     autoValue: () => new Date()
+  }, 
+  featured: {
+    type: Boolean, 
+    optional: true,
+    defaultValue: false,
+    label: 'Featured Event',
+    uniforms: {
+      hidden: true
+    },
   }
 });
 

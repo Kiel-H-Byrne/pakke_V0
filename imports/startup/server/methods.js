@@ -4,10 +4,9 @@ import { Email } from 'meteor/email';
 import Events from '/imports/startup/collections/events';
 import Venues from '/imports/startup/collections/events';
 
-// import '/imports/api/OrionCache.js';
-// const OCache = new OrionCache('rest', 100000);
+import MongoCache from '/imports/startup/server/MongoCache.js';
 
-
+const OCache = new MongoCache('rest', 100000);
 
 apiCall = function (apiUrl, callback) {
   // try…catch allows you to handle errors 
