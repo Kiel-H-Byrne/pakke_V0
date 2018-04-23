@@ -20,9 +20,12 @@ if (Meteor.isServer) {
 
   Meteor.publish('events_current', function () {
       const cursor = Events.find({
-        $and: [
-          {"eventAddress.coords": { $exists : 1 }}
-        ]
+        date: {
+          $gte: new Date() 
+        }, 
+        // $and: [
+        //   {"eventAddress.coords": { $exists : 1 }}
+        // ]
       },
       {
         sort: { date: 1 }
