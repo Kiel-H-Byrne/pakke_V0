@@ -4,10 +4,9 @@ import { Email } from 'meteor/email';
 import Events from '/imports/startup/collections/events';
 import Venues from '/imports/startup/collections/events';
 
-// import '/imports/api/OrionCache.js';
-// const OCache = new OrionCache('rest', 100000);
+import MongoCache from '/imports/startup/server/MongoCache.js';
 
-
+const OCache = new MongoCache('rest', 100000);
 
 apiCall = function (apiUrl, callback) {
   // try…catch allows you to handle errors 
@@ -108,45 +107,19 @@ Meteor.methods({
   },
   geoCode: function(address) {
     this.unblock();
+    check(address, String);
+    address = encodeURIComponent(address);
+    const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${Meteor.settings.private.keys.googleAPI.key}`;
+    console.log(`--URL-- ${apiUrl}`);
     
-    let urlParams;
-    if (typeof address === "object" && ! _.isEmpty(address))  {
-      urlParams = _.values(address);
-    } else {
-      // console.log(address);
-      urlParams = address;
-    }
-
-    let apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + urlParams + '&key=' + Meteor.settings.private.keys.googleAPI.key;
-    console.log("--URL--"+apiUrl);
-    let response = Meteor.wrapAsync(apiCall)(apiUrl);
+    const response = Meteor.wrapAsync(apiCall)(apiUrl);
+    
     if (response) {
       // console.log("Geo RESPONSE:");
-      // console.log(response);
+      console.log(response.results[0]);
       return response;
     }
-    return;
   }, 
-  httpGeo : function(address) {
-    check(address,String);
-    this.unblock();
-    paramsObj = {
-      params: {
-        address: address,
-        key: Meteor.settings.private.keys.googleAPI.key
-      }
-    };
-    try {
-      const result = HTTP.get('https://maps.googleapis.com/maps/api/geocode/json', paramsObj);
-      let loc = result.data.results[0].geometry.location;
-      // console.log(loc);
-      return true;
-    } catch (e) {
-      // Got a network error, timeout, or HTTP error in the 400 or 500 range.
-      // console.log(e);
-      return false;
-    }
-  },
   sendEmail: function(to, from, subject, html) {
     check([to, from, subject, html], [String]);
     this.unblock();

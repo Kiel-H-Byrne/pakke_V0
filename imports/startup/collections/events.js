@@ -20,12 +20,15 @@ if (Meteor.isServer) {
 
   Meteor.publish('events_current', function () {
       const cursor = Events.find({
-        $and: [
-          {"eventAddress.coords": { $exists : 1 }}
-        ]
+        date: {
+          $gte: new Date() 
+        }, 
+        // $and: [
+        //   {"eventAddress.coords": { $exists : 1 }}
+        // ]
       },
       {
-        sort: { lastUpdated: 1 }
+        sort: { date: 1 }
       });
 
     console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] CURRENT EVENTS WITH LOCATIONS =-");
@@ -34,9 +37,11 @@ if (Meteor.isServer) {
 
   Meteor.publish('events_retired', function () {
     let cursor = Events.find({
-      retired: true, 
+      date: {
+        $lt: new Date() 
+      }, 
     });
-    console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] RETIRED EVENTS =-");
+    console.log(`-= PUBLISHING: ALL [${cursor.count()}] RETIRED EVENTS =-`);
     return cursor;
   });
 
@@ -44,6 +49,14 @@ if (Meteor.isServer) {
     let cursor = Events.findOne({
       _id: id
     });
+    return cursor;
+  });
+
+Meteor.publish('events_featured', function (id) {
+    let cursor = Events.find({
+      "featured": true
+    });
+    console.log(`-= PUBLISHING: [${cursor.count()}] FEATURED VENTS =-`);
     return cursor;
   });
 

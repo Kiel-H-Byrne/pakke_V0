@@ -90,16 +90,16 @@ Schema.Address = new SimpleSchema({
   coords: {
     type: String,
     optional: true,
-    uniforms: {
-      disabled: true,
-      hidden: true
-    },
+    // uniforms: {
+    //   disabled: true,
+    //   hidden: true
+    // },
     autoValue: function () {
       // const address = this.field("address").value;
-      if (this.siblingField('street').isSet) {
-        const street = this.siblingField("street").value;
+      if (this.siblingField('street').value) {
+        let street = this.siblingField("street").value;
         let addressString =  `${this.siblingField('street').value}, ${this.siblingField('state').value} ${this.siblingField('zip').value}`;
-        console.log(addressString);
+        // console.log(addressString);
         //CLIENT SIDE GEOCODE
         // const geo = new google.maps.Geocoder;
         // geo.geocode(
@@ -116,15 +116,19 @@ Schema.Address = new SimpleSchema({
         //SERVER SIDE GEOCODE
         const response = Meteor.call('geoCode', addressString);
 
+
         if (response && response.results.length) {
-          const loc = response.results[0].geometry.location;
-          //====== RETURN STRINGIFIED LAT/LONG NUMBERS ======
+          const loc =response.results[0].geometry.location;
+          // ====== RETURN STRINGIFIED LAT/LONG NUMBERS ======
           const arr =  _.values(loc);
           const locationString = arr.toLocaleString();
+          console.log(locationString);
+          // this.value = locationString;
+          // console.log(this.value);
           return locationString;
-        } 
-      } else {
-        console.log("Street is required");
+        }
+      // } else {
+      //   console.log("Street is required");
       }
     }
   }  
@@ -469,9 +473,7 @@ Schema.Event = new SimpleSchema({
   // 'type' is where you can set the expected data type for the 'title' key's value
   hostId: {
     type: String,
-    autoValue: function() {
-      return this.userId;
-    }
+    autoValue: () => Meteor.userId()
   },
   date: {
     type: Date
@@ -486,6 +488,12 @@ Schema.Event = new SimpleSchema({
     label: 'Event Name',
     max: '33'
   },
+  image: {
+    type: String,
+    optional: true,
+    uniforms: ImageUploadComponent,
+    label: 'Preview Image'
+  },
   description: {
     type: String,
     label: 'Event Description',
@@ -493,7 +501,9 @@ Schema.Event = new SimpleSchema({
     max: 120
   },
   price: {
-    type: SimpleSchema.Integer
+    type: SimpleSchema.Integer,
+    min: 5,
+    max: 200
   },
   eventAddress: {
     type: Schema.Address,
@@ -537,6 +547,15 @@ Schema.Event = new SimpleSchema({
   submitted: {
     type: Date,
     autoValue: () => new Date()
+  }, 
+  featured: {
+    type: Boolean, 
+    optional: true,
+    defaultValue: false,
+    label: 'Featured Event',
+    uniforms: {
+      hidden: true
+    },
   }
 });
 
