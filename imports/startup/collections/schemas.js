@@ -90,14 +90,14 @@ Schema.Address = new SimpleSchema({
   coords: {
     type: String,
     optional: true,
-    uniforms: {
-      disabled: true,
-      hidden: true
-    },
+    // uniforms: {
+    //   disabled: true,
+    //   hidden: true
+    // },
     autoValue: function () {
       // const address = this.field("address").value;
-      if (this.siblingField('street').isSet) {
-        const street = this.siblingField("street").value;
+      if (this.siblingField('street').value) {
+        let street = this.siblingField("street").value;
         let addressString =  `${this.siblingField('street').value}, ${this.siblingField('state').value} ${this.siblingField('zip').value}`;
         // console.log(addressString);
         //CLIENT SIDE GEOCODE
@@ -114,36 +114,21 @@ Schema.Address = new SimpleSchema({
         //   });
 
         //SERVER SIDE GEOCODE
-        let response = Meteor.call('geoCode', addressString, (error, result) => {
-          if (result) {
-            const loc =result.results[0].geometry.location;
-            // ====== RETURN STRINGIFIED LAT/LONG NUMBERS ======
-            const arr =  _.values(loc);
-            const locationString = arr.toLocaleString();
-            console.log(locationString);
-            this.value = locationString;
-            return locationString;
-          } else {
-            console.log(error);
-          }
-        });
-        if (response) {
-          console.log(response);
-          this.value = response;
-        // if (response ) {
-        //   console.log(response);
-        //   const loc = response.results[0].geometry.location;
-        //   //====== RETURN STRINGIFIED LAT/LONG NUMBERS ======
-        //   const arr =  _.values(loc);
-        //   const locationString = arr.toLocaleString();
-        //   console.log(locationString);
-        //   return locationString;
-        // } else {
-        //   console.log("no response");
-        }
+        const response = Meteor.call('geoCode', addressString);
 
-      } else {
-        console.log("Street is required");
+
+        if (response && response.results.length) {
+          const loc =response.results[0].geometry.location;
+          // ====== RETURN STRINGIFIED LAT/LONG NUMBERS ======
+          const arr =  _.values(loc);
+          const locationString = arr.toLocaleString();
+          console.log(locationString);
+          // this.value = locationString;
+          // console.log(this.value);
+          return locationString;
+        }
+      // } else {
+      //   console.log("Street is required");
       }
     }
   }  
@@ -504,7 +489,10 @@ Schema.Event = new SimpleSchema({
     max: '33'
   },
   image: {
-    type: String
+    type: String,
+    optional: true,
+    uniforms: ImageUploadComponent,
+    label: 'Preview Image'
   },
   description: {
     type: String,
@@ -513,7 +501,9 @@ Schema.Event = new SimpleSchema({
     max: 120
   },
   price: {
-    type: SimpleSchema.Integer
+    type: SimpleSchema.Integer,
+    min: 5,
+    max: 200
   },
   eventAddress: {
     type: Schema.Address,

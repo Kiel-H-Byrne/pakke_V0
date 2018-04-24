@@ -21,7 +21,7 @@ export default class Event extends Component {
       width: `${weight}%`
     };
 
-    let remainingTickets = this.props.event.size - this.props.event.guests.length
+    let remainingTickets = this.props.event.size - count
     return (
 
       <div className='eventCard'>
@@ -29,18 +29,17 @@ export default class Event extends Component {
         <Link className='event-card-link' to={`/event/${this.props.event._id}`}>
 
 
-          <img className="eventCard_img" src={this.props.event.image} alt='image' />
+          <img className="eventCard_img" src={this.props.event.image} alt={this.props.event.byline} />
           <h4 className="eventCard_name">{this.props.event.byline}</h4>
           <p className="eventCard_loc">{this.props.event.eventAddress.city}, {this.props.event.eventAddress.zip}</p>
-          <p>25$ per person | {remainingTickets} tickets remain</p>
-          {/* <p className='event-ticket-count'>  </p> */}
+          <p>{this.props.price}$ per person | {remainingTickets} tickets remain</p>
         </Link>
 
-        {/* <div className="progress">
+        <div className="progress">
               <div className="progress-bar" role="progressbar" aria-valuenow={weight} aria-valuemin="0" aria-valuemax="100" style={style2}>
                 {weight}%
               </div>
-            </div> */}
+            </div>
       </div>
     )
   }

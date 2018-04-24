@@ -23,7 +23,7 @@ const handleFailure = () => {
     Bert.alert("Sorry, Something Went Wrong", "danger", "growl-top-right");
 };
 
-const omitFields = ["submitted","guests", "guestCount", "hostId", "venueId", "eventAddress.address", "eventAddress.coords", "image"];
+const omitFields = ["submitted","guests", "guestCount", "hostId", "venueId", "eventAddress.address", "eventAddress.coords"];
 
 
 const model = Schema.Event.clean({});
