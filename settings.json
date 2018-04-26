@@ -20,12 +20,14 @@
         "pubKey" : "pubkey-xxxx",
         "key" : "key-505f89ab46df69768503618f534e9a81",
         "password" : "8092210240438c3a66e1c13437ea3631-833f99c3-d4b5a944"
-      }
+      },
+      "stripe" : {}
     }
   },
   "private": {
     "keys": {
-      "googleAPI" : {"key" : "AIzaSyB56lMri2dCmcv_oif2Gi9xwbDtT_930Tg"}
+      "googleAPI" : {"key" : "AIzaSyB56lMri2dCmcv_oif2Gi9xwbDtT_930Tg"},
+      "stripe" : {}
     }
   },
   "galaxy.meteor.com": { 

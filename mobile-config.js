@@ -43,6 +43,7 @@ App.accessRule('localhost');
 App.accessRule('*.google.com/*');
 App.accessRule('*.googleapis.com/*');
 App.accessRule('*.gstatic.com/*');
+App.accessRule('https://*.stripe.com/*');
 
 // App.configurePlugin('cordova-plugin-googleplus', {
 //     'REVERSED_CLIENT_ID': 'com.googleusercontent.apps.xxxx'
