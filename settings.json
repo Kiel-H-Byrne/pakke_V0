@@ -1,7 +1,7 @@
 {
   "public": {
     "keys": {
-      "googleAnalytics": {"trackingId": "UA-12892693-10"},
+      "googleAnalytics": {"trackingId": "UA-118284508-1"},
       "googleAPI" : {"key" : "AIzaSyArlnrkA-z5JR0T6C_2z7rGmAZ1Mpl9WSE"},
       "yelp" : {
         "app_id" : "xxxx",
