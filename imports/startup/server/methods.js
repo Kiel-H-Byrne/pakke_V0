@@ -61,6 +61,12 @@ Meteor.methods({
           Events.update(eventId, { $addToSet: { guests: thisUserId } });
       }
   },
+  addInterests(doc) {
+    const uid = Meteor.userId(); 
+    Meteor.users.update(uid, {
+      $set: {"profile.interests": doc}
+    });
+  },
   addUser: function(email,password, role){
     check(email,String);
     check(password,String);    

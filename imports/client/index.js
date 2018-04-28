@@ -12,7 +12,6 @@ targetListing = function(map,pos) {
 };
 
 Meteor.startup(() => {
-
   //=====  GoogleMaps load =====  
   GoogleMaps.load({
     v: '3',

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import EditProfileTalentForm from './FormEditProfileTalent';
-import { createContainer } from 'meteor/react-meteor-data';
-
+import { withTracker } from 'meteor/react-meteor-data';
 
 class BecomeTalent extends Component {
   constructor(props) {
@@ -45,8 +44,8 @@ class BecomeTalent extends Component {
   }
 };
 
-export default createContainer(() => {
+export default withTracker(() => {
   return {
     authenticated: Meteor.userId()
   }
-}, BecomeTalent);
+})(BecomeTalent);

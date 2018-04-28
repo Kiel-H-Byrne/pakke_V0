@@ -2,7 +2,7 @@ import React from 'react';
 // import { withTracker } from 'meteor/react-meteor-data';
 import { Random } from 'meteor/random';
 
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 
 class GoogleMap extends React.Component {
   componentDidMount() {
@@ -48,10 +48,8 @@ class GoogleMap extends React.Component {
 // })(GoogleMap);
 
 
-GoogleMapContainer = createContainer(
-  () => ({ loaded: GoogleMaps.loaded() }),
-  GoogleMap,
-);
-export default GoogleMapContainer;
-
-
+export default GoogleMapContainer = withTracker(() => {
+  return {
+    loaded: GoogleMaps.loaded()    
+  }
+ })(GoogleMap);

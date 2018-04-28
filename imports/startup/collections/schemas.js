@@ -238,57 +238,114 @@ Schema.asTalent = new SimpleSchema({
 });
 
 
-Schema.Survey = new SimpleSchema({
-  partyMusic: {
+Schema.Interests = new SimpleSchema({
+  whichAnimal: {
     type: String,
-    label: 'Party Music',
+    label: 'Which are you?',
+    allowedValues: ["Inside Cat", "Outside Cat", "Dog rolling around in mud"],
     optional: true
   },
-  favSong: {
+  summerDestination: {
     type: String,
-    label: 'Shower Song',
+    label: 'Where could we find you on a summer Saturday?',
+    allowedValues: ["Rooftop Pool", "Mountaintop Waterfall", "Nude Beach"],
     optional: true
   },
-  favColor: {
+  monstersInc: {
     type: String,
-    label: 'Favorite Color',
+    label: 'Which Monsters Inc character are you?',
+    allowedValues: ["James P. Sullivan", "Mike Wazowski", "Boo"],
+    optional: true
+  },
+  everMotorcycle: {
+    type: Boolean,
+    label: 'Have you ever ridden a motorcycle?',
     optional: true
     },
-  favBYOB: {
-      type: String,
-      label: 'What do you BYOB?',
+  everGarden: {
+    type: Boolean,
+    label: 'Have you ever planted a garden?',
+    optional: true
+    },
+  everMarathon: {
+    type: Boolean,
+    label: 'Have you ever entered a marathon?',
+    optional: true
+    },
+  everClimb: {
+    type: Boolean,
+    label: 'Have you ever gone mountain climbing?',
+    optional: true
+    },
+  everGreek: {
+    type: Boolean,
+    label: 'Have you ever been a member of a sorority/fraternity?',
+    optional: true
+    },
+  everCrossdress: {
+    type: Boolean,
+    label: 'Have you ever dressed up as a member of the opposite sex?',
+    optional: true
+    },
+  everMilitary: {
+      type: Boolean,
+      label: 'Have you ever been in the military?',
       optional: true
     },
-  famousPerson: {
+  ratherLottery: {
       type: String,
-      label: 'Meet Which Famous Person?',
+      label: 'Would you rather:',
+      allowedValues: ['Win a million dollars in the lottery.', 'Never pay for anything again.'],
       optional: true
     },
-  innerDisney: {
+  ratherAge: {
       type: String,
-      label: 'Inner Disney Princess',
+      label: 'Would you rather:',
+      allowedValues: ['Age from the neck up only.', 'Age from the neck down only.'],
       optional: true
     },
-  vetStatus: {
+  ratherWishes: {
       type: String,
-      label: 'Veteran?',
+      label: 'Would you rather:',
+      allowedValues: ['Have 3 wishes in 10 years.', 'Have 1 wish today.'],
       optional: true
     },
-  armedService: {
+  ratherLove: {
       type: String,
-      label: 'In The Service?',
+      label: 'Would you rather:',
+      allowedValues: ['Never have sex.', 'Never find true love.'],
       optional: true
     },
-  furthestDest: {
+  ratherNeighbor: {
       type: String,
-      label: 'Furthest Destination Traveled',
+      label: 'Would you rather:',
+      allowedValues: ['Have a noisy neighbor.', 'Have a nosy neighbor.'],
       optional: true
     },
-  commuterType: {
+  ratherFly: {
       type: String,
-      label: 'What do you do while commuting?',
+      label: 'Would you rather:',
+      allowedValues: ['Be able to fly.', 'Be able to become invisible.'],
       optional: true
-  }
+    },
+  ratherTalk: {
+      type: String,
+      label: 'Would you rather:',
+      allowedValues: ['Talk in rhyme, all the time.', 'Sing instead of speak.'],
+      optional: true
+    },
+  ratherLive: {
+      type: String,
+      label: 'Would you rather:',
+      allowedValues: ['Live out in the country.', 'Live in the city.'],
+      optional: true
+    },
+  ratherSize: {
+      type: String,
+      label: 'Would you rather:',
+      allowedValues: ['Be a giant mouse.', 'Be a tiny elephant.'],
+      optional: true
+    },
 });
 
 Schema.Profile = new SimpleSchema({
@@ -344,7 +401,7 @@ Schema.Profile = new SimpleSchema({
     optional: true,
   },
   interests: {
-    type: Schema.Survey,
+    type: Schema.Interests,
     optional: true,
   },
   asHost: {
@@ -529,10 +586,30 @@ Schema.Event = new SimpleSchema({
     type: String
   },
   guests: {
+    type: Object,
+    optional: true
+  },
+  'guests.applied': {
     type: Array,
     optional: true
   },
-  'guests.$': {
+  'guests.invited': {
+    type: Array,
+    optional: true
+  },
+  'guests.confirmed': {
+    type: Array,
+    optional: true
+  },
+  'guests.applied.$': {
+    //stores array of guest_ids; which can be used for search later.
+    type: String
+  },
+  'guests.invited.$': {
+    //stores array of guest_ids; which can be used for search later.
+    type: String
+  },
+  'guests.confirmed.$': {
     //stores array of guest_ids; which can be used for search later.
     type: String
   },

@@ -6,7 +6,7 @@ import PageAbout from './PageAbout';
 import PageLanding from './pageLanding/PageLanding';
 import Event from './Event';
 import EventList from './EventList';
-import EventDetail from './EventDetail';
+import EventDetails from './EventDetail';
 import PageProfile from './PageProfile';
 import PageError from './PageError';
 import BecomeHost from './forms/BecomeHost';
@@ -33,7 +33,7 @@ class Router extends Component {
             <Route path='/landing' component={PageLanding} />
             <Route path='/about' component={PageAbout} />
             <Route path='/events' component={PageEventMap} />            
-            <Route path='/event/:id' component={EventDetail} />
+            <Route path='/event/:id' component={EventDetails} />
             <Route path='/profile' component={PageProfile} />
             <Route path='/host' component={BecomeHost} />
             <Route path='/talent' component={BecomeTalent} />

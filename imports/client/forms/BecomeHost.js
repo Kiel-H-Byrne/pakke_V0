@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import EditProfileHostForm from '../forms/FormEditProfileHost';
-import { createContainer } from "meteor/react-meteor-data";
+import { withTracker } from 'meteor/react-meteor-data';
 
 class BecomeHost extends Component {
   constructor(props) {
@@ -43,8 +43,8 @@ class BecomeHost extends Component {
   }
 }
 
-export default createContainer(() => {
+export default withTracker(() => {
   return {
     authenticated: Meteor.userId()
   }
-}, BecomeHost);
+})(BecomeHost);

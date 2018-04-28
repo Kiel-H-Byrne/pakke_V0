@@ -9,18 +9,14 @@ import PageProfile from './PageProfile';
 class Home extends Component {
 
   render() {
-    if (this.props.currentUser) {
-      return (
-        <PageProfile />
-      )
-    } else {
+    
       return (
       <PageLanding />
 
     )
-    }
   }
 }
+
 
 export default withTracker(() => {
   return {
