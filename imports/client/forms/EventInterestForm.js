@@ -30,18 +30,16 @@ export default class EventInterestForm extends Component {
     const user = this.props.user;
     const userEmail = user.emails[0].address;
     const eventId = this.props.eventId;
+
     const handleSubmit = function(doc) {
-      
         Meteor.call('addInterests', doc);
-        // add to events.guests.applied(userId)
-        // Meteor.call('amApplied', eventId, user._id);
-        $('#eventInterestsModal').modal('toggle');
-        Meteor.call('sendEmail', userEmail, ...emailProps);
-        
     }; 
 
     const handleSuccess = () => {
         Bert.alert("Thank you for Applying!", "success");
+        Meteor.call('amApplied', eventId, user._id);
+        $('#eventInterestsModal').modal('toggle');
+        Meteor.call('sendEmail', userEmail, ...emailProps);
     };
 
     const handleFailure = () => {
