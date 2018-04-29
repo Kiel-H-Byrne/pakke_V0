@@ -151,6 +151,15 @@ Meteor.methods({
 
     //check if logged in, or else anyone can send email from client
     Email.send({to, from, subject, html });
-  }
+  },
+  addtoInviteList: function(email, eventId) {
+    if (Roles.userIsInRole(Meteor.userId(), ["admin"])) {
+      const userId = Accounts.findUserByEmail(email)._id;
+      Events.update(eventId, { $addToSet: { "invitedList": userId } });
+    } else {  
+      console.log("Must be ADMIN to invite to events");
+    }
+  },
+  
 });
 
