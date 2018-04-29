@@ -55,7 +55,9 @@ class EventDetails extends Component {
 
   render() {
     
-    const loginAlert = () => Bert.alert("Please Log In First.", "warning", "growl-top-right");
+    const loginAlert = () => Bert.alert("Please Log In First.", "info", "growl-top-right");
+    const waitAlert = () => Bert.alert("Please Check Your E-mail.", "info", "growl-top-right");
+    const boughtAlert = () => Bert.alert("See you Soon!", "info", "growl-top-right");
     // const status = () => {
     //   if (Meteor.userId() && !loading) { 
     //     if (event.guests.confirmed.includes(Meteor.userId())) { status = "confirmed";
@@ -78,7 +80,7 @@ class EventDetails extends Component {
   // console.log(this.state);
     return (
       <div>
-        <img className='event-detail-image' src={this.state.event.image} alt='image' />
+        <img className='event-detail-image' src={this.props.event.image} alt='image' />
         <h1>{this.props.event.byline}</h1>
         <p>{this.props.event.description}</p>
 
@@ -95,26 +97,27 @@ class EventDetails extends Component {
             <div className='attend-event-button'>
             <p>{this.props.event.price ? `$ ${this.props.event.price}` : 'Sold Out'}</p>
               { 
-                // this.props.event.invitedList.includes(Meteor.userId()) ? ( 
-                // <div>
-                // <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventPurchaseModal">Buy Tickets</button>
-                //   <div className="modal fade" id="eventPurchaseModal" role="dialog">
-                //     <div className="modal-dialog">
-                //       <div className="modal-content">
-                //         <div className="modal-header">
-                //           <button type="button" className="close" data-dismiss="modal">&times;</button>
-                //           <h4 className="modal-title">Buy Tickets</h4>
-                //         </div>
-                //         <div className="modal-body">
-                //           <EventPurchaseForm />
-                //         </div>
-                //       </div>
-                //     </div>
-                //   </div>
-                //   </div>
-                // ) : 
-    this.props.event.appliedList.includes(Meteor.userId()) ? (
-                  <button disabled className="btn btn-success btn-lg" >Apply</button>
+                this.props.event.confirmedList.includes(Meteor.userId()) ? ( 
+                  <button onClick={boughtAlert} className="btn disabled btn-success btn-lg" >Purchased!</button>
+                ) : this.props.event.invitedList.includes(Meteor.userId()) ? ( 
+                <div>
+                <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventPurchaseModal">Buy Tickets</button>
+                  <div className="modal fade" id="eventPurchaseModal" role="dialog">
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <button type="button" className="close" data-dismiss="modal">&times;</button>
+                          <h4 className="modal-title">Buy Tickets</h4>
+                        </div>
+                        <div className="modal-body">
+                          <EventPurchaseForm />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                ) : this.props.event.appliedList.includes(Meteor.userId()) ? (
+                  <button onClick={waitAlert} className="btn disabled btn-success btn-lg" >Applied!</button>
                 ) : Meteor.userId() ? (
                 <div>
                 <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventInterestsModal">Apply</button>
@@ -151,12 +154,6 @@ export default withTracker(({ match }) => {
   const event = Events.findOne( match.params.id );
   const thisUser = Meteor.user();
 
-  // if (Meteor.userId() && !loading) { 
-  //   if (event.guests.confirmed.includes(Meteor.userId())) { status = "confirmed";
-  //   } else if (event.guests.invited.includes(Meteor.userId())) { status = "invited";
-  //   } else if (event.guests.applied.includes(Meteor.userId())) { status = "applied";
-  //   } else { status = "member" }
-  // }
   return {
     handle,
     loading,

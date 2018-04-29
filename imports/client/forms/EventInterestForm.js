@@ -25,7 +25,7 @@ export default class EventInterestForm extends Component {
     const eventId = this.props.eventId;
     const handleSubmit = function(doc) {
       
-        // Meteor.call('addInterests', doc);
+        Meteor.call('addInterests', doc);
         // add to events.guests.applied(userId)
         Meteor.call('amApplied', eventId, user._id);
         $('#eventInterestsModal').modal('toggle');
@@ -43,8 +43,7 @@ export default class EventInterestForm extends Component {
     const allKeys = Schema.Interests._schemaKeys;
     const answeredKeys = Object.keys(model);
     const fields = _.sample(_.difference(allKeys, answeredKeys), 3);
-
-    console.log(fields);    
+    
     //get fields with empty values
     //get sample of 3 fields
 

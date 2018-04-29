@@ -113,12 +113,16 @@ Meteor.methods({
   },
   addInterests(doc) {
     const uid = Meteor.userId(); 
+    console.log(doc);
     Meteor.users.update(uid, {
-      $set: {"profile.interests.$": doc}
+      $set: {"profile.interests": doc}
     });
   },
   amApplied: function(eventId, userId) {
-    Events.update(eventId, { $addToSet: { "appliedList": userId } });
+    console.log(eventId, userId);
+    Events.update(eventId, { $addToSet: { "appliedList": userId } }, (err,res) => {
+      err ? console.log(err) : console.log(res);
+    });
   },
   amInvited: function(eventId, userId) {
     Events.update(eventId, { $addToSet: { "invitedList": userId } });
@@ -137,7 +141,7 @@ Meteor.methods({
     
     if (response) {
       // console.log("Geo RESPONSE:");
-      console.log(response.results[0]);
+      // console.log(response.results[0]);
       return response;
     }
   }, 

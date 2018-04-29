@@ -162,15 +162,16 @@ Schema.Venue = new SimpleSchema({
   ownedStatus: {
     type: Boolean,
     label: 'I own this venue.',
-    optional: true
+    optional: true,
+    defaultValue: false
   },
   images: {
     type: Array,
     optional: true,
+    defaultValue: []
   },
   'images.$': {
     type: Object,
-    optional: true,
     uniforms: ImageUploadComponent
   },
   // 'images.$.url': {
@@ -183,11 +184,11 @@ Schema.asHost = new SimpleSchema({
   venues: {
     type: Array,
     label: 'Add A New Venue!',
-    optional: true
+    optional: true,
+    defaultValue: []
   },
   "venues.$": {
-    type: Schema.Venue,
-    optional: true
+    type: Schema.Venue
   }
 });
 
@@ -229,11 +230,11 @@ Schema.asTalent = new SimpleSchema({
     optional: true
   },
   talents: {
-    type: Array
+    type: Array,
+    defaultValue: []
   },
   "talents.$": {
-    type: Schema.Talent,
-    optional: true
+    type: Schema.Talent
   }
 });
 
@@ -260,37 +261,44 @@ Schema.Interests = new SimpleSchema({
   everMotorcycle: {
     type: Boolean,
     label: 'Have you ever ridden a motorcycle?',
-    optional: true
+    optional: true,
+    defaultValue: false
     },
   everGarden: {
     type: Boolean,
     label: 'Have you ever planted a garden?',
-    optional: true
+    optional: true,
+    defaultValue: false
     },
   everMarathon: {
     type: Boolean,
     label: 'Have you ever entered a marathon?',
-    optional: true
+    optional: true,
+    defaultValue: false
     },
   everClimb: {
     type: Boolean,
     label: 'Have you ever gone mountain climbing?',
-    optional: true
+    optional: true,
+    defaultValue: false
     },
   everGreek: {
     type: Boolean,
     label: 'Have you ever been a member of a sorority/fraternity?',
-    optional: true
+    optional: true,
+    defaultValue: false
     },
   everCrossdress: {
     type: Boolean,
     label: 'Have you ever dressed up as a member of the opposite sex?',
-    optional: true
+    optional: true,
+    defaultValue: false
     },
   everMilitary: {
       type: Boolean,
       label: 'Have you ever been in the military?',
-      optional: true
+      optional: true,
+    defaultValue: false
     },
   ratherLottery: {
       type: String,
@@ -490,32 +498,32 @@ Schema.User = new SimpleSchema({
     },
     // In order to avoid an 'Exception in setInterval callback' from Meteor
     heartbeat: {
-        type: Date,
-        optional: true
+      type: Date,
+      optional: true
     },
     eventsHosted: {
       type: Array,
-      optional: true
+      optional: true,
+      defaultValue: []
     },
     "eventsHosted.$": {
-      type: String,
-      optional: true
+      type: String
     },
     eventsAttended: {
       type: Array,
-      optional: true
+      optional: true,
+      defaultValue: []
     },
     "eventsAttended.$": {
-      type: String,
-      optional: true
+      type: String
     },
     eventsEntertained: {
       type: Array,
-      optional: true
+      optional: true,
+      defaultValue: []
     },
     "eventsEntertained.$": {
-      type: String,
-      optional: true
+      type: String
     }        
 });
  
@@ -580,42 +588,43 @@ Schema.Event = new SimpleSchema({
   categories: {
     type: Array,
     label: 'Categories',
-    optional: true
+    optional: true,
+    defaultValue: []
   },
   'categories.$': {
     type: String
   },
   appliedList: {
     type: Array,
-    optional: true
+    optional: true,
+    defaultValue: []
   },
   "appliedList.$": {
-    type: String,
-    optional: true
+    type: String
   },
   invitedList: {
     type: Array,
-    optional: true
+    optional: true,
+    defaultValue: []
   },
   "invitedList.$": {
-    type: String,
-    optional: true
+    type: String
   },
   confirmedList: {
     type: Array,
-    optional: true
+    optional: true,
+    defaultValue: []
   },
   "confirmedList.$": {
-    type: String,
-    optional: true
+    type: String
   },
   entertainers: {
     type: Array,
-    optional: true
+    optional: true,
+    defaultValue: []
   },
   "entertainers.$": {
-    type: String,
-    optional: true
+    type: String
   },
   submitted: {
     type: Date,
