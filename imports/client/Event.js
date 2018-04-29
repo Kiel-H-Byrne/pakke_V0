@@ -32,7 +32,7 @@ export default class Event extends Component {
           <img className="eventCard_img" src={this.props.event.image} alt={this.props.event.byline} />
           <h4 className="eventCard_name">{this.props.event.byline}</h4>
           <p className="eventCard_loc">{this.props.event.eventAddress.city}, {this.props.event.eventAddress.zip}</p>
-          <p>{this.props.price}$ per person | {remainingTickets} tickets remain</p>
+          <p>{this.props.event.price}$ per person | {remainingTickets} tickets remain</p>
         </Link>
 
         <div className="progress">
