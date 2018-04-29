@@ -113,13 +113,13 @@ Meteor.methods({
   },
   addInterests(doc) {
     const uid = Meteor.userId(); 
-    console.log(doc);
+    // console.log(doc);
     Meteor.users.update(uid, {
       $set: {"profile.interests": doc}
     });
   },
   amApplied: function(eventId, userId) {
-    console.log(eventId, userId);
+    // console.log(eventId, userId);
     Events.update(eventId, { $addToSet: { "appliedList": userId } }, (err,res) => {
       err ? console.log(err) : console.log(res);
     });
@@ -146,10 +146,10 @@ Meteor.methods({
     }
   }, 
   sendEmail: function(to, from, subject, html) {
-    check([to, from, subject, html], [String]);
+    // check([to, from, subject, html], [String]);
     this.unblock();
 
-    //check if logged in and is admin user, or else anyone can send email from client
+    //check if logged in, or else anyone can send email from client
     Email.send({to, from, subject, html });
   }
 });

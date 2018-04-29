@@ -5,6 +5,7 @@ import AutoForm    from 'uniforms-bootstrap3/AutoForm';
 import SubmitField from 'uniforms-bootstrap3/SubmitField';
 import TextField   from 'uniforms-bootstrap3/TextField';
 import ErrorsField from 'uniforms-bootstrap3/ErrorsField';
+import eventAppliedTemplate from '../email/eventAppliedTemplate'
 
 import '../../startup/collections/schemas';
 
@@ -15,6 +16,11 @@ import '../../startup/collections/schemas';
 
 
 // const omitFields = ["submitted","guests", "guestCount", "hostId", "venueId", "eventAddress.address", "eventAddress.coords"];
+const emailProps = [
+  "noreply@pakke.us",
+  "Thank You for Applying!",
+  eventAppliedTemplate
+  ];
 
 export default class EventInterestForm extends Component {
 
@@ -22,13 +28,16 @@ export default class EventInterestForm extends Component {
     console.log(this);
 
     const user = this.props.user;
+    const userEmail = user.emails[0].address;
     const eventId = this.props.eventId;
     const handleSubmit = function(doc) {
       
         Meteor.call('addInterests', doc);
         // add to events.guests.applied(userId)
-        Meteor.call('amApplied', eventId, user._id);
+        // Meteor.call('amApplied', eventId, user._id);
         $('#eventInterestsModal').modal('toggle');
+        Meteor.call('sendEmail', userEmail, ...emailProps);
+        
     }; 
 
     const handleSuccess = () => {
