@@ -4,7 +4,7 @@
   "scripts": {
     "start": "meteor run --settings settings.json",
     "prod": "meteor run --production --settings settings.json",
-    "stage": "meteor deploy pakkestage.meteorapp.com --settings settings.json",
+    "stage": "meteor deploy pakkestage.meteorapp.com --settings settings_dev.json",
     "deploy": "meteor deploy pakke.meteorapp.com --settings settings.json",
     "ibuild": "meteor build /Users/KHB/Sites/Pakke/testbuild --server localhost:3000 --mobile-settings settings.json"
   },

@@ -37,9 +37,6 @@ if (!SOUP) {
     }
 }
 
-
-
-
 Accounts.config({
   sendVerificationEmail: true
 });
