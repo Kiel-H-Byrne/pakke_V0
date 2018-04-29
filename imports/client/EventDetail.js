@@ -5,28 +5,30 @@ import { withTracker } from 'meteor/react-meteor-data';
 import Events from '../startup/collections/events';
 import EventInterestForm from './forms/EventInterestForm'
 import EventPurchaseForm from './forms/EventPurchaseForm'
+import { BarLoader } from 'react-spinners';
 
 
 class EventDetails extends Component {
   state = {
-    event: {}
+    event: {},
+    eventHost: {},
   }
 
-  applyStatus() {
-    // logged in and not applied = member
-    console.log(props.event);
-    if (Meteor.userId()) { 
-      if (props.event.guests.confirmed.includes(Meteor.userId())) {return "confirmed";}
-      else if (props.event.guests.invited.includes(Meteor.userId())) {return "invited";}
-      else if (props.event.guests.applied.includes(Meteor.userId())) {return "applied";}
-      else return "member"
-    } else {
-      return "visitor"
-    }
-    // applied and waiting = applied
-    // on final guestlist, unpaid = invited
-    // paid = confirmed
-  }
+  // applyStatus(props) {
+  //   // logged in and not applied = member
+  //   console.log(props);
+  //   if (Meteor.userId()) { 
+  //     if (this.props.event.guests.confirmed.includes(Meteor.userId())) {return "confirmed";}
+  //     else if (props.event.guests.invited.includes(Meteor.userId())) {return "invited";}
+  //     else if (props.event.guests.applied.includes(Meteor.userId())) {return "applied";}
+  //     else return "member"
+  //   } else {
+  //     return "visitor"
+  //   }
+  //   // applied and waiting = applied
+  //   // on final guestlist, unpaid = invited
+  //   // paid = confirmed
+  // }
   // attendEvent() {
   //   // console.log('submit attendee')
   //   const eventId = this.state.event._id;
@@ -37,30 +39,43 @@ class EventDetails extends Component {
   //   Bert.alert("Your are attending this event", "success", "growl-top-right");
   // }
 
-  componentWillMount() {
-    console.log(this);
-    this.setState({
-      event: Events.findOne(this.props.match.params.id)
-    });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {
+      event: Events.findOne(nextProps.match.params.id)
+    };
   }
 
   componentWillUnmount() {
     console.log(this)
-    this.props.eventHandle.stop();
+    this.props.handle.stop();
   }
 
-  shouldComponentUpdate(props, state){
-    console.log(props, state);
-    return !(props.event === state.event)
-  };
-
-
   render() {
+    
     const loginAlert = () => Bert.alert("Please Log In First.", "warning", "growl-top-right");
+    // const status = () => {
+    //   if (Meteor.userId() && !loading) { 
+    //     if (event.guests.confirmed.includes(Meteor.userId())) { status = "confirmed";
+    //     } else if (event.guests.invited.includes(Meteor.userId())) { status = "invited";
+    //     } else if (event.guests.applied.includes(Meteor.userId())) { status = "applied";
+    //     } else { status = "member" }
+    //   }
+    // }
+    if (this.props.loading) {
+      return (
+        <div>
+          <BarLoader 
+              style={{'width':'100%'}}
+              color={'#123abc'} 
+              loading={this.props.loading} 
+            />
+        </div>
+      )
+    }
+
     return (
-        this.props.event ? ( 
       <div>
-        <img className='event-detail-image' src={this.props.event.image} alt='image' />
+        <img className='event-detail-image' src={this.state.event.image} alt='image' />
         <h1>{this.props.event.byline}</h1>
         <p>{this.props.event.description}</p>
 
@@ -75,8 +90,27 @@ class EventDetails extends Component {
 
           <div className='attend-event-button-area'>
             <div className='attend-event-button'>
-            <p>{this.props.price ? `$ ${this.props.price}` : 'Sold Out'}</p>
-              {this.applyStatus = "member" ? (
+            <p>{this.props.event.price ? `$ ${this.props.event.price}` : 'Sold Out'}</p>
+              { 
+                // this.props.event.guests.invited.includes(Meteor.userId()) ? ( 
+                // <div>
+                // <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventPurchaseModal">Apply</button>
+                //   <div className="modal fade" id="eventPurchaseModal" role="dialog">
+                //     <div className="modal-dialog">
+                //       <div className="modal-content">
+                //         <div className="modal-header">
+                //           <button type="button" className="close" data-dismiss="modal">&times;</button>
+                //           <h4 className="modal-title">Buy Tickets</h4>
+                //         </div>
+                //         <div className="modal-body">
+                //           <EventPurchaseForm />
+                //         </div>
+                //       </div>
+                //     </div>
+                //   </div>
+                //   </div>
+                // ) : 
+              Meteor.userId() ? (
                 <div>
                 <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventInterestsModal">Apply</button>
                   <div className="modal fade" id="eventInterestsModal" role="dialog">
@@ -94,23 +128,6 @@ class EventDetails extends Component {
                     </div>
                   </div>
                   </div>
-                ) : this.applyStatus = "invited" ? ( 
-                <div>
-                <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventPurchaseModal">Apply</button>
-                  <div className="modal fade" id="eventPurchaseModal" role="dialog">
-                    <div className="modal-dialog">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <button type="button" className="close" data-dismiss="modal">&times;</button>
-                          <h4 className="modal-title">Buy Tickets</h4>
-                        </div>
-                        <div className="modal-body">
-                          <EventPurchaseForm />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
                 ) : (
                 <button onClick={loginAlert} className="btn btn-success btn-lg" >Apply</button>
               )}
@@ -118,21 +135,27 @@ class EventDetails extends Component {
           </div>
         </div>
       </div>
-      ) : (
-      <div>loading...</div>)
+
     )
   }
 }
 
 export default withTracker(({ match }) => {
-  const eventHandle = Meteor.subscribe('event', match.params.id);
-  const loading = !eventHandle.ready(); 
+  const handle = Meteor.subscribe('event', match.params.id);
+  const loading = !handle.ready(); 
   const event = Events.findOne( match.params.id );
-    return {
-      eventHandle,
-      loading,
-      event,
-    }
+
+  // if (Meteor.userId() && !loading) { 
+  //   if (event.guests.confirmed.includes(Meteor.userId())) { status = "confirmed";
+  //   } else if (event.guests.invited.includes(Meteor.userId())) { status = "invited";
+  //   } else if (event.guests.applied.includes(Meteor.userId())) { status = "applied";
+  //   } else { status = "member" }
+  // }
+  return {
+    handle,
+    loading,
+    event,
+  }
 })(EventDetails);
 
 
