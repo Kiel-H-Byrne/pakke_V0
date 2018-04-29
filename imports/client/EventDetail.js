@@ -40,13 +40,16 @@ class EventDetails extends Component {
   // }
 
   static getDerivedStateFromProps(nextProps, prevState) {
+    // console.log(nextProps, prevState)
+    let eventHost;
+    nextProps.event ? eventHost = Meteor.users.findOne(nextProps.event.hostId) : null
     return {
-      event: Events.findOne(nextProps.match.params.id)
+      event: Events.findOne(nextProps.match.params.id),
+      eventHost: eventHost
     };
   }
 
   componentWillUnmount() {
-    console.log(this)
     this.props.handle.stop();
   }
 
@@ -72,7 +75,7 @@ class EventDetails extends Component {
         </div>
       )
     }
-
+  // console.log(this.state);
     return (
       <div>
         <img className='event-detail-image' src={this.state.event.image} alt='image' />
@@ -92,9 +95,9 @@ class EventDetails extends Component {
             <div className='attend-event-button'>
             <p>{this.props.event.price ? `$ ${this.props.event.price}` : 'Sold Out'}</p>
               { 
-                // this.props.event.guests.invited.includes(Meteor.userId()) ? ( 
+                // this.props.event.invitedList.includes(Meteor.userId()) ? ( 
                 // <div>
-                // <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventPurchaseModal">Apply</button>
+                // <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventPurchaseModal">Buy Tickets</button>
                 //   <div className="modal fade" id="eventPurchaseModal" role="dialog">
                 //     <div className="modal-dialog">
                 //       <div className="modal-content">
@@ -110,7 +113,9 @@ class EventDetails extends Component {
                 //   </div>
                 //   </div>
                 // ) : 
-              Meteor.userId() ? (
+    this.props.event.appliedList.includes(Meteor.userId()) ? (
+                  <button disabled className="btn btn-success btn-lg" >Apply</button>
+                ) : Meteor.userId() ? (
                 <div>
                 <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventInterestsModal">Apply</button>
                   <div className="modal fade" id="eventInterestsModal" role="dialog">
@@ -122,7 +127,7 @@ class EventDetails extends Component {
                         </div>
                         <div className="modal-body">
                           <p>Please answer some questions to help us find you the perfect party experience: </p>
-                          <EventInterestForm />
+                          <EventInterestForm user = {this.props.thisUser} eventId = {this.props.event._id}/>
                         </div>
                       </div>
                     </div>
@@ -144,6 +149,7 @@ export default withTracker(({ match }) => {
   const handle = Meteor.subscribe('event', match.params.id);
   const loading = !handle.ready(); 
   const event = Events.findOne( match.params.id );
+  const thisUser = Meteor.user();
 
   // if (Meteor.userId() && !loading) { 
   //   if (event.guests.confirmed.includes(Meteor.userId())) { status = "confirmed";
@@ -155,6 +161,7 @@ export default withTracker(({ match }) => {
     handle,
     loading,
     event,
+    thisUser
   }
 })(EventDetails);
 

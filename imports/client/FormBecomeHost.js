@@ -10,12 +10,6 @@ const handleSubmit = function(doc) {
 		Meteor.call('addRole', uid, "host");
 	}
 	Meteor.call('editProfile', type, doc);
-
-	// Meteor.users.update(uid, {
-	//     $set: {"profile[type]": doc}
-	//   })
-
-
 }; 
 
 const FormBecomeHost = ({model}) => (

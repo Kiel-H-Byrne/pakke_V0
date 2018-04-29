@@ -55,3 +55,36 @@ Ongoing Questions:
 event details (date, time, venue, name, description, price, host, amount of people, spaces left, )
 build collection of venues? separate from host venues and updated with scale. 
 
+
+pasted 04/29
+Browse Events - Events page
+
+View Details - EventDetails page
+  - close button
+  - purchase button (if name is in guestlist?)
+  - event.guests.applied & event.guests.invited & event.guests.confirmed
+  - Apply button (normal state) -> 
+
+EventInterestForm (autoform with 3 random fields)
+  - Confirm Button
+  - onsubmit email to user
+
+Email Templates
+  Confirmation Email
+  Welcome Email
+  Congratulations Email w/  Link to purchase
+
+methods: 
+   - send email w/ htmlTemplate object
+
+event.guests [ = array
+  {userId: string
+  applied {bool}
+  confirmed
+  invited
+  }]
+
+  or 
+event.appliedList
+event.invitedList
+event.confirmedList  

@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
+import '../collections/schemas';
 
 //check for settings file
 console.log("-= Settings: Checking... =-");
@@ -90,8 +91,10 @@ Accounts.emailTemplates.verifyEmail = {
 
 Accounts.onCreateUser(function(options, user) {
   //CREATE NEW MYUSER OBJECT AND COPY ALL DEFAULT ATTRIBUTS TO IT
-  const myUser = Object.assign({}, user);
 
+  const myUser = Schema.User.clean({});
+  // myUser = Object.assign({}, user);
+console.log(myUser);
   if (options.profile) {
     myUser.profile = options.profile;
   }
@@ -116,7 +119,7 @@ Accounts.onCreateUser(function(options, user) {
   // console.log(myUser);
   //CHECK FOR SPECIFIC EMAILS & MAKE ADMINS
 
-  return myUser;
+  // return myUser;
 });
 
 

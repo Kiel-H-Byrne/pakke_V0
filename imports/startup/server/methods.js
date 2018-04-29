@@ -52,21 +52,15 @@ apiCall = function (apiUrl, callback) {
 };
 
 Meteor.methods({
-  attendEvent(thisUserId, eventId) {
-      if (!Meteor.userId()) {
-          throw new Meteor.Error('not authorized');
-          this.stop();
-          return false;
-      } else {
-          Events.update(eventId, { $addToSet: { guests: thisUserId } });
-      }
-  },
-  addInterests(doc) {
-    const uid = Meteor.userId(); 
-    Meteor.users.update(uid, {
-      $set: {"profile.interests": doc}
-    });
-  },
+  // attendEvent(thisUserId, eventId) {
+  //     if (!Meteor.userId()) {
+  //         throw new Meteor.Error('not authorized');
+  //         this.stop();
+  //         return false;
+  //     } else {
+  //         Events.update(eventId, { $addToSet: { guests: thisUserId } });
+  //     }
+  // },
   addUser: function(email,password, role){
     check(email,String);
     check(password,String);    
@@ -75,6 +69,11 @@ Meteor.methods({
       password: password,
     })    
     Roles.addUsersToRoles( id._id ,  role );
+  },
+  addRole: function (id, role) {
+    // check(id, Meteor.Collection.ObjectID);
+    check(role, Array);
+    Roles.addUsersToRoles( id , role );
   },
   editProfile: function(type, doc) {
     if ( (type == 'asHost') && (! Roles.userIsInRole(Meteor.userId(), ["host"])) ) {
@@ -93,11 +92,6 @@ Meteor.methods({
       $set: { "profile" : profile}
     });
   },
-  addRole: function (id, role) {
-    // check(id, Meteor.Collection.ObjectID);
-    check(role, Array);
-    Roles.addUsersToRoles( id , role );
-  },
   addEvent: function(doc) {
     if (! Roles.userIsInRole(Meteor.userId(), ["host"])) {
       Meteor.call('addRole', Meteor.userId(), ["host"]);
@@ -110,6 +104,27 @@ Meteor.methods({
         console.log(`EVENT INSERT SUCCESS: ${doc.byline}`);
       }
     });
+  },
+  editEvent: function(id,doc) {
+    //makre sure old object is added to new object, update rewrites fields.
+    Events.update({_id: id}, {
+      $set: doc
+    })
+  },
+  addInterests(doc) {
+    const uid = Meteor.userId(); 
+    Meteor.users.update(uid, {
+      $set: {"profile.interests.$": doc}
+    });
+  },
+  amApplied: function(eventId, userId) {
+    Events.update(eventId, { $addToSet: { "appliedList": userId } });
+  },
+  amInvited: function(eventId, userId) {
+    Events.update(eventId, { $addToSet: { "invitedList": userId } });
+  },
+  amConfirmed: function(eventId, userId) {
+    Events.update(eventId, { $addToSet: { "confirmedList": userId } });
   },
   geoCode: function(address) {
     this.unblock();

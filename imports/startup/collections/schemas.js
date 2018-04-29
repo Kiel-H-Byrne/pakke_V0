@@ -585,33 +585,29 @@ Schema.Event = new SimpleSchema({
   'categories.$': {
     type: String
   },
-  guests: {
-    type: Object,
-    optional: true
-  },
-  'guests.applied': {
+  appliedList: {
     type: Array,
     optional: true
   },
-  'guests.invited': {
+  "appliedList.$": {
+    type: String,
+    optional: true
+  },
+  invitedList: {
     type: Array,
     optional: true
   },
-  'guests.confirmed': {
+  "invitedList.$": {
+    type: String,
+    optional: true
+  },
+  confirmedList: {
     type: Array,
     optional: true
   },
-  'guests.applied.$': {
-    //stores array of guest_ids; which can be used for search later.
-    type: String
-  },
-  'guests.invited.$': {
-    //stores array of guest_ids; which can be used for search later.
-    type: String
-  },
-  'guests.confirmed.$': {
-    //stores array of guest_ids; which can be used for search later.
-    type: String
+  "confirmedList.$": {
+    type: String,
+    optional: true
   },
   entertainers: {
     type: Array,
