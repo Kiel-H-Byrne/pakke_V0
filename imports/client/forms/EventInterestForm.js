@@ -19,6 +19,8 @@ import '../../startup/collections/schemas';
 export default class EventInterestForm extends Component {
 
   render() {
+    console.log(this);
+
     const user = this.props.user;
     const eventId = this.props.eventId;
     const handleSubmit = function(doc) {
@@ -37,16 +39,14 @@ export default class EventInterestForm extends Component {
         Bert.alert("Sorry, Something Went Wrong", "danger", "growl-top-right");
     };
 
-    console.log(this);
-    const model = user.profile.interests;
+    const model = user.profile.interests || {};
     const allKeys = Schema.Interests._schemaKeys;
     const answeredKeys = Object.keys(model);
     const fields = _.sample(_.difference(allKeys, answeredKeys), 3);
-    // const model = this.props.user.profile.interests || {};
-    // let omitFields = (_.pluck(model, (value,key,object) => value = '')))
-    
-  //get fields with empty values
-  //get sample of 3 fields
+
+    console.log(fields);    
+    //get fields with empty values
+    //get sample of 3 fields
 
     
 

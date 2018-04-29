@@ -78,11 +78,11 @@ Accounts.emailTemplates.enrollAccount.text = (user, url) => {
 Accounts.emailTemplates.resetPassword.from = () => {
   // Overrides the value set in `Accounts.emailTemplates.from` when resetting
   // passwords.
-  return 'pakke.us Password Reset <noreply@pakke.us>';
+  return 'Pakke.us Password Reset <noreply@pakke.us>';
 };
 Accounts.emailTemplates.verifyEmail = {
    subject() {
-      return "Activate your pakke account now!";
+      return "Activate your Pakke account now!";
    },
    text(user, url) {
       return `Hey ${user}! Verify your e-mail by following this link: ${url}`;
@@ -92,13 +92,13 @@ Accounts.emailTemplates.verifyEmail = {
 Accounts.onCreateUser(function(options, user) {
   //CREATE NEW MYUSER OBJECT AND COPY ALL DEFAULT ATTRIBUTS TO IT
 
-  const myUser = Schema.User.clean({});
-  // myUser = Object.assign({}, user);
-console.log(myUser);
+  // let fullProfile = Schema.Profile.clean({});
+  let myUser = Object.assign({}, user);
+    // console.log(fullProfile);
   if (options.profile) {
     myUser.profile = options.profile;
   }
-  // console.log(user);
+    // console.log(user);
 
   //CHECK & MERGE FACEBOOK INFO
   if (user.services.facebook) {
@@ -119,7 +119,7 @@ console.log(myUser);
   // console.log(myUser);
   //CHECK FOR SPECIFIC EMAILS & MAKE ADMINS
 
-  // return myUser;
+  return myUser;
 });
 
 
