@@ -13,11 +13,11 @@ export default class Event extends Component {
 
     //turn into progressbar component w/ props: 
     let count = 0;
-    if (this.props.event.guests) {
-      count = this.props.event.guests.length;
+    if (this.props.event.appliedList) {
+      count = this.props.event.appliedList.length;
     }
     let weight = ((count / this.props.event.size) * 100).toFixed();
-    const style2 = {
+    const style = {
       width: `${weight}%`
     };
 
@@ -36,7 +36,7 @@ export default class Event extends Component {
         </Link>
 
         <div className="progress">
-              <div className="progress-bar" role="progressbar" aria-valuenow={weight} aria-valuemin="0" aria-valuemax="100" style={style2}>
+              <div className="progress-bar" role="progressbar" aria-valuenow={weight} aria-valuemin="0" aria-valuemax="100" style={style}>
                 {weight}%
               </div>
             </div>
