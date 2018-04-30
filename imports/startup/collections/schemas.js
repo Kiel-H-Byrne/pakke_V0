@@ -550,6 +550,7 @@ Schema.Event = new SimpleSchema({
   },
   byline: {
     type: String,
+    unique: true,
     label: 'Event Name',
     max: '33'
   },
