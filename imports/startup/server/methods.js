@@ -148,6 +148,8 @@ Meteor.methods({
     }
   }, 
   crmInsert: function(module, params, callback) {
+      check(module, String);
+      check(params, Object);
     // crm_modules = [leads,accounts, contacts, potentials, campaingns, cases, solutions, products, price books, quotes, invoices, saleds orders, vendors, purchase orders, events, takss, calls]
     zcrm.createRecord(module, params, function(err,data) {
       if (err) {
@@ -157,7 +159,6 @@ Meteor.methods({
     });
   },
   crmGet: function(module, params, callback) {
-    module = 'contacts';
     zcrm.getRecords(module, params, function(err,res) {
       if (err) {
         return console.log(err);
