@@ -55,6 +55,7 @@
     "simpl-schema": "^1.4.2",
     "uniforms": "^1.23.2",
     "uniforms-bootstrap3": "^1.23.2",
-    "uniforms-unstyled": "^1.23.2"
+    "uniforms-unstyled": "^1.23.2",
+    "zoho": "^1.0.0"
   }
 }

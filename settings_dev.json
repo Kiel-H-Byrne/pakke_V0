@@ -28,6 +28,10 @@
       "googleAPI" : {"key" : "AIzaSyB56lMri2dCmcv_oif2Gi9xwbDtT_930Tg"},
       "stripe" : {
         "key": "sk_test_mmG2AN8hatVpv05gxtYNDmT5"
+      },
+      "zohoCRM": {
+        "client_id": "1000.9BQEF6BWR67P55799YLS6S3R4Z17KH",
+        "client_secret": "7b42f461f405f855827474e74cc578acfcf6d08ff5"
       }
     }
   },

@@ -1,12 +1,14 @@
 import { Meteor } from 'meteor/meteor';
 import { Email } from 'meteor/email';
+import Zoho from 'zoho';
 
 import Events from '/imports/startup/collections/events';
 import Venues from '/imports/startup/collections/events';
+import MongoCache from '/imports/startup/server/MongoCache';
 
-import MongoCache from '/imports/startup/server/MongoCache.js';
 
 const OCache = new MongoCache('rest', 100000);
+const zcrm = new Zoho.CRM({authtoken: Meteor.settings.private.keys.zohoCRM.oAuth});
 
 apiCall = function (apiUrl, callback) {
   // try…catch allows you to handle errors 
@@ -145,6 +147,25 @@ Meteor.methods({
       return response;
     }
   }, 
+  crmInsert: function(module, params, callback) {
+    // crm_modules = [leads,accounts, contacts, potentials, campaingns, cases, solutions, products, price books, quotes, invoices, saleds orders, vendors, purchase orders, events, takss, calls]
+    zcrm.createRecord(module, params, function(err,data) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log(data);
+    });
+  },
+  crmGet: function(module, params, callback) {
+    module = 'contacts';
+    zcrm.getRecords(module, params, function(err,res) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log(res.data);
+      return res.data;
+    });
+  },
   sendEmail: function(to, from, subject, html) {
     // check([to, from, subject, html], [String]);
     this.unblock();
@@ -162,4 +183,5 @@ Meteor.methods({
   },
   
 });
+
 
