@@ -1,7 +1,7 @@
+import { Meteor } from 'meteor/meteor';
 
 const title = "Pakke Event Application";
-const userName = "";
-const eventName = "";
+const userName = Meteor.user().username;
 
 export default eventAppliedTemplate = 
 `
@@ -298,10 +298,10 @@ export default eventAppliedTemplate =
                   <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <p>Hi there ${userName},</p>
-                        <p>Pakke.us and the host of ${eventName} would like to thank you for applying!
+                        <p>Hi there ${userName}!</p>
+                        <p>Pakke.us and the host of this event would like to thank you for applying!
                         <br />
-                        Now we wait until some more folks join the event. Pakke will then ensure that the party is full of diverse and fun folks, and once the final guestlist is confirmed you can buy your ticket! 
+                        Now we wait until some more folks join the event. Pakke will then ensure that the party is full of diverse and fun folks, and once the final guest list is confirmed you can buy your ticket! 
                         <br />
                         Sounds good?  Good!
                         </p>
@@ -320,7 +320,7 @@ export default eventAppliedTemplate =
                             </tr>
                           </tbody>
                         </table>
-                        <p>Vew more events at Pakke.us.</p>
+                        <p>View more events at Pakke.us.</p>
                         <p>Good luck! Hope to see you soon!.</p>
                       </td>
                     </tr>
@@ -333,14 +333,6 @@ export default eventAppliedTemplate =
 
             <!-- START FOOTER -->
             <div class="footer">
-              <table border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td class="content-block">
-                    <span class="apple-link">Pakke.us, P.O. Box 420, District of Columbia 20012</span>
-                    <br> Don't like these emails? <a href="www.pakke.us/?Unsubscribe">Unsubscribe</a>.
-                  </td>
-                </tr>
-              </table>
             </div>
             <!-- END FOOTER -->
 
