@@ -81,6 +81,8 @@ class MyMap extends Component {
     }
 
     GoogleMaps.ready(name, map => {
+      const GEO = new google.maps.Geocoder;
+        
       Tracker.autorun(c => {
 
         // const completeFindAddress = new google.maps.places.Autocomplete(
@@ -96,6 +98,16 @@ class MyMap extends Component {
           size: {width: 25, height: 25},
           scaledSize: {width: 25, height: 25}
         };
+        const rad = 1.3 * 1609.34;
+        const marker_symbol = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 10,
+            fillColor: '#9b30ff',
+            fillOpacity: 0.5,
+            strokeColor: '#330033',
+            strokeOpacity: 0.5,
+            strokeWeight: 1
+        }
 
         const markers = {};
 
@@ -103,31 +115,29 @@ class MyMap extends Component {
           added: function(id,doc) {
             // console.log(doc);
 
-            let latLng = doc.eventAddress.coords.split(",");
-            let lat = Number(latLng[0]);
-            let lng = Number(latLng[1]);
-            let latLngObj = _.object( ['lat', 'lng'], [lat, lng]);
-            let rad = 1.3 * 1609.34;
-            let marker_symbol = {
-                path: google.maps.SymbolPath.CIRCLE,
-                scale: 10,
-                fillColor: '#9b30ff',
-                fillOpacity: 0.5,
-                strokeColor: '#330033',
-                strokeOpacity: 0.5,
-                strokeWeight: 1
-            }
+            // let latLng = doc.eventAddress.coords.split(",");
+            // let lat = Number(latLng[0]);
+            // let lng = Number(latLng[1]);
+            // let latLngObj = _.object( ['lat', 'lng'], [lat, lng]);
+            let addressString = `${doc.eventAddress.street} ${doc.eventAddress.city} ${doc.eventAddress.state} ${doc.eventAddress.zip}`;
 
-            const marker = new google.maps.Marker({
-              animation: google.maps.Animation.DROP,
-              position: latLngObj,
-              map: map.instance,
-              icon: eventImage,
-              id: id,
-            });
+            GEO.geocode(
+              { address: addressString },
+              (res,err) => {
+                // console.log(res,err);
+                latLngObj = res[0].geometry.location;
 
-
-            markers[id] = marker;
+                let marker = new google.maps.Marker({
+                  animation: google.maps.Animation.DROP,
+                  position: latLngObj,
+                  map: map.instance,
+                  icon: eventImage,
+                  id: id,
+                });
+                
+                markers[id] = marker;
+                    
+              });
             
           },
           changed: function(newDocument, oldDocument) {

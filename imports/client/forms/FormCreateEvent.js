@@ -14,6 +14,13 @@ import '../../startup/collections/schemas';
 
 const handleSubmit = function(doc) {
     Meteor.call('addEvent', doc);
+    // let crmParams = {
+    //   "Event Owner": Meteor.user().username,
+    //   "Subject": doc.byline ,
+    //   "Start DateTime" : doc.date: 
+    //   "End DateTime": doc.date + duration
+    // };
+    // Meteor.call('crmInsert', 'event', crmParams);
 }; 
 
 const handleSuccess = () => {

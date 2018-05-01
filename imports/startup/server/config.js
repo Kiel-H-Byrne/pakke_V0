@@ -78,13 +78,13 @@ Accounts.onCreateUser(function(options, user) {
 Accounts.validateNewUser(function(user) {
     console.log('Checking for Existing E-mail...');
     const user_email = user.emails[0].address;
-    const existing_user = Accounts.findUserByEmail(user_email)
+    const existing_user = Accounts.findUserByEmail(user_email);
+    let crmParams = {};
+
     if (existing_user) {
       // login and merge data! 
       let provider;
-      const cb = (Error) => { 
-        Error ? console.log(Error) : console.log("All Good!")
-      }
+
       if (existing_user.services.facebook) {
         provider = "Facebook";
       }
@@ -94,7 +94,31 @@ Accounts.validateNewUser(function(user) {
       console.log("User Exists Already");
       throw new Meteor.Error(500, `You've been here before! Login with ${provider}.`);
     } else {
-      console.log("New User!");
+      console.log(`-= NEW USER: ${user_email}=- `);
+
+      if (user.services.facebook) {
+        crmParams = {
+          "Last Name":user.services.facebook.last_name,
+          "First Name":user.services.facebook.first_name,
+          "Email": user_email
+        };
+        switch (user.services.facebook.gender) {
+          case "female":
+            crmParams["Salutation"] = "Ms.";
+            break;
+          case "male":
+            crmParams["Salutation"] = "Mr.";
+        };
+      }
+      if (user.services.google) {
+        crmParams = {
+          'Last Name' : user.services.google.family_name,
+          'First Name' : user.services.google.given_name,
+          'Email' : user_email
+        }
+      }
+
+      Meteor.call('crmInsert', 'leads', crmParams);
       return true;
     }
 });

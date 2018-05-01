@@ -155,7 +155,7 @@ Schema.Venue = new SimpleSchema({
     optional: true
   },
   capacity: {
-    type: Number,
+    type: SimpleSchema.Integer,
     label: "How many people can comfortably fit?",
     max: 99
   },
@@ -217,7 +217,7 @@ Schema.Talent = new SimpleSchema({
     optional: true
   },
   fee: {
-    type: SimpleSchema.Integer,
+    type: Number,
     label: 'Fee for this performance?',
     optional: true
   }
@@ -543,8 +543,13 @@ Schema.Event = new SimpleSchema({
   date: {
     type: Date
   },
-  size: {
+  duration: {
     type: Number,
+    min: 2,
+    max: 12
+  },
+  size: {
+    type: SimpleSchema.Integer,
     min: 7,
     max: 99
   },
@@ -567,7 +572,7 @@ Schema.Event = new SimpleSchema({
     max: 120
   },
   price: {
-    type: SimpleSchema.Integer,
+    type: Number,
     min: 5,
     max: 200
   },

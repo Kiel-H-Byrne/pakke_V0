@@ -63,15 +63,6 @@ Meteor.methods({
   //         Events.update(eventId, { $addToSet: { guests: thisUserId } });
   //     }
   // },
-  addUser: function(email,password, role){
-    check(email,String);
-    check(password,String);    
-    const id = Accounts.createUser({
-      email: email,
-      password: password,
-    })    
-    Roles.addUsersToRoles( id._id ,  role );
-  },
   addRole: function (id, role) {
     // check(id, Meteor.Collection.ObjectID);
     check(role, Array);
@@ -156,6 +147,7 @@ Meteor.methods({
         return console.log(err);
       }
       console.log(data);
+      console.log(`-= NEW LEAD! =- `);
     });
   },
   crmGet: function(module, params, callback) {

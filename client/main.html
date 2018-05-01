@@ -65,7 +65,7 @@
 </head>
 
 <body>
-  <script defer type="text/javascript">
+  <script type="text/javascript">
     window.fbAsyncInit = function () {
       FB.init({
         appId: Meteor.settings.public.keys.facebookOAuth.app_id,
@@ -84,11 +84,13 @@
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-
-  var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode:"4eb370bd5b168536c4d6724c1dd827146cfdb17e9c39cff7ed2fe65e067bdde7", values:{},ready:function(){$zoho.salesiq.floatbutton.visible('hide');}};var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;s.src="https://salesiq.zoho.com/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);
-
   </script>
   
 
   <div id="render-target"></div>
+
+
+  <script type="text/javascript" defer>
+    var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode:"4eb370bd5b168536c4d6724c1dd827146cfdb17e9c39cff7ed2fe65e067bdde7", values:{},ready:function(){$zoho.salesiq.floatbutton.visible('hide');}};var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;s.src="https://salesiq.zoho.com/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);
+  </script>
 </body>
