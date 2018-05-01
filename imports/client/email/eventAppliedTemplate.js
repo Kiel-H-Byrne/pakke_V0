@@ -1,7 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 
 const title = "Pakke Event Application";
-const userName = Meteor.user().username;
+let userName;
+
+if (Meteor.user()) {userName = Meteor.user().username;}
 
 export default eventAppliedTemplate = 
 `
