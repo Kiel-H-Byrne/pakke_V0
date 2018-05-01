@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 
 import SimpleSchema from 'simpl-schema';
 import uniforms from 'uniforms';
+import filterDOMProps from 'uniforms/filterDOMProps';
+
 // import ImageUpload from '../../client/ImageUpload';
 
 Schema = {};
@@ -14,6 +16,8 @@ class ImageUploadComponent extends Component {
     );
   }
 };
+
+filterDOMProps.register('unique');
 
 
 Schema.Address = new SimpleSchema({
@@ -202,6 +206,11 @@ Schema.asGuest = new SimpleSchema({
 });
 
 Schema.Talent = new SimpleSchema({
+  name: {
+    type: String,
+    label: 'Stage Name?',
+    optional: true
+  },
   talentType: {
     type: String,
     label: 'How do you entertain?',
@@ -224,11 +233,6 @@ Schema.Talent = new SimpleSchema({
 });
 
 Schema.asTalent = new SimpleSchema({
-  name: {
-    type: String,
-    label: 'Stage Name?',
-    optional: true
-  },
   talents: {
     type: Array,
     defaultValue: []

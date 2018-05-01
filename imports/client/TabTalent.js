@@ -54,7 +54,7 @@ export default withTracker(() => {
     currentUser: Meteor.user(),
     allEvents: Events.find({}, {}).fetch(),
     eventsFromCollection: Events.find({
-      attendees: { $in: [Meteor.userId()] }
+      entertainers: { $in: [Meteor.userId()] }
     }).fetch(),
   };
 })(TabHost);

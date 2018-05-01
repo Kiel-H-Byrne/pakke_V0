@@ -23,7 +23,7 @@ class EditProfileTalentForm extends Component {
   }
 
   handleSubmit(doc) {
-    Meteor.call('editProfile', "asTalent", doc);
+    Meteor.call('addTalent', doc);
   }; 
 
   handleSuccess() {

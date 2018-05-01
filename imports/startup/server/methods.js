@@ -79,11 +79,22 @@ Meteor.methods({
 
     const uid = Meteor.userId();
     let profile = Meteor.user().profile;
-    profile[type] = doc;
-    
-    Meteor.users.update(uid, {
-      $set: { "profile" : profile}
+    let concat = `profile.${type}`;
+    // profile[type] = doc;
+    console.log(concat, doc);
+   
+  },
+  addTalent: function(doc) {
+    const uid = Meteor.userId();
+    if ( !Roles.userIsInRole(Meteor.userId(), ["talent"]) ) {
+      Meteor.call('addRole', uid, ["talent"]);
+    }
+     Meteor.users.update(uid, {
+      $addToSet: { 
+        "profile.asTalent.talents" : doc
+      }
     });
+
   },
   addEvent: function(doc) {
     if (! Roles.userIsInRole(Meteor.userId(), ["host"])) {
@@ -114,7 +125,7 @@ Meteor.methods({
   amApplied: function(eventId, userId) {
     // console.log(eventId, userId);
     Events.update(eventId, { $addToSet: { "appliedList": userId } }, (err,res) => {
-      err ? console.log(err) : console.log(res);
+      err ? console.log(err) : null;
     });
   },
   amInvited: function(eventId, userId) {

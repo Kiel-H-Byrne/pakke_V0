@@ -16,20 +16,21 @@ import '../../startup/collections/schemas';
 
 
 // const omitFields = ["submitted","guests", "guestCount", "hostId", "venueId", "eventAddress.address", "eventAddress.coords"];
-const emailProps = [
-  "noreply@pakke.us",
-  "Thank You for Applying!",
-  eventAppliedTemplate
-  ];
+
 
 export default class EventInterestForm extends Component {
 
   render() {
-    console.log(this);
-
+    
     const user = this.props.user;
+    const event = this.props.event;
     const userEmail = user.emails[0].address;
-    const eventId = this.props.eventId;
+    
+     const emailProps = [
+      "noreply@pakke.us",
+      "Thank You for Applying!",
+      eventAppliedTemplate(user,event)
+      ];
 
     const handleSubmit = function(doc) {
         Meteor.call('addInterests', doc);
@@ -37,7 +38,7 @@ export default class EventInterestForm extends Component {
 
     const handleSuccess = () => {
         Bert.alert("Thank you for Applying!", "success");
-        Meteor.call('amApplied', eventId, user._id);
+        Meteor.call('amApplied', event._id, user._id);
         $('#eventInterestsModal').modal('toggle');
         Meteor.call('sendEmail', userEmail, ...emailProps);
     };
