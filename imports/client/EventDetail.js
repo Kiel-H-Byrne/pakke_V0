@@ -79,7 +79,7 @@ class EventDetails extends Component {
     }
   // console.log(this.state);
     return (
-      <div>
+      <div className='container'>
         <img className='event-detail-image' src={this.props.event.image} alt='image' />
         <h1>{this.props.event.byline}</h1>
         <p>{this.props.event.description}</p>

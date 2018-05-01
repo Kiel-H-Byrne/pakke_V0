@@ -6,7 +6,7 @@ const myStyle = {
 }
 
 
-class ValueProp extends Component {
+class HowItWorks extends Component {
     
     render() {
     
@@ -59,5 +59,5 @@ class ValueProp extends Component {
 };
 
 
-export default ValueProp;
+export default HowItWorks;
 
