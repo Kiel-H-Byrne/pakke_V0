@@ -9,7 +9,7 @@ class BecomeHost extends Component {
   render() {
     const loginAlert = () => Bert.alert("Please Log In First.", "warning", "growl-top-right");
     return (
-      <div className="container">
+      <div className="container-host">
         <img src='Events.jpg' />
         <div className='container-text-host'>
           <h1>Host an Event</h1>

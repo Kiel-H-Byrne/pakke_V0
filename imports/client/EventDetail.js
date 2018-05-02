@@ -89,12 +89,12 @@ class EventDetails extends Component {
             <h1>{this.props.event.byline}</h1>
             <p>{this.props.event.description}</p>
           </div>
-
+{/* 
           <div className='host-info'>
             <img className='host-image' src='/missing_profile.png' />
             <h3>Host Name</h3>
             {/* <h3>{this.state.event.host.email}</h3> */}
-          </div>
+          {/* </div> */}
 
 
           <div className='attend-event-button-area'>

@@ -1,9 +1,10 @@
 
     .container {
+        position: relative;
+
       }
     
     .event-detail-image {
-        background-size: contain;
         
         img {
             display:block;
@@ -47,43 +48,3 @@
     .host-image {
         border-radius: 50%;
     }
-
-    @media only screen and (max-width: 450px) {
-        .event-detail-bottom {
-            // display: flex;
-            justify-content: space-around;
-            // margin-top: 5rem;
-    
-        }
-    
-        .attend-event-button-area {
-            float: right;
-            // border-radius: 1rem;
-        }
-    
-        .attend-event-button {
-            padding: 2rem;
-            
-        }
-    
-        .event-detail-description {
-            width: 50%;
-            // float: left;
-        }
-    
-        .host-info {
-            float: left;
-            text-align: center;
-            width: 10rem;
-            height: auto;
-        }
-    
-        .host-image {
-            border-radius: 50%;
-        }
-
-
-
-    }
-
-    
