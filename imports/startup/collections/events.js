@@ -22,16 +22,13 @@ if (Meteor.isServer) {
       const cursor = Events.find({
         date: {
           $gte: new Date() 
-        }, 
-        // $and: [
-        //   {"eventAddress.coords": { $exists : 1 }}
-        // ]
+        }
       },
       {
         sort: { date: 1 }
       });
 
-    console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] CURRENT EVENTS WITH LOCATIONS =-");
+    console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] CURRENT EVENTS =-");
     return cursor;
   });
 

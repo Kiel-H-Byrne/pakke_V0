@@ -1,16 +1,15 @@
+import { Meteor } from 'meteor/meteor';
+const eventPurchasedTemplate = (user,event) => {
 
-const title = "Pakke Event Confirmation";
-const userName = "";
-const eventName = "";
-
-export default eventPurchasedTemplate = 
-`
-<!doctype html>
-<html>
+  const emailTitle = "Pakke Event Confirmation";
+  return renderedEmail = 
+    `
+      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+      <html>
   <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title> ${title} </title>
+    <title> ${emailTitle} </title>
     <style>
       /* -------------------------------------
           GLOBAL RESETS
@@ -298,12 +297,12 @@ export default eventPurchasedTemplate =
                   <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <p>Hi there${userName},</p>
-                        <p>Pakke.us and the host of ${eventName} woule like to thank you for applying!
+                        <p>Hi ${userName}!</p>
+                        <p>You've just reserved your place for ${event.byrline}!
                         <br />
-                        Now we wait until some more folks join the event. Pakke will then ensure that the party is full of diverse and fun folks, and once the final guestlist is confirmed you can buy your ticket! 
+                        It's on now!! 
                         <br />
-                        Sounds good?  Good!
+                        See you Soon!
                         </p>
                         <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
@@ -312,7 +311,7 @@ export default eventPurchasedTemplate =
                                 <table border="0" cellpadding="0" cellspacing="0">
                                   <tbody>
                                     <tr>
-                                      <td> <a href="http://www.pakke.us/events" target="_blank">Find More Events</a> </td>
+                                      <td> <a href="http://www.pakke.us/event/${event._id}" target="_blank">View Event Details</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -337,12 +336,11 @@ export default eventPurchasedTemplate =
                 <tr>
                   <td class="content-block">
                     <span class="apple-link">Pakke.us, P.O. Box 420, District of Columbia 20012</span>
-                    <br> Don't like these emails? <a href="www.pakke.us/?Unsubscribe">Unsubscribe</a>.
                   </td>
                 </tr>
                 <tr>
                   <td class="content-block powered-by">
-                    Powered by <a href="http://htmlemail.io">HTMLemail</a>.
+                    Powered by <a href="https://www.linkedin.com/in/kielbyrne/">Wizards...</a>.
                   </td>
                 </tr>
               </table>
@@ -357,4 +355,9 @@ export default eventPurchasedTemplate =
     </table>
   </body>
 </html>
-`
+    `;
+  
+};
+
+
+export default eventPurchasedTemplate;

@@ -14,6 +14,7 @@ Meteor.publish('currentUser', function () {
 });
 
 
+
 Meteor.users.allow({
   update: (uid, doc) => {return uid ;},
   remove: () => true,

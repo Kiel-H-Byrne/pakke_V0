@@ -74,7 +74,6 @@ class MyMap extends Component {
         let lat = data.latitude;
         let lng = data.longitude;
         let browserLocation = _.object( ['lat', 'lng'], [lat, lng]);
-        // console.log("Coord from Browser: ", browserLocation);
         Session.set('browserLoc', browserLocation);
         Session.set('clientState', data.region_code);
       });
@@ -115,10 +114,6 @@ class MyMap extends Component {
           added: function(id,doc) {
             // console.log(doc);
 
-            // let latLng = doc.eventAddress.coords.split(",");
-            // let lat = Number(latLng[0]);
-            // let lng = Number(latLng[1]);
-            // let latLngObj = _.object( ['lat', 'lng'], [lat, lng]);
             let addressString = `${doc.eventAddress.street} ${doc.eventAddress.city} ${doc.eventAddress.state} ${doc.eventAddress.zip}`;
 
             GEO.geocode(

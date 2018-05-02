@@ -11,12 +11,9 @@ import '../../startup/collections/schemas';
 // validation and a submit button. If model will be present, form will be filled
 // with appropriate values.
 
-const omitFields = ["$.address.coords"];
-
-const model = Schema.asTalent.clean({});
 //ALLOWS FOR DEFAULT VALUES TO GET PULLED INTO FORM VALUES FOR VALIDATION/SUBMISSION. 
 //WITHOUT THIS, AUTOVALUES/DEFAULTVALUES ARE EMPTY WHEN FORM IS SUBMITTED!!!
-class EditProfileTalentForm extends Component {
+class AddTalentForm extends Component {
   constructor(props) {
     super(props);
     this.formRef = null;
@@ -29,6 +26,8 @@ class EditProfileTalentForm extends Component {
   handleSuccess() {
       Bert.alert("Your Profile Was Updated!", "success");
       // $('form[name="TalentProfileForm"]').reset()
+              $('#talentProfileModal').modal('toggle');
+
   };
   
   handleFailure() {
@@ -36,20 +35,22 @@ class EditProfileTalentForm extends Component {
   };
 
   render() {
-    return(
+    const model = Schema.Talent.clean({});
+
+    return (
       // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}
       // onSubmitFailure={() => console.log('Promise rejected!')}/>
       <AutoForm  
       name="TalentProfileForm"
       ref={(ref) => { this.formRef = ref; }}
       validate="onChangeAfterSubmit"
-      schema={Schema.asTalent} 
+      schema={Schema.Talent} 
       model={model} 
       onSubmit={this.handleSubmit} 
       onSubmitSuccess={this.handleSuccess} 
       onSubmitFailure={this.handleFailure} >
 
-          <AutoFields omitFields={omitFields} />
+          <AutoFields />
           <SubmitField value="Submit"  />
           <ErrorsField />
       </AutoForm>
@@ -57,4 +58,4 @@ class EditProfileTalentForm extends Component {
   }
 }
 
-export default EditProfileTalentForm;
+export default AddTalentForm;

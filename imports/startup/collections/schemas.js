@@ -90,57 +90,13 @@ Schema.Address = new SimpleSchema({
   //   max: 3,
   //   optional: true,
   //   defaultValue: 'US'
-  // },
-  coords: {
-    type: String,
-    optional: true,
-    // uniforms: {
-    //   disabled: true,
-    //   hidden: true
-    // },
-    autoValue: function () {
-      // const address = this.field("address").value;
-      if (this.siblingField('street').value) {
-        let street = this.siblingField("street").value;
-        let addressString =  `${this.siblingField('street').value}, ${this.siblingField('state').value} ${this.siblingField('zip').value}`;
-        // console.log(addressString);
-        //CLIENT SIDE GEOCODE
-        // const geo = new google.maps.Geocoder;
-        // geo.geocode(
-        //   { address: addressString },
-        //   (res,err) => {
-        //     console.log(res,err);
-        //     let locObj = res[0].geometry.location;
-        //     let locStr = `${locObj.lat()}, ${locObj.lng()}`
-        //     if (locStr) {
-        //       return locStr;  
-        //     }
-        //   });
-
-        //SERVER SIDE GEOCODE
-        const response = Meteor.call('geoCode', addressString);
-
-
-        if (response && response.results.length) {
-          const loc =response.results[0].geometry.location;
-          // ====== RETURN STRINGIFIED LAT/LONG NUMBERS ======
-          const arr =  _.values(loc);
-          const locationString = arr.toLocaleString();
-          console.log(locationString);
-          // this.value = locationString;
-          // console.log(this.value);
-          return locationString;
-        }
-      // } else {
-      //   console.log("Street is required");
-      }
-    }
-  }  
+  // }, 
 });
 
 Schema.Venue = new SimpleSchema({
   nickname: {
     type: String,
+    unique: true,
     label: 'A Nickname'
   },
   description: {
@@ -150,6 +106,7 @@ Schema.Venue = new SimpleSchema({
   },
   address: {
     type: Schema.Address,
+    unique: true,
     label: "Where is it?"
   },
   venueType: { 
@@ -184,36 +141,17 @@ Schema.Venue = new SimpleSchema({
 
 });
 
-Schema.asHost = new SimpleSchema({
-  venues: {
-    type: Array,
-    label: 'Add A New Venue!',
-    optional: true,
-    defaultValue: []
-  },
-  "venues.$": {
-    type: Schema.Venue
-  }
-});
-
-Schema.asGuest = new SimpleSchema({
-  //the editable profile
-  preferences: {  
-    type: String,
-    label: 'What do you look for in a "fun time"? ',
-    optional: true
-  }
-});
-
 Schema.Talent = new SimpleSchema({
   name: {
     type: String,
     label: 'Stage Name?',
+    unique: true,
     optional: true
   },
   talentType: {
     type: String,
-    label: 'How do you entertain?',
+    unique: true,
+    label: 'How do you entertain a crowd?',
   },
   experience: {
     type: String,
@@ -228,20 +166,12 @@ Schema.Talent = new SimpleSchema({
   fee: {
     type: Number,
     label: 'Fee for this performance?',
+    uniforms: {
+      step: 0.10
+    },
     optional: true
   }
 });
-
-Schema.asTalent = new SimpleSchema({
-  talents: {
-    type: Array,
-    defaultValue: []
-  },
-  "talents.$": {
-    type: Schema.Talent
-  }
-});
-
 
 Schema.Interests = new SimpleSchema({
   whichAnimal: {
@@ -416,18 +346,24 @@ Schema.Profile = new SimpleSchema({
     type: Schema.Interests,
     optional: true,
   },
-  asHost: {
-    type: Schema.asHost,
-    optional: true
+  venues: {
+    type: Array,
+    label: 'Add A New Venue!',
+    optional: true,
+    defaultValue: []
   },
-  asGuest: {
-    type: Schema.asGuest,
-    optional: true
+  "venues.$": {
+    type: Schema.Venue
   },
-  asTalent: {
-    type: Schema.Talent,
-    optional: true
-  }  
+  talents: {
+    type: Array,
+    label: 'Add A New Talent!',
+    optional: true,
+    defaultValue: []
+  },
+  "talents.$": {
+    type: Schema.Talent
+  }
 });
 
 Schema.User = new SimpleSchema({
@@ -550,7 +486,10 @@ Schema.Event = new SimpleSchema({
   duration: {
     type: Number,
     min: 2,
-    max: 12
+    max: 12,
+    uniforms: {
+      step: 0.50
+    },
   },
   size: {
     type: SimpleSchema.Integer,
@@ -578,7 +517,10 @@ Schema.Event = new SimpleSchema({
   price: {
     type: Number,
     min: 5,
-    max: 200
+    max: 200,
+    uniforms: {
+      step: 0.50
+    },
   },
   eventAddress: {
     type: Schema.Address,

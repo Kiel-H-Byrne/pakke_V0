@@ -44,11 +44,10 @@ Accounts.config({
 Accounts.onCreateUser(function(options, user) {
   //CREATE NEW MYUSER OBJECT AND COPY ALL DEFAULT ATTRIBUTS TO IT
 
-  // let fullProfile = Schema.Profile.clean({});
   let myUser = Object.assign({}, user);
-    // console.log(fullProfile);
+
   if (options.profile) {
-    myUser.profile = options.profile;
+    myUser.profile =  Schema.Profile.clean(options.profile);
   }
     // console.log(user);
 

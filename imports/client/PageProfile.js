@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
 
-import EventForm from './forms/EventForm';
 import Events from '../startup/collections/events';
 import Event from './Event';
 import TabGuest from './TabGuest';
@@ -81,7 +80,7 @@ export default withTracker(() => {
     currentUser: Meteor.user(),
     allEvents: Events.find({}, {}).fetch(),
     eventsFromCollection: Events.find({
-      attendees: { $in: [Meteor.userId()] }
+      appliedList: { $in: [Meteor.userId()] }
     }).fetch(),
   };
 })(PageProfile);

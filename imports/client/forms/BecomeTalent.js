@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import EditProfileTalentForm from './FormEditProfileTalent';
+import AddTalentForm from './AddTalentForm';
 import { withTracker } from 'meteor/react-meteor-data';
 
 class BecomeTalent extends Component {
@@ -28,7 +28,7 @@ class BecomeTalent extends Component {
                     <h4 className="modal-title">Talent Sign Up Form</h4>
                   </div>
                   <div className="modal-body">
-                    <EditProfileTalentForm />
+                    <AddTalentForm />
                   </div>
                 </div>
               </div>

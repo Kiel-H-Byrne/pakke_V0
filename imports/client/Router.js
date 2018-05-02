@@ -12,7 +12,6 @@ import PageError from './PageError';
 import BecomeHost from './forms/BecomeHost';
 import BecomeTalent from './forms/BecomeTalent';
 import PageEventMap from './PageEventMap';
-import PostForm from './FormBecomeHost';
 
 // import PageEventMap from './pageEventMap/PageEventMap';
 // import PageSignUp from './PageSignUp';
@@ -38,11 +37,8 @@ class Router extends Component {
             <Route path='/host' component={BecomeHost} />
             <Route path='/talent' component={BecomeTalent} />
             <Route component={PageError} />
-            
             {/* <Route path='/login' component={PageLogin} /> */}
             {/* <Route path='/signup' component={PageSignUp} /> */}
-            <Route path='/test' component={ PostForm } />
-            
 
         </Switch>
     </main>

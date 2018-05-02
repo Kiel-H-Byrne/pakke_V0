@@ -34,6 +34,8 @@ export default class EventPurchaseForm extends Component {
 
     const handleSuccess = () => {
         Bert.alert("Thank you for Applying!", "success");
+                $('#eventPurchaseModal').modal('toggle');
+
     };
 
     const handleFailure = () => {

@@ -54,34 +54,13 @@ apiCall = function (apiUrl, callback) {
 };
 
 Meteor.methods({
-  // attendEvent(thisUserId, eventId) {
-  //     if (!Meteor.userId()) {
-  //         throw new Meteor.Error('not authorized');
-  //         this.stop();
-  //         return false;
-  //     } else {
-  //         Events.update(eventId, { $addToSet: { guests: thisUserId } });
-  //     }
-  // },
   addRole: function (id, role) {
     // check(id, Meteor.Collection.ObjectID);
     check(role, Array);
     Roles.addUsersToRoles( id , role );
   },
   editProfile: function(type, doc) {
-    if ( (type == 'asHost') && (! Roles.userIsInRole(Meteor.userId(), ["host"])) ) {
-      Meteor.call('addRole', Meteor.userId(), ["host"]);
-    } 
     
-    if ( (type == 'asTalent') && (! Roles.userIsInRole(Meteor.userId(), ["talent"])) ) {
-      Meteor.call('addRole', Meteor.userId(), ["talent"]);
-    }
-
-    const uid = Meteor.userId();
-    let profile = Meteor.user().profile;
-    let concat = `profile.${type}`;
-    // profile[type] = doc;
-    console.log(concat, doc);
    
   },
   addTalent: function(doc) {
@@ -91,10 +70,17 @@ Meteor.methods({
     }
      Meteor.users.update(uid, {
       $addToSet: { 
-        "profile.asTalent.talents" : doc
+        "profile.talents" : doc
       }
     });
-
+  },
+  addVenue: function(doc) {
+    const uid = Meteor.userId();
+    Meteor.users.update(uid, {
+      $addToSet: { 
+        "profile.venues" : doc
+      }
+    });
   },
   addEvent: function(doc) {
     if (! Roles.userIsInRole(Meteor.userId(), ["host"])) {

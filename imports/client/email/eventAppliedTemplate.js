@@ -1,10 +1,8 @@
 import { Meteor } from 'meteor/meteor';
-import ReactDOMServer from 'react-dom/server';
+const eventAppliedTemplate = (user,event) => {
 
-export default eventAppliedTemplate = (user,event) => {
-  
   const emailTitle = "Pakke Event Application";
-  const renderedEmail = 
+  return renderedEmail = 
     `
       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
       <html>
@@ -299,12 +297,12 @@ export default eventAppliedTemplate = (user,event) => {
                         <table border="0" cellpadding="0" cellspacing="0">
                           <tr>
                             <td>
-                              <p>Hi there ${user.username}!</p>
-                              <p>Pakke.us and the host of '${event.byline}' would like to thank you for applying!
+                              <p>Hi there <strong>${user.username}</strong>!</p>
+                              <p>Pakke.us and the host of <strong>'${event.byline}'</strong> would like to thank you for applying!
                               <br />
                               Now we wait until some more folks join the event. Pakke will then ensure that the party is full of diverse and fun folks, and once the final guest list is confirmed you can buy your ticket! 
                               <br />
-                              Sounds good?  Good!
+                              Sounds good?  <em>Good!</em>
                               </p>
                               <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                                 <tbody>
@@ -347,5 +345,7 @@ export default eventAppliedTemplate = (user,event) => {
       </html>
     `;
   
-  return renderedEmail;
-}
+};
+
+
+export default eventAppliedTemplate;

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import EditProfileHostForm from '../forms/FormEditProfileHost';
 import { withTracker } from 'meteor/react-meteor-data';
+
+import AddVenueForm from '../forms/AddVenueForm';
+import AddEventForm from '../forms/AddEventForm';
 
 class BecomeHost extends Component {
   constructor(props) {
@@ -8,6 +10,12 @@ class BecomeHost extends Component {
   }
   render() {
     const loginAlert = () => Bert.alert("Please Log In First.", "warning", "growl-top-right");
+    const isHost = Roles.userIsInRole(Meteor.userId(), ["host"]);
+    let haveVenues = 0 ;
+    if (Meteor.user()) {
+      haveVenues = Meteor.user().profile.venues.length;
+    }
+
     return (
       <div className="container">
         <img src='Events.jpg' />
@@ -19,17 +27,31 @@ class BecomeHost extends Component {
         </div>
         {this.props.authenticated ? (
           <>
-            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Become a Host</button>
+            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Host A Pakke!</button>
             <div className="modal fade" id="hostProfileModal" role="dialog">
               <div className="modal-dialog">
                 <div className="modal-content">
+                {haveVenues == 0 ? (
+                  <>
+                  <div className="modal-header">
+                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                    <h4 className="modal-title">New Venue Form</h4>
+                  </div>
+                  <div className="modal-body">
+                    <AddVenueForm />
+                  </div>
+                  </>
+                  ) : (
+                  <>
                   <div className="modal-header">
                     <button type="button" className="close" data-dismiss="modal">&times;</button>
                     <h4 className="modal-title">Host Sign Up Form</h4>
                   </div>
                   <div className="modal-body">
-                    <EditProfileHostForm />
+                    <AddEventForm />
                   </div>
+                  </>
+                  )}
                 </div>
               </div>
 

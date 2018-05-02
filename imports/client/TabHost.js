@@ -2,25 +2,15 @@ import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
 
-import EventForm from './forms/FormCreateEvent';
+import AddVenueForm from './forms/AddVenueForm';
+import AddEventForm from './forms/AddEventForm';
 import Events from '../startup/collections/events';
 import Event from './Event';
 
-
-
 class TabHost extends Component {
-
-  addHostRole() {
-    Meteor.call('addHostRole');
-    // Bert.alert("You are now a Host!", "success");
-
-  }
-
-
   render() {
-
-
-    const isHost = Roles.userIsInRole(Meteor.userId(), ["host"])
+    const isHost = Roles.userIsInRole(Meteor.userId(), ["host"]);
+    const haveVenues = Meteor.user().profile.venues.length || false;
 
     if (!this.props.ready) {
       return <div>Loading</div>;
@@ -28,11 +18,11 @@ class TabHost extends Component {
 
       return (
         <div className='host-block'>
-        {isHost ? (
+        {!isHost ? (
           <>
-          <p>Host Profile</p>
-          <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Form a Pakke!</button>
-            <div className="modal fade" id="myModal" role="dialog">
+          <h3>You are currently not a host</h3>
+          <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Form a Pakke!</button>
+            <div className="modal fade" id="hostProfileModal" role="dialog">
               <div className="modal-dialog">
                 <div className="modal-content">
                   <div className="modal-header">
@@ -40,7 +30,7 @@ class TabHost extends Component {
                     <h4 className="modal-title">Host Sign Up Form</h4>
                   </div>
                   <div className="modal-body">
-                    <EventForm />
+                  { haveVenues ? <AddEventForm /> : <AddVenueForm /> }
                   </div>
                 </div>
               </div>
@@ -61,7 +51,6 @@ class TabHost extends Component {
   }
 }
 
-
 export default withTracker(() => {
   let eventsSub = Meteor.subscribe('events_current');
   let userSub = Meteor.subscribe('currentUser');
@@ -69,9 +58,9 @@ export default withTracker(() => {
     ready: eventsSub.ready() && userSub.ready(),
     currentUserId: Meteor.userId(),
     currentUser: Meteor.user(),
-    allEvents: Events.find({}, {}).fetch(),
+    allEvents: Events.find({}).fetch(),
     eventsFromCollection: Events.find({
-      attendees: { $in: [Meteor.userId()] }
+      hostId: Meteor.userId()
     }).fetch(),
   };
 })(TabHost);

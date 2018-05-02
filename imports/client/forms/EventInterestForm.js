@@ -9,15 +9,6 @@ import eventAppliedTemplate from '../email/eventAppliedTemplate'
 
 import '../../startup/collections/schemas';
 
-// This will render an automatic, validated form, with labelled fields, inline
-// validation and a submit button. If model will be present, form will be filled
-// with appropriate values.
-
-
-
-// const omitFields = ["submitted","guests", "guestCount", "hostId", "venueId", "eventAddress.address", "eventAddress.coords"];
-
-
 export default class EventInterestForm extends Component {
 
   render() {
