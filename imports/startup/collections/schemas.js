@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
-
+import { Random } from 'meteor/random';
 import SimpleSchema from 'simpl-schema';
 import uniforms from 'uniforms';
 import filterDOMProps from 'uniforms/filterDOMProps';
@@ -94,6 +94,10 @@ Schema.Address = new SimpleSchema({
 });
 
 Schema.Venue = new SimpleSchema({
+  venueId: {
+    type: String,
+    autoValue: () => Random.id
+  },
   nickname: {
     type: String,
     unique: true,
@@ -142,6 +146,10 @@ Schema.Venue = new SimpleSchema({
 });
 
 Schema.Talent = new SimpleSchema({
+  talentId: {
+    type: String,
+    autoValue: () => Random.id
+  },
   name: {
     type: String,
     label: 'Stage Name?',
@@ -592,4 +600,3 @@ Schema.Event = new SimpleSchema({
     },
   }
 });
-

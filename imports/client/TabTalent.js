@@ -38,8 +38,10 @@ class TabHost extends Component {
           </>
           ) : (
           <>
-          <h3>Your Talents:</h3>
-          <div>{this.props.currentUser.talents}</div>
+          <h3>Your Entertaining these Pakkes:</h3>
+          {this.props.eventsFromCollection.map((event) => {
+          return <Event event={event} key={event._id} />
+        })}
           </>
           )
         }

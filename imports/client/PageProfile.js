@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Route, Link, Switch, Redirect } from 'react-router-dom';
+import AutoFields  from 'uniforms-bootstrap3/AutoFields';
+import AutoForm    from 'uniforms-bootstrap3/AutoForm';
+import SubmitField from 'uniforms-bootstrap3/SubmitField';
+import TextField   from 'uniforms-bootstrap3/TextField';
+import ErrorsField from 'uniforms-bootstrap3/ErrorsField';
+import { BarLoader } from 'react-spinners';
 
 import Events from '../startup/collections/events';
 import Event from './Event';
@@ -8,34 +14,53 @@ import TabGuest from './TabGuest';
 import TabHost from './TabHost';
 import TabTalent from './TabTalent';
 
-
-
 class PageProfile extends Component {
+  state = {}
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    // console.log(nextProps, prevState)
+    // let eventHost;
+    // nextProps.event ? eventHost = Meteor.users.findOne(nextProps.event.hostId) : null
+    // return {
+    //   event: Events.findOne(nextProps.match.params.id),
+    //   eventHost: eventHost
+    // };
+  }
+
+  componentWillUnmount() {
+    this.props.handle.stop();
+  }
 
   render() {
+    // console.log(this);
+    const model = this.props.thisUser.profile;
+    const omitFields = [""];
 
-    if (!this.props.ready) {
-      return <div>Loading</div>;
-    } else if (!this.props.currentUser) {
-      return <Redirect to="/" />;
+    if (this.props.loading) {
+      return (
+        <div>
+          <BarLoader 
+              style={{'width':'100%'}}
+              color={'#123abc'} 
+              loading={this.props.loading} 
+            />
+        </div>
+      )
     }
-
-    else {
-
       return (
         <div>
 
           <div className='profile-head'>
             <div className='profile-head-image'>
-              {Meteor.user().profile.avatar ? (
-                <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar} />
+              {this.props.thisUser.profile.avatar ? (
+                <img data-toggle="dropdown" className="icon dropdown-toggle" src={this.props.thisUser.profile.avatar} />
               ) : (
                   <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
                 )}
             </div>
             <div className='profile-head-text'>
-              {(this.props.currentUser.username) ? (
-                <h4>I'm {this.props.currentUser.username}</h4>
+              {(this.props.thisUser.username) ? (
+                <h4>I'm {this.props.thisUser.username}</h4>
               ) : (
                   <h4> I'm a new user </h4>
                 )
@@ -43,9 +68,19 @@ class PageProfile extends Component {
               <button className='btn btn-info btn-sm center-block'>Edit Profile</button>
             </div>
           </div>
+          <div>
+            <AutoForm  
+              schema={Schema.Profile} 
+              model={model} 
+              onSubmit={this.handleSubmit} 
+              onSubmitSuccess={this.handleSuccess} 
+              onSubmitFailure={this.handleFailure} >
 
-
-
+              <AutoFields />
+              <SubmitField value="Submit"  />
+              <ErrorsField />
+            </AutoForm>
+          </div>
 
           <ul className="nav nav-tabs">
             <li className="active"><a data-toggle="tab" href="#home">Guest</a></li>
@@ -68,19 +103,17 @@ class PageProfile extends Component {
       )
     }
   }
-}
+
 
 
 export default withTracker(() => {
-  let eventsSub = Meteor.subscribe('events_current');
-  let userSub = Meteor.subscribe('currentUser');
+  const handle = Meteor.subscribe('currentUser');
+  const loading = !handle.ready(); 
+  const thisUser = Meteor.user();
+
   return {
-    ready: eventsSub.ready() && userSub.ready(),
-    currentUserId: Meteor.userId(),
-    currentUser: Meteor.user(),
-    allEvents: Events.find({}, {}).fetch(),
-    eventsFromCollection: Events.find({
-      appliedList: { $in: [Meteor.userId()] }
-    }).fetch(),
+    handle,
+    loading,
+    thisUser
   };
 })(PageProfile);

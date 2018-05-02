@@ -12,7 +12,7 @@ class BecomeHost extends Component {
     const loginAlert = () => Bert.alert("Please Log In First.", "warning", "growl-top-right");
     const isHost = Roles.userIsInRole(Meteor.userId(), ["host"]);
     let haveVenues = 0 ;
-    if (Meteor.user()) {
+    if (Meteor.user() && Meteor.user().profile.venues) {
       haveVenues = Meteor.user().profile.venues.length;
     }
 
@@ -25,7 +25,7 @@ class BecomeHost extends Component {
           <h3>Show off your hosting skills and cool venues!</h3>
           <p>Fill out the form below to become a host</p>
         </div>
-        {this.props.authenticated ? (
+        {!isHost ? (
           <>
             <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Host A Pakke!</button>
             <div className="modal fade" id="hostProfileModal" role="dialog">

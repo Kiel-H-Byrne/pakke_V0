@@ -23,9 +23,7 @@ class AddVenueForm extends Component {
 
   handleSuccess() {
       Bert.alert("Your Profile Was Updated!", "success");
-      $('#talentProfileModal').modal('toggle');
       $('#hostProfileModal').modal('toggle');
-
 
   };
 

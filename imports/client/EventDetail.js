@@ -1,43 +1,17 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import Events from '../startup/collections/events';
-import EventInterestForm from './forms/EventInterestForm'
-import EventPurchaseForm from './forms/EventPurchaseForm'
 import { BarLoader } from 'react-spinners';
 
+import EventInterestForm from './forms/EventInterestForm'
+import EventPurchaseForm from './forms/EventPurchaseForm'
 
 class EventDetails extends Component {
   state = {
     event: {},
     eventHost: {},
   }
-
-  // applyStatus(props) {
-  //   // logged in and not applied = member
-  //   console.log(props);
-  //   if (Meteor.userId()) { 
-  //     if (this.props.event.guests.confirmed.includes(Meteor.userId())) {return "confirmed";}
-  //     else if (props.event.guests.invited.includes(Meteor.userId())) {return "invited";}
-  //     else if (props.event.guests.applied.includes(Meteor.userId())) {return "applied";}
-  //     else return "member"
-  //   } else {
-  //     return "visitor"
-  //   }
-  //   // applied and waiting = applied
-  //   // on final guestlist, unpaid = invited
-  //   // paid = confirmed
-  // }
-  // attendEvent() {
-  //   // console.log('submit attendee')
-  //   const eventId = this.state.event._id;
-
-  //   const thisUserId = Meteor.userId();
-  //   Meteor.call("attendEvent", thisUserId, eventId);
-
-  //   Bert.alert("Your are attending this event", "success", "growl-top-right");
-  // }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     // console.log(nextProps, prevState)
@@ -97,9 +71,9 @@ class EventDetails extends Component {
             <div className='attend-event-button'>
             <p>{this.props.event.price ? `$ ${this.props.event.price}` : 'Sold Out'}</p>
               { 
-                this.props.event.confirmedList.includes(Meteor.userId()) ? ( 
+                this.props.event.confirmedList.includes(this.props.thisUser._id) ? ( 
                   <button onClick={boughtAlert} className="btn disabled btn-success btn-lg" >Purchased!</button>
-                ) : this.props.event.invitedList.includes(Meteor.userId()) ? ( 
+                ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
                 <div>
                 <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventPurchaseModal">Buy Tickets</button>
                   <div className="modal fade" id="eventPurchaseModal" role="dialog">
@@ -118,7 +92,7 @@ class EventDetails extends Component {
                   </div>
                 ) : this.props.event.appliedList.includes(Meteor.userId()) ? (
                   <button onClick={waitAlert} className="btn disabled btn-success btn-lg" >Applied!</button>
-                ) : Meteor.userId() ? (
+                ) : this.props.thisUser ? (
                 <div>
                 <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventInterestsModal">Apply</button>
                   <div className="modal fade" id="eventInterestsModal" role="dialog">

@@ -50,9 +50,9 @@ class AddTalentForm extends Component {
       onSubmitSuccess={this.handleSuccess} 
       onSubmitFailure={this.handleFailure} >
 
-          <AutoFields />
-          <SubmitField value="Submit"  />
-          <ErrorsField />
+      <AutoFields />
+      <SubmitField value="Submit"  />
+      <ErrorsField />
       </AutoForm>
     );
   }
