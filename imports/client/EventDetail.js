@@ -54,7 +54,7 @@ class EventDetails extends Component {
   }
 
   render() {
-    
+
     const loginAlert = () => Bert.alert("Please Log In First.", "info", "growl-top-right");
     const waitAlert = () => Bert.alert("Please Check Your E-mail.", "info", "growl-top-right");
     const boughtAlert = () => Bert.alert("See you Soon!", "info", "growl-top-right");
@@ -69,22 +69,26 @@ class EventDetails extends Component {
     if (this.props.loading) {
       return (
         <div>
-          <BarLoader 
-              style={{'width':'100%'}}
-              color={'#123abc'} 
-              loading={this.props.loading} 
-            />
+          <BarLoader
+            style={{ 'width': '100%' }}
+            color={'#123abc'}
+            loading={this.props.loading}
+          />
         </div>
       )
     }
-  // console.log(this.state);
+    // console.log(this.state);
     return (
       <div className='container'>
-        <img className='event-detail-image' src={this.props.event.image} alt='image' />
-        <h1>{this.props.event.byline}</h1>
-        <p>{this.props.event.description}</p>
+        <div className='event-detail-image'>
+          <img src={this.props.event.image} alt='image' />
+        </div>
 
         <div className='event-detail-bottom'>
+          <div className='event-detail-description'>
+            <h1>{this.props.event.byline}</h1>
+            <p>{this.props.event.description}</p>
+          </div>
 
           <div className='host-info'>
             <img className='host-image' src='/missing_profile.png' />
@@ -95,50 +99,50 @@ class EventDetails extends Component {
 
           <div className='attend-event-button-area'>
             <div className='attend-event-button'>
-            <p>{this.props.event.price ? `$ ${this.props.event.price}` : 'Sold Out'}</p>
-              { 
-                this.props.event.confirmedList.includes(Meteor.userId()) ? ( 
+              <p>{this.props.event.price ? `$ ${this.props.event.price}` : 'Sold Out'}</p>
+              {
+                this.props.event.confirmedList.includes(Meteor.userId()) ? (
                   <button onClick={boughtAlert} className="btn disabled btn-success btn-lg" >Purchased!</button>
-                ) : this.props.event.invitedList.includes(Meteor.userId()) ? ( 
-                <div>
-                <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventPurchaseModal">Buy Tickets</button>
-                  <div className="modal fade" id="eventPurchaseModal" role="dialog">
-                    <div className="modal-dialog">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <button type="button" className="close" data-dismiss="modal">&times;</button>
-                          <h4 className="modal-title">Buy Tickets</h4>
-                        </div>
-                        <div className="modal-body">
-                          <EventPurchaseForm user = {this.props.thisUser} event = {this.props.event}  />
+                ) : this.props.event.invitedList.includes(Meteor.userId()) ? (
+                  <div>
+                    <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventPurchaseModal">Buy Tickets</button>
+                    <div className="modal fade" id="eventPurchaseModal" role="dialog">
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal">&times;</button>
+                            <h4 className="modal-title">Buy Tickets</h4>
+                          </div>
+                          <div className="modal-body">
+                            <EventPurchaseForm user={this.props.thisUser} event={this.props.event} />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                   </div>
                 ) : this.props.event.appliedList.includes(Meteor.userId()) ? (
                   <button onClick={waitAlert} className="btn disabled btn-success btn-lg" >Applied!</button>
                 ) : Meteor.userId() ? (
-                <div>
-                <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventInterestsModal">Apply</button>
-                  <div className="modal fade" id="eventInterestsModal" role="dialog">
-                    <div className="modal-dialog">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <button type="button" className="close" data-dismiss="modal">&times;</button>
-                          <h4 className="modal-title">Interest Form</h4>
-                        </div>
-                        <div className="modal-body">
-                          <p>Please answer some questions to help us find you the perfect party experience: </p>
-                          <EventInterestForm user = {this.props.thisUser} eventId = {this.props.event._id}/>
+                  <div>
+                    <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventInterestsModal">Apply</button>
+                    <div className="modal fade" id="eventInterestsModal" role="dialog">
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal">&times;</button>
+                            <h4 className="modal-title">Interest Form</h4>
+                          </div>
+                          <div className="modal-body">
+                            <p>Please answer some questions to help us find you the perfect party experience: </p>
+                            <EventInterestForm user={this.props.thisUser} eventId={this.props.event._id} />
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  </div>
                 ) : (
-                <button onClick={loginAlert} className="btn btn-success btn-lg" >Apply</button>
-              )}
+                          <button onClick={loginAlert} className="btn btn-success btn-lg" >Apply</button>
+                        )}
             </div>
           </div>
         </div>
@@ -150,8 +154,8 @@ class EventDetails extends Component {
 
 export default withTracker(({ match }) => {
   const handle = Meteor.subscribe('event', match.params.id);
-  const loading = !handle.ready(); 
-  const event = Events.findOne( match.params.id );
+  const loading = !handle.ready();
+  const event = Events.findOne(match.params.id);
   const thisUser = Meteor.user();
 
   return {
