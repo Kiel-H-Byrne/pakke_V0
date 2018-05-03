@@ -314,7 +314,7 @@ Schema.Profile = new SimpleSchema({
   avatar: {
     type: String,
     optional: true,
-    uniforms: ImageUploadComponent
+    // uniforms: ImageUploadComponent
   },
   address: {
     type: Schema.Address,
@@ -513,8 +513,8 @@ Schema.Event = new SimpleSchema({
   image: {
     type: String,
     optional: true,
-    uniforms: ImageUploadComponent,
-    label: 'Preview Image'
+    // uniforms: ImageUploadComponent,
+    label: 'Event Preview Image'
   },
   description: {
     type: String,
