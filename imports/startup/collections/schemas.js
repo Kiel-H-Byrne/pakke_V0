@@ -520,7 +520,7 @@ Schema.Event = new SimpleSchema({
     type: String,
     label: 'Event Description',
     optional: true,
-    max: 120
+    max: 350
   },
   price: {
     type: Number,
