@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-
 export default class Event extends Component {
 
   render() {
@@ -12,6 +11,7 @@ export default class Event extends Component {
     // let month = monthArray[(monthNumber - 1)];
 
     //turn into progressbar component w/ props: 
+
     let count = 0;
     if (this.props.event.appliedList) {
       count = this.props.event.appliedList.length;

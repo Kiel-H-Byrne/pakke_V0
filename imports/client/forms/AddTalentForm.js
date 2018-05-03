@@ -36,7 +36,8 @@ class AddTalentForm extends Component {
 
   render() {
     const model = Schema.Talent.clean({});
-
+    const omitFields = ["talentId"];
+    console.log(this);
     return (
       // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}
       // onSubmitFailure={() => console.log('Promise rejected!')}/>
@@ -50,7 +51,7 @@ class AddTalentForm extends Component {
       onSubmitSuccess={this.handleSuccess} 
       onSubmitFailure={this.handleFailure} >
 
-      <AutoFields />
+      <AutoFields omitFields={omitFields} />
       <SubmitField value="Submit"  />
       <ErrorsField />
       </AutoForm>

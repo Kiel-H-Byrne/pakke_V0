@@ -96,7 +96,7 @@ Schema.Address = new SimpleSchema({
 Schema.Venue = new SimpleSchema({
   venueId: {
     type: String,
-    autoValue: () => Random.id
+    autoValue: () => Random.id()
   },
   nickname: {
     type: String,
@@ -148,7 +148,7 @@ Schema.Venue = new SimpleSchema({
 Schema.Talent = new SimpleSchema({
   talentId: {
     type: String,
-    autoValue: () => Random.id
+    autoValue: () => Random.id()
   },
   name: {
     type: String,

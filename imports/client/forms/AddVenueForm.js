@@ -32,6 +32,7 @@ class AddVenueForm extends Component {
   };
   render() {
     const model = Schema.Venue.clean({});
+    const omitFields = ["venueId"];
     //ALLOWS FOR DEFAULT VALUES TO GET PULLED INTO FORM VALUES FOR VALIDATION/SUBMISSION. 
     //WITHOUT THIS, AUTOVALUES/DEFAULTVALUES ARE EMPTY WHEN FORM IS SUBMITTED!!!
     return (
@@ -45,7 +46,7 @@ class AddVenueForm extends Component {
       onSubmitSuccess={this.handleSuccess} 
       onSubmitFailure={this.handleFailure} >
 
-          <AutoFields  />
+          <AutoFields omitFields={omitFields} />
           <SubmitField value="Submit"  />
           <ErrorsField />
       </AutoForm>

@@ -18,13 +18,13 @@ class PageProfile extends Component {
   state = {}
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    // console.log(nextProps, prevState)
-    // let eventHost;
-    // nextProps.event ? eventHost = Meteor.users.findOne(nextProps.event.hostId) : null
-    // return {
-    //   event: Events.findOne(nextProps.match.params.id),
-    //   eventHost: eventHost
-    // };
+    console.log(nextProps, prevState)
+    let eventHost;
+    nextProps.event ? eventHost = Meteor.users.findOne(nextProps.event.hostId) : {}
+    return {
+      user: Meteor.user(),
+      eventHost: eventHost
+    };
   }
 
   componentWillUnmount() {
@@ -65,21 +65,31 @@ class PageProfile extends Component {
                   <h4> I'm a new user </h4>
                 )
               }
-              <button className='btn btn-info btn-sm center-block'>Edit Profile</button>
-            </div>
-          </div>
-          <div>
-            <AutoForm  
-              schema={Schema.Profile} 
-              model={model} 
-              onSubmit={this.handleSubmit} 
-              onSubmitSuccess={this.handleSuccess} 
-              onSubmitFailure={this.handleFailure} >
+              <button className='btn btn-info btn-sm center-block' type="button" data-toggle="modal" data-target="#profileModal">Edit Profile</button>
+            <div className="modal fade" id="profileModal" role="dialog">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                    <h4 className="modal-title">Edit Profile</h4>
+                  </div>
+                  <div className="modal-body">
+                    <AutoForm  
+                      schema={Schema.Profile} 
+                      model={model} 
+                      onSubmit={this.handleSubmit} 
+                      onSubmitSuccess={this.handleSuccess} 
+                      onSubmitFailure={this.handleFailure} >
 
-              <AutoFields />
-              <SubmitField value="Submit"  />
-              <ErrorsField />
-            </AutoForm>
+                      <AutoFields />
+                      <SubmitField value="Submit"  />
+                      <ErrorsField />
+                    </AutoForm>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
           </div>
 
           <ul className="nav nav-tabs">
