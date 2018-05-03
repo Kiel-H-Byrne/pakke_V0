@@ -7,8 +7,7 @@ Meteor.publish('currentUser', function () {
     fields: {
       'profile': 1,
       'roles': 1,
-      'services.facebook': 1,
-      'services.google': 1
+      'services': 1
     }
   });
 });

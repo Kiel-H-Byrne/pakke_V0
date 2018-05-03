@@ -18,7 +18,7 @@ class TabHost extends Component {
         
         <div className='host-block'>
         {!isTalent ? (
-          <>
+          <div>
           <h3>You do not have any talents listed!</h3>
           <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#talentProfileModal">Entertain a Pakke</button>
             <div className="modal fade" id="talentProfileModal" role="dialog">
@@ -33,16 +33,31 @@ class TabHost extends Component {
                   </div>
                 </div>
               </div>
-
             </div>
-          </>
+          </div>
           ) : (
-          <>
-          <h3>Your Entertaining these Pakkes:</h3>
-          {this.props.eventsFromCollection.map((event) => {
-          return <Event event={event} key={event._id} />
-        })}
-          </>
+          <div>
+            <h3>Your Entertaining these Pakkes:</h3>
+            <div className="scroll-wrapper-x">
+              {this.props.eventsFromCollection.map((event) => {
+              return <Event event={event} key={event._id} />
+              })}
+            </div>
+            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#talentProfileModal">Register Your Talent</button>
+            <div className="modal fade" id="talentProfileModal" role="dialog">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                    <h4 className="modal-title">Talent Sign Up Form</h4>
+                  </div>
+                  <div className="modal-body">
+                    <AddTalentForm />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           )
         }
         </div>

@@ -15,12 +15,12 @@ class TabGuest extends Component {
       <div>
         {(this.props.eventsFromCollection.length > 0) ? (
           <div>
-            Events I'm Attending
-            <main>
+            <h3>Events I'm Attending</h3>
+            <div className="scroll-wrapper-x">
               {this.props.eventsFromCollection.map((event) => {
                 return <Event event={event} key={event._id} />
               })}
-            </main>
+            </div>
           </div>
         ) : (
             <div className='guest-tab'>

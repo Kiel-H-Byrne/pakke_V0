@@ -59,9 +59,14 @@ Meteor.methods({
     check(role, Array);
     Roles.addUsersToRoles( id , role );
   },
-  editProfile: function(type, doc) {
+  editProfile: function(doc) {
+    const uid = Meteor.userId();
+    Meteor.users.update(uid, {
+      $set: {
+        profile: doc
+      }
+    });
     
-   
   },
   addTalent: function(doc) {
     const uid = Meteor.userId();

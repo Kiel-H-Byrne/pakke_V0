@@ -54,7 +54,7 @@ export default class EventPurchaseForm extends Component {
             <div>
 
       <div className="eventDetails">
-        <div className="card" style={{"width": "100%","border": "1px solid grey", "border-radius": ".5rem"}}>
+        <div className="card" style={{"width": "100%","border": "1px solid grey", "borderRadius": ".5rem"}}>
           <img className="card-img-top" src={event.image} style={{"width": "inherit"}} alt={event.byline} />
           <div className="card-body">
             <h3 className="card-title">{event.byline}</h3>
@@ -73,7 +73,7 @@ export default class EventPurchaseForm extends Component {
             <div id="card-errors" role="alert"></div>
           </div>
 
-          <button className="btn btn-success btn-lg">Submit Payment</button>
+          <button className="btn btn-success btn-lg" >Submit Payment</button>
         </form>
       </Elements>
       </div>

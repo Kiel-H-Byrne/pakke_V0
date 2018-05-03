@@ -18,7 +18,7 @@ class PageProfile extends Component {
   state = {}
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log(nextProps, prevState)
+    // console.log(nextProps, prevState)
     let eventHost;
     nextProps.event ? eventHost = Meteor.users.findOne(nextProps.event.hostId) : {}
     return {
@@ -31,11 +31,16 @@ class PageProfile extends Component {
     this.props.handle.stop();
   }
 
-  render() {
-    // console.log(this);
-    const model = this.props.thisUser.profile;
-    const omitFields = [""];
+  handleSubmit(doc) {
+    Meteor.call('editProfile', doc)
+  }
 
+  handleSuccess() {
+    Bert.alert("Your Profile Was Updated!", "success");
+    $('#profileModal').modal('toggle');
+  }
+
+  render() {
     if (this.props.loading) {
       return (
         <div>
@@ -47,6 +52,11 @@ class PageProfile extends Component {
         </div>
       )
     }
+    // console.log(this);
+    const model = this.props.thisUser.profile;
+    
+    const omitFields = ["talents.$.talentId", "venue.$.venueId"];
+
       return (
         <div>
 
