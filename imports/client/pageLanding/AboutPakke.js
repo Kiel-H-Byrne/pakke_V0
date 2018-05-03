@@ -8,7 +8,7 @@ class AboutPakke extends Component {
             <div className='what-is-pakke-wrapper'>
                 <h2>What is Pakke? </h2>
                 <div className='what-is-pakke-text'>
-                    <p>We want you to help you be a part of your community. Our vision is to enhance and enrich the experience of socializing--the Where, and the Who. We want to unlock underutilized and unique spaces for locals to meet and socialize. The physical environment is just as important to a day or night out that (if done right) we may open our doors as hosts for curated events that keep us all yearning for more Pakke'd Events.
+                    <p>We want to help you be a part of your community. Our vision is to enhance and enrich the experience of socializing--the Where, and the Who. We want to unlock underutilized and unique spaces for locals to meet and socialize. The physical environment is just as important to a day or night out that (if done right) we may open our doors as hosts for curated events that keep us all yearning for more Pakke'd Events.
                 <br />
                         <br />Pakke's network of hosts, guests, and local artists, will drive another revenue stream that would have otherwise went to traditional establishments like bars and restaurants. </p>
 
