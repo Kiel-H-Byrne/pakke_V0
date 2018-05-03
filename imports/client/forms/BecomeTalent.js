@@ -7,7 +7,7 @@ class BecomeTalent extends Component {
     super(props);
   }
   render() {
-    const loginAlert = () => Bert.alert("Please Log In First.", "warning", "growl-top-right");
+    const loginAlert = () => Bert.alert("Please Log In First.", "info", "growl-top-right");
     return (
       <div className="container-host">
         <img src='Talent.jpg' />
