@@ -1,33 +1,51 @@
 
+    .container {
+        position: relative;
+
+      }
+    
     .event-detail-image {
-        width: 100%;
+        
+        img {
+            display:block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 75%;
+            max-height: 400px;
+            // height: 50%;
+        }
+
+
     }
 
     .event-detail-bottom {
         display: flex;
         justify-content: space-around;
-        margin-top: 10%;
+        margin-top: 5rem;
 
     }
 
     .attend-event-button-area {
         float: right;
-        border: 1px solid gray;
         border-radius: 1rem;
     }
 
     .attend-event-button {
         padding: 2rem;
-
-        // position: absolute;
         
     }
 
-    .host-info {
+    .event-detail-description {
+        width: 50%;
         float: left;
-        text-align: center;
     }
+
+    .host-info {
+        text-align: center;
+        width: 10rem;
+        height: auto;
+    }
+
     .host-image {
         border-radius: 50%;
-        height: 8rem;
     }

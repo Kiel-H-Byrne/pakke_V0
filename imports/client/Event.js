@@ -32,14 +32,8 @@ export default class Event extends Component {
           <img className="eventCard_img" src={this.props.event.image} alt={this.props.event.byline} />
           <h4 className="eventCard_name">{this.props.event.byline}</h4>
           <p className="eventCard_loc">{this.props.event.eventAddress.city}, {this.props.event.eventAddress.zip}</p>
-          <p>{this.props.event.price}$ per person | {remainingTickets} tickets remain</p>
+          <p>{this.props.event.price}$ per person | <strong>{remainingTickets}</strong> tickets remain</p>
         </Link>
-
-        <div className="progress">
-              <div className="progress-bar" role="progressbar" aria-valuenow={weight} aria-valuemin="0" aria-valuemax="100" style={style}>
-                {weight}%
-              </div>
-            </div>
       </div>
     )
   }

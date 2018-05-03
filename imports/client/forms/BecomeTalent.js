@@ -9,7 +9,7 @@ class BecomeTalent extends Component {
   render() {
     const loginAlert = () => Bert.alert("Please Log In First.", "warning", "growl-top-right");
     return (
-      <div className="container">
+      <div className="container-host">
         <img src='Talent.jpg' />
         <div className='container-text-talent'>
           <h1>Share Your Talent</h1>

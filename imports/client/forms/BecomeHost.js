@@ -17,7 +17,7 @@ class BecomeHost extends Component {
     }
 
     return (
-      <div className="container">
+      <div className="container-host">
         <img src='Events.jpg' />
         <div className='container-text-host'>
           <h1>Host an Event</h1>
