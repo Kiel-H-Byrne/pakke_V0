@@ -2,7 +2,7 @@
   "name": "pakke",
   "private": "true",
   "scripts": {
-    "start": "meteor run --settings settings.json",
+    "start": "meteor run --settings settings_dev.json",
     "prod": "meteor run --production --settings settings.json",
     "stage": "meteor deploy pakkestage.meteorapp.com --settings settings_dev.json",
     "deploy": "meteor deploy pakke.meteorapp.com --settings settings.json",
