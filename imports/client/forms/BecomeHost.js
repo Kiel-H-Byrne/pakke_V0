@@ -11,7 +11,7 @@ class BecomeHost extends Component {
   render() {
     const loginAlert = () => Bert.alert("Please Log In First.", "info", "growl-top-right");
     const isHost = Roles.userIsInRole(Meteor.userId(), ["host"]);
-    let haveVenues = 0 ;
+    let haveVenues = 0;
     if (Meteor.user() && Meteor.user().profile.venues) {
       haveVenues = Meteor.user().profile.venues.length;
     }
@@ -26,39 +26,41 @@ class BecomeHost extends Component {
           <p>Fill out the form below to become a host</p>
         </div>
         {this.props.authenticated ? (
-          <div>
+          <div className='host-button'>
             <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Host A Pakke!</button>
             <div className="modal fade" id="hostProfileModal" role="dialog">
               <div className="modal-dialog">
                 <div className="modal-content">
-                { haveVenues !== 0 ? (
-                  <div>
-                    <div className="modal-header">
-                      <button type="button" className="close" data-dismiss="modal">&times;</button>
-                      <h4 className="modal-title">Host Sign Up Form</h4>
+                  {haveVenues !== 0 ? (
+                    <div>
+                      <div className="modal-header">
+                        <button type="button" className="close" data-dismiss="modal">&times;</button>
+                        <h4 className="modal-title">Host Sign Up Form</h4>
+                      </div>
+                      <div className="modal-body">
+                        <AddEventForm />
+                      </div>
                     </div>
-                    <div className="modal-body">
-                      <AddEventForm />
-                    </div>
-                  </div>
                   ) : (
-                  <div>
-                    <div className="modal-header">
-                      <button type="button" className="close" data-dismiss="modal">&times;</button>
-                      <h4 className="modal-title">New Venue Form</h4>
-                    </div>
-                    <div className="modal-body">
-                      <AddVenueForm />
-                    </div>
-                  </div>
-                  ) }
+                      <div>
+                        <div className="modal-header">
+                          <button type="button" className="close" data-dismiss="modal">&times;</button>
+                          <h4 className="modal-title">New Venue Form</h4>
+                        </div>
+                        <div className="modal-body">
+                          <AddVenueForm />
+                        </div>
+                      </div>
+                    )}
                 </div>
               </div>
 
             </div>
           </div>
         ) : (
-            <button className="btn btn-info btn-lg" onClick={loginAlert}>Become a Host</button>
+            <div className='host-button'>
+              <button className="btn btn-info btn-lg" onClick={loginAlert}>Become a Host</button>
+            </div>
           )}
       </div>
     );

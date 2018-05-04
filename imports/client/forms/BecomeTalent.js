@@ -18,7 +18,7 @@ class BecomeTalent extends Component {
           <p>Click the button below to register your tallent with Pakke</p>
         </div>
         {this.props.authenticated ? (
-          <>
+          <div className='talent-button'>
             <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#talentProfileModal">Register Your Talent</button>
             <div className="modal fade" id="talentProfileModal" role="dialog">
               <div className="modal-dialog">
@@ -34,9 +34,11 @@ class BecomeTalent extends Component {
               </div>
 
             </div>
-          </>
+          </div>
         ) : (
-            <button className="btn btn-info btn-lg" onClick={loginAlert}>Register Your Talent</button>
+            <div className='talent-button'>
+              <button className="btn btn-info btn-lg" onClick={loginAlert}>Register Your Talent</button>
+            </div>
           )
         }
       </div>
