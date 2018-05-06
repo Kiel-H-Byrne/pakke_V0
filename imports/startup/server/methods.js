@@ -156,6 +156,26 @@ Meteor.methods({
       return res.data;
     });
   },
+  createCharge: function(amount, description, token) {
+    //makre sure old object is added to new object, update rewrites fields.
+    const stripe = require("stripe")(Meteor.settings.private.keys.stripe.key);
+
+    description = `PAKKE EVENT: ${description}`;
+    
+    // console.log(token);
+    stripe.charges.create({
+      amount: amount*100,
+      currency: 'usd',
+      description: description,
+      source: token.id,
+    }, (err,charge) => {
+      if (err) {
+        // throw new Meteor.Error("charge-alert", err.message);
+        console.log(err.message);
+      } 
+      return charge;
+    });
+  },
   sendEmail: function(to, from, subject, html) {
     // check([to, from, subject, html], [String]);
     this.unblock();
