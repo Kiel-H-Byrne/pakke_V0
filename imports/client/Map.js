@@ -24,9 +24,9 @@ class MyMap extends Component {
             return {
                 // ============================= RETURN MAP OPTIONS ==================================    
                 center: new google.maps.LatLng(mapCenter),
-                zoom: 13,
-                minZoom: 11,
-                maxZoom: 17,
+                zoom: 11,
+                minZoom: 10,
+                maxZoom: 14,
                 // mapTypeId:google.maps.MapTypeId.TERRAIN,
                 backgroundColor: "#555",
                 clickableIcons: false,
