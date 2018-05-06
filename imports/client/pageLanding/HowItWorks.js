@@ -37,7 +37,7 @@ class HowItWorks extends Component {
                                 <img src="two.svg" alt="ticket" height="42" width="42"></img>
                                     <h3>2. Get Selected </h3>
                                 </div>
-                                <p>Selections are made using a lottory system. If you are selected, you’ll receive an email to purchase your tickets.</p>
+                                <p >Selections are made using a lottory system. If you are selected, you’ll receive an email to purchase your tickets.</p>
 
                             </Link>
                         </div>

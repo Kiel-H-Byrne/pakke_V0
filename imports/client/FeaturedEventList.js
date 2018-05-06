@@ -5,7 +5,7 @@ import { Session } from 'meteor/session'
 import Event from './Event';
 import Events from '/imports/startup/collections/events';
 
-class EventList extends Component {
+class FeaturedEventList extends Component {
 
   render() {
     if (!this.props.ready) {
@@ -29,12 +29,7 @@ export default withTracker(() => {
     // showAll: showAll,
     ready: eventsSub.ready(),
     events: Events.find({
-        date: {
-          $gte: new Date() 
-        }
-      },
-      {
-        sort: { date: 1 }
-      }).fetch()
+      "featured": true
+    }).fetch()
   }
-})(EventList);
+})(FeaturedEventList);
