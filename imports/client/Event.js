@@ -12,16 +12,16 @@ export default class Event extends Component {
 
     //turn into progressbar component w/ props: 
 
-    let count = 0;
-    if (this.props.event.appliedList) {
-      count = this.props.event.appliedList.length;
+    let confirmedCount = 0;
+    if (this.props.event.confirmedList) {
+      confirmedCount = this.props.event.confirmedList.length;
     }
-    let weight = ((count / this.props.event.size) * 100).toFixed();
+    let weight = ((confirmedCount / this.props.event.size) * 100).toFixed();
     const style = {
       width: `${weight}%`
     };
 
-    let remainingTickets = this.props.event.size - count
+    let remainingTickets = this.props.event.size - confirmedCount;
     return (
 
       <div className='eventCard'>
@@ -32,7 +32,7 @@ export default class Event extends Component {
           <img className="eventCard_img" src={this.props.event.image} alt={this.props.event.byline} />
           <h4 className="eventCard_name">{this.props.event.byline}</h4>
           <p className="eventCard_loc">{this.props.event.eventAddress.city}, {this.props.event.eventAddress.zip}</p>
-          <p>{this.props.event.price}$ per person | <strong>{remainingTickets}</strong> tickets remain</p>
+          <p>{this.props.event.price}$ per person | <strong>{this.props.event.size}</strong> tickets available | <strong>{remainingTickets}</strong> remain</p>
         </Link>
       </div>
     )

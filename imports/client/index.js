@@ -2,7 +2,6 @@ import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import { render } from 'react-dom';
 import { Meteor } from 'meteor/meteor';
-import {StripeProvider} from 'react-stripe-elements';
 
 import App from './App';
 import '../../lib/fixtures';
@@ -22,9 +21,7 @@ Meteor.startup(() => {
 
 render(
   (<BrowserRouter>
-    <StripeProvider apiKey={ Meteor.settings.public.keys.stripe.key }>
-      <App />
-    </StripeProvider>
+    <App />
   </BrowserRouter>),
   document.getElementById('render-target'));
  });
