@@ -55,6 +55,18 @@
     li {}
   }
 
+  .accounts-dialog {
+    & .login-password-form,
+    & .or {
+    display:none;
+  }
+  // & .login-close-text {
+  //   color: red;
+  //   &::before {
+      
+  //   }
+  // }
+}
   // .dropdown .dropdown-menu {
   //     -webkit-transition: all 0.5s;
   //     -moz-transition: all 0.5s;

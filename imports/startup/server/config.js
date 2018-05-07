@@ -27,7 +27,7 @@ if (!SOUP) {
       Meteor.users.update(
         {_id: SOUP._id}, 
         {$set: {
-          "profile.avatar": "/img/brand/PAKKE_circle.png",
+          "profile.avatar": "/img/brand/SOCIAL/Logo_Facebook_mark_02.jpg",
           "profile.name": "Theophilus Hamilton",
           }
         });

@@ -12,7 +12,7 @@ export default eventAppliedTemplate = (user, event) => {
   return renderEmail(
     <Email title="Pakke Event Application" headCSS={css}>
       <Item>
-        <Image src="//pakke.us/img/brand/PAKKE_banner.jpg" width={108} height={510} alt="Pakke.us"/>
+        <Image src="//pakke.us/img/brand/PAKKE_LOGO_black.png" width={108} height={510} alt="Pakke.us"/>
         <Span fontSize={24}>
           You have Applied!
         </Span>
@@ -49,7 +49,7 @@ export default emailRTemplate = (user, event) => {
   return renderEmail(
     <Email title="Pakke Event Application" headCSS={css}>
       <Item>
-        <Image src="//pakke.us/img/brand/PAKKE_banner.jpg" width={108} height={510} alt="Pakke.us"/>
+        <Image src="//pakke.us/img/brand/PAKKE_LOGO_black.png" width={108} height={510} alt="Pakke.us"/>
         <Span fontSize={24}>
           You have Applied!
         </Span>

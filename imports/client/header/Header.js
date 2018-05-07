@@ -19,8 +19,7 @@ class Header extends Component {
                 <div className='header' id="header-target">
                     <div className='header-links-left-signedin'>
                         <div className='dropdown'>
-                            <Link to='/landing'><img className="icon" src='/logo.jpg' /></Link>
-                            
+                            <Link to='/landing'><img className="icon" src='/img/brand/PAKKE_LOGO_black.png' /></Link>
                         </div>
                     </div>
                     {/* <h4> Discover | Connect | Experience </h4> */}
@@ -56,7 +55,7 @@ class Header extends Component {
                 <div className='header' id="header-target">
                     <div className='header-links-left-signedout'>
                         <div className='dropdown'>
-                            <img data-toggle="dropdown" className="icon dropdown-toggle" src='/logo.jpg' />
+                            <img data-toggle="dropdown" className="icon dropdown-toggle" src='/img/brand/PAKKE_LOGO_black.png' />
                             <span className="caret"></span>
                             <ul className="dropdown-menu">
                                 <li><Link to='/'><h5>Home</h5></Link></li>

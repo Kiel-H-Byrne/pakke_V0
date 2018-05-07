@@ -19,7 +19,7 @@ class MyMap extends Component {
         } else {
             mapCenter = Session.get('browserLoc');
             // MAP_ZOOM = 12;
-            console.log("Got mapCenter from Browser:", mapCenter);
+            // console.log("Got mapCenter from Browser:", mapCenter);
         }
             return {
                 // ============================= RETURN MAP OPTIONS ==================================    
