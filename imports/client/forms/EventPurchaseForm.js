@@ -33,7 +33,7 @@ class EventPurchaseForm extends Component {
             <img className="card-img-top" src={event.image} style={{"width": "inherit"}} alt={event.byline} />
             <div className="card-body">
               <h3 className="card-title">{event.byline}</h3>
-              <p className="card-text">{event.description}</p>
+              <p className="card-text lead">{event.description}</p>
               <h4>${event.price}.00</h4>    
             </div>
           </div>

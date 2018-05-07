@@ -29,7 +29,7 @@ export default class EventInterestForm extends Component {
 
     const handleSuccess = () => {
         Bert.alert("Thank you for Applying!", "success");
-        Meteor.call('amApplied', event._id, user._id);
+        Meteor.call('amApplied', event._id);
         $('#eventInterestsModal').modal('toggle');
         Meteor.call('sendEmail', userEmail, ...emailProps);
     };

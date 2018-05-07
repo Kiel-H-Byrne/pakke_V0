@@ -113,17 +113,48 @@ Meteor.methods({
       $set: {"profile.interests": doc}
     });
   },
-  amApplied: function(eventId, userId) {
+  amApplied: function(eventId) {
     // console.log(eventId, userId);
-    Events.update(eventId, { $addToSet: { "appliedList": userId } }, (err,res) => {
+    Events.update(eventId, { $addToSet: { "appliedList": Meteor.userId() } }, (err,res) => {
       err ? console.log(err) : null;
     });
   },
-  amInvited: function(eventId, userId) {
-    Events.update(eventId, { $addToSet: { "invitedList": userId } });
+  amInvited: function(eventId) {
+    Events.update(eventId, { $addToSet: { "invitedList": Meteor.userId() } });
   },
-  amConfirmed: function(eventId, userId) {
-    Events.update(eventId, { $addToSet: { "confirmedList": userId } });
+  inviteGuests: function(eventId, emailsArray) {
+    this.unblock()
+    //SECURITY
+    //check admin role 
+    //find userid of each email address
+    //send "Congrats! You've been invited! Please Buy Ticket" email to guest.
+    if (Roles.userIsInRole(Meteor.userId(), ["admin"])) {
+      let invitedEmailTitle, invitedEmailTemplate, invitedGuestsTemplate;
+      const hid = Events.findOne(eventId).hostId;
+      // const hid = event.hostId;
+      const hostEmail = Meteor.users.findOne(hid).emails[0].address;
+      emailsArray.map((email)=> {
+        const uid = Accounts.findUserByEmail(email);
+        Events.update(eventId, { $addToSet: { "invitedList": uid } }); 
+        Email.send({
+          to: email, 
+          from: 'noreply@pakke.us', 
+          subject: invitedEmailTitle, 
+          html: invitedEmailTemplate 
+        });
+      });
+      // Email.send({
+      //   to: hostEmail , 
+      //   from: 'noreply@pakke.us', 
+      //   subject: `Your Guest List for '${event.byline}'`, 
+      //   html: invitedGuestsTemplate 
+      // });
+    } else {  
+      console.log("Must be ADMIN to invite to events");
+    }
+  },
+  amConfirmed: function(eventId) {
+    Events.update(eventId, { $addToSet: { "confirmedList": Meteor.userId() } });
   },
   geoCode: function(address) {
     this.unblock();
@@ -187,15 +218,7 @@ Meteor.methods({
 
     //check if logged in, or else anyone can send email from client
     Email.send({to, from, subject, html });
-  },
-  addtoInviteList: function(email, eventId) {
-    if (Roles.userIsInRole(Meteor.userId(), ["admin"])) {
-      const userId = Accounts.findUserByEmail(email)._id;
-      Events.update(eventId, { $addToSet: { "invitedList": userId } });
-    } else {  
-      console.log("Must be ADMIN to invite to events");
-    }
-  },
+  }
   
 });
 

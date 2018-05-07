@@ -11,14 +11,16 @@ class PaymentRequestForm extends React.Component {
       country: 'US',
       currency: 'usd',
       total: {
-        label: 'Demo total',
-        amount: 1000,
+        label: `PAKKE EVENT: ${this.props.event.byline}`,
+        amount: this.props.event.price * 100,
       },
     });
 
     paymentRequest.on('token', ({complete, token, ...data}) => {
       console.log('Received Stripe token: ', token);
       console.log('Received customer information: ', data);
+      Meteor.call('amConfirmed', this.props.event._id);
+      $('#eventPurchaseModal').modal('toggle');
       complete('success');
     });
 
@@ -42,15 +44,15 @@ class PaymentRequestForm extends React.Component {
       } else {
         console.log('Received Stripe token:', token);
         Meteor.call('createCharge', this.props.event.price, this.props.event.byline, token);
+        Meteor.call('amConfirmed', this.props.event._id);
+        $('#eventPurchaseModal').modal('toggle');
         //3796 330728 93002 6/18 9534 20031
-        // Bert.alert("Payment Successful" "danger", "growl-top-right");
       }
     });
 
     // However, this line of code will do the same thing:
     // this.props.stripe.createToken({type: 'card', name: 'Jenny Rosen'});
-      // add to events.guests.confirmed(userId)
-      // Meteor.call('amConfirmed', eventId, user._id);
+      
       
       // Meteor.call('sendEmail', userEmail, ...emailProps);
   }; 
