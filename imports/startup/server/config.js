@@ -10,12 +10,12 @@ if (!Meteor.settings.public.keys) {
 }
 
 
-const SOUP = Meteor.users.findOne({username: 'Soup'});
+const SOUP = Meteor.users.findOne({username: 'Theophilus Hamilton'});
 if (!SOUP) {
   console.log("CREATING FIRST USER: SOUP");
   const soupId = Accounts.createUser({
-      "username": "Soup",
-      "email": "soup@pakke.us",
+      "username": "Theophilus Hamilton",
+      "email": "noreply@pakke.us",
       "password": "password",
   });
 } else {
@@ -28,7 +28,7 @@ if (!SOUP) {
         {_id: SOUP._id}, 
         {$set: {
           "profile.avatar": "/img/brand/PAKKE_circle.png",
-          "profile.name": "Souper Youzer",
+          "profile.name": "Theophilus Hamilton",
           }
         });
 

@@ -69,8 +69,8 @@ class PageProfile extends Component {
                 )}
             </div>
             <div className='profile-head-text'>
-              {(this.props.thisUser.username) ? (
-                <h4>I'm {this.props.thisUser.username}</h4>
+              {(this.props.thisUser.profile.name) ? (
+                <h4>I'm {this.props.thisUser.profile.name}</h4>
               ) : (
                   <h4> I'm a new user </h4>
                 )
