@@ -24,9 +24,9 @@ class PaymentRequestForm extends React.Component {
       complete('success');
     });
 
-    paymentRequest.canMakePayment().then(result => {
-      this.setState({canMakePayment: !!result});
-    });
+    // paymentRequest.canMakePayment().then(result => {
+    //   this.setState({canMakePayment: !!result});
+    // });
 
     this.state = {
       canMakePayment: false,
