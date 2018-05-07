@@ -124,7 +124,7 @@ class EventDetails extends Component {
 }
 
 export default withTracker(({ match }) => {
-  let handle = Meteor.subscribe('event', match.params.id);
+  let handle = Meteor.subscribe('eventHost', match.params.id);
   let loading = !handle.ready(); 
   let event = Events.findOne( match.params.id );
   

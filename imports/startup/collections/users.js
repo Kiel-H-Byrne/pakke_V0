@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-
+import Events from './events';
 
 Meteor.publish('currentUser', function () {
   console.log("-= PUBLISHING: USER DATA  =-");
@@ -12,6 +12,16 @@ Meteor.publish('currentUser', function () {
   });
 });
 
+Meteor.publish('eventHost', function (eventId) {
+  console.log("-= PUBLISHING: HOST USER DATA  =-");
+  let event = Events.findOne(eventId);
+  let eventHost = event.hostId;
+  return Meteor.users.find({_id: eventHost}, {
+    fields: {
+      'profile': 1
+    }
+  });
+});
 
 
 Meteor.users.allow({
