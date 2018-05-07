@@ -11,7 +11,8 @@ class EventDetails extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      eventHost: {}
+      eventHost: {},
+      soldOut: false
     }
   }
 
@@ -53,7 +54,7 @@ class EventDetails extends Component {
       <div className='event-detail-container'>
         <img className='event-detail-image' src={this.props.event.image} alt='image' />
         <h1>{this.props.event.byline}</h1>
-        <p>{this.props.event.description}</p>
+        <p className="lead">{this.props.event.description}</p>
 
         <div className='event-detail-bottom'>
           {this.state.eventHost ? (
@@ -72,7 +73,7 @@ class EventDetails extends Component {
 
           <div className='attend-event-button-area'>
             <div className='attend-event-button'>
-            <p>{this.props.event.price ? `$ ${this.props.event.price}` : 'Sold Out'}</p>
+            <p>${this.props.event.price}</p>
             {this.props.thisUser ? (
                 this.props.event.confirmedList.includes(this.props.thisUser._id) ? ( 
                   <button onClick={boughtAlert} className="btn disabled btn-success btn-lg" >Purchased!</button>
