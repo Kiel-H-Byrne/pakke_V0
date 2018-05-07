@@ -15,15 +15,11 @@ App.info({
 // });
 
 App.icons({
-  'iphone_2x': 'public/icons/apple-icon-120x120.png',
-  'iphone_3x': 'public/icons/apple-icon-180x180.png',
-  'ipad': 'public/icons/apple-icon-76x76.png',
-  'ipad_2x': 'public/icons/apple-icon-152x152.png',
-  'ios_notification_3x': 'public/icons/apple-icon-60x60.png',
-  'iphone_legacy': 'public/icons/apple-icon-57x57.png',
-  'ipad_app_legacy': 'public/icons/apple-icon-72x72.png',
-  'android_hdpi': 'public/icons/apple-icon-72x72.png',
-  'android_xxhdpi': 'public/icons/ms-icon-144x144.png'
+  'iphone_2x': 'public/icons/apple-touch-icon-120x120.png?v=qA32peaped',
+  'iphone_3x': 'public/icons/apple-touch-icon-180x180.png?v=qA32peaped',
+  'ipad': 'public/icons/apple-touch-icon-76x76.png?v=qA32peaped',
+  'ipad_2x': 'public/icons/apple-touch-icon-152x152.png?v=qA32peaped',
+  'ios_notification_3x': 'public/icons/apple-touch-icon-60x60.png?v=qA32peaped'
 });
  
 App.setPreference('BackgroundColor', '0xff404040');
@@ -32,7 +28,7 @@ App.setPreference('Orientation', 'default');
 App.setPreference('Orientation', 'all', 'ios');
 
 App.setPreference('StatusBarOverlaysWebView', 'false');
-App.setPreference('StatusBarBackgroundColor', '#ffffff');
+App.setPreference('StatusBarBackgroundColor', '#226199');
 // App.configurePlugin('com.phonegap.plugins.facebookconnect', {
 //   APP_ID: '235091633613282',
 //   API_KEY: 'f5138f920f667c10c4838a6b074ee451'
@@ -43,7 +39,7 @@ App.accessRule('localhost');
 App.accessRule('*.google.com/*');
 App.accessRule('*.googleapis.com/*');
 App.accessRule('*.gstatic.com/*');
-App.accessRule('https://*.stripe.com/*');
+App.accessRule('*.stripe.com/*');
 
 // App.configurePlugin('cordova-plugin-googleplus', {
 //     'REVERSED_CLIENT_ID': 'com.googleusercontent.apps.xxxx'
