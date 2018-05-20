@@ -52,6 +52,7 @@ class PageLanding2 extends Component {
   render() {
 
     const { classes } = this.props;
+    console.log(classes);
 
     return (
       <ParallaxProvider>

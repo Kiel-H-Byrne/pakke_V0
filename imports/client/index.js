@@ -2,13 +2,11 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { render } from 'react-dom';
 import { Meteor } from 'meteor/meteor';
-
-import App from './App';
-import '../../lib/fixtures';
-
-import muiTheme from './UI/muiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import muiTheme from './UI/muiTheme';
+import App from './App';
+import '../../lib/fixtures';
 
 targetListing = function (map, pos) {
   map.instance.setCenter(pos);
