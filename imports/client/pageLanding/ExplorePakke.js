@@ -6,8 +6,7 @@ class ExplorePakke extends Component {
     render() {
         return (
             <div>
-                <h1>Explore Pakke </h1>
-                <h4>Discover | Connect | Experience</h4>
+                <div id="landing-hero"></div>
                 <div className='scroll-wrapper-x'>
 
                     <ul className='three-main-links'>
