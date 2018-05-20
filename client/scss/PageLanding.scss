@@ -1,15 +1,15 @@
-
 .explore-pakke {
-  margin-left: 2rem;
-  margin-top: 2rem;
+  & .jumbotron {
+    font-family: Roboto, Open Sans, Segoe UI, sans-serif;
+    text-shadow: 2px 2px #555;
+  }
 }
-
 
 .three-main-links {
   display: flex;
   justify-content: space-evenly;
   width: 60rem;
-  padding:0%;
+  padding: 0%;
   margin: 0 .5rem;
 
   div {
@@ -18,7 +18,7 @@
     width: 17rem;
     margin: 1rem .5rem;
     border-radius: 1rem;
-  
+
     img {
       height: 11rem;
       width: 100%;
@@ -51,7 +51,7 @@
 
   background: lightgray;
   border-top: 1px solid gray;
-  border-bottom:1px solid gray;
+  border-bottom: 1px solid gray;
   color: black;
   margin: 1rem;
 
@@ -59,30 +59,32 @@
     margin: 1rem .5rem;
     border-radius: 1rem;
     text-align: center;
+
     // border: 1px solid black;
-    
-    img {
-    }
+
+    img {}
+
     p {
       padding: 1rem;
       width: 100%;
       color: black;
       font-weight: normal;
     }
+
     h3 {
-      color: black
+      color: black;
     }
   }
 }
 
 .idea {
-  width: 33%px;
-  margin-left:auto;
+  width: 33% px;
+  margin-left: auto;
   margin-right: auto;
   border: solid 1px;
   background: white;
-
 }
+
 .idea-border {
   // width: 100%;
 }
@@ -93,7 +95,7 @@
 
 .what-is-pakke-event {
   margin-top: 10rem;
-  width:350px;
+  width: 350px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -109,11 +111,8 @@
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+  }
 }
-}
-
-
-
 
 // OLD STYLES -- KEEP FOR REFERENCE
 
@@ -125,7 +124,7 @@
 
 .background-img {
   // grid-area: 1/1/3/-1;
-  // /* start-row/start-col/ end-row/end-col*/
+  // /* start-row/start-col/ end-row/end-col
   // z-index: -1;
   // height: 100%;
   // width: 100%;
@@ -143,11 +142,11 @@
 .featured-events {
   // text-align: center;
 
-
   img {
     // display: inline-block;
     // height: 200px;
     // width: 24%;
+ 
   }
 }
 

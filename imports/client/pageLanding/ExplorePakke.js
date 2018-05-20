@@ -6,7 +6,27 @@ class ExplorePakke extends Component {
     render() {
         return (
             <div>
-                <div id="landing-hero"></div>
+                <div id="landing-hero" className="jumbotron jumbotron-fluid" style={
+                    {   background: "url('img/ImageHero.jpg')",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                        backgroundSize:"cover",
+                        backgroundAttachment: "fixed",
+                        flexGrow: 1,
+                        maxHeight: 300,
+                        minHeight: 560,
+                    }
+                }>
+                  <div className="container container_hero text-center" style={{color:'white'}}>
+                    <img src="img/brand/ImageTriangleWhite.png" className="brand" 
+                        style={{
+                            marginTop: '3%',
+                            maxHeight: '22rem',
+                        }}></img>
+                    <h1 className="display-1 font-weight-bold">It's Happening... Go Find It.</h1>
+                    <p className="display-5"><em>Discover.  Connect.  Experience.</em></p>
+                  </div>
+                </div>
                 <div className='scroll-wrapper-x'>
 
                     <ul className='three-main-links'>
