@@ -29,20 +29,18 @@ class EventPurchaseForm extends Component {
     return (
       <div>
         <div className="eventDetails">
-          <div className="card" style={{"width": "100%","border": "1px solid grey", "borderRadius": ".5rem"}}>
-            <img className="card-img-top" src={event.image} style={{"width": "inherit"}} alt={event.byline} />
+          <div className="card" style={{"width": "100%", "borderRadius": ".5rem"}}>
             <div className="card-body">
-              <h3 className="card-title">{event.byline}</h3>
-              <p className="card-text lead">{event.description}</p>
-              <h4>${event.price}.00</h4>    
+              <h3 className="card-title">"{event.byline}"</h3>
+              <p className="card-text"><em>{event.description}</em></p>
+              <StripeProvider apiKey={ Meteor.settings.public.keys.stripe.key }>
+                <Elements>
+                  <PaymentRequestForm event = {event} user = {user} />
+                </Elements>
+              </StripeProvider>
             </div>
           </div>
         </div>
-        <StripeProvider apiKey={ Meteor.settings.public.keys.stripe.key }>
-          <Elements>
-            <PaymentRequestForm event = {event} user = {user} />
-          </Elements>
-        </StripeProvider>
       </div>
     );
   }
