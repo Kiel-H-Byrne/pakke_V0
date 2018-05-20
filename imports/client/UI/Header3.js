@@ -17,6 +17,9 @@ import Typography from 'material-ui/Typography';
 
 import AccountsUIWrapper2 from './AccountsUIWrapper2';
 
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
 const styles = {
     root: {
         flexGrow: 1,
@@ -43,13 +46,25 @@ const styles = {
 };
 
 
-class Header2 extends React.Component {
+class Header3 extends React.Component {
 
     state = {
         left: false,
+        auth: true,
+        anchorEl: null,
     };
 
+    handleChange = (event, checked) => {
+        this.setState({ auth: checked });
+    };
 
+    handleMenu = event => {
+        this.setState({ anchorEl: event.currentTarget });
+    };
+
+    handleClose = () => {
+        this.setState({ anchorEl: null });
+    };
     toggleDrawer = (side, open) => () => {
         this.setState({
             [side]: open,
@@ -58,7 +73,10 @@ class Header2 extends React.Component {
 
     render() {
         const { classes } = this.props;
-        // const { classes } = props;
+        
+        const { auth, anchorEl } = this.state;
+        
+        const open = Boolean(anchorEl);
 
         const sideList = (
             <div className={classes.list}>
@@ -98,15 +116,38 @@ class Header2 extends React.Component {
                     <AppBar position="static">
                         <Toolbar>
                             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                                <MenuIcon onClick={this.toggleDrawer('left', true)} />
+                                <MenuIcon />
                             </IconButton>
-                            <Typography variant="title" color="inherit" className={classes.flex}>
-
-                                <img src="/ImageLogoBlack.png" alt='none' className={classes.pakkeLogo} />
-                            </Typography>
-
-                            {/* <Button variant='raised' color="secondary">Login</Button> */}
-                            <AccountsUIWrapper2 />
+                            <Typography variant="title" color="inherit" className={classes.flex}>Title</Typography>
+                            {auth && (
+                                <div>
+                                    <IconButton
+                                        aria-owns={open ? 'menu-appbar' : null}
+                                        aria-haspopup="true"
+                                        onClick={this.handleMenu}
+                                        color="inherit"
+                                    >
+                                        <h1>Yo</h1>
+                                    </IconButton>
+                                    <Menu
+                                        id="menu-appbar"
+                                        anchorEl={anchorEl}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        open={open}
+                                        onClose={this.handleClose}
+                                    >
+                                        <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                                        <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                                    </Menu>
+                                </div>
+                            )}
                         </Toolbar>
                     </AppBar>
                 </div>
@@ -128,8 +169,8 @@ class Header2 extends React.Component {
     }
 }
 
-Header2.propTypes = {
+Header3.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Header2);
+export default withStyles(styles)(Header3);

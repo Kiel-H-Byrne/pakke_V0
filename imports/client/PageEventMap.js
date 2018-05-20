@@ -22,8 +22,7 @@ class LandingPage extends Component {
         return (
             // <div>
             <div className="landingMap">
-                <Map />
-
+                    <Map />
 
                 <Grid container justify={'center'} style={{ marginTop: '2%' }}>
                     <Paper align={'center'} style={{ width: 350 }}>
