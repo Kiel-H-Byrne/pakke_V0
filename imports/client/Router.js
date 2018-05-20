@@ -4,6 +4,8 @@ import { Switch, Route } from 'react-router-dom';
 import PageHome from './PageHome';
 import PageAbout from './PageAbout';
 import PageLanding from './pageLanding/PageLanding';
+import PageLanding2 from './UI/PageLanding2';
+
 import Event from './Event';
 import EventList from './EventList';
 import EventDetails from './EventDetail';
@@ -26,10 +28,9 @@ import PageEventMap from './PageEventMap';
 class Router extends Component {
     render() {
         return (
-    <main>
         <Switch>
             <Route exact path='/' component={PageHome} />
-            <Route path='/landing' component={PageLanding} />
+            <Route path='/landing' component={PageLanding2} />
             <Route path='/about' component={PageAbout} />
             <Route path='/events' component={PageEventMap} />            
             <Route path='/event/:id' component={EventDetails} />
@@ -41,7 +42,6 @@ class Router extends Component {
             {/* <Route path='/signup' component={PageSignUp} /> */}
 
         </Switch>
-    </main>
 )
 }};
 

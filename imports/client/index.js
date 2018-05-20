@@ -1,14 +1,18 @@
 import React from 'react';
-import {BrowserRouter} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { render } from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
 import App from './App';
 import '../../lib/fixtures';
 
-targetListing = function(map,pos) {
-    map.instance.setCenter(pos);
-    map.instance.setZoom(12);
+import muiTheme from './UI/muiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+
+targetListing = function (map, pos) {
+  map.instance.setCenter(pos);
+  map.instance.setZoom(12);
 };
 
 Meteor.startup(() => {
@@ -19,9 +23,12 @@ Meteor.startup(() => {
     libraries: ['places', 'geometry']
   });
 
-render(
-  (<BrowserRouter>
-    <App />
-  </BrowserRouter>),
-  document.getElementById('render-target'));
- });
+  render(
+    (<BrowserRouter>
+      <MuiThemeProvider theme={muiTheme}>
+        <App />
+      </MuiThemeProvider >
+
+    </BrowserRouter>),
+    document.getElementById('render-target'));
+});

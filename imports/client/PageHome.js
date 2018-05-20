@@ -3,6 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import EventList from './EventList';
 import PageLanding from './pageLanding/PageLanding';
+import PageLanding2 from './UI/PageLanding2';
 import PageProfile from './PageProfile';
 
 
@@ -11,7 +12,7 @@ class Home extends Component {
   render() {
     
       return (
-      <PageLanding />
+      <PageLanding2 />
 
     )
   }
