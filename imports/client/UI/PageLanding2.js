@@ -7,12 +7,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import Typography from 'material-ui/Typography/Typography';
 
-
 import muiTheme from '../UI/muiTheme';
-import SimpleMediaCard from '../UI/SimpleCardMedia';
 import WhatIsPakkeEvent from '../UI/WhatIsPakkeEvent';
 import HowItWorks from '../UI/HowItWorks';
 import Hero from '../UI/Hero';
+
+import EventList from '../EventList';
 
 // import image2 from '../UI/triangleWhite.svg';
 
@@ -65,28 +65,11 @@ class PageLanding2 extends Component {
 
             <Grid container justify={'center'} style={{ marginTop: '10%' }}>
               <Paper align={'center'}style={{width: 350}}>
-                <Typography style={{margin: '5%'}} variant='headline'>Pakke Inspired Events</Typography>
+                <Typography style={{margin: '5%'}} variant='display2'>Pakke Inspired Events</Typography>
               </Paper>
             </Grid>
             <Grid container spacing={16} justify={'center'} className={classes.cards} >
-              <Grid item>
-                <SimpleMediaCard className={classes.card} />
-              </Grid>
-              <Grid item>
-                <SimpleMediaCard className={classes.card} />
-              </Grid>
-              <Grid item>
-                <SimpleMediaCard className={classes.card} />
-              </Grid>
-              <Grid item>
-                <SimpleMediaCard className={classes.card} />
-              </Grid>
-              <Grid item>
-                <SimpleMediaCard className={classes.card} />
-              </Grid>
-              <Grid item>
-                <SimpleMediaCard className={classes.card} />
-              </Grid>
+                <EventList className={classes.card} />
             </Grid>
           </div>
 

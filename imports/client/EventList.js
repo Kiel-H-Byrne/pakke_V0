@@ -3,6 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session'
 
 import Event from './Event';
+import Event2 from './Event2';
 import Events from '/imports/startup/collections/events';
 
 class EventList extends Component {
@@ -12,9 +13,10 @@ class EventList extends Component {
       return <div>Loading</div>;
     } else {
       return (
-            this.props.events.map((event) => {
-              return <Event event={event} key={event._id} />
-            })
+        this.props.events.map((event) => {
+            return <Event2 event={event} key={event._id} />
+        })
+
 
       )
     }
@@ -29,10 +31,10 @@ export default withTracker(() => {
     // showAll: showAll,
     ready: eventsSub.ready(),
     events: Events.find({
-        date: {
-          $gte: new Date() 
-        }
-      },
+      date: {
+        $gte: new Date()
+      }
+    },
       {
         sort: { date: 1 }
       }).fetch()

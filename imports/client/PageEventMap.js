@@ -1,28 +1,39 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Grid from 'material-ui/Grid';
+import Typography from 'material-ui/Typography/Typography';
+import Paper from 'material-ui/Paper';
+
 
 import EventList from './EventList';
 import Map from './Map';
 
 
 class LandingPage extends Component {
+
     render() {
 
+        const styles = {
+            cards: {
+                marginTop: '2%',
+            },
+        };
+
         return (
-            <div>
-                <div className="landingMap">
-                    <Map />
-                    {/* < div className="mapOverlay"></div>
-                    <h2>Explore your Area</h2> */}
-                </div>
+            // <div>
+            <div className="landingMap">
+                <Map />
 
 
-                <div className="landingEvents">
-                    <h2>Events</h2>
-                    <div className="scroll-wrapper-x">
-                        <EventList />
-                    </div>
-                </div>
+                <Grid container justify={'center'} style={{ marginTop: '2%' }}>
+                    <Paper align={'center'} style={{ width: 350 }}>
+                        <Typography style={{ margin: '2%' }} variant='headline'>Pakke Inspired Events</Typography>
+                    </Paper>
+                </Grid>
+
+                <Grid container spacing={16} justify={'center'} style={styles.cards} >
+                    <EventList />
+                </Grid>
             </div>
         )
     }

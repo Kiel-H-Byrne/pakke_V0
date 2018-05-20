@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
+import {Link} from 'react-router-dom';
+
 import Drawer from 'material-ui/Drawer';
 import Button from 'material-ui/Button';
 import Divider from 'material-ui/Divider';
@@ -63,28 +65,28 @@ class Header extends React.Component {
         const sideList = (
             <div className={classes.list}>
                 <List component="nav">
-                    <ListItem button>
+                    <ListItem>
                         <ListItemText primary="PAKKE" />
                     </ListItem>
                     <Divider />
-                    <ListItem button>
+                    <ListItem button component={Link} to="/">
                         <ListItemText primary="Home" />
                     </ListItem>
 
-                    <ListItem button>
+                    <ListItem button component={Link} to="/about">
                         <ListItemText primary="About Pakke" />
                     </ListItem>
-                    <ListItem button>
+                    <ListItem button component={Link} to="/">
                         <ListItemText primary="How It Works" />
                     </ListItem>
                 </List>
                 <List>
-                    <ListItem button>
+                    <ListItem button component={Link} to="/events">
                         <ListItemText primary="Events" />
                     </ListItem>
 
 
-                    <ListItem button>
+                    <ListItem button component={Link} to="/login">
                         <ListItemText primary="Login" />
                     </ListItem>
                 </List>
