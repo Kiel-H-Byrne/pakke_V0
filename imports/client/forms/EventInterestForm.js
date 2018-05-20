@@ -29,7 +29,14 @@ export default class EventInterestForm extends Component {
 
     const handleSuccess = () => {
         Bert.alert("Thank you for Applying!", "success");
+        
         Meteor.call('amApplied', event._id);
+        //AUTO-INVITE AFTER APPLYING TO EVENT SO THEY CAN BUY TICKET....
+        Meteor.call('amInvited', event._id);
+        //CAN ALSO COMMENT THIS OUT AND RUN:
+        // Meteor.call('inviteGuests', eventId, emailArray)
+        //BO INVITE MULTIPLE PEPLE AT ONCE.
+
         $('#eventInterestsModal').modal('toggle');
         Meteor.call('sendEmail', userEmail, ...emailProps);
     };

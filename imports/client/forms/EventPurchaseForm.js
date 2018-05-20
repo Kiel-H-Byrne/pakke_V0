@@ -40,7 +40,7 @@ class EventPurchaseForm extends Component {
         </div>
         <StripeProvider apiKey={ Meteor.settings.public.keys.stripe.key }>
           <Elements>
-            <PaymentRequestForm event = {event} />
+            <PaymentRequestForm event = {event} user = {user} />
           </Elements>
         </StripeProvider>
       </div>
