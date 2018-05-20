@@ -41,9 +41,9 @@ class EventDetails extends Component {
       return (
         <div>
           <BarLoader 
-              style={{'width':'100%'}}
-              color={'#123abc'} 
               loading={this.props.loading} 
+              color={'#123abc'}
+              width={-1}
             />
         </div>
       )
@@ -75,9 +75,11 @@ class EventDetails extends Component {
             <div className='attend-event-button'>
             <p>${this.props.event.price}</p>
             {this.props.thisUser ? (
-                this.props.event.confirmedList.includes(this.props.thisUser._id) ? ( 
+                this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
+                
                   <button onClick={boughtAlert} className="btn disabled btn-success btn-lg" >Purchased!</button>
                 ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
+                
                 <div>
                 <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventPurchaseModal">Buy Tickets</button>
                   <div className="modal fade" id="eventPurchaseModal" role="dialog">
@@ -95,8 +97,10 @@ class EventDetails extends Component {
                   </div>
                   </div>
                 ) : this.props.event.appliedList.includes(this.props.thisUser._id) ? (
+              
                   <button onClick={waitAlert} className="btn disabled btn-success btn-lg" >Applied!</button>
                 ) : (
+              
                 <div>
                 <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventInterestsModal">Apply</button>
                   <div className="modal fade" id="eventInterestsModal" role="dialog">
