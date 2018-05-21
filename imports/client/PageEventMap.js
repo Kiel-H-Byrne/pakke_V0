@@ -26,7 +26,7 @@ class LandingPage extends Component {
 
                 <Grid container justify={'center'} style={{ marginTop: '2%' }}>
                     <Paper align={'center'} style={{ width: 350 }}>
-                        <Typography style={{ margin: '2%' }} variant='headline'>Pakke Inspired Events</Typography>
+                        <Typography style={{ margin: '2%' }} variant='display2'>Pakke Inspired Events</Typography>
                     </Paper>
                 </Grid>
 

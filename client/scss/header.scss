@@ -49,6 +49,10 @@
   margin: .5rem .5rem;
   height: 7rem;
   border-radius: 5rem;
+
+  &.avatar {
+    z-index: 1;
+  }
 }
 
 .header-links-left-signedout {

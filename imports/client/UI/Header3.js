@@ -4,14 +4,28 @@ import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
 import { withTracker } from 'meteor/react-meteor-data';
 
-
 import { withStyles } from 'material-ui/styles';
-import Drawer from 'material-ui/Drawer';
-import Button from 'material-ui/Button';
-import Divider from 'material-ui/Divider';
-import List, { ListItem, ListItemText } from 'material-ui/List';
+
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Drawer from '@material-ui/core/Drawer';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 
 import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
+import FingerprintIcon from '@material-ui/icons/Fingerprint';
+import HelpIcon from '@material-ui/icons/Help';
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
+import FlightLandIcon from '@material-ui/icons/FlightLand';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
@@ -19,10 +33,6 @@ import { CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
 import AccountsUIWrapper2 from './AccountsUIWrapper2';
-
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 
 
 class Header3 extends React.Component {
@@ -82,6 +92,7 @@ class Header3 extends React.Component {
             },
             list: {
                 width: 250,
+                fontSize: '16px'
             },
             fullList: {
                 width: 'auto',
@@ -98,29 +109,45 @@ class Header3 extends React.Component {
             <div style={styles.list}>
                 <List component="nav">
                     <ListItem>
-                        <ListItemText primary="PAKKE" />
+                        <img src="/ImageLogoBlack.png" className="icon logo" alt='Home' style={styles.pakkeLogo} />
                     </ListItem>
                     <Divider />
                     <ListItem button component={Link} to="/">
-                        <ListItemText primary="Home" />
+                        <ListItemIcon>
+                            <HomeIcon />
+                        </ListItemIcon>
+                        <ListItemText inset disableTypography primary="Home" />
                     </ListItem>
 
                     <ListItem button component={Link} to="/about">
-                        <ListItemText primary="About Pakke" />
+                        <ListItemIcon>
+                            <FingerprintIcon />
+                        </ListItemIcon>
+                        <ListItemText inset disableTypography primary="About Pakke" />
                     </ListItem>
-                    <ListItem button component={Link} to="/">
-                        <ListItemText primary="How It Works" />
+                    <ListItem button component={Link} to="/howitworks">
+                        <ListItemIcon>
+                            <HelpIcon />
+                        </ListItemIcon>
+                        <ListItemText inset disableTypography primary="How It Works" />
                     </ListItem>
                 </List>
                 <List>
                     <ListItem button component={Link} to="/events">
-                        <ListItemText primary="Events" />
+                        <ListItemIcon>
+                            <EventNoteIcon />
+                        </ListItemIcon>
+                        <ListItemText inset disableTypography primary="Events" />
                     </ListItem>
-
-
-                    <ListItem button component={Link} to="/login">
-                        <ListItemText primary="Login" />
-                    </ListItem>
+                    {User ? (
+                        <ListItem button onClick={this.logOut}>
+                            <ListItemIcon>
+                                <FlightTakeoffIcon />
+                            </ListItemIcon>
+                            <ListItemText inset disableTypography primary="Log Out" />
+                        </ListItem>
+                        ) : null
+                    }
                 </List>
             </div>
         );
@@ -134,7 +161,7 @@ class Header3 extends React.Component {
                                 <MenuIcon onClick={this.toggleDrawer('left', true)} />
                             </IconButton>
                             <Typography variant="title" color="inherit" style={styles.flex}>
-                                <img src="/ImageLogoBlack.png" className="icon logo" alt='none' style={styles.pakkeLogo} />
+                                <Link to='/'><img src="/ImageLogoBlack.png" className="icon logo" alt='Home' style={styles.pakkeLogo} /></Link>
                             </Typography>
 
                             {Meteor.user() ? (

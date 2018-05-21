@@ -5,6 +5,8 @@ import PageHome from './PageHome';
 import PageAbout from './PageAbout';
 import PageLanding from './pageLanding/PageLanding';
 import PageLanding2 from './UI/PageLanding2';
+import HowItWorks from './UI/HowItWorks'
+
 
 import Event from './Event';
 import EventList from './EventList';
@@ -30,6 +32,7 @@ class Router extends Component {
         return (
         <Switch>
             <Route exact path='/' component={PageHome} />
+            <Route path='/howitworks' component={HowItWorks} />
             <Route path='/landing' component={PageLanding2} />
             <Route path='/about' component={PageAbout} />
             <Route path='/events' component={PageEventMap} />            
@@ -38,6 +41,7 @@ class Router extends Component {
             <Route path='/host' component={BecomeHost} />
             <Route path='/talent' component={BecomeTalent} />
             <Route component={PageError} />
+
             {/* <Route path='/login' component={PageLogin} /> */}
             {/* <Route path='/signup' component={PageSignUp} /> */}
 

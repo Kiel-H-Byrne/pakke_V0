@@ -24,6 +24,19 @@ export default class Event2 extends Component {
         };
 
         let remainingTickets = this.props.event.size - confirmedCount;
+        const dateArr = this.props.event.date.toDateString().split(' ');
+
+        const eventDate = _.object(["day","month","date","year"], dateArr)
+        
+        const nth = function(d) {
+            if(d>3 && d<21) return 'th';
+            switch (d % 10) {
+                case 1:  return "st";
+                case 2:  return "nd";
+                case 3:  return "rd";
+                default: return "th";
+            }
+        };
 
         const styles = {
             card: {
@@ -38,7 +51,7 @@ export default class Event2 extends Component {
 
             },
             date: {
-                // background: 'white',
+                background: 'rgba(255,255,255,.9)',
                 width: 100,
                 height: 100,
                 // border: '1px solid black',
@@ -58,6 +71,12 @@ export default class Event2 extends Component {
             logo: {
                 maxWidth: 75,
             },
+            ordinal: {
+                position: 'relative',
+                verticalAlign: 'super',
+                fontSize: 'smaller',
+                left: '-.6rem',
+            }
         };
 
         return (
@@ -68,9 +87,9 @@ export default class Event2 extends Component {
                         <CardMedia style={styles.image} image={this.props.event.image}>
                             <CardContent >
                                 <Card style={styles.date}>
-                                    <Typography style={styles.typo} align={'center'} variant={'display1'} color={'secondary'}> May</Typography>
-                                    <Typography align={'center'} variant={'display2'}>9th</Typography>
-                                    <Typography align={'center'} variant={'display1'} color={'secondary'}>Fri</Typography>
+                                    <Typography style={styles.typo} align={'center'} variant={'display1'} color={'secondary'}> {eventDate.month}</Typography>
+                                    <Typography align={'center'} variant={'display2'}>{ eventDate.date}<span style={styles.ordinal}> {nth(eventDate.date) }</span></Typography>
+                                    <Typography align={'center'} variant={'display1'} color={'secondary'}>{eventDate.day}</Typography>
                                 </Card>
                             </CardContent>
                         </CardMedia>
@@ -84,7 +103,6 @@ export default class Event2 extends Component {
                         <CardActions style={styles.actions}>
                             <Button size="large" color="secondary">Apply</Button>
                             <img src="ImageLogoBlack.png" style={styles.logo} />
-
                         </CardActions>
                     </Card>
                 </Link>

@@ -60,7 +60,7 @@ function HowItWorks(props) {
 
     return (
 
-        <div>
+        <div id="HowItWorks">
             <Grid container justify={'center'} style={styles.wrapper}>
                 <Paper style={styles.paper}>
                     <Grid container justify={'center'} style={{ marginTop: '1%' }} >
