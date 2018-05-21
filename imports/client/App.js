@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { withTracker } from 'meteor/react-meteor-data';
 
 
 import Header from './header/Header';
@@ -21,4 +22,6 @@ class App extends Component {
     )
   }
 }
-export default App
+
+export default App;
+

@@ -26,21 +26,13 @@ class Header extends Component {
                     <div className="header-links-right-signedin">
                         <div className='dropdown'>
                             <span className="caret"></span>
-                            {/* <img data-toggle="dropdown" className= 'icon dropdown-toggle' src='/missing_profile.png' /> */}
+                            
                             {Meteor.user().profile.avatar ? (
                                 <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar}/>
                                 ): (
                                 <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
                                 )}
                             
-            
-
-                            {/* {(Meteor.user().profile.avatar) ? (
-                                <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar} />
-                                ) : (
-                                <img data-toggle="dropdown" className="icon dropdown-toggle" src='missing_profile.png'/>
-                                )
-                            } */}
                             <ul className="dropdown-menu dropdown-menu-right">
                                 <li><Link to='/profile'><h5>Profile</h5></Link></li>
                                 <li><Link to='/events'><h5>Events</h5></Link></li>
