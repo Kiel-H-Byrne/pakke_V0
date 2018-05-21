@@ -9,7 +9,7 @@ import Grow from '@material-ui/core/transitions/Grow';
 import Paper from '@material-ui/core/Paper';
 import Portal from '@material-ui/core/Portal';
 import { MenuItem, MenuList } from '@material-ui/core/Menu';
-import { withStyles } from '@material-ui/core/styles';
+import { WithStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   root: {
