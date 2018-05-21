@@ -177,9 +177,8 @@ Meteor.methods({
     // crm_modules = [leads,accounts, contacts, potentials, campaingns, cases, solutions, products, price books, quotes, invoices, saleds orders, vendors, purchase orders, events, takss, calls]
     zcrm.createRecord(module, params, function(err,data) {
       if (err) {
-        return console.log(err);
+        console.log(err);
       }
-      console.log(data);
       console.log(`-= NEW LEAD! =- `);
     });
   },
