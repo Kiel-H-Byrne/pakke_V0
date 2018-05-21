@@ -163,7 +163,7 @@ class Header3 extends React.Component {
 
         return (
             <div>
-                <div style={styles.root}>
+                <div className="header" style={styles.root}>
                     <AppBar position="static">
                         <Toolbar>
                             <IconButton 
@@ -222,17 +222,24 @@ class Header3 extends React.Component {
                                         }}
                                         open={Boolean(anchorEl)}
                                         onClose={this.handleClose}
+
                                     >
                                         <MenuItem 
-                                          button
-                                          component={Link} to="/profile"
+                                          
+                                          component={Link} 
+                                          to="/profile"
                                           onClick={this.handleClose}
-                                        >Profile</MenuItem>
+                                          style={{fontSize:16}}
+                                          primary="Profile"
+
+                                        >Profile
+                                        </MenuItem>
                                         <MenuItem  
                                           button
-                                          component={Link} to="/"
                                           onClick={this.logOut}
-                                          >Log Out</MenuItem>
+                                          style={{fontSize:16}}
+                                          >Log Out
+                                          </MenuItem>
                                     </Menu>
                                 </div>
                             )

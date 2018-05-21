@@ -17,6 +17,11 @@ const muiTheme = createMuiTheme({
         dark: '#0039cb',
       },
     },
+    typography: {
+    // Tell Material-UI what's the font-size on the html element is.
+    // fontSize: 16,
+    // htmlFontSize: 16,
+  },
   });
 
   export default muiTheme;
