@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
 import { withTracker } from 'meteor/react-meteor-data';
 
-import { WithStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { WithStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -30,7 +30,7 @@ function SimpleMediaCard(props) {
     <div>
       <Card className={classes.card}>
 
-        <CardMedia className={classes.image} image="http://webapp.blackscreen1.com/img/blackscreen1logo.jpg" >
+        <CardMedia className={classes.image} image="https://webapp.blackscreen1.com/img/blackscreen1logo.jpg" >
           <CardContent className={classes.cardContent}>
               
               <Typography align={'center'} variant={'display2'} color={'secondary'}> May</Typography>

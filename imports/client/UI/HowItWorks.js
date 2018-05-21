@@ -23,7 +23,7 @@ function HowItWorks(props) {
             flexGrow: 1,
             marginTop: theme.spacing.unit * 10,
             // background: theme.palette.secondary.main,
-            // background: 'url(http://www.designbolts.com/wp-content/uploads/2013/02/Sandbag-Grey-Seamless-Pattern-For-Website-Background.jpg)',
+            // background: 'url(https://www.designbolts.com/wp-content/uploads/2013/02/Sandbag-Grey-Seamless-Pattern-For-Website-Background.jpg)',
 
             height: '100%',
         },

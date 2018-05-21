@@ -25,7 +25,7 @@ export default eventAppliedTemplate = (user, event) => {
             <Span>Now we wait until some more folks join the event... Pakke will then ensure that the party is full of diverse and fun folks, and once the final guest list is confirmed you can buy your ticket! </Span>
             <Span></Span>
             <Item>
-              <A href="http://www.pakke.us/events" className="btn btn-primary">Find More Events</A>
+              <A href="https://www.pakke.us/events" className="btn btn-primary">Find More Events</A>
               <Span>View more events at Pakke.us.</Span>
             </Item>
             <Span>Good luck! Hope to see you soon!</Span>
@@ -62,7 +62,7 @@ export default emailRTemplate = (user, event) => {
             <Span>Now we wait until some more folks join the event... Pakke will then ensure that the party is full of diverse and fun folks, and once the final guest list is confirmed you can buy your ticket! </Span>
             <Span></Span>
             <Item>
-              <A href="http://www.pakke.us/events" className="btn btn-primary">Find More Events</A>
+              <A href="https://www.pakke.us/events" className="btn btn-primary">Find More Events</A>
               <Span>View more events at Pakke.us.</Span>
             </Item>
             <Span>Good luck! Hope to see you soon!</Span>

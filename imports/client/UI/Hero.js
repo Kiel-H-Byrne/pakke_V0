@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { WithStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -46,7 +46,7 @@ const styles = (theme) => ({
 
 });
 
-// black image="http://webapp.blackscreen1.com/img/blackscreen1logo.jpg"
+// black image="https://webapp.blackscreen1.com/img/blackscreen1logo.jpg"
 // white https://www.publicdomainpictures.net/pictures/30000/velka/plain-white-background.jpg
 // gray https://i1.wp.com/www.solidcolore.com/3840/5b5b5b_background.jpg
 
