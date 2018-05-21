@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import AutoFields  from 'uniforms-bootstrap3/AutoFields';
-import AutoForm    from 'uniforms-bootstrap3/AutoForm';
+import AutoFields from 'uniforms-bootstrap3/AutoFields';
+import AutoForm from 'uniforms-bootstrap3/AutoForm';
 import SubmitField from 'uniforms-bootstrap3/SubmitField';
-import TextField   from 'uniforms-bootstrap3/TextField';
+import TextField from 'uniforms-bootstrap3/TextField';
 import ErrorsField from 'uniforms-bootstrap3/ErrorsField';
 import { BarLoader } from 'react-spinners';
 
@@ -13,6 +13,7 @@ import Event from './Event';
 import TabGuest from './TabGuest';
 import TabHost from './TabHost';
 import TabTalent from './TabTalent';
+import LandingPage2 from './UI/PageLanding2';
 
 class PageProfile extends Component {
   state = {}
@@ -52,9 +53,10 @@ class PageProfile extends Component {
         </div>
       )
     }
+
     // console.log(this);
     const model = this.props.thisUser.profile;
-    
+
     const omitFields = ["talents.$.talentId", "venue.$.venueId"];
 
       return (
@@ -76,29 +78,29 @@ class PageProfile extends Component {
                 )
               }
               <button className='btn btn-info btn-sm center-block' type="button" data-toggle="modal" data-target="#profileModal">Edit Profile</button>
-            <div className="modal fade" id="profileModal" role="dialog">
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <button type="button" className="close" data-dismiss="modal">&times;</button>
-                    <h4 className="modal-title">Edit Profile</h4>
-                  </div>
-                  <div className="modal-body">
-                    <AutoForm  
-                      schema={Schema.Profile} 
-                      model={model} 
-                      onSubmit={this.handleSubmit} 
-                      onSubmitSuccess={this.handleSuccess} 
-                      onSubmitFailure={this.handleFailure} >
+              <div className="modal fade" id="profileModal" role="dialog">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <button type="button" className="close" data-dismiss="modal">&times;</button>
+                      <h4 className="modal-title">Edit Profile</h4>
+                    </div>
+                    <div className="modal-body">
+                      <AutoForm
+                        schema={Schema.Profile}
+                        model={model}
+                        onSubmit={this.handleSubmit}
+                        onSubmitSuccess={this.handleSuccess}
+                        onSubmitFailure={this.handleFailure} >
 
-                      <AutoFields />
-                      <SubmitField value="Submit"  />
-                      <ErrorsField />
-                    </AutoForm>
+                        <AutoFields />
+                        <SubmitField value="Submit" />
+                        <ErrorsField />
+                      </AutoForm>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             </div>
           </div>
 
@@ -121,14 +123,13 @@ class PageProfile extends Component {
           </div>
         </div>
       )
-    }
+    } 
   }
-
 
 
 export default withTracker(() => {
   const handle = Meteor.subscribe('currentUser');
-  const loading = !handle.ready(); 
+  const loading = !handle.ready();
   const thisUser = Meteor.user();
 
   return {

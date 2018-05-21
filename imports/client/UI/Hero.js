@@ -59,7 +59,7 @@ function Hero(props) {
             <Card>
                 <CardMedia className={classes.image} image="/ImageHero.jpg" >
                     <CardContent className={classes.cardContent}>
-                        <Parallax offsetYMax={50} offsetYMin={-50} slowerScrollRate tag="figure">
+                        <Parallax offsetYMax={20} offsetYMin={-20} slowerScrollRate tag="figure">
                             <Grid container justify={'center'}>
                                 <img src="/ImageTriangleWhite.png" className={classes.triangle}></img>
                             </Grid>

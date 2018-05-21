@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import Button from 'material-ui/Button';
@@ -7,15 +9,13 @@ import Divider from 'material-ui/Divider';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 
 import MenuIcon from '@material-ui/icons/Menu';
-// import Logo from './ImageLogoBlack.png';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import { CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
-// import InboxIcon from '@material-ui/icons/Inbox';
-// import DraftsIcon from '@material-ui/icons/Drafts';
+import AccountsUIWrapper2 from './AccountsUIWrapper2';
 
 const styles = {
     root: {
@@ -43,7 +43,7 @@ const styles = {
 };
 
 
-class Header extends React.Component {
+class Header2 extends React.Component {
 
     state = {
         left: false,
@@ -63,28 +63,28 @@ class Header extends React.Component {
         const sideList = (
             <div className={classes.list}>
                 <List component="nav">
-                    <ListItem button>
+                    <ListItem>
                         <ListItemText primary="PAKKE" />
                     </ListItem>
                     <Divider />
-                    <ListItem button>
+                    <ListItem button component={Link} to="/">
                         <ListItemText primary="Home" />
                     </ListItem>
 
-                    <ListItem button>
+                    <ListItem button component={Link} to="/about">
                         <ListItemText primary="About Pakke" />
                     </ListItem>
-                    <ListItem button>
+                    <ListItem button component={Link} to="/">
                         <ListItemText primary="How It Works" />
                     </ListItem>
                 </List>
                 <List>
-                    <ListItem button>
+                    <ListItem button component={Link} to="/events">
                         <ListItemText primary="Events" />
                     </ListItem>
 
 
-                    <ListItem button>
+                    <ListItem button component={Link} to="/login">
                         <ListItemText primary="Login" />
                     </ListItem>
                 </List>
@@ -105,7 +105,8 @@ class Header extends React.Component {
                                 <img src="/ImageLogoBlack.png" alt='none' className={classes.pakkeLogo} />
                             </Typography>
 
-                            <Button variant='raised' color="secondary">Login</Button>
+                            {/* <Button variant='raised' color="secondary">Login</Button> */}
+                            <AccountsUIWrapper2 />
                         </Toolbar>
                     </AppBar>
                 </div>
@@ -127,8 +128,8 @@ class Header extends React.Component {
     }
 }
 
-Header.propTypes = {
+Header2.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Header);
+export default withStyles(styles)(Header2);
