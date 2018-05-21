@@ -65,9 +65,9 @@ class PageProfile extends Component {
           <div className='profile-head'>
             <div className='profile-head-image'>
               {this.props.thisUser.profile.avatar ? (
-                <img data-toggle="dropdown" className="icon dropdown-toggle" src={this.props.thisUser.profile.avatar} />
+                <img data-toggle="dropdown" className="icon avatar dropdown-toggle" src={this.props.thisUser.profile.avatar} />
               ) : (
-                  <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
+                  <img data-toggle="dropdown" className="icon avatar dropdown-toggle" src='/missing_profile.png' />
                 )}
             </div>
             <div className='profile-head-text'>

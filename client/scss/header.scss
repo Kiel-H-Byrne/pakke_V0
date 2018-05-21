@@ -1,4 +1,4 @@
-.header {
+.headerz {
   background-color: white;
   border-bottom: .05rem solid lightgrey;
   height: 8rem;
@@ -24,70 +24,71 @@
     -o-transition: all 0.5s;
     transition: all 0.5s;
   }
-}
 
-.header-links-right-signedout {
-  float: right;
+  .header-links-right-signedout {
+    float: right;
 
-  li {
-    margin-right: 3rem;
-    margin-top: 3rem;
-    font-weight: bold;
-  }
-}
-
-.AccountsUI2 {
-  list-style-type: none;
-  text-decoration: none;
-}
-
-.header-links-right-signedin {
-  float: right;
-}
-
-.icon {
-  margin: .5rem .5rem;
-  height: 7rem;
-  border-radius: 5rem;
-
-  &.avatar {
-    z-index: 1;
-  }
-}
-
-.header-links-left-signedout {
-  li {}
-}
-
-.accounts-dialog {
-  & .login-password-form,
-  & .or {
-    display: none;
+    li {
+      margin-right: 3rem;
+      margin-top: 3rem;
+      font-weight: bold;
+    }
   }
 
-  // & .login-close-text {
-  //   color: red;
+  .AccountsUI2 {
+    list-style-type: none;
+    text-decoration: none;
+  }
 
-  //   &::before {
+  .header-links-right-signedin {
+    float: right;
+  }
 
-  //   }
+  .icon {
+    margin: .5rem .5rem;
+    height: 7rem;
+    border-radius: 50%;
+
+    &.avatar {
+      z-index: 1;
+    }
+  }
+
+  .header-links-left-signedout {
+    li {}
+  }
+
+  .accounts-dialog {
+    & .login-password-form,
+    & .or {
+      display: none;
+    }
+
+    // & .login-close-text {
+    //   color: red;
+
+    //   &::before {
+
+    //   }
+    // }
+ 
+  }
+
+  // .dropdown .dropdown-menu {
+  //     -webkit-transition: all 0.5s;
+  //     -moz-transition: all 0.5s;
+  //     -ms-transition: all 0.5s;
+  //     -o-transition: all 0.5s;
+  //     transition: all 0.5s;
+
+  //     max-height: 0;
+  //     display: block;
+  //     overflow: hidden;
+  //     opacity: 0;
+  // }
+
+  // .dropdown:hover .dropdown-menu {
+  //     max-height: 200px;
+  //     opacity: .96;
   // }
 }
-
-// .dropdown .dropdown-menu {
-//     -webkit-transition: all 0.5s;
-//     -moz-transition: all 0.5s;
-//     -ms-transition: all 0.5s;
-//     -o-transition: all 0.5s;
-//     transition: all 0.5s;
-
-//     max-height: 0;
-//     display: block;
-//     overflow: hidden;
-//     opacity: 0;
-// }
-
-// .dropdown:hover .dropdown-menu {
-//     max-height: 200px;
-//     opacity: .96;
-// }

@@ -76,6 +76,7 @@ class Header3 extends React.Component {
         const styles = {
             root: {
                 flexGrow: 1,
+                height: '8rem',
             },
             flex: {
                 flex: 1,
@@ -97,6 +98,11 @@ class Header3 extends React.Component {
             fullList: {
                 width: 'auto',
             },
+            avatar: {
+                margin: '.5rem .5rem',
+                height: '7rem',
+                borderRadius: '50%',
+            }
         };
 
         const User = Meteor.user()
@@ -157,8 +163,13 @@ class Header3 extends React.Component {
                 <div style={styles.root}>
                     <AppBar position="static">
                         <Toolbar>
-                            <IconButton style={styles.menuButton} color="inherit" aria-label="Menu">
-                                <MenuIcon onClick={this.toggleDrawer('left', true)} />
+                            <IconButton 
+                                style={styles.menuButton} 
+                                color="inherit" 
+                                aria-label="Menu"
+                                onClick={this.toggleDrawer('left', true)} 
+                            >
+                                <MenuIcon />
                             </IconButton>
                             <Typography variant="title" color="inherit" style={styles.flex}>
                                 <Link to='/'><img src="/ImageLogoBlack.png" className="icon logo" alt='Home' style={styles.pakkeLogo} /></Link>
@@ -166,6 +177,7 @@ class Header3 extends React.Component {
 
                             {Meteor.user() ? (
                                 <div>
+                            {/*
                                     <IconButton
                                         aria-owns={open2 ? 'menu-appbar' : null}
                                         aria-haspopup="true"
@@ -173,31 +185,46 @@ class Header3 extends React.Component {
                                         color="inherit"
                                     >
                                         {Meteor.user().profile.avatar ? (
-                                            <img data-toggle="dropdown" className="icon avatar dropdown-toggle" src={Meteor.user().profile.avatar} />
+                                            <img data-toggle="dropdown" className="icon dropdown-toggle" style={styles.avatar} src={Meteor.user().profile.avatar} />
                                         ) : (
-                                                <img data-toggle="dropdown" className="icon avatar dropdown-toggle" src='/missing_profile.png' />
+                                                <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
                                             )}
 
                                     </IconButton>
-                                    <Menu
+                                    */}
+                                    <ButtonBase
+                                        focusRipple
+                                        aria-owns={open2 ? 'menu-appbar' : null}
+                                        aria-haspopup="true"
+                                        onClick={this.handleMenu}
+                                        style={{borderRadius: "50%"}}
+                                    >
+                                        {Meteor.user().profile.avatar ? (
+                                            <img data-toggle="dropdown" className="icon dropdown-toggle" style={styles.avatar} src={Meteor.user().profile.avatar} />
+                                        ) : (
+                                                <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
+                                        )}
+                                    </ButtonBase>
+                                    <Menu 
                                         id="menu-appbar"
                                         anchorEl={anchorEl}
                                         anchorOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
+                                            vertical: 'bottom',
+                                            horizontal: 'left',
                                         }}
+                                        getContentAnchorEl = {null}
                                         transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
+                                          vertical: 'top',
+                                          horizontal: 'left',
                                         }}
-                                        open={open2}
+                                        open={Boolean(anchorEl)}
                                         onClose={this.handleClose}
                                     >
                                         <Link to='/profile'>
-                                            <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                                            <MenuItem  onClick={this.handleClose}>Profile</MenuItem>
                                         </Link>
                                         <Link to='/'>
-                                            <MenuItem onClick={this.logOut}>Log Out</MenuItem>
+                                            <MenuItem  onClick={this.logOut}>Log Out</MenuItem>
                                         </Link>
                                     </Menu>
                                 </div>
