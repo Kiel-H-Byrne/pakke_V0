@@ -86,6 +86,7 @@ class Header3 extends React.Component {
             pakkeLogo: {
                 height: 50,
                 marginTop: 5,
+                padding: 0
             },
             menuButton: {
                 marginLeft: -12,
@@ -93,7 +94,7 @@ class Header3 extends React.Component {
             },
             list: {
                 width: 250,
-                fontSize: '16px'
+                fontSize: 16
             },
             fullList: {
                 width: 'auto',
@@ -114,10 +115,13 @@ class Header3 extends React.Component {
         const sideList = (
             <div style={styles.list}>
                 <List component="nav">
-                    <ListItem>
-                        <img src="/ImageLogoBlack.png" className="icon logo" alt='Home' style={styles.pakkeLogo} />
+                    <ListItem
+                        disableGutters={true}
+                        divider={true}
+                        style={{padding:"0 0 15px"}}
+                    >
+                        <img src="/ImageLogoBlack.png" className="" alt='Home' style={styles.pakkeLogo} />
                     </ListItem>
-                    <Divider />
                     <ListItem button component={Link} to="/">
                         <ListItemIcon>
                             <HomeIcon />
@@ -137,14 +141,13 @@ class Header3 extends React.Component {
                         </ListItemIcon>
                         <ListItemText inset disableTypography primary="How It Works" />
                     </ListItem>
-                </List>
-                <List>
                     <ListItem button component={Link} to="/events">
                         <ListItemIcon>
                             <EventNoteIcon />
                         </ListItemIcon>
                         <ListItemText inset disableTypography primary="Events" />
                     </ListItem>
+                    <Divider />
                     {User ? (
                         <ListItem button onClick={this.logOut}>
                             <ListItemIcon>
@@ -209,23 +212,27 @@ class Header3 extends React.Component {
                                         id="menu-appbar"
                                         anchorEl={anchorEl}
                                         anchorOrigin={{
-                                            vertical: 'bottom',
-                                            horizontal: 'left',
+                                          vertical: 'bottom',
+                                          horizontal: 'right',
                                         }}
                                         getContentAnchorEl = {null}
                                         transformOrigin={{
                                           vertical: 'top',
-                                          horizontal: 'left',
+                                          horizontal: 'right',
                                         }}
                                         open={Boolean(anchorEl)}
                                         onClose={this.handleClose}
                                     >
-                                        <Link to='/profile'>
-                                            <MenuItem  onClick={this.handleClose}>Profile</MenuItem>
-                                        </Link>
-                                        <Link to='/'>
-                                            <MenuItem  onClick={this.logOut}>Log Out</MenuItem>
-                                        </Link>
+                                        <MenuItem 
+                                          button
+                                          component={Link} to="/profile"
+                                          onClick={this.handleClose}
+                                        >Profile</MenuItem>
+                                        <MenuItem  
+                                          button
+                                          component={Link} to="/"
+                                          onClick={this.logOut}
+                                          >Log Out</MenuItem>
                                     </Menu>
                                 </div>
                             )
