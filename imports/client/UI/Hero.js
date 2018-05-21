@@ -41,7 +41,7 @@ const styles = theme => ({
         maxHeight: '22rem',
     },
     button: {
-        fontSize: 16
+        fontSize: 16,
     },
 
 });
@@ -67,6 +67,7 @@ function Hero(props) {
                     </Grid>
                     <Typography className={classes.headlineText} align={'center'} variant='display4' gutterBottom>It's Happening, Go Find It.</Typography>
                     <Typography className={classes.subheadingText} align={'center'} variant='display2'>Discover | Connect | Experience</Typography>
+                    {/*
                     <Grid container style={{ marginTop: '2%' }} justify={'center'} alignItems ={'center'} dirction={'column'}>
                         <Grid item>
                             <Grid container justify={'center'} alignItems ={'center'} dirction={'column'}>
@@ -80,7 +81,7 @@ function Hero(props) {
                             </Grid>
                         </Grid>
                     </Grid>
-
+                    */}
 
                 </Parallax>
             </CardContent>
