@@ -59,8 +59,6 @@ class PageProfile extends Component {
 
     const omitFields = ["talents.$.talentId", "venue.$.venueId"];
 
-    if (Meteor.user()) {
-
       return (
         <div>
 
@@ -125,14 +123,8 @@ class PageProfile extends Component {
           </div>
         </div>
       )
-    } else {
-      return (
-        <LandingPage2 />
-  )
-    }
+    } 
   }
-}
-
 
 
 export default withTracker(() => {

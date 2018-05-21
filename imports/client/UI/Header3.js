@@ -45,12 +45,14 @@ class Header3 extends React.Component {
         this.setState({ anchorEl: null });
     };
 
-    linkToProfile() {
-        this.props.history.push("/profile");
-    }
-
     logOut() {
-        Meteor.logout(Bert.alert("You Are Now Logged Out", "success"))
+        Meteor.logout(function (error) {
+            if (error) {
+                this.props.history.push('/')
+            } else {
+                Bert.alert("You Are Now Logged Out", "success")
+            }
+        })
     }
 
     toggleDrawer = (side, open) => () => {
@@ -167,7 +169,9 @@ class Header3 extends React.Component {
                                         <Link to='/profile'>
                                             <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                                         </Link>
-                                        <MenuItem onClick={this.logOut}>Log Out</MenuItem>
+                                        <Link to='/'>
+                                            <MenuItem onClick={this.logOut}>Log Out</MenuItem>
+                                        </Link>
                                     </Menu>
                                 </div>
                             )
@@ -193,7 +197,7 @@ class Header3 extends React.Component {
                         {sideList}
                     </div>
                 </Drawer>
-            </div>
+            </div >
 
 
         );
@@ -205,4 +209,4 @@ export default withTracker(() => {
     return {
         currentUser: Meteor.user(),
     };
-})(Header3);
+})(Header3)

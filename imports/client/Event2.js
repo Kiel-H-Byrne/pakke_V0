@@ -28,6 +28,7 @@ export default class Event2 extends Component {
         const styles = {
             card: {
                 maxWidth: 350,
+                minWidth: 350,
                 height: '100%',
                 // display: 'flex',
             },
@@ -70,16 +71,15 @@ export default class Event2 extends Component {
                                     <Typography style={styles.typo} align={'center'} variant={'display1'} color={'secondary'}> May</Typography>
                                     <Typography align={'center'} variant={'display2'}>9th</Typography>
                                     <Typography align={'center'} variant={'display1'} color={'secondary'}>Fri</Typography>
-
                                 </Card>
                             </CardContent>
                         </CardMedia>
 
                         <CardContent>
-                            <Typography gutterBottom variant="display1" component="h2">Pakke Launch Event</Typography>
+                            <Typography gutterBottom variant="display1" component="h2">{this.props.event.byline}</Typography>
 
-                            <Typography variant="headline" component="p">
-                                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica</Typography>
+                            <Typography variant="headline" component="p">{this.props.event.price}$ per person </Typography>
+                            <Typography variant='headline' component='p'><strong>{this.props.event.size}</strong> tickets available | <strong>{remainingTickets}</strong> remain</Typography>
                         </CardContent>
                         <CardActions style={styles.actions}>
                             <Button size="large" color="secondary">Apply</Button>
