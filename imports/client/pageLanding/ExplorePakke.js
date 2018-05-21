@@ -6,11 +6,30 @@ class ExplorePakke extends Component {
     render() {
         return (
             <div>
-                <h1>Explore Pakke </h1>
-                <h4>Discover | Connect | Experience</h4>
+                <div id="landing-hero" className="jumbotron jumbotron-fluid" style={
+                    {   background: "url('img/ImageHero.jpg')",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "0 -460px",
+                        backgroundSize:"cover",
+                        backgroundAttachment: "fixed",
+                        flexGrow: 1,
+                        maxHeight: 100,
+                        minHeight: 360,
+                        padding: 0,
+                    }
+                }>
+                  <div className="container container_hero text-center" style={{color:'white'}}>
+                    <img src="img/brand/ImageTriangleWhite.png" className="brand" 
+                        style={{
+                            maxHeight: '18rem',
+                        }}></img>
+                    <h1 className="display-1 font-weight-bold" style={{marginTop: 0}}>It's Happening... Go Find It.</h1>
+                    <p className="display-5"><em>Discover.  Connect.  Experience.</em></p>
+                  </div>
+                </div>
                 <div className='scroll-wrapper-x'>
 
-                    <ul className='three-main-links'>
+                    <ul className='container-fluid three-main-links'>
 
                         <div className='FindEvent'>
                             <Link to='/events'>

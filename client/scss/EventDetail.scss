@@ -1,59 +1,56 @@
+.event-detail-container {
+  position: relative;
+  max-width: 880px;
+  margin: auto;
 
-    .event-detail-container {
-        position: relative;
-        h1 {
-            text-align: center;            
-        }
-        p {
-            text-align: center;
-            max-width:1000px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+  h1 {
+    text-align: center;
+  }
 
-      }
-    
-    .event-detail-image {
-        display:block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 90%;
-        max-width:1000px;
-        max-height:750px;
-        h1{
+  p {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 
-        }
+.event-detail-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  max-width: 1000px;
+  max-height: 750px;
 
-    }
+  h1 {}
+}
 
-    .event-detail-bottom {
-        display: flex;
-        justify-content: space-around;
-        margin-top: 5rem;
+.event-detail-bottom {
+  display: flex;
+  justify-content: space-around;
+}
 
-    }
+.attend-event-button-area {
+  float: right;
+  border-radius: 1rem;
+}
 
-    .attend-event-button-area {
-        float: right;
-        border-radius: 1rem;
-    }
+.attend-event-button {
+  padding: 2rem;
+}
 
-    .attend-event-button {
-        padding: 2rem;
-        
-    }
+.event-detail-description {
+  width: 50%;
+  float: left;
+}
 
-    .event-detail-description {
-        width: 50%;
-        float: left;
-    }
+.host-info {
+  text-align: center;
+  width: 50%;
+  height: auto;
+}
 
-    .host-info {
-        text-align: center;
-        width: 10rem;
-        height: auto;
-    }
-
-    .host-image {
-        border-radius: 50%;
-    }
+.host-image {
+  border-radius: 50%;
+  max-height: 10rem;
+}

@@ -55,39 +55,34 @@ function Hero(props) {
     const { classes } = props;
 
     return (
-        <div>
-            <Card>
-                <CardMedia className={classes.image} image="/ImageHero.jpg" >
-                    <CardContent className={classes.cardContent}>
-                        <Parallax offsetYMax={20} offsetYMin={-20} slowerScrollRate tag="figure">
-                            <Grid container justify={'center'}>
-                                <img src="/ImageTriangleWhite.png" className={classes.triangle}></img>
+    <Card>
+        <CardMedia className={classes.image} image="/ImageHero.jpg" >
+            <CardContent className={classes.cardContent}>
+                <Parallax offsetYMax={20} offsetYMin={-20} slowerScrollRate tag="figure">
+                    <Grid container justify={'center'}>
+                        <img src="/ImageTriangleWhite.png" className={classes.triangle}></img>
+                    </Grid>
+                    <Typography className={classes.headlineText} align={'center'} variant='display4' gutterBottom>It's Happening, Go Find It.</Typography>
+                    <Typography className={classes.subheadingText} align={'center'} variant='display2'>Discover | Connect | Experience</Typography>
+                    <Grid container style={{ marginTop: '2%' }} justify={'center'} alignItems ={'center'} dirction={'column'}>
+                        <Grid item>
+                            <Grid container justify={'center'} alignItems ={'center'} dirction={'column'}>
+                                {/* <Typography align={'center'}>
+                                    <EmailInupt />
+                                </Typography> */}
+
+                                <Typography align={'center'}>
+                                    <Button variant='raised' color="secondary" size={'large'}>Join Us</Button>
+                                </Typography>
                             </Grid>
-                            <Typography className={classes.headlineText} align={'center'} variant='display4' gutterBottom>It's Happening, Go Find It.</Typography>
-                            <Typography className={classes.subheadingText} align={'center'} variant='display2'>Discover | Connect | Experience</Typography>
-                            <Grid container style={{ marginTop: '2%' }} justify={'center'} alignItems ={'center'} dirction={'column'}>
-                                <Grid item>
-                                    <Grid container justify={'center'} alignItems ={'center'} dirction={'column'}>
-                                        {/* <Typography align={'center'}>
-                                            <EmailInupt />
-                                        </Typography> */}
-
-                                        <Typography align={'center'}>
-                                            <Button variant='raised' color="secondary" size={'large'}>Join Us</Button>
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
+                        </Grid>
+                    </Grid>
 
 
-                        </Parallax>
-                    </CardContent>
-                </CardMedia>
-            </Card>
-        </div >
-
-
-
+                </Parallax>
+            </CardContent>
+        </CardMedia>
+    </Card>
     )
 };
 

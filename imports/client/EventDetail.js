@@ -87,7 +87,7 @@ class EventDetails extends Component {
                       <div className="modal-content">
                         <div className="modal-header">
                           <button type="button" className="close" data-dismiss="modal">&times;</button>
-                          <h4 className="modal-title">Buy Tickets</h4>
+                          <h4 className="modal-title">Buy Ticket</h4>
                         </div>
                         <div className="modal-body">
                           <EventPurchaseForm user = {this.props.thisUser} event = {this.props.event}  />
@@ -108,10 +108,10 @@ class EventDetails extends Component {
                       <div className="modal-content">
                         <div className="modal-header">
                           <button type="button" className="close" data-dismiss="modal">&times;</button>
-                          <h4 className="modal-title">Interest Form</h4>
+                          <h4 className="modal-title">Tell us a bit about yourself!</h4>
                         </div>
                         <div className="modal-body">
-                          <p>Please answer some questions to help us find you the perfect party experience: </p>
+                          <p><em>A few questions will help us find you the perfect party experience!</em> </p>
                           <EventInterestForm user = {this.props.thisUser} event = {this.props.event}/>
                         </div>
                       </div>

@@ -82,8 +82,6 @@ class Header2 extends React.Component {
                     <ListItem button component={Link} to="/events">
                         <ListItemText primary="Events" />
                     </ListItem>
-
-
                     <ListItem button component={Link} to="/login">
                         <ListItemText primary="Login" />
                     </ListItem>
@@ -104,7 +102,6 @@ class Header2 extends React.Component {
 
                                 <img src="/ImageLogoBlack.png" alt='none' className={classes.pakkeLogo} />
                             </Typography>
-
                             {/* <Button variant='raised' color="secondary">Login</Button> */}
                             <AccountsUIWrapper2 />
                         </Toolbar>

@@ -13,7 +13,7 @@ class PageError extends Component {
       <div style={style} >
     <h4>I Can't Find That Page...</h4>
         <div >
-          <iframe className="giphy-embed" src="https://giphy.com/embed/JLHJDU9NWHB04?html5=true" width="480" height="480" frameBorder="0" allowFullScreen="" ></iframe>
+          <iframe className="giphy-embed" src="https://giphy.com/embed/9J7tdYltWyXIY?html5=true" width="480" height="480" frameBorder="0" allowFullScreen="" ></iframe>
         </div>
       </div>
             )

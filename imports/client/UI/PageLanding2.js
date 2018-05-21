@@ -11,19 +11,7 @@ import muiTheme from '../UI/muiTheme';
 import WhatIsPakkeEvent from '../UI/WhatIsPakkeEvent';
 import HowItWorks from '../UI/HowItWorks';
 import Hero from '../UI/Hero';
-
 import EventList from '../EventList';
-
-// import image2 from '../UI/triangleWhite.svg';
-
-// import ReactDOM from 'react-dom';
-// import MenuListComposition from './UI/MenuListComposition';
-// import DetailedExpansionPanel from './UI/DetailedExpansionPanel';
-// import TemporaryDrawer from './UI/TemporaryDrawer';
-// import Button from 'material-ui/Button';
-// import ButtonAppBar from './UI/ButtonAppBar';
-
-
 
 const styles = theme => ({
   root: {
@@ -52,7 +40,6 @@ class PageLanding2 extends Component {
   render() {
 
     const { classes } = this.props;
-    console.log(classes);
 
     return (
       <ParallaxProvider>
