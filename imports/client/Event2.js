@@ -77,8 +77,8 @@ export default class Event2 extends Component {
             ordinal: {
                 position: 'relative',
                 verticalAlign: 'super',
-                fontSize: 'smaller',
-                left: '-.6rem',
+                fontSize: '1.5rem',
+                left: '-.3rem',
             }
         };
 
