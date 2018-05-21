@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { withStyles } from 'material-ui/styles';
-import Drawer from 'material-ui/Drawer';
-import Button from 'material-ui/Button';
-import Divider from 'material-ui/Divider';
-import List, { ListItem, ListItemText } from 'material-ui/List';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import List, { ListItem, ListItemText } from '@material-ui/core/List';
 
 import MenuIcon from '@material-ui/icons/Menu';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import { CardMedia } from 'material-ui/Card';
-import Typography from 'material-ui/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import { CardMedia } from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
 
 import AccountsUIWrapper2 from './AccountsUIWrapper2';
 

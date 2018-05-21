@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Drawer from 'material-ui/Drawer';
-import Button from 'material-ui/Button';
-import Divider from 'material-ui/Divider';
-import List, { ListItem, ListItemText } from 'material-ui/List';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import List, { ListItem, ListItemText } from '@material-ui/core/List';
 // import InboxIcon from '@material-ui/icons/Inbox';
 // import DraftsIcon from '@material-ui/icons/Drafts';
 

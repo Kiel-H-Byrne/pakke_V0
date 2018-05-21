@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
 import { withTracker } from 'meteor/react-meteor-data';
 
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -26,11 +26,11 @@ import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import FlightLandIcon from '@material-ui/icons/FlightLand';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import { CardMedia } from 'material-ui/Card';
-import Typography from 'material-ui/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import { CardMedia } from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
 
 import AccountsUIWrapper2 from './AccountsUIWrapper2';
 

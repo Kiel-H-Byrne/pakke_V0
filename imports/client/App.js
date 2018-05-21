@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { withTracker } from 'meteor/react-meteor-data';
 
 

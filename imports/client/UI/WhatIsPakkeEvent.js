@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from 'material-ui/Typography';
-import { withTheme } from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
-import Grid from 'material-ui/Grid';
+import Typography from '@material-ui/core/Typography';
+import { withTheme } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 
 function WhatIsPakkeEvent(props) {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography/Typography';
-import Paper from 'material-ui/Paper';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography/Typography';
+import Paper from '@material-ui/core/Paper';
 
 
 import EventList from './EventList';

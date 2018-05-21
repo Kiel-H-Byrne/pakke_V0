@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
-import { FormControl } from 'material-ui/Form';
-import TextField from 'material-ui/TextField';
-import Grid from 'material-ui/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import Input, { InputLabel, InputAdornment } from '@material-ui/core/Input';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const styles = theme => ({

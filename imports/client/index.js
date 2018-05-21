@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { render } from 'react-dom';
 import { Meteor } from 'meteor/meteor';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import muiTheme from './UI/muiTheme';
 import App from './App';

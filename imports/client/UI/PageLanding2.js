@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
-import Grid from 'material-ui/Grid';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { ParallaxProvider } from 'react-scroll-parallax';
-import Typography from 'material-ui/Typography/Typography';
+import Typography from '@material-ui/core/Typography/Typography';
 
 import muiTheme from '../UI/muiTheme';
 import WhatIsPakkeEvent from '../UI/WhatIsPakkeEvent';
