@@ -5,7 +5,7 @@ export default const TestCards = {
     token: 'tok_visa'
   },  
   visadebit: {
-    card: '4000056655665556,
+    card: '4000056655665556',
     token: 'tok_visa_debit'
   },  
   mc: {
