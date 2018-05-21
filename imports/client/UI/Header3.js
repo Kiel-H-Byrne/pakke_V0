@@ -134,7 +134,7 @@ class Header3 extends React.Component {
                                 <MenuIcon onClick={this.toggleDrawer('left', true)} />
                             </IconButton>
                             <Typography variant="title" color="inherit" style={styles.flex}>
-                                <img src="/ImageLogoBlack.png" alt='none' style={styles.pakkeLogo} />
+                                <img src="/ImageLogoBlack.png" className="icon logo" alt='none' style={styles.pakkeLogo} />
                             </Typography>
 
                             {Meteor.user() ? (
@@ -146,9 +146,9 @@ class Header3 extends React.Component {
                                         color="inherit"
                                     >
                                         {Meteor.user().profile.avatar ? (
-                                            <img data-toggle="dropdown" className="icon dropdown-toggle" src={Meteor.user().profile.avatar} />
+                                            <img data-toggle="dropdown" className="icon avatar dropdown-toggle" src={Meteor.user().profile.avatar} />
                                         ) : (
-                                                <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
+                                                <img data-toggle="dropdown" className="icon avatar dropdown-toggle" src='/missing_profile.png' />
                                             )}
 
                                     </IconButton>
