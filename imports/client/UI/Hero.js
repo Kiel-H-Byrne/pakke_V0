@@ -12,12 +12,12 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Parallax } from 'react-scroll-parallax';
 // import image2 from './triangleWhite.png';
-import EmailInupt from './EmailInput';
+import EmailInput from './EmailInput';
 // import image1 from './ImageHero.jpg';
 
 
 
-const styles = (theme) => ({
+const styles = theme => ({
 
     image: {
         // height: '100%',
@@ -41,7 +41,7 @@ const styles = (theme) => ({
         maxHeight: '22rem',
     },
     button: {
-        margin: '10%',
+        fontSize: 16
     },
 
 });
@@ -70,12 +70,12 @@ function Hero(props) {
                     <Grid container style={{ marginTop: '2%' }} justify={'center'} alignItems ={'center'} dirction={'column'}>
                         <Grid item>
                             <Grid container justify={'center'} alignItems ={'center'} dirction={'column'}>
-                                {/* <Typography align={'center'}>
-                                    <EmailInupt />
-                                </Typography> */}
-
                                 <Typography align={'center'}>
-                                    <Button variant='raised' color="secondary" size={'large'}>Join Us</Button>
+                                    <EmailInput />
+                                </Typography>
+
+                                <Typography align={'center'} variant="button">
+                                    <Button variant='raised' color="secondary" style={styles.button} size='large'>Join Us</Button>
                                 </Typography>
                             </Grid>
                         </Grid>

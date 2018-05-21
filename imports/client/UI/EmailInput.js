@@ -14,7 +14,8 @@ const styles = theme => ({
         margin: theme.spacing.unit,
         // color: 'white',
         background: 'white',
-        paddingLeft: theme.spacing.unit,
+        padding: theme.spacing.unit/2,
+        fontSize: 16,
         
     },
 });

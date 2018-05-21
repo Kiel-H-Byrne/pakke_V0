@@ -1,31 +1,15 @@
-
-.map-container {
-  height: 100%;
-}
-
-.map_canvas {
-  position: relative;
-  height: 100%;
-}
-
 [id='googleMap'] {
   position: relative;
   height: 100%;
   width: 100%;
 }
 
-.landingMap, .mapOverlay {
+.landingMap {
   position: relative;
   height: 20rem;
   width: 100vw;
 
   h2 {
-    position: absolute;
-    top: 0;
-    line-height: 20rem;
-    text-align: center;
-    width: 100%;
-    color: white;
     font-size: 3rem;
   }
 }
@@ -34,12 +18,9 @@
   position: absolute;
   z-index: 0;
   top: 0;
-
 }
 
 .map-container {
   width: 100%;
   grid-area: 1/2/6/3;
-
- 
 }
