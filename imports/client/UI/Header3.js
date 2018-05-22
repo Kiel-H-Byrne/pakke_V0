@@ -229,7 +229,7 @@ class Header3 extends React.Component {
                                           component={Link} 
                                           to="/profile"
                                           onClick={this.handleClose}
-                                          style={{fontSize:16}}
+                                          style={{fontSize:14}}
                                           primary="Profile"
 
                                         >Profile
@@ -237,7 +237,7 @@ class Header3 extends React.Component {
                                         <MenuItem  
                                           button
                                           onClick={this.logOut}
-                                          style={{fontSize:16}}
+                                          style={{fontSize:14}}
                                           >Log Out
                                           </MenuItem>
                                     </Menu>

@@ -20,6 +20,10 @@ const styles = theme => ({
     },
 });
 
+this.handleClick = (e) => {
+    Meteor.call('crmInsert', 'leads', {"Email": e.target.value});
+}
+
 function InputWithIcon(props) {
     const { classes } = props;
 

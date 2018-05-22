@@ -67,21 +67,20 @@ function Hero(props) {
                     </Grid>
                     <Typography className={classes.headlineText} align={'center'} variant='display4' gutterBottom>It's Happening, Go Find It.</Typography>
                     <Typography className={classes.subheadingText} align={'center'} variant='display2'>Discover | Connect | Experience</Typography>
-                    {/*
-                    <Grid container style={{ marginTop: '2%' }} justify={'center'} alignItems ={'center'} dirction={'column'}>
+                    
+                    <Grid container style={{ marginTop: '2%' }} justify={'center'} alignItems ={'center'} direction={'column'}>
                         <Grid item>
-                            <Grid container justify={'center'} alignItems ={'center'} dirction={'column'}>
+                            <Grid container justify={'center'} alignItems ={'center'} direction={'row'}>
                                 <Typography align={'center'}>
+                                <form>
                                     <EmailInput />
-                                </Typography>
-
-                                <Typography align={'center'} variant="button">
                                     <Button variant='raised' color="secondary" style={styles.button} size='large'>Join Us</Button>
+                                </form>
                                 </Typography>
                             </Grid>
                         </Grid>
                     </Grid>
-                    */}
+                    
 
                 </Parallax>
             </CardContent>

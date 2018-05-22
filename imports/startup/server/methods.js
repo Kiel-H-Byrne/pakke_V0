@@ -179,7 +179,7 @@ Meteor.methods({
       if (err) {
         console.log(err);
       }
-      console.log(`-= NEW LEAD! =- `);
+      console.log(`-= NEW ${module.toUpperCase()}! =- `);
     });
   },
   crmGet: function(module, params, callback) {
