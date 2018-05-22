@@ -76,7 +76,6 @@ class Header3 extends React.Component {
         const styles = {
             root: {
                 flexGrow: 1,
-                height: '8rem',
             },
             flex: {
                 flex: 1,

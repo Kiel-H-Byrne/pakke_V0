@@ -72,10 +72,8 @@ function Hero(props) {
                         <Grid item>
                             <Grid container justify={'center'} alignItems ={'center'} direction={'row'}>
                                 <Typography align={'center'}>
-                                <form>
                                     <EmailInput />
                                     <Button variant='raised' color="secondary" style={styles.button} size='large'>Join Us</Button>
-                                </form>
                                 </Typography>
                             </Grid>
                         </Grid>
