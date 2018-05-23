@@ -8,21 +8,17 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const styles = theme => ({
     margin: {
-        margin: theme.spacing.unit,
+        margin: 8,
     },
     input: {
-        margin: theme.spacing.unit,
+        margin: 3,
         // color: 'white',
         background: 'white',
-        padding: theme.spacing.unit/2,
+        padding: 3,
         fontSize: 16,
         
     },
 });
-
-this.handleClick = (e) => {
-    Meteor.call('crmInsert', 'leads', {"Email": e.target.value});
-}
 
 function InputWithIcon(props) {
     const { classes } = props;
@@ -32,7 +28,7 @@ function InputWithIcon(props) {
             placeholder="Enter Your Email"
             className={classes.input}
             inputProps={{
-                'aria-label': 'Description',
+                'aria-label': 'EMail',
             }}
         />
     );
