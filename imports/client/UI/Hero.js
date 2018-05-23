@@ -28,6 +28,9 @@ const styles = theme => ({
         // objectFit: 'cover',
         // zIndex: -1,
     },
+    cardContent: {
+        textShadow: "2px 2px #555";
+    },
     headlineText: {
         color: 'white',
         fontWeight: 'bold',
@@ -62,7 +65,7 @@ function Hero(props) {
         <CardMedia className={classes.image} image="/ImageHero.jpg" >
             <CardContent className={classes.cardContent}>
                 <Parallax offsetYMax={20} offsetYMin={-20} slowerScrollRate tag="figure">
-                    <Grid container justify={'center'}>
+                    <Grid container justify={'center'} >
                         <img src="/ImageTriangleWhite.png" className={classes.triangle}></img>
                     </Grid>
                     <Typography className={classes.headlineText} align={'center'} variant='display4' gutterBottom>It's Happening, Go Find It.</Typography>
