@@ -8,11 +8,10 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+
 import { Parallax } from 'react-scroll-parallax';
 // import image2 from './triangleWhite.png';
-import EmailInput from './EmailInput';
+import EmailForm from './EmailInput';
 // import image1 from './ImageHero.jpg';
 
 const styles = theme => ({
@@ -38,11 +37,8 @@ const styles = theme => ({
         
     },
     triangle: {
-        marginTop: '3%',
+        marginTop: '.5rem',
         maxHeight: '22rem',
-    },
-    button: {
-        fontSize: 16,
     },
 
 });
@@ -55,17 +51,7 @@ const styles = theme => ({
 // https://images.unsplash.com/photo-1506774518161-b710d10e2733?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2ff076230a3aea325e5b1ce3f6a7a208&auto=format&fit=crop&w=2100&q=80
 
 function Hero(props) {
-    const handleClick = (e) => {
-        console.log(e.target)
-        console.log($('input:').val())
-        // Meteor.call('crmInsert', 'leads', {"Email": e.target.value});
 
-    }
-
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      console.log(this)
-    }
 
     const { classes } = props;
 
@@ -79,26 +65,15 @@ function Hero(props) {
                     </Grid>
                     <Typography className={classes.headlineText} align={'center'} variant='display4' gutterBottom>It's Happening, Go Find It.</Typography>
                     <Typography className={classes.subheadingText} align={'center'} variant='display2'>Discover | Connect | Experience</Typography>
-                    
-                    <Grid container style={{ marginTop: '2%' }} justify={'center'} alignItems ={'center'} direction={'column'}>
+                    {/* 
+                    <Grid container style={{ marginTop: '1rem' }} justify={'center'} alignItems ={'center'} direction={'column'}>
                         <Grid item>
-                            <Grid container justify={'center'} alignItems ={'center'} direction={'row'}>
-                                <Typography align={'center'}>
-                                  <form onSubmit = {handleSubmit}>
-                                    <EmailInput />
-                                    <Button 
-                                      variant='raised' 
-                                      color="secondary" 
-                                      style={styles.button} 
-                                      size='large'
-                                      type='submit'
-                                    >Join Us</Button>
-                                  </form>
-                                </Typography>
-                            </Grid>
+                            
+                                    <EmailForm />
+                            
                         </Grid>
                     </Grid>
-                    
+                    */}
 
                 </Parallax>
             </CardContent>

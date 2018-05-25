@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import ExplorePakke from './ExplorePakke';
 import EventList from '../EventList';
 import FeaturedEventList from '../FeaturedEventList';
-import HowItWorks from './HowItWorks';
 
 
 class LandingPage extends Component {

@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 
 import PageHome from './PageHome';
 import PageAbout from './PageAbout';
-import PageLanding from './pageLanding/PageLanding';
 import PageLanding2 from './UI/PageLanding2';
 import HowItWorks from './UI/HowItWorks'
 

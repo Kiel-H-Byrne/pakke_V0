@@ -6,6 +6,12 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import { withStyles } from '@material-ui/core/styles';
 
+
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import { CardMedia } from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Drawer from '@material-ui/core/Drawer';
@@ -19,18 +25,14 @@ import Divider from '@material-ui/core/Divider';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
-import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import HelpIcon from '@material-ui/icons/Help';
-import EventNoteIcon from '@material-ui/icons/EventNote';
+import EventIcon from '@material-ui/icons/Event';
 import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import FlightLandIcon from '@material-ui/icons/FlightLand';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ChangeHistoryIcon from '@material-ui/icons/ChangeHistory';
+import AccessibilityIcon from '@material-ui/icons/Accessibility';
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import { CardMedia } from '@material-ui/core/Card';
-import Typography from '@material-ui/core/Typography';
 
 import AccountsUIWrapper2 from './AccountsUIWrapper2';
 
@@ -130,7 +132,7 @@ class Header3 extends React.Component {
 
                     <ListItem button component={Link} to="/about">
                         <ListItemIcon>
-                            <FingerprintIcon />
+                            <ChangeHistoryIcon />
                         </ListItemIcon>
                         <ListItemText inset disableTypography primary="About Pakke" />
                     </ListItem>
@@ -140,9 +142,15 @@ class Header3 extends React.Component {
                         </ListItemIcon>
                         <ListItemText inset disableTypography primary="How It Works" />
                     </ListItem>
+                    <ListItem button component={Link} to="/host">
+                        <ListItemIcon>
+                            <AccessibilityIcon />
+                        </ListItemIcon>
+                        <ListItemText inset disableTypography primary="Become a Host" />
+                    </ListItem>
                     <ListItem button component={Link} to="/events">
                         <ListItemIcon>
-                            <EventNoteIcon />
+                            <EventIcon />
                         </ListItemIcon>
                         <ListItemText inset disableTypography primary="Events" />
                     </ListItem>

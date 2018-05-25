@@ -181,121 +181,169 @@ Schema.Talent = new SimpleSchema({
   }
 });
 
+Schema.Insight = new SimpleSchema({
+  experiences: {
+    type: String,
+    label: 'Experiences you love?',
+    optional: true
+  },
+  grewUpOn: {
+    type: String,
+    label: 'You grew up on?',
+    optional: true
+  },
+  inspiration: {
+    type: String,
+    label: 'Someone alive today who deeply inspires you:',
+    optional: true
+  },
+  favoriteSpace: {
+    type: String,
+    label: 'Your favorite space in the city?',
+    optional: true
+  },
+  awesome: {
+    type: String,
+    label: 'Something awesome you would love to see happen in DC:',
+    optional: true
+  },
+  book: {
+    type: String,
+    label: 'Most influential book or TedTalk:',
+    optional: true
+  },
+})
+
 Schema.Interests = new SimpleSchema({
-  whichAnimal: {
+  localArtist: {
     type: String,
-    label: 'Which are you?',
-    allowedValues: ["Inside Cat", "Outside Cat", "Dog rolling around in mud"],
+    label: 'Who is your favorite local artist right now?',
     optional: true
   },
-  summerDestination: {
+  yearAhead: {
     type: String,
-    label: 'Where could we find you on a summer Saturday?',
-    allowedValues: ["Rooftop Pool", "Mountaintop Waterfall", "Nude Beach"],
+    label: 'What is something you would like to learn in the year ahead?',
     optional: true
   },
-  monstersInc: {
+  localBetter: {
     type: String,
-    label: 'Which Monsters Inc character are you?',
-    allowedValues: ["James P. Sullivan", "Mike Wazowski", "Boo"],
+    label: 'What would make this city better?',
     optional: true
   },
-  everMotorcycle: {
-    type: Boolean,
-    label: 'Have you ever ridden a motorcycle?',
-    optional: true,
-    defaultValue: false
-    },
-  everGarden: {
-    type: Boolean,
-    label: 'Have you ever planted a garden?',
-    optional: true,
-    defaultValue: false
-    },
-  everMarathon: {
-    type: Boolean,
-    label: 'Have you ever entered a marathon?',
-    optional: true,
-    defaultValue: false
-    },
-  everClimb: {
-    type: Boolean,
-    label: 'Have you ever gone mountain climbing?',
-    optional: true,
-    defaultValue: false
-    },
-  everGreek: {
-    type: Boolean,
-    label: 'Have you ever been a member of a sorority/fraternity?',
-    optional: true,
-    defaultValue: false
-    },
-  everCrossdress: {
-    type: Boolean,
-    label: 'Have you ever dressed up as a member of the opposite sex?',
-    optional: true,
-    defaultValue: false
-    },
-  everMilitary: {
-      type: Boolean,
-      label: 'Have you ever been in the military?',
-      optional: true,
-    defaultValue: false
-    },
-  ratherLottery: {
-      type: String,
-      label: 'Would you rather:',
-      allowedValues: ['Win a million dollars in the lottery.', 'Never pay for anything again.'],
-      optional: true
-    },
-  ratherAge: {
-      type: String,
-      label: 'Would you rather:',
-      allowedValues: ['Age from the neck up only.', 'Age from the neck down only.'],
-      optional: true
-    },
-  ratherWishes: {
-      type: String,
-      label: 'Would you rather:',
-      allowedValues: ['Have 3 wishes in 10 years.', 'Have 1 wish today.'],
-      optional: true
-    },
-  ratherLove: {
-      type: String,
-      label: 'Would you rather:',
-      allowedValues: ['Never have sex.', 'Never find true love.'],
-      optional: true
-    },
-  ratherNeighbor: {
-      type: String,
-      label: 'Would you rather:',
-      allowedValues: ['Have a noisy neighbor.', 'Have a nosy neighbor.'],
-      optional: true
-    },
-  ratherFly: {
-      type: String,
-      label: 'Would you rather:',
-      allowedValues: ['Be able to fly.', 'Be able to become invisible.'],
-      optional: true
-    },
-  ratherTalk: {
-      type: String,
-      label: 'Would you rather:',
-      allowedValues: ['Talk in rhyme, all the time.', 'Sing instead of speak.'],
-      optional: true
-    },
-  ratherLive: {
-      type: String,
-      label: 'Would you rather:',
-      allowedValues: ['Live out in the country.', 'Live in the city.'],
-      optional: true
-    },
-  ratherSize: {
-      type: String,
-      label: 'Would you rather:',
-      allowedValues: ['Be a giant mouse.', 'Be a tiny elephant.'],
-      optional: true
-    },
+  // whichAnimal: {
+  //   type: String,
+  //   label: 'Which are you?',
+  //   allowedValues: ["Inside Cat", "Outside Cat", "Dog rolling around in mud"],
+  //   optional: true
+  // },
+  // summerDestination: {
+  //   type: String,
+  //   label: 'Where could we find you on a summer Saturday?',
+  //   allowedValues: ["Rooftop Pool", "Mountaintop Waterfall", "Nude Beach"],
+  //   optional: true
+  // },
+  // monstersInc: {
+  //   type: String,
+  //   label: 'Which Monsters Inc character are you?',
+  //   allowedValues: ["James P. Sullivan", "Mike Wazowski", "Boo"],
+  //   optional: true
+  // },
+  // everMotorcycle: {
+  //   type: Boolean,
+  //   label: 'Have you ever ridden a motorcycle?',
+  //   optional: true,
+  //   defaultValue: false
+  //   },
+  // everGarden: {
+  //   type: Boolean,
+  //   label: 'Have you ever planted a garden?',
+  //   optional: true,
+  //   defaultValue: false
+  //   },
+  // everMarathon: {
+  //   type: Boolean,
+  //   label: 'Have you ever entered a marathon?',
+  //   optional: true,
+  //   defaultValue: false
+  //   },
+  // everClimb: {
+  //   type: Boolean,
+  //   label: 'Have you ever gone mountain climbing?',
+  //   optional: true,
+  //   defaultValue: false
+  //   },
+  // everGreek: {
+  //   type: Boolean,
+  //   label: 'Have you ever been a member of a sorority/fraternity?',
+  //   optional: true,
+  //   defaultValue: false
+  //   },
+  // everCrossdress: {
+  //   type: Boolean,
+  //   label: 'Have you ever dressed up as a member of the opposite sex?',
+  //   optional: true,
+  //   defaultValue: false
+  //   },
+  // everMilitary: {
+  //     type: Boolean,
+  //     label: 'Have you ever been in the military?',
+  //     optional: true,
+  //   defaultValue: false
+  //   },
+  // ratherLottery: {
+  //     type: String,
+  //     label: 'Would you rather:',
+  //     allowedValues: ['Win a million dollars in the lottery.', 'Never pay for anything again.'],
+  //     optional: true
+  //   },
+  // ratherAge: {
+  //     type: String,
+  //     label: 'Would you rather:',
+  //     allowedValues: ['Age from the neck up only.', 'Age from the neck down only.'],
+  //     optional: true
+  //   },
+  // ratherWishes: {
+  //     type: String,
+  //     label: 'Would you rather:',
+  //     allowedValues: ['Have 3 wishes in 10 years.', 'Have 1 wish today.'],
+  //     optional: true
+  //   },
+  // ratherLove: {
+  //     type: String,
+  //     label: 'Would you rather:',
+  //     allowedValues: ['Never have sex.', 'Never find true love.'],
+  //     optional: true
+  //   },
+  // ratherNeighbor: {
+  //     type: String,
+  //     label: 'Would you rather:',
+  //     allowedValues: ['Have a noisy neighbor.', 'Have a nosy neighbor.'],
+  //     optional: true
+  //   },
+  // ratherFly: {
+  //     type: String,
+  //     label: 'Would you rather:',
+  //     allowedValues: ['Be able to fly.', 'Be able to become invisible.'],
+  //     optional: true
+  //   },
+  // ratherTalk: {
+  //     type: String,
+  //     label: 'Would you rather:',
+  //     allowedValues: ['Talk in rhyme, all the time.', 'Sing instead of speak.'],
+  //     optional: true
+  //   },
+  // ratherLive: {
+  //     type: String,
+  //     label: 'Would you rather:',
+  //     allowedValues: ['Live out in the country.', 'Live in the city.'],
+  //     optional: true
+  //   },
+  // ratherSize: {
+  //     type: String,
+  //     label: 'Would you rather:',
+  //     allowedValues: ['Be a giant mouse.', 'Be a tiny elephant.'],
+  //     optional: true
+  //   },
 });
 
 Schema.Profile = new SimpleSchema({
@@ -315,10 +363,6 @@ Schema.Profile = new SimpleSchema({
     type: String,
     optional: true,
     // uniforms: ImageUploadComponent
-  },
-  address: {
-    type: Schema.Address,
-    optional: true
   },
   bio: {
     type: String,
@@ -341,17 +385,8 @@ Schema.Profile = new SimpleSchema({
     optional: true,
     label: 'Instagram Handle'
   },
-    'social.twitter': {
-    type: String,
-    optional: true,
-    label: 'Twitter Handle'
-  },
-  profession: {
-    type: String,
-    optional: true,
-  },
   interests: {
-    type: Schema.Interests,
+    type: Schema.Insight,
     optional: true,
   },
   venues: {

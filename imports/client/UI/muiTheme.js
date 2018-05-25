@@ -12,9 +12,9 @@ const muiTheme = createMuiTheme({
         dark: '#c7c7c7',
       },
       secondary: {
-        light: '#768fff',
-        main: '#2962ff',
-        dark: '#0039cb',
+        // light: '#768fff',
+        main: '#226199',
+        // dark: '#0039cb',
       },
     },
     typography: {

@@ -46,9 +46,9 @@ export default class EventInterestForm extends Component {
     };
 
     const model = user.profile.interests || {};
-    const allKeys = Schema.Interests._schemaKeys;
-    const answeredKeys = Object.keys(model);
-    const fields = _.sample(_.difference(allKeys, answeredKeys), 3);
+    // const allKeys = Schema.Interests._schemaKeys;
+    // const answeredKeys = Object.keys(model);
+    // const fields = _.sample(_.difference(allKeys, answeredKeys), 3);
     
     //get fields with empty values
     //get sample of 3 fields
@@ -63,7 +63,7 @@ export default class EventInterestForm extends Component {
       onSubmitSuccess={handleSuccess} 
       onSubmitFailure={handleFailure} >
 
-          <AutoFields fields = {fields} />
+          <AutoFields />
           <SubmitField value="Submit"  />
           <ErrorsField />
       </AutoForm>
