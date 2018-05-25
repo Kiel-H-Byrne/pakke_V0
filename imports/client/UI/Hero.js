@@ -65,7 +65,7 @@ function Hero(props) {
                     </Grid>
                     <Typography className={classes.headlineText} align={'center'} variant='display4' gutterBottom>It's Happening, Go Find It.</Typography>
                     <Typography className={classes.subheadingText} align={'center'} variant='display2'>Discover | Connect | Experience</Typography>
-                    {/* 
+                    {/* */}
                     <Grid container style={{ marginTop: '1rem' }} justify={'center'} alignItems ={'center'} direction={'column'}>
                         <Grid item>
                             
@@ -73,7 +73,7 @@ function Hero(props) {
                             
                         </Grid>
                     </Grid>
-                    */}
+                    {/* */}
 
                 </Parallax>
             </CardContent>
