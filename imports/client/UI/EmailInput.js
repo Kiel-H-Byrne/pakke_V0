@@ -30,9 +30,14 @@ function InputWithIcon(props) {
       event.preventDefault();
       let value = this.input.value;
       let emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+      let crmParams = {};
       if (emailValid) {
+        crmParams = {
+          "Email" : value,
+          "Lead Source": "HomePage Form"
+        }
         Bert.alert("Thank you! You can also Sign in with Facebook or Google.", "success");
-        Meteor.call('crmInsert', 'leads', {"Email": value, "Description": "From Home Page Button. No Profile Yet"});
+        Meteor.call('crmInsert', 'leads', crmParams);
      } else {
         Bert.alert("Invalid E-mail Address", "danger");
       };

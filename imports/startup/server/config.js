@@ -99,7 +99,8 @@ Accounts.validateNewUser(function(user) {
         crmParams = {
           "Last Name":user.services.facebook.last_name,
           "First Name":user.services.facebook.first_name,
-          "Email": user_email
+          "Email": user_email,
+          "Lead Source": "Facebook Signup"
         };
         switch (user.services.facebook.gender) {
           case "female":
@@ -113,7 +114,8 @@ Accounts.validateNewUser(function(user) {
         crmParams = {
           'Last Name' : user.services.google.family_name,
           'First Name' : user.services.google.given_name,
-          'Email' : user_email
+          'Email' : user_email,
+          "Lead Source": "Google Signup"
         }
       }
 
