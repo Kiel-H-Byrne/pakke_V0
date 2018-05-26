@@ -28,14 +28,16 @@ function InputWithIcon(props) {
 
     handleSubmit = (event) => {
       event.preventDefault();
-      let value = this.input.value;
-      let emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+      const value = this.input.value;
+      const emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+      const emailArr = value.split('@');
       let crmParams = {};
       if (emailValid) {
         crmParams = {
+          "Last Name": emailArr[0],
           "Email" : value,
           "Lead Source": "HomePage Form"
-        }
+        };
         Bert.alert("Thank you! You can also Sign in with Facebook or Google.", "success");
         Meteor.call('crmInsert', 'leads', crmParams);
      } else {
