@@ -15,12 +15,11 @@ const styles = theme => ({
     },
     input: {
         margin: theme.spacing.unit,
-        background: 'white',
         padding: theme.spacing.unit,
         fontSize: theme.spacing.unit * 2,
     },
     button: {
-        fontSize: 16,
+        fontSize: '16px !important',
         margin: ''
     },
 });
@@ -43,13 +42,11 @@ function InputWithIcon(props) {
 
     return (
         <form onSubmit = {handleSubmit}>
-            <Input
+            <input
                 placeholder="Enter Your Email"
                 className={classes.input}
-                inputProps={{
-                    'aria-label': 'EMail',
-                }}
-                inputRef={(input) => this.input = input}
+                ref={(input) => this.input = input}
+                ariaLabel= 'EMail'
             />
             <Button 
               variant='raised' 
@@ -57,6 +54,7 @@ function InputWithIcon(props) {
               style={styles.button} 
               size='large'
               type='submit'
+              className={classes.input}a
             >Join Us</Button>
       </form>
     );

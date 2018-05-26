@@ -2,7 +2,9 @@
 
   .container-host {
     position: relative;
-    // border: 1px solid black;
+    max-width: 880px;
+    margin: auto;
+    padding: 1rem;
     img {
       display:block;
             margin-left: auto;
@@ -26,15 +28,16 @@
 
     h1 {
       position: absolute;
-      height: 7rem;
+      height: 6rem;
       width: 25rem;
       top: 10%;
       left: 50%;
       transform: translate(-50%, -50%);
       background: white;
       opacity: .8;
-      border-radius: 1rem;
+      border-radius: 5px;
       text-align: center;
+      vertical-align: center;
       padding-top: 1rem;
     }
   }

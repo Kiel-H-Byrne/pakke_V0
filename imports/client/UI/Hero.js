@@ -30,7 +30,8 @@ const styles = theme => ({
     },
     headlineText: {
         color: 'white',
-        fontWeight: 'bold',
+        fontWeight: 500,
+        letterSpacing: 1
     },
     subheadingText: {
         color: 'white',
@@ -69,7 +70,7 @@ function Hero(props) {
                     <Grid container style={{ marginTop: '1rem' }} justify={'center'} alignItems ={'center'} direction={'column'}>
                         <Grid item>
                             
-                                    <EmailForm />
+                            <EmailForm />
                             
                         </Grid>
                     </Grid>

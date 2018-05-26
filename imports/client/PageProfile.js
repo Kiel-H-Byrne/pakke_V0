@@ -47,8 +47,9 @@ class PageProfile extends Component {
         <div>
           <BarLoader 
               loading={this.props.loading} 
-              color={'#123abc'} 
-              width={-1}
+              color='#226199' 
+              width='-1'
+              height='10'
             />
         </div>
       )
