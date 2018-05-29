@@ -53,7 +53,7 @@ function InputWithIcon(props) {
                 placeholder="Enter Your Email"
                 className={classes.input}
                 ref={(input) => this.input = input}
-                ariaLabel= 'EMail'
+                aria-label= 'EMail'
             />
             <Button 
               variant='raised' 
@@ -61,7 +61,7 @@ function InputWithIcon(props) {
               style={styles.button} 
               size='large'
               type='submit'
-              className={classes.input}a
+              className={classes.input}
             >Join Us</Button>
       </form>
     );

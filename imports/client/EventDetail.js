@@ -43,8 +43,8 @@ class EventDetails extends Component {
           <BarLoader 
               loading={this.props.loading} 
               color='#226199'
-              width='-1'
-              height='10'
+              width={-1}
+              height={10}
             />
         </div>
       )

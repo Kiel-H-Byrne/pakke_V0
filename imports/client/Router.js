@@ -19,7 +19,7 @@ import PageEventMap from './PageEventMap';
 // import PageEventMap from './pageEventMap/PageEventMap';
 // import PageSignUp from './PageSignUp';
 // import EventForm from './EventForm2';
-// import PageTest from './PageTest';
+import PageTest from './old-test/PageTest'
 // import { LoginFormContainer } from './accounts/ui/components/LoginForm'
 // import TestLogin from './TestLogin';
 // import PageLogin from './PageLogin';
@@ -39,6 +39,10 @@ class Router extends Component {
             <Route path='/profile' component={PageProfile} />
             <Route path='/host' component={BecomeHost} />
             <Route path='/talent' component={BecomeTalent} />
+            { Meteor.isDevelopment ?
+            (<Route path='/test' component={PageTest} />)
+            : ('')
+            }
             <Route component={PageError} />
 
             {/* <Route path='/login' component={PageLogin} /> */}

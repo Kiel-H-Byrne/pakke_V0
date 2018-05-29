@@ -211,6 +211,9 @@ Meteor.methods({
       return charge;
     });
   },
+  removeFile: function() {
+
+  },
   sendEmail: function(to, from, subject, html) {
     // check([to, from, subject, html], [String]);
     this.unblock();
