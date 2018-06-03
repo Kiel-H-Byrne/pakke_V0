@@ -14,7 +14,7 @@ if (Meteor.isServer) {
   Meteor.publish('events_all', function () {
       const cursor = Events.find();
 
-    console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] EVENTS =-");
+    // console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] EVENTS =-");
     return cursor;
   });
 
@@ -28,7 +28,7 @@ if (Meteor.isServer) {
         sort: { date: 1 }
       });
 
-    console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] CURRENT EVENTS =-");
+    // console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] CURRENT EVENTS =-");
     return cursor;
   });
 
@@ -38,7 +38,7 @@ if (Meteor.isServer) {
         $lt: new Date() 
       }, 
     });
-    console.log(`-= PUBLISHING: ALL [${cursor.count()}] RETIRED EVENTS =-`);
+    // console.log(`-= PUBLISHING: ALL [${cursor.count()}] RETIRED EVENTS =-`);
     return cursor;
   });
 
@@ -53,18 +53,17 @@ Meteor.publish('events_featured', function (id) {
     let cursor = Events.find({
       "featured": true
     });
-    console.log(`-= PUBLISHING: [${cursor.count()}] FEATURED VENTS =-`);
+    // console.log(`-= PUBLISHING: [${cursor.count()}] FEATURED EVENTS =-`);
     return cursor;
   });
 
   Meteor.publish('event.host', function (id) {
     //event id = id
     //find host id , find and return one host document.
-    const hostId = Events.findOne({_id: id}).hostID;
-    let cursor = Meteor.users.find({
-      _id: hostId, 
-    });
-    console.log(`-= PUBLISHING: HOST OF [${id}] EVENT =-`);
+    let cursor = Events.find({
+      hostId: id
+    })
+    // console.log(`-= PUBLISHING: HOST OF [${id}] EVENT =-`);
     return cursor;
   });
 

@@ -12,6 +12,7 @@ import WhatIsPakkeEvent from '../UI/WhatIsPakkeEvent';
 import HowItWorks from '../UI/HowItWorks';
 import Hero from '../UI/Hero';
 import EventList from '../EventList';
+import FeaturedEventList from '../FeaturedEventList';
 
 const styles = theme => ({
   root: {
@@ -49,7 +50,14 @@ class PageLanding2 extends Component {
             <WhatIsPakkeEvent />
             <HowItWorks />
 
-
+            <Grid container justify={'center'} style={{ marginTop: '10%' }}>
+              <Paper align={'center'}style={{width: 350}}>
+                <Typography style={{margin: '5%'}} variant='display2'>Featured Events</Typography>
+              </Paper>
+            </Grid>
+            <Grid container spacing={16} justify={'center'} className={classes.cards} >
+                <FeaturedEventList className={classes.card} />
+            </Grid>
 
             <Grid container justify={'center'} style={{ marginTop: '10%' }}>
               <Paper align={'center'}style={{width: 350}}>
@@ -59,6 +67,8 @@ class PageLanding2 extends Component {
             <Grid container spacing={16} justify={'center'} className={classes.cards} >
                 <EventList className={classes.card} />
             </Grid>
+
+
           </div>
 
 

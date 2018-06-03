@@ -10,13 +10,13 @@ if (!Meteor.settings.public.keys) {
 }
 
 
-const SOUP = Meteor.users.findOne({username: 'Theophilus Hamilton'});
+const SOUP = Meteor.users.findOne({username: 'PAKKE'});
 if (!SOUP) {
   console.log("CREATING FIRST USER: SOUP");
   const soupId = Accounts.createUser({
-      "username": "Theophilus Hamilton",
+      "username": "PAKKE",
       "email": "noreply@pakke.us",
-      "password": "password",
+      "password": "pakkeP@RTY",
   });
 } else {
     // console.log(SOUP);
@@ -28,7 +28,7 @@ if (!SOUP) {
         {_id: SOUP._id}, 
         {$set: {
           "profile.avatar": "/img/brand/SOCIAL/Logo_Facebook_mark_02.jpg",
-          "profile.name": "Theophilus Hamilton",
+          "profile.name": "PAKKE",
           }
         });
 
@@ -68,8 +68,6 @@ Accounts.onCreateUser(function(options, user) {
     myUser.profile.avatar = gg.picture;
   }
   // console.log(myUser);
-  //CHECK FOR SPECIFIC EMAILS & MAKE ADMINS
-
   return myUser;
 });
 
@@ -94,32 +92,35 @@ Accounts.validateNewUser(function(user) {
       throw new Meteor.Error(500, `You've been here before! Login with ${provider}.`);
     } else {
       console.log(`-= NEW USER: ${user_email}=- `);
-
-      if (user.services.facebook) {
-        crmParams = {
-          "Last Name":user.services.facebook.last_name,
-          "First Name":user.services.facebook.first_name,
-          "Email": user_email,
-          "Lead Source": "Facebook Signup"
-        };
-        switch (user.services.facebook.gender) {
-          case "female":
-            crmParams["Salutation"] = "Ms.";
-            break;
-          case "male":
-            crmParams["Salutation"] = "Mr.";
-        };
-      }
-      if (user.services.google) {
-        crmParams = {
-          'Last Name' : user.services.google.family_name,
-          'First Name' : user.services.google.given_name,
-          'Email' : user_email,
-          "Lead Source": "Google Signup"
+      if (Meteor.isProduction) {
+        if (user.services.facebook) {
+          crmParams = {
+            "Last Name":user.services.facebook.last_name,
+            "First Name":user.services.facebook.first_name,
+            "Email": user_email,
+            "Lead Source": "Facebook Signup"
+          };
+          switch (user.services.facebook.gender) {
+            case "female":
+              crmParams["Salutation"] = "Ms.";
+              break;
+            case "male":
+              crmParams["Salutation"] = "Mr.";
+          };
         }
-      }
+        if (user.services.google) {
+          crmParams = {
+            'Last Name' : user.services.google.family_name,
+            'First Name' : user.services.google.given_name,
+            'Email' : user_email,
+            "Lead Source": "Google Signup"
+          }
+        }
+        
 
-      Meteor.call('crmInsert', 'leads', crmParams);
+       Meteor.call('crmInsert', 'leads', crmParams); 
+     }
+      
       return true;
     }
 });

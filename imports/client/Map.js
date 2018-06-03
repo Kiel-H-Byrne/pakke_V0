@@ -93,9 +93,9 @@ class MyMap extends Component {
 
         const eventImage = {
           // url: 'img/markers/red_marker_sm.png'
-          url: 'img/mkicons/home.png',
-          size: {width: 25, height: 25},
-          scaledSize: {width: 25, height: 25}
+          url: 'img/markers/PAKKE_marker_blk.png',
+          size: {width: 15, height: 15},
+          scaledSize: {width: 15, height: 15}
         };
         const rad = 1.3 * 1609.34;
         const marker_symbol = {

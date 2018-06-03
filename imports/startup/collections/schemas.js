@@ -187,11 +187,11 @@ Schema.Insight = new SimpleSchema({
     label: 'Experiences you love?',
     optional: true
   },
-  grewUpOn: {
-    type: String,
-    label: 'You grew up on?',
-    optional: true
-  },
+  // grewUpOn: {
+  //   type: String,
+  //   label: 'You grew up on?',
+  //   optional: true
+  // },
   inspiration: {
     type: String,
     label: 'Someone alive today who deeply inspires you:',
@@ -209,7 +209,7 @@ Schema.Insight = new SimpleSchema({
   },
   book: {
     type: String,
-    label: 'Most influential book or TedTalk:',
+    label: 'Most influential book or Ted Talk:',
     optional: true
   },
 })

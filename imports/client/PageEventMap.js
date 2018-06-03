@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 
 
 import EventList from './EventList';
+import FeaturedEventList from './FeaturedEventList';
 import Map from './Map';
 
 
@@ -29,10 +30,22 @@ class LandingPage extends Component {
                         <Typography style={{ margin: '2%' }} variant='display2'>Pakke Inspired Events</Typography>
                     </Paper>
                 </Grid>
-
                 <Grid container spacing={16} justify={'center'} style={styles.cards} >
                     <EventList />
                 </Grid>
+
+
+            <Grid container justify={'center'} style={{ marginTop: '10%' }}>
+              <Paper align={'center'}style={{width: 350}}>
+                <Typography style={{margin: '2%'}} variant='display2'>Featured Events</Typography>
+              </Paper>
+            </Grid>
+            <Grid container spacing={16} justify={'center'} style={styles.cards} >
+                <FeaturedEventList />
+            </Grid>
+
+
+
             </div>
         )
     }

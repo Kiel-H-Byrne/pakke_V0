@@ -3,7 +3,6 @@
 // //========================= ADMIN & CONFIG =========================
 import './config.js';
 import './SMTP.js';
-
 // //========================= COLLECTIONS =========================
 
 import Events from '/imports/startup/collections/events';

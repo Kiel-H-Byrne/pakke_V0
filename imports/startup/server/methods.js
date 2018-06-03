@@ -1,16 +1,17 @@
 import { Meteor } from 'meteor/meteor';
 import { Email } from 'meteor/email';
+
 import Zoho from 'zoho';
 
 import Events from '/imports/startup/collections/events';
-import Venues from '/imports/startup/collections/events';
+import Venues from '/imports/startup/collections/venues';
+import Uploads from '/imports/startup/collections/uploads';
 import MongoCache from '/imports/startup/server/MongoCache';
-
 
 const OCache = new MongoCache('rest', 100000);
 const zcrm = new Zoho.CRM({authtoken: Meteor.settings.private.keys.zohoCRM.oAuth});
 
-apiCall = function (apiUrl, callback) {
+const apiCall = function (apiUrl, callback) {
   // try…catch allows you to handle errors 
   let errorCode, errorMessage;
   try {
@@ -210,6 +211,12 @@ Meteor.methods({
       } 
       return charge;
     });
+  },
+  uploadFile: function(obj) {
+    let upload =  Uploads.insert(obj, false);
+    console.log(upload);
+    return upload;
+
   },
   removeFile: function() {
 

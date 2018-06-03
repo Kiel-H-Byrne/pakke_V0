@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session'
+import { GridLoader } from 'react-spinners';
 
-import Event from './Event';
+import Event2 from './Event2';
 import Events from '/imports/startup/collections/events';
 
 class FeaturedEventList extends Component {
 
   render() {
     if (!this.props.ready) {
-      return <div>Loading</div>;
+      return <div>
+        <GridLoader 
+              loading={this.props.loading} 
+              color='#226199'
+              size={10}
+              margin='2px'
+            />
+            </div>;
     } else {
       return (
             this.props.events.map((event) => {
-              return <Event event={event} key={event._id} />
+              return <Event2 event={event} key={event._id} />
             })
 
       )

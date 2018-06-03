@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session'
 
-import Event from './Event';
+// import Event from './Event';
 import Event2 from './Event2';
 import Events from '/imports/startup/collections/events';
 
@@ -24,7 +24,15 @@ class EventList extends Component {
 };
 
 export default withTracker(() => {
-  const eventsSub = Meteor.subscribe('events_current');
+  //NqJE5H6w4PM89zYe7
+  let ourID = Meteor.users.findOne({"username": "PAKKE"})
+  let eventsSub;
+  if (ourID) {
+  eventsSub = Meteor.subscribe('event.host', ourID._id);
+} else  { 
+  eventsSub = {}
+  eventsSub.ready = () => {return false}
+}
   // let showAll = Session.get('showAll');
   return {
     currentUser: Meteor.user(),

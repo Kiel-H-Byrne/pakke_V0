@@ -16,7 +16,13 @@
         "key" : "key-505f89ab46df69768503618f534e9a81",
         "password" : "8092210240438c3a66e1c13437ea3631-833f99c3-d4b5a944"
       },
-      "stripe" : { "key": "pk_live_42Xfo72UgqT0LixznvztDyil" }
+      "stripe" : { "key": "pk_live_42Xfo72UgqT0LixznvztDyil" },
+      "s3": {
+        "key": "AKIAJFICQU6THFIJD3PQ",
+        "secret": "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",
+        "bucket": "pakke-images",
+        "region": "us-standard"
+      }
     }
   },
   "private": {
