@@ -35,16 +35,21 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
     collectionName: 'uploads',
     // Disallow Client to execute remove, use the Meteor.method
     allowClientCode: false,
-
+    onBeforeUpload() {
+      if (this.userId) {
+        return true;
+      }
+      return 'Must be logged in to upload a file!';
+    },
     // Start moving files to AWS:S3
     // after fully received by the Meteor server
     onAfterUpload(fileRef) {
-      console.log('fire 1')
       // Run through each of the uploaded file
       _.each(fileRef.versions, (vRef, version) => {
         // We use Random.id() instead of real file's _id
         // to secure files from reverse engineering on the AWS client
         const filePath = 'pakke-images/' + (Random.id()) + '-' + version + '.' + fileRef.extension;
+        // const filePath = `${module}/${id}/${Random.id()}-${version}.${fileRef.extension}`
         // Create the AWS:S3 object.
         // Feel free to change the storage class from, see the documentation,
         // `STANDARD_IA` is the best deal for low access files.
@@ -60,11 +65,9 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
           ACL: "public-read"
         }, (error) => {
           bound(() => {
-            console.log('fire 2')
             if (error) {
               console.error(error);
             } else {
-              console.log('fire 3')
               // Update FilesCollection with link to the file at AWS
               const upd = { $set: {} };
               upd['$set']['versions.' + version + '.meta.pipePath'] = filePath;
@@ -82,6 +85,8 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
             }
           });
         });
+
+        let url = `https://s3.us-east-2.amazonaws.com/pakke-images/${filePath}`;
       });
     },
 
@@ -188,10 +193,12 @@ if (Meteor.isServer) {
   Meteor.publish('uploads', function () {
     return Uploads.collection.find({}, {
       fields: {
+        name: 1,
+        size: 1,
         extension: 1,
         _downloadRoute: 1,
         _collectionName: 1,
-        'versions.versionName.extension': 1 // <-- Required only for file's version .link(version), and if extension is different from original file
+        'versions.original.extension': 1 // <-- Required only for file's version .link(version), and if extension is different from original file
       }
     });
   });

@@ -20,8 +20,7 @@
       "s3": {
         "key": "AKIAJFICQU6THFIJD3PQ",
         "secret": "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",
-        "bucket": "pakke-images",
-        "region": "us-standard"
+        "bucket": "pakke-images"
       }
     }
   },

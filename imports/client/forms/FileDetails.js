@@ -16,14 +16,15 @@ class IndividualFile extends Component {
   propTypes: {
     fileName: PropTypes.string.isRequired,
     fileSize: PropTypes.number.isRequired,
+    fileId: PropTypes.string.isRequired,
     fileUrl: PropTypes.string,
-    fileId: PropTypes.string.isRequired
+    fileExt: PropTypes.string
   }
 
   removeFile(){
     let conf = confirm('Are you sure you want to delete the file?') || false;
     if (conf == true) {
-      Meteor.call('RemoveFile', this.props.fileId, function (err, res) {
+      Meteor.call('removeFile', this.props.fileId, function (err, res) {
         if (err)
           console.log(err);
       })
@@ -42,7 +43,7 @@ class IndividualFile extends Component {
     }
 
     if (!_.isEmpty(prompt)) {
-      Meteor.call('RenameFile', this.props.fileId, prompt, function (err, res) {
+      Meteor.call('renameFile', this.props.fileId, prompt, function (err, res) {
         if (err)
           console.log(err);
       })
@@ -51,7 +52,7 @@ class IndividualFile extends Component {
 
   render() {
     return <div className="m-t-sm">
-      <div className="row">
+      <div className="rodw">
         <div className="col-md-12">
           <strong>{this.props.fileName}</strong>
           <div className="m-b-sm">
@@ -70,6 +71,10 @@ class IndividualFile extends Component {
         <div className="col-md-3">
           <a href={this.props.fileUrl} className="btn btn-outline btn-primary btn-sm"
              target="_blank">View</a>
+          <video width="320" height="240" >
+            <source src={this.props.fileUrl} type={`video/${this.props.fileExt}`} />
+              Your browser does not support the video tag.
+          </video>
         </div>
 
         <div className="col-md-2">

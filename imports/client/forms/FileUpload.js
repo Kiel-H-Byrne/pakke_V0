@@ -42,10 +42,10 @@ class FileUploadComponent extends Component {
           chunkSize: 'dynamic',
           allowWebWorkers: true,
           onStart: () =>  {
-            console.log('Starting');
+            // console.log('Starting');
           },
           onUploaded: (error, fileRef) => {
-            console.log('uploaded: ', fileRef);
+            // console.log('uploaded: ', fileRef);
 
             // Remove the filename from the upload box
             self.refs['fileinput'].value = '';
@@ -58,10 +58,10 @@ class FileUploadComponent extends Component {
             });
           },
           onError: (error, fileData) => {
-            console.log('Error during upload: ' + error)
+            console.warn('Error during upload: ' + error)
           },
           onProgress: (progress, fileData) => {
-            console.log('Upload Percentage: ' + progress)
+            console.log(`Upload Percentage: ${progress}%`)
             // Update our progress bar
             self.setState({
               progress: progress
@@ -84,14 +84,14 @@ class FileUploadComponent extends Component {
   // This is our progress bar, bootstrap styled
   // Remove this function if not needed
   showUploads() {
-    console.log('**********************************', this.state.uploading);
+    // console.log('**********************************', this.state.uploading);
 
     if (!_.isEmpty(this.state.uploading)) {
       return <div>
         {this.state.uploading.file.name}
 
         <div className="progress progress-bar-default">
-          <div style={{width: this.state.progress + '%'}} aria-valuemax="100"
+          <div style={{width: this.state.progress + '%', 'backgroundColor':'#226199' }} aria-valuemax="100"
              aria-valuemin="0"
              aria-valuenow={this.state.progress || 0} role="progressbar"
              className="progress-bar">
@@ -105,25 +105,25 @@ class FileUploadComponent extends Component {
 
   render() {
     
-
-      // let fileCursors = this.props.files;
+      let fileCursors = this.props.files;
 
       // Run through each file that the user has stored
       // (make sure the subscription only sends files owned by this user)
-      // let display = fileCursors.map((aFile, key) => {
-      //   // console.log('A file: ', aFile.link(), aFile.get('name'))
-      //   let link = Uploads.findOne({_id: aFile._id}).link();  //The "view/download" link
-
-      //   // Send out components that show details of each file
-      //   return <div key={'file' + key}>
-      //     <IndividualFile
-      //       fileName={aFile.name}
-      //       fileUrl={link}
-      //       fileId={aFile._id}
-      //       fileSize={aFile.size}
-      //     />
-      //   </div>
-      // })
+      let display = fileCursors.map((aFile, key) => {
+        console.log('A file: ', aFile)
+        let link = Uploads.findOne({_id: aFile._id}).link();  //The "view/download" link
+        // console.log(link);
+        // Send out components that show details of each file
+        return <div key={'file' + key}>
+          <IndividualFile
+            fileName={aFile.name}
+            fileUrl={link}
+            fileId={aFile._id}
+            fileSize={aFile.size}
+            fileExt={aFile.extension}
+          />
+        </div>
+      })
 
       return <div>
         <div className="row">
@@ -144,7 +144,7 @@ class FileUploadComponent extends Component {
           </div>
         </div>
 
-        
+        {display}
 
       </div>
     
@@ -158,10 +158,10 @@ class FileUploadComponent extends Component {
 export default withTracker( ( props ) => {
   const filesHandle = Meteor.subscribe('uploads');
   const docsReadyYet = filesHandle.ready();
-  // const files = Uploads.find({}, {sort: {name: 1}}).fetch();
+  const files = Uploads.find({}, {sort: {name: 1}}).fetch();
 
   return {
     docsReadyYet,
-    // files,
+    files,
   };
 })(FileUploadComponent);
