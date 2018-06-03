@@ -1,5 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
+const styles = {
+  card: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 240,
+    width: 320
+  },
+};
 
 class IndividualFile extends Component {
   constructor(props) {
@@ -9,8 +26,6 @@ class IndividualFile extends Component {
     };
     
     this.removeFile = this.removeFile.bind(this);
-    this.renameFile = this.renameFile.bind(this);
-
   }
 
   propTypes: {
@@ -31,63 +46,49 @@ class IndividualFile extends Component {
     }
   }
 
-  renameFile(){
-
-    let validName = /[^a-zA-Z0-9 \.:\+()\-_%!&]/gi;
-    let prompt    = window.prompt('New file name?', this.props.fileName);
-
-    // Replace any non valid characters, also do this on the server
-    if (prompt) {
-      prompt = prompt.replace(validName, '-');
-      prompt.trim();
-    }
-
-    if (!_.isEmpty(prompt)) {
-      Meteor.call('renameFile', this.props.fileId, prompt, function (err, res) {
-        if (err)
-          console.log(err);
-      })
-    }
-  }
-
   render() {
-    return <div className="m-t-sm">
-      <div className="rodw">
-        <div className="col-md-12">
-          <strong>{this.props.fileName}</strong>
-          <div className="m-b-sm">
-          </div>
-        </div>
-      </div>
+    const { classes } = this.props;
 
-      <div className="row">
-        <div className="col-md-3">
-          <button onClick={this.renameFile} className="btn btn-outline btn-primary btn-sm">
-            Rename
-          </button>
-        </div>
-
-
-        <div className="col-md-3">
-          <a href={this.props.fileUrl} className="btn btn-outline btn-primary btn-sm"
-             target="_blank">View</a>
-          <video width="320" height="240" >
-            <source src={this.props.fileUrl} type={`video/${this.props.fileExt}`} />
-              Your browser does not support the video tag.
-          </video>
-        </div>
-
-        <div className="col-md-2">
-          <button onClick={this.removeFile} className="btn btn-outline btn-danger btn-sm">
-            Delete
-          </button>
-        </div>
-
-        <div className="col-md-4">
+    return (
+    <div>
+      <Card className={classes.card}>
+        {this.props.fileExt == "jpg" ? (
+          <CardMedia 
+          className={classes.media}
+          image={this.props.fileUrl}
+          title={this.props.fileName}
+          />                              
+        ) : (
+          <CardMedia
+          className={classes.media}
+          component="video"
+          controls
+          src={this.props.fileUrl}
+          title={this.props.fileName}
+        />
+        )}
+        
+        <CardContent>
+          <Typography gutterBottom variant="headline" component="h2">
+            {this.props.fileName}
+          </Typography>
+          <Typography component="p">
           Size: {this.props.fileSize}
-        </div>
-      </div>
-    </div>
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button size="large" color="secondary" onClick={this.removeFile} >
+            Delete
+          </Button>
+        </CardActions>
+      </Card>
+     </div>
+      )
   }
 }
-export default IndividualFile;
+
+IndividualFile.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(IndividualFile);

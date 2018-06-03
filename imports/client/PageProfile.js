@@ -7,7 +7,7 @@ import SubmitField from 'uniforms-bootstrap3/SubmitField';
 import TextField from 'uniforms-bootstrap3/TextField';
 import ErrorsField from 'uniforms-bootstrap3/ErrorsField';
 import { BarLoader } from 'react-spinners';
-
+import Redirect from 'react-router';
 import Events from '../startup/collections/events';
 import Event from './Event';
 import TabGuest from './TabGuest';
@@ -42,6 +42,7 @@ class PageProfile extends Component {
   }
 
   render() {
+
     if (this.props.loading) {
       return (
         <div>
@@ -54,7 +55,6 @@ class PageProfile extends Component {
         </div>
       )
     }
-
     // console.log(this);
     const model = this.props.thisUser.profile;
 

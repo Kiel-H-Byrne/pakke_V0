@@ -3,6 +3,16 @@ import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
+import Paper from '@material-ui/core/Paper';
+import Input from '@material-ui/core/Input';
+
 import Uploads from '/imports/startup/collections/uploads';
 import IndividualFile from './FileDetails.js';
 
@@ -110,7 +120,7 @@ class FileUploadComponent extends Component {
       // Run through each file that the user has stored
       // (make sure the subscription only sends files owned by this user)
       let display = fileCursors.map((aFile, key) => {
-        console.log('A file: ', aFile)
+        // console.log('A file: ', aFile)
         let link = Uploads.findOne({_id: aFile._id}).link();  //The "view/download" link
         // console.log(link);
         // Send out components that show details of each file
@@ -125,30 +135,24 @@ class FileUploadComponent extends Component {
         </div>
       })
 
-      return <div>
-        <div className="row">
-          <div className="col-md-12">
+      return (
+      <Grid container direction="column">
+        <Grid item xs={12}>
             <p>Upload New File:</p>
-            <input type="file" id="fileinput" disabled={this.state.inProgress} ref="fileinput"
-                 onChange={this.uploadIt}/>
-          </div>
-        </div>
+            <Input type="file" id="fileinput" size="large" color="secondary"  disabled={this.state.inProgress} ref="fileinput" onChange={this.uploadIt}/>
+        </Grid>
 
-        <div className="row m-t-sm m-b-sm">
-          <div className="col-md-6">
-
+        <Grid item xs={12} className="">
             {this.showUploads()}
+        </Grid>
 
-          </div>
-          <div className="col-md-6">
-          </div>
-        </div>
-
-        {display}
-
-      </div>
-    
-  }
+        <Grid item xs={12}>
+          <Grid container direction="row">
+            {display}
+          </Grid>
+        </Grid>
+      </Grid>
+  )}
 }
 
 //

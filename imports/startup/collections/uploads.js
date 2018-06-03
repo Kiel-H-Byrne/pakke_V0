@@ -48,7 +48,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
       _.each(fileRef.versions, (vRef, version) => {
         // We use Random.id() instead of real file's _id
         // to secure files from reverse engineering on the AWS client
-        const filePath = 'pakke-images/' + (Random.id()) + '-' + version + '.' + fileRef.extension;
+        const filePath = 'uploads/' + (Random.id()) + '-' + version + '.' + fileRef.extension;
         // const filePath = `${module}/${id}/${Random.id()}-${version}.${fileRef.extension}`
         // Create the AWS:S3 object.
         // Feel free to change the storage class from, see the documentation,

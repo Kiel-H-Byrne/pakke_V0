@@ -11,6 +11,8 @@ import FacebookButton2 from './FacebookButton2';
 class Header extends Component {
     logOut() {
         Meteor.logout(Bert.alert("You Are Now Logged Out", "success"))
+        this.props.history.push('/')
+
     }
 
     render() {

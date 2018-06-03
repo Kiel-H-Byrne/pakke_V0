@@ -9,10 +9,8 @@ import PageProfile from './PageProfile';
 class Home extends Component {
 
   render() {
-    
       return (
       <PageLanding2 />
-
     )
   }
 }
