@@ -1,50 +1,47 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session'
+import { GridLoader } from 'react-spinners';
 
 // import Event from './Event';
 import Event2 from './Event2';
-import Events from '/imports/startup/collections/events';
+// import Events from '/imports/startup/collections/events';
 
 class EventList extends Component {
-
+  constructor(props) {
+        super(props)
+        this.state = {
+          eventHost: {},
+          soldOut: false
+        }
+    }
   render() {
-    if (!this.props.ready) {
-      return <div>Loading</div>;
-    } else {
-      return (
+    return (
         this.props.events.map((event) => {
+          if (!this.props.ready) {
+            return (
+                <GridLoader 
+                loading={!this.props.ready} 
+                color='#226199'
+                size={20}
+                margin='2px' />
+                )
+          } else {
             return <Event2 event={event} key={event._id} />
+          }
         })
-
-
       )
     }
-  }
-};
+  };
+
 
 export default withTracker(() => {
-  //NqJE5H6w4PM89zYe7
-  let ourID = Meteor.users.findOne({"username": "PAKKE"})
-  let eventsSub;
-  if (ourID) {
-  eventsSub = Meteor.subscribe('event.host', ourID._id);
-} else  { 
-  eventsSub = {}
-  eventsSub.ready = () => {return false}
-}
-  // let showAll = Session.get('showAll');
+  let eventsSub = Meteor.subscribe('events_all');
+
   return {
-    currentUser: Meteor.user(),
-    // showAll: showAll,
     ready: eventsSub.ready(),
-    events: Events.find({
-      date: {
-        $gte: new Date()
-      }
-    },
-      {
-        sort: { date: 1 }
-      }).fetch()
+    events: Events.find({}, {
+      sort: { date: 1 }
+    }).fetch()
   }
 })(EventList);

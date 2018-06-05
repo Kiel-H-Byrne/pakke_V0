@@ -4,10 +4,9 @@ import { Session } from 'meteor/session'
 import { GridLoader } from 'react-spinners';
 
 import Event2 from './Event2';
-import Events from '/imports/startup/collections/events';
+// import Events from '/imports/startup/collections/events';
 
 class FeaturedEventList extends Component {
-
   render() {
     if (!this.props.ready) {
       return <div>

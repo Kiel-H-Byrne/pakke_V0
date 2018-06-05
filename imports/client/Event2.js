@@ -20,7 +20,6 @@ export default class Event2 extends Component {
           soldOut: false
         }
     }
-    
     render() {
 
         let confirmedCount = 0;
@@ -33,7 +32,7 @@ export default class Event2 extends Component {
         };
 
         let remainingTickets = this.props.event.size - confirmedCount;
-        if (remainingTickets === 0) {this.setState({soldOut: true})}
+        // if (remainingTickets === 0) {this.setState({soldOut: true})}
         const dateArr = this.props.event.date.toDateString().split(' ');
 
         const eventDate = _.object(["day","month","date","year"], dateArr)
@@ -114,10 +113,10 @@ export default class Event2 extends Component {
                         {this.state.soldOut ? (
                             <Button size="large" color="secondary">Sold Out</Button>
                             ) : (
-                            <Button size="large" color="secondary">Apply</Button>
+                            <Button onClick={null} size="large" color="secondary">Apply</Button>
                             )}
                             
-                            <img src="ImageLogoBlack.png" style={styles.logo} />
+                            {/*<img src="ImageLogoBlack.png" style={styles.logo} /> */}
                         </CardActions>
                     </Card>
                 </Link>

@@ -633,5 +633,19 @@ Schema.Event = new SimpleSchema({
     uniforms: {
       hidden: true
     },
+  },
+  partner: {
+    type: Boolean, 
+    optional: true,
+    defaultValue: false,
+    label: 'Pakke Partner',
+    uniforms: {
+      hidden: true
+    }
+  },
+  partnerLink: {
+    type: SimpleSchema.RegEx.Url,
+    optional: true,
+    label: 'Event Details & Sales'
   }
 });

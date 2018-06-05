@@ -52,16 +52,8 @@ class PageLanding2 extends Component {
 
             <Grid container justify={'center'} style={{ marginTop: '10%' }}>
               <Paper align={'center'}style={{width: 350}}>
-                <Typography style={{margin: '5%'}} variant='display2'>Featured Events</Typography>
-              </Paper>
-            </Grid>
-            <Grid container spacing={16} justify={'center'} className={classes.cards} >
-                <FeaturedEventList className={classes.card} />
-            </Grid>
-
-            <Grid container justify={'center'} style={{ marginTop: '10%' }}>
-              <Paper align={'center'}style={{width: 350}}>
-                <Typography style={{margin: '5%'}} variant='display2'>Pakke Inspired Events</Typography>
+                <Typography style={{margin: '3%'}} variant='display2'>Featured Events</Typography>
+                
               </Paper>
             </Grid>
             <Grid container spacing={16} justify={'center'} className={classes.cards} >

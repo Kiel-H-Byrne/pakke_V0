@@ -15,6 +15,7 @@ import PageError from './PageError';
 import BecomeHost from './forms/BecomeHost';
 import BecomeTalent from './forms/BecomeTalent';
 import PageEventMap from './PageEventMap';
+import NomadicoDetails from './old-test/Nomadico';
 
 // import PageEventMap from './pageEventMap/PageEventMap';
 // import PageSignUp from './PageSignUp';
@@ -32,13 +33,13 @@ class Router extends Component {
         <Switch>
             <Route exact path='/' component={PageHome} />
             <Route path='/howitworks' component={HowItWorks} />
-            <Route path='/landing' component={PageLanding2} />
             <Route path='/about' component={PageAbout} />
             <Route path='/events' component={PageEventMap} />            
             <Route path='/event/:id' component={EventDetails} />
             <Route path='/profile' component={PageProfile} />
             <Route path='/host' component={BecomeHost} />
             <Route path='/talent' component={BecomeTalent} />
+            <Route path='/nomadico2018' component={NomadicoDetails} />
             { Meteor.isDevelopment ?
             (<Route path='/test' component={PageTest} />)
             : ('')

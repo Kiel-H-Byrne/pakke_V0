@@ -15,22 +15,13 @@ class LandingPage extends Component {
                     <ExplorePakke />
                 </div>
 
-
                 <div className="landingEvents">
                     <h2>Featured Events</h2>
-                    <h4 className="text-muted">Some of the hottest Pakke parties!</h4>
-                    <div className="scroll-wrapper-x">
-                        <FeaturedEventList />
-                    </div>
-                </div>
-                <div className="landingEvents">
-                    <h2>Pakke-Inspired Events</h2>
-                    <h4 className="text-muted">Some ideas to spark your creativity!</h4>
+                    <h4 className="">Some of the hottest Pakke parties!</h4>
                     <div className="scroll-wrapper-x">
                         <EventList />
                     </div>
                 </div>
-
 
                 <div className='what-is-pakke-event'>
                     <h3 className='what-is-pakke-event-text'>What is a Pakke event?</h3>
