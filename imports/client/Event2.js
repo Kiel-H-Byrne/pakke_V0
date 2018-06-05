@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -14,7 +13,14 @@ import Grid from '@material-ui/core/Grid';
 
 
 export default class Event2 extends Component {
-
+    constructor(props) {
+        super(props)
+        this.state = {
+          eventHost: {},
+          soldOut: false
+        }
+    }
+    
     render() {
 
         let confirmedCount = 0;
@@ -27,6 +33,7 @@ export default class Event2 extends Component {
         };
 
         let remainingTickets = this.props.event.size - confirmedCount;
+        if (remainingTickets === 0) {this.setState({soldOut: true})}
         const dateArr = this.props.event.date.toDateString().split(' ');
 
         const eventDate = _.object(["day","month","date","year"], dateArr)
@@ -104,7 +111,12 @@ export default class Event2 extends Component {
                             <Typography variant='headline' component='p'><strong>{this.props.event.size}</strong> tickets available | <strong>{remainingTickets}</strong> remain</Typography>
                         </CardContent>
                         <CardActions style={styles.actions}>
+                        {this.state.soldOut ? (
+                            <Button size="large" color="secondary">Sold Out</Button>
+                            ) : (
                             <Button size="large" color="secondary">Apply</Button>
+                            )}
+                            
                             <img src="ImageLogoBlack.png" style={styles.logo} />
                         </CardActions>
                     </Card>
@@ -113,9 +125,3 @@ export default class Event2 extends Component {
         );
     }
 }
-
-// Event2.propTypes = {
-//     classes: PropTypes.object.isRequired,
-// };
-
-// export default withStyles(styles)(Event2);
