@@ -71,57 +71,62 @@ class EventDetails extends Component {
             )
           }
 
-
-          <div className='attend-event-button-area'>
-            <div className='attend-event-button'>
-            <p>${this.props.event.price}</p>
-            {this.props.thisUser ? (
-                this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
-                
-                  <button onClick={boughtAlert} className="btn disabled btn-success btn-lg" >Purchased!</button>
-                ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
-                
-                <div>
-                <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventPurchaseModal">Buy Tickets</button>
-                  <div className="modal fade" id="eventPurchaseModal" role="dialog">
-                    <div className="modal-dialog">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <button type="button" className="close" data-dismiss="modal">&times;</button>
-                          <h4 className="modal-title">Buy Ticket</h4>
-                        </div>
-                        <div className="modal-body">
-                          <EventPurchaseForm user = {this.props.thisUser} event = {this.props.event}  />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                ) : this.props.event.appliedList.includes(this.props.thisUser._id) ? (
-              
-                  <button onClick={waitAlert} className="btn disabled btn-success btn-lg" >Applied!</button>
-                ) : (
-              
-                <div>
-                <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventInterestsModal">Apply</button>
-                  <div className="modal fade" id="eventInterestsModal" role="dialog">
-                    <div className="modal-dialog">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <button type="button" className="close" data-dismiss="modal">&times;</button>
-                          <h4 className="modal-title">Tell us a bit about yourself!</h4>
-                        </div>
-                        <div className="modal-body">
-                          <p><em>A few questions will help us find you the perfect party experience!</em> </p>
-                          <EventInterestForm user = {this.props.thisUser} event = {this.props.event}/>
+          {this.props.event.partner ? (
+            <div> 
+              <a href={this.props.event.partnerLink} target="_blank" className="btn btn-info btn-lg"> Apply </a>
+           </div>
+            ) : (
+            <div className='attend-event-button-area'>
+              <div className='attend-event-button'>
+              <p>${this.props.event.price}</p>
+              {this.props.thisUser ? (
+                  this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
+                  
+                    <button onClick={boughtAlert} className="btn disabled btn-success btn-lg" >Purchased!</button>
+                  ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
+                  
+                  <div>
+                  <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventPurchaseModal">Buy Tickets</button>
+                    <div className="modal fade" id="eventPurchaseModal" role="dialog">
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal">&times;</button>
+                            <h4 className="modal-title">Buy Ticket</h4>
+                          </div>
+                          <div className="modal-body">
+                            <EventPurchaseForm user = {this.props.thisUser} event = {this.props.event}  />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  </div>
-                ) ) : <button onClick={loginAlert} className="btn btn-success btn-lg" >Apply</button> }
+                    </div>
+                  ) : this.props.event.appliedList.includes(this.props.thisUser._id) ? (
+                
+                    <button onClick={waitAlert} className="btn disabled btn-success btn-lg" >Applied!</button>
+                  ) : (
+                
+                  <div>
+                  <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#eventInterestsModal">Apply</button>
+                    <div className="modal fade" id="eventInterestsModal" role="dialog">
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal">&times;</button>
+                            <h4 className="modal-title">Tell us a bit about yourself!</h4>
+                          </div>
+                          <div className="modal-body">
+                            <p><em>A few questions will help us find you the perfect party experience!</em> </p>
+                            <EventInterestForm user = {this.props.thisUser} event = {this.props.event}/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  ) ) : <button onClick={loginAlert} className="btn btn-success btn-lg" >Apply</button> }
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
