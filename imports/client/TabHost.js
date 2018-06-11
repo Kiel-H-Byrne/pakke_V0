@@ -63,7 +63,7 @@ class TabHost extends Component {
           </div>
           ) : (
           <div>
-            <h3>You are currently hosting a few Pakkes:</h3>
+            <h3>Your Pakkes:</h3>
             <div className="scroll-wrapper-x">
             {this.props.eventsFromCollection.map((event) => {
               return <Event event={event} key={event._id} />
@@ -91,16 +91,12 @@ class TabHost extends Component {
   }
 }
 
-export default withTracker(() => {
-  let eventsSub = Meteor.subscribe('events_current');
-  let userSub = Meteor.subscribe('currentUser');
+export default withTracker((user) => {
+  let eventsSub = Meteor.subscribe('events_hosted', user._id);
   return {
-    ready: eventsSub.ready() && userSub.ready(),
-    currentUserId: Meteor.userId(),
-    currentUser: Meteor.user(),
-    allEvents: Events.find({}).fetch(),
+    ready: eventsSub.ready(),
     eventsFromCollection: Events.find({
-      hostId: Meteor.userId()
+      hostId: user._id
     }).fetch(),
   };
 })(TabHost);

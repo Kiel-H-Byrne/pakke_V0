@@ -113,13 +113,13 @@ class PageProfile extends Component {
 
           <div className="tab-content">
             <div id="home" className="tab-pane fade in active">
-              <TabGuest />
+              <TabGuest user={this.props.thisUser} />
             </div>
             <div id="menu1" className="tab-pane fade">
-              <TabHost />
+              <TabHost user={this.props.thisUser}  />
             </div>
             <div id="menu2" className="tab-pane fade">
-              <TabTalent />
+              <TabTalent user={this.props.thisUser}  />
             </div>
           </div>
         </div>

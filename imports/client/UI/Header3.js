@@ -62,7 +62,8 @@ class Header3 extends React.Component {
                 console.log(error);
                 this.props.history.push('/')
             } else {
-                Bert.alert("We don't even KNOW you anymore!", "success")
+                Bert.alert("We don't even KNOW you anymore!", "success");
+                this.props.history.push('/')
             }
         })
     }

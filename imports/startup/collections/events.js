@@ -49,7 +49,7 @@ if (Meteor.isServer) {
     return cursor;
   });
 
-Meteor.publish('events_featured', function (id) {
+  Meteor.publish('events_featured', function (id) {
     let cursor = Events.find({
       "featured": true
     });
@@ -57,15 +57,43 @@ Meteor.publish('events_featured', function (id) {
     return cursor;
   });
 
-  Meteor.publish('event.host', function (id) {
-    //event id = id
-    //find host id , find and return one host document.
+  Meteor.publish('events_hosted', function (userId) {
     let cursor = Events.find({
-      hostId: id
+      hostId: userId
     })
-    // console.log(`-= PUBLISHING: HOST OF [${id}] EVENT =-`);
+    // console.log(`-= PUBLISHING: [${cursor.count()}] HOSTED EVENTS =-`);
     return cursor;
   });
+
+  Meteor.publish('events_entertained', function (userId) {
+    let cursor = Events.find({
+      entertainers: { $in: [userId] }
+    })
+    return cursor;
+  });
+
+
+  Meteor.publish('events_confirmed', function (userId) {
+    let cursor = Events.find({
+      confirmedList: { $in: [userId] }
+    })
+    return cursor;
+  });
+
+  Meteor.publish('events_invited', function (userId) {
+    let cursor = Events.find({
+      invitedList: { $in: [userId] }
+    })
+    return cursor;
+  });
+  
+  Meteor.publish('events_applied', function (userId) {
+    let cursor = Events.find({
+      appliedList: { $in: [userId] }
+    })
+    return cursor;
+  });
+
 
 }
 
