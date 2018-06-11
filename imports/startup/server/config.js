@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-
+ 
 import '../collections/schemas';
 
 //check for settings file
@@ -16,7 +16,7 @@ if (!SOUP) {
   const soupId = Accounts.createUser({
       "username": "PAKKE",
       "email": "noreply@pakke.us",
-      "password": "pakkeP@RTY",
+      "password": "pakkeP@RTY"
   });
 } else {
     // console.log(SOUP);
@@ -58,6 +58,7 @@ Accounts.onCreateUser(function(options, user) {
     myUser.username = fb.name;
     myUser.emails = [{address: fb.email, verified: true}];
     myUser.profile.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=large`;
+    myUser.profile.birthDate = new Date(fb.birthday) || null;
   }
   //CHECK & MERGE GOOGLE INFO
   if (user.services.google) {

@@ -353,7 +353,7 @@ Schema.Profile = new SimpleSchema({
   },
   birthDate: {
       type: Date,
-      label: 'Enter your Age:',
+      label: 'Enter your Birthday:',
       optional: true,
       autoValue: function() {
         // check for two digits, calculate birthdate, save as date format.
