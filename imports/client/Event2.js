@@ -93,7 +93,7 @@ export default class Event2 extends Component {
                 <Link className='event-card-link' to={`/event/${this.props.event._id}`}>
                     <Card style={styles.card}>
 
-                        <CardMedia style={styles.image} image={this.props.event.image}>
+                        <CardMedia style={styles.image} image={this.props.event.image ? this.props.event.image : `""` }>
                             <CardContent >
                                 <Card style={styles.date}>
                                     <Typography style={styles.typo} align={'center'} variant={'display1'} color={'secondary'}> {eventDate.month}</Typography>

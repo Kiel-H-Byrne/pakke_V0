@@ -42,7 +42,8 @@ class AddEventForm extends Component {
     render() {
         const model = Schema.Event.clean({});
         // console.log(model);
-        const omitFields = ["submitted", "hostId", "categories", "appliedList", "invitedList", "confirmedList", "entertainers", "venueId"];
+        const omitFields = ["submitted", "hostId", "categories", "appliedList", "invitedList", "confirmedList", "entertainers", "venueId", "partner", "featured"];
+
         return (
             // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}
             // onSubmitFailure={() => console.log('Promise rejected!')}/>

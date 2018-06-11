@@ -555,7 +555,7 @@ Schema.Event = new SimpleSchema({
     type: String,
     label: 'Event Description',
     optional: true,
-    max: 350
+    max: 550
   },
   price: {
     type: Number,
@@ -644,8 +644,12 @@ Schema.Event = new SimpleSchema({
     }
   },
   partnerLink: {
-    type: SimpleSchema.RegEx.Url,
+    type: String,
     optional: true,
-    label: 'Event Details & Sales'
+    regEx: SimpleSchema.RegEx.Url,
+    label: 'Event Details & Sales',
+    uniforms: {
+      hidden: true
+    }
   }
 });

@@ -16,7 +16,7 @@ class LandingPage extends Component {
                 </div>
 
                 <div className="landingEvents">
-                    <h2>Featured Events</h2>
+                    <h2>Events</h2>
                     <h4 className="">Some of the hottest Pakke parties!</h4>
                     <div className="scroll-wrapper-x">
                         <EventList />

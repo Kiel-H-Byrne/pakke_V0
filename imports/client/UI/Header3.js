@@ -33,7 +33,6 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ChangeHistoryIcon from '@material-ui/icons/ChangeHistory';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 
-
 import AccountsUIWrapper2 from './AccountsUIWrapper2';
 
 
@@ -60,9 +59,10 @@ class Header3 extends React.Component {
     logOut() {
         Meteor.logout(function (error) {
             if (error) {
+                console.log(error);
                 this.props.history.push('/')
             } else {
-                Bert.alert("You Are Now Logged Out", "success")
+                Bert.alert("We don't even KNOW you anymore!", "success")
             }
         })
     }
@@ -106,8 +106,6 @@ class Header3 extends React.Component {
                 borderRadius: '50%',
             }
         };
-
-        const User = Meteor.user()
 
         const { auth, anchorEl } = this.state;
 
@@ -155,7 +153,7 @@ class Header3 extends React.Component {
                         <ListItemText inset disableTypography primary="Events" />
                     </ListItem>
                     <Divider />
-                    {User ? (
+                    {this.props.currentUser ? (
                         <ListItem button onClick={this.logOut}>
                             <ListItemIcon>
                                 <FlightTakeoffIcon />
@@ -185,7 +183,7 @@ class Header3 extends React.Component {
                                 <Link to='/'><img src="/ImageLogoBlack.png" className="icon logo" alt='Home' style={styles.pakkeLogo} /></Link>
                             </Typography>
 
-                            {Meteor.user() ? (
+                            {this.props.currentUser ? (
                                 <div>
                             {/*
                                     <IconButton
@@ -194,8 +192,8 @@ class Header3 extends React.Component {
                                         onClick={this.handleMenu}
                                         color="inherit"
                                     >
-                                        {Meteor.user().profile.avatar ? (
-                                            <img data-toggle="dropdown" className="icon dropdown-toggle" style={styles.avatar} src={Meteor.user().profile.avatar} />
+                                        {this.props.currentUser.profile.avatar ? (
+                                            <img data-toggle="dropdown" className="icon dropdown-toggle" style={styles.avatar} src={this.props.currentUser.profile.avatar} />
                                         ) : (
                                                 <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
                                             )}
@@ -209,8 +207,8 @@ class Header3 extends React.Component {
                                         onClick={this.handleMenu}
                                         style={{borderRadius: "50%"}}
                                     >
-                                        {Meteor.user().profile.avatar ? (
-                                            <img data-toggle="dropdown" className="icon dropdown-toggle" style={styles.avatar} src={Meteor.user().profile.avatar} />
+                                        {this.props.currentUser.profile.avatar ? (
+                                            <img data-toggle="dropdown" className="icon dropdown-toggle" style={styles.avatar} src={this.props.currentUser.profile.avatar} />
                                         ) : (
                                                 <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
                                         )}
@@ -272,9 +270,7 @@ class Header3 extends React.Component {
                         {sideList}
                     </div>
                 </Drawer>
-            </div >
-
-
+            </div>
         );
     }
 }

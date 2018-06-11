@@ -53,7 +53,7 @@ class EventDetails extends Component {
 
     return (
       <div className='event-detail-container'>
-        <img className='event-detail-image' src={this.props.event.image} alt='image' />
+        <img className='event-detail-image' src={this.props.event.image ? this.props.event.image : `""`} alt='Event Preview' />
         <h1>{this.props.event.byline}</h1>
         <p className="lead">{this.props.event.description}</p>
 
@@ -130,9 +130,10 @@ class EventDetails extends Component {
 }
 
 export default withTracker(({ match }) => {
-  let handle = Meteor.subscribe('eventHost', match.params.id);
+
+  let handle = Meteor.subscribe('events_all') && Meteor.subscribe('eventHost', match.params.id);
   let loading = !handle.ready(); 
-  let event = Events.findOne( match.params.id );
+  const event = Events.findOne( match.params.id );
   
   return {
     handle,
