@@ -109,74 +109,11 @@ function HowItWorks(props) {
 
                             <Typography align={'center'} style={styles.box2} variant='headline'>Purchase your ticket to receive the event location and other important party details.</Typography>
                         </Grid>
-                    {/*
-                        <Grid item style={styles.box0}>
-                            <Grid container justify={'center'}>
-                                <AllInclusive style={styles.icon} />
-                            </Grid>
-
-                            <Typography align={'center'} style={styles.box1} variant="display1">4. Enjoy Yourself!</Typography>
-                            <hr style={styles.divider} />
-
-                            <Typography align={'center'} style={styles.box2} variant='headline'>Get out and there and try something new! <br />Network. Socialize. Play the wall... Just Have Fun!</Typography>
-                        </Grid>
-                    */}
+                
                     </Grid>
                 </Paper>
             </Grid>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-        // <div>
-        //     <Grid container style={styles.wrapper}>
-        //         <Grid container justify={'center'} >
-        //             <Grid item>
-        //                 <Typography variant='headline' align={'center'} style={styles.box1}>How It Works</Typography>
-        //             </Grid>
-        //         </Grid>
-
-        //         <Grid container spacing={16} justify={'center'} alignItems={'center'}>
-        //             <Grid item>
-        //                 <Paper style={{ width: 375 }}>
-        //                     <Grid container justify={'center'}>
-        //                         <Launch style={styles.icon} />
-        //                     </Grid>
-        //                     <Typography align={'center'} style={styles.box1} variant="title">1. Apply</Typography>
-        //                     <Typography align={'center'} style={styles.box2} variant={'subheading'}>A Pakke event is a highly curated gathering. Each event is specially tailored for people to connect and discover all of the unique and special people they may not otherwise get a chance to have a conversation with. We encourage you to socialize in uniques spaces. These spaces are meant to help people connect and socialize in ways that simply aren’t possible at bars and other traditional spaces.</Typography>
-        //                 </Paper>
-        //             </Grid>
-        //             <Grid item justify={'center'}>
-        //                 <Paper style={{ width: 375 }}>
-        //                     <Grid container justify={'center'}>
-        //                         <People style={styles.icon} />
-        //                     </Grid>
-
-        //                     <Typography align={'center'} style={styles.box1} variant="title">2. Get Selected</Typography>
-        //                     <Typography align={'center'} style={styles.box2} variant={'subheading'}>A Pakke event is a highly curated gathering. Each event is specially tailored for people to connect and discover all of the unique and special people they may not otherwise get a chance to have a conversation with. We encourage you to socialize in uniques spaces. These spaces are meant to help people connect and socialize in ways that simply aren’t possible at bars and other traditional spaces.</Typography>
-        //                 </Paper>
-        //             </Grid>
-        //             <Grid item>
-        //                 <Paper style={{ width: 375 }}>
-        //                     <Grid container justify={'center'}>
-        //                         <Theaters style={styles.icon} />
-        //                     </Grid>
-
-        //                     <Typography align={'center'} style={styles.box1} variant="title">3. Buy Ticket</Typography>
-        //                     <Typography align={'center'} style={styles.box2} variant={'subheading'}>A Pakke event is a highly curated gathering. Each event is specially tailored for people to connect and discover all of the unique and special people they may not otherwise get a chance to have a conversation with. We encourage you to socialize in uniques spaces. These spaces are meant to help people connect and socialize in ways that simply aren’t possible at bars and other traditional spaces.</Typography>
-        //                 </Paper>
-        //             </Grid>
-        //         </Grid>
-        //     </Grid>
-        // </div > 
 
 
 
