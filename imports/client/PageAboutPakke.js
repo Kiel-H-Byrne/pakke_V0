@@ -35,6 +35,10 @@ function PageAboutPakke(props) {
 
             height: '100%',
         },
+        wrapper1: {
+            marginTop: theme.spacing.unit * 8,
+            padding: `${theme.spacing.unit}px ${theme.spacing.unit * 20}px`,
+        },
         paper: {
             // background: theme.palette.primary.light,
             width: '100%',
@@ -79,7 +83,7 @@ function PageAboutPakke(props) {
     return (
 
         <div id="PageAboutPakke">
-            <Grid container justify={'center'} alignItems={'center'} style={styles.wrapper}>
+            <Grid container justify={'center'} alignItems={'center'} style={styles.wrapper1}>
 
                 <Grid item md style={{ width: '100%', }}>
                     <Grid container justify={'center'} style={{ background: 'theme.palette.text.primary.main' }}>
