@@ -121,7 +121,7 @@ class MyMap extends Component {
             GEO.geocode(
               { address: addressString },
               (res,err) => {
-                // console.log(res,err);
+                console.log(res,err);
                 latLngObj = res[0].geometry.location;
 
                 let marker = new google.maps.Marker({
