@@ -62,7 +62,7 @@
     "typeface-roboto": "0.0.54",
     "uniforms": "^1.25.0-rc.2",
     "uniforms-material": "^1.25.0-rc.2",
-    "uniforms-unstyled": "^1.23.2",
+    "uniforms-unstyled": "^1.2-rc.2",
     "zoho": "^1.0.0"
   }
 }
