@@ -21,7 +21,8 @@
     "babel-preset-react": "^6.24.1",
     "eslint": "^4.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint-plugin-import": "^2.7.0",
+    "underscore": "^1.9.1"
   },
   "repository": {
     "type": "git",
@@ -59,9 +60,8 @@
     "simpl-schema": "^1.5.0",
     "stripe": "^5.8.0",
     "typeface-roboto": "0.0.54",
-    "uniforms": "^1.24.2",
-    "uniforms-bootstrap3": "^1.23.2",
-    "uniforms-material": "^1.24.3",
+    "uniforms": "^1.25.0-rc.2",
+    "uniforms-material": "^1.25.0-rc.2",
     "uniforms-unstyled": "^1.23.2",
     "zoho": "^1.0.0"
   }

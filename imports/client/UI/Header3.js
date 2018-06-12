@@ -33,7 +33,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ChangeHistoryIcon from '@material-ui/icons/ChangeHistory';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 
-import AccountsUIWrapper2 from './AccountsUIWrapper2';
+// import AccountsUIWrapper2 from './AccountsUIWrapper2';
 
 
 class Header3 extends React.Component {
@@ -251,7 +251,7 @@ class Header3 extends React.Component {
                             )
                                 : (
                                     <div>
-                                        <AccountsUIWrapper2 />
+                                        {/* <AccountsUIWrapper2 /> */}
                                     </div>
 
                                 )}

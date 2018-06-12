@@ -101,17 +101,17 @@ Schema.Venue = new SimpleSchema({
   nickname: {
     type: String,
     unique: true,
-    label: 'A Nickname'
+    label: 'A nickname for this place.'
   },
   description: {
     type: String,
-    label: "A brief description:",
+    label: "A brief description of the venue:",
     max: 240
   },
   address: {
     type: Schema.Address,
     unique: true,
-    label: "Where is it?"
+    label: "Where is this place?"
   },
   venueType: { 
     type: String,

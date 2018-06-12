@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Session } from 'meteor/session';
+import { _ } from 'underscore';
+
 // import GoogleMap from './GoogleMap';
 import GoogleMapContainer from './MapGoogle';
 

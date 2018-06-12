@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import AutoFields  from 'uniforms-bootstrap3/AutoFields';
-import AutoForm    from 'uniforms-bootstrap3/AutoForm';
-import SubmitField from 'uniforms-bootstrap3/SubmitField';
-import TextField   from 'uniforms-bootstrap3/TextField';
-import ErrorsField from 'uniforms-bootstrap3/ErrorsField';
+
+import AutoFields  from 'uniforms-material/AutoFields';
+import AutoForm    from 'uniforms-material/AutoForm';
+import SubmitField from 'uniforms-material/SubmitField';
+import ErrorsField from 'uniforms-material/ErrorsField';
+
+import VenuesForm from './VenuesForm';
 
 import '../../startup/collections/schemas';
 
@@ -47,6 +49,7 @@ class AddEventForm extends Component {
         return (
             // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}
             // onSubmitFailure={() => console.log('Promise rejected!')}/>
+        <div>
         <AutoForm  
         schema={Schema.Event} 
         model={model} 
@@ -58,6 +61,8 @@ class AddEventForm extends Component {
             <SubmitField value="Submit"  />
             <ErrorsField />
         </AutoForm>
+        
+        </div>
         );
 }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { _ } from 'underscore';
 
 class IndividualFile extends Component {
   constructor(props) {

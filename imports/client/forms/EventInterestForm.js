@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { _ } from 'underscore';
+
 import AutoFields  from 'uniforms-bootstrap3/AutoFields';
 import AutoForm    from 'uniforms-bootstrap3/AutoForm';
 import SubmitField from 'uniforms-bootstrap3/SubmitField';

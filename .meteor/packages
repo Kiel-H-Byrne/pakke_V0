@@ -44,7 +44,7 @@ gadicc:blaze-react-component
 useraccounts:bootstrap
 aldeed:schema-index@3.0.0
 ostrio:files
-underscore
 aldeed:collection2@3.0.0
 aldeed:schema-deny
 mdg:seo
+std:accounts-ui
