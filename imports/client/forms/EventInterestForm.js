@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'underscore';
 
-import AutoFields  from 'uniforms-bootstrap3/AutoFields';
-import AutoForm    from 'uniforms-bootstrap3/AutoForm';
-import SubmitField from 'uniforms-bootstrap3/SubmitField';
-import TextField   from 'uniforms-bootstrap3/TextField';
-import ErrorsField from 'uniforms-bootstrap3/ErrorsField';
+import AutoFields  from 'uniforms-material/AutoFields';
+import AutoForm    from 'uniforms-material/AutoForm';
+import SubmitField from 'uniforms-material/SubmitField';
+import TextField   from 'uniforms-material/TextField';
+import ErrorsField from 'uniforms-material/ErrorsField';
 import eventAppliedTemplate from '../email/eventAppliedTemplate'
 
 import '../../startup/collections/schemas';

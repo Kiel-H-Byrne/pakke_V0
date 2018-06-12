@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AutoForm from 'uniforms-bootstrap3/AutoForm';
+import AutoForm from 'uniforms-material/AutoForm';
 
 // Choose your theme
 // import 'imports/startup/collections/schemas';

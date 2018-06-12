@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import AddVenueForm from './forms/AddVenueForm';
 import AddEventForm from './forms/AddEventForm';
 import Events from '../startup/collections/events';
-import Event from './Event';
+import Event2 from './Event2';
 
 const HostModal = (props) => {
   return (
@@ -46,7 +46,7 @@ class TabHost extends Component {
             <h3>Your Pakkes:</h3>
             <div className="scroll-wrapper-x">
             {this.props.eventsFromCollection.map((event) => {
-              return <Event event={event} key={event._id} />
+              return <Event2 event={event} key={event._id} />
             })}
             </div>
             <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Form another Pakke!</button>

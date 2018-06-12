@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
 
 import Events from '../startup/collections/events';
-import Event from './Event';
+import Event2 from './Event2';
 
 
 
@@ -18,7 +18,7 @@ class TabGuest extends Component {
             <h3>Events I'm Attending</h3>
             <div className="scroll-wrapper-x">
               {this.props.eventsFromCollection.map((event) => {
-                return <Event event={event} key={event._id} />
+                return <Event2 event={event} key={event._id} />
               })}
             </div>
           </div>
