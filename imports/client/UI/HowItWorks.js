@@ -36,7 +36,7 @@ function HowItWorks(props) {
         },
         paper: {
             // background: theme.palette.primary.light,
-            width: '100%',
+            // width: '100%',
         },
         box0: {
             width: 375,

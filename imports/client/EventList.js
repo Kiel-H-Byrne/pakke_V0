@@ -27,7 +27,8 @@ class EventList extends Component {
                 margin='2px' />
                 )
           } else {
-            return <Event2 event={event} key={event._id} />
+
+            return <Event2 key={event._id} event={event} />
           }
         })
       )

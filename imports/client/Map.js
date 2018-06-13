@@ -122,7 +122,7 @@ class MyMap extends Component {
               { address: addressString },
               (res,err) => {
                 // console.log(res,err);
-                latLngObj = res[0].geometry.location;
+                const latLngObj = res[0].geometry.location;
 
                 let marker = new google.maps.Marker({
                   animation: google.maps.Animation.DROP,
