@@ -1,4 +1,4 @@
-import { Accounts } from 'meteor/accounts-base';
+import { Accounts } from 'meteor/std:accounts-ui'
 
 Meteor.startup(() => {
     //=====  HTML Attributes for Facebook opengraph api =====
@@ -39,8 +39,7 @@ Accounts.ui.config({
   },
   requestOfflineToken: {
     google: true
-  },
-  passwordSignupFields: 'EMAIL_ONLY'
+  }
 });
 
 Accounts.onLoginFailure(function(error) {

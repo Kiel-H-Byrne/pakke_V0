@@ -63,6 +63,7 @@
     // }
  
   }
+  
 
   // .dropdown .dropdown-menu {
   //     -webkit-transition: all 0.5s;
@@ -82,3 +83,15 @@
   //     opacity: .96;
   // }
 }
+
+.accounts-ui {
+  padding: 1rem;
+    .fields, .buttons, .password-or-service {
+      display: none
+    }
+    .social-buttons {
+      button {
+        margin: 3px
+      }
+    }
+  }

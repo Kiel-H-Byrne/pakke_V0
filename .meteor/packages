@@ -46,4 +46,4 @@ ostrio:files
 aldeed:collection2@3.0.0
 aldeed:schema-deny
 mdg:seo
-std:accounts-ui
+std:accounts-ui@1.3.2

@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Accounts } from 'meteor/std:accounts-ui';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
-import { withTracker } from 'meteor/react-meteor-data';
 
 import { withStyles } from '@material-ui/core/styles';
-
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -59,8 +59,8 @@ class Header3 extends React.Component {
     logOut() {
         Meteor.logout(function (error) {
             if (error) {
-                console.log(error);
-                this.props.history.push('/')
+                console.log(error, this);
+                // this.props.history.push('/')
             } else {
                 Bert.alert("We don't even KNOW you anymore!", "success");
                 this.props.history.push('/')
@@ -252,6 +252,45 @@ class Header3 extends React.Component {
                                 : (
                                     <div>
                                         {/* <AccountsUIWrapper2 /> */}
+                                    { /* <ButtonBase
+                                    focusRipple
+                                    aria-owns={open2 ? 'menu-appbar' : null}
+                                    aria-haspopup="true"
+                                    onClick={this.handleMenu}
+                                    style={{borderRadius: "50%"}}
+                                    >
+                                        <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
+                                    </ButtonBase> */ }
+                                    <Button 
+                                    focusRipple
+                                    aria-owns={open2 ? 'menu-appbar' : null}
+                                    aria-haspopup="true"
+                                    onClick={this.handleMenu}
+                                    style={{borderRadius: "50%"}}
+                                    >
+                                    Sign In 
+                                    </Button>
+                                        <Menu 
+                                        id="menu-appbar"
+                                        anchorEl={anchorEl}
+                                        anchorOrigin={{
+                                          vertical: 'bottom',
+                                          horizontal: 'right',
+                                        }}
+                                        getContentAnchorEl = {null}
+                                        transformOrigin={{
+                                          vertical: 'top',
+                                          horizontal: 'right',
+                                        }}
+                                        open={Boolean(anchorEl)}
+                                        onClose={this.handleClose}
+
+                                    >
+                                            <MenuItem
+                                            component={Accounts.ui.LoginForm}
+                                            >
+                                            </MenuItem>
+                                        </Menu>
                                     </div>
 
                                 )}
