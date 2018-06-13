@@ -50,7 +50,7 @@ export default class Event2 extends Component {
                 maxWidth: 350,
                 minWidth: 350,
                 height: '100%',
-                marginBottom: '1rem'
+                margin: '2rem'
                 // display: 'flex',
             },
             image: {
