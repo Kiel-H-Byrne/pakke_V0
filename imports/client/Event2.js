@@ -28,9 +28,6 @@ export default class Event2 extends Component {
             confirmedCount = this.props.event.confirmedList.length;
         }
         let weight = ((confirmedCount / this.props.event.size) * 100).toFixed();
-        const style = {
-            width: `${weight}%`
-        };
 
         let remainingTickets = this.props.event.size - confirmedCount;
         // if (remainingTickets === 0) {this.setState({soldOut: true})}
@@ -53,6 +50,7 @@ export default class Event2 extends Component {
                 maxWidth: 350,
                 minWidth: 350,
                 height: '100%',
+                marginBottom: '1rem'
                 // display: 'flex',
             },
             image: {
