@@ -243,7 +243,7 @@ if (Meteor.isServer) {
       return false;
     },
     remove: function() {
-      return true;
+      return !!Meteor.user();
     }
   });
 
