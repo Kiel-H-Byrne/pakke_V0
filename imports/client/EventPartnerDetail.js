@@ -7,7 +7,7 @@ import { BarLoader } from 'react-spinners';
 import EventInterestForm from './forms/EventInterestForm'
 import EventPurchaseForm from './forms/EventPurchaseForm'
 
-class EventDetails extends Component {
+class EventDetailsComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -129,7 +129,7 @@ class EventDetails extends Component {
   }
 }
 
-export default withTracker(({ match }) => {
+export default EventDetails = withTracker(({ match }) => {
   let handle = Meteor.subscribe('eventHost', match.params.id);
   let loading = !handle.ready(); 
   let event = Events.findOne( match.params.id );
@@ -140,6 +140,6 @@ export default withTracker(({ match }) => {
     event, 
     thisUser: Meteor.user()
   }
-})(EventDetails);
+})(EventDetailsComponent);
 
 

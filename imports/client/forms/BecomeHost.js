@@ -4,13 +4,14 @@ import { withTracker } from 'meteor/react-meteor-data';
 import AddVenueForm from '../forms/AddVenueForm';
 import AddEventForm from '../forms/AddEventForm';
 
-class BecomeHost extends Component {
+class BecomeHostComponent extends Component {
   constructor(props) {
     super(props);
   }
   render() {
     const loginAlert = () => Bert.alert("Please Log In First.", "info", "growl-top-right");
-    const isHost = Roles.userIsInRole(this.props.thisUser._id, ["host"]);
+    let isHost;
+    this.props.thisUser ? isHost = Roles.userIsInRole(this.props.thisUser._id, ["host"]) : false;
 
     return (
       <div className="container-host">
@@ -25,8 +26,7 @@ class BecomeHost extends Component {
           <div className='host-button'>
             <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Form A Pakke!</button>
             <div className="modal fade" id="hostProfileModal" role="dialog">
-              <div className="modal
-              -dialog">
+              <div className="modal-dialog">
                 <div className="modal-content">
                   <div className="modal-header">
                     <button type="button" className="close" data-dismiss="modal">&times;</button>
@@ -49,8 +49,8 @@ class BecomeHost extends Component {
   }
 }
 
-export default withTracker(() => {
+export default BecomeHost = withTracker(() => {
   return {
     thisUser: Meteor.user()
   }
-})(BecomeHost);
+})(BecomeHostComponent);

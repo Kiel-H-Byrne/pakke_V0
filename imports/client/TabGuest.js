@@ -3,11 +3,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
 
 import Events from '../startup/collections/events';
-import Event2 from './Event2';
+import Event from './Event2';
 
 
 
-class TabGuest extends Component {
+class TabGuestComponent extends Component {
 
   render() {
 
@@ -18,7 +18,7 @@ class TabGuest extends Component {
             <h3>Events I'm Attending</h3>
             <div className="scroll-wrapper-x">
               {this.props.eventsFromCollection.map((event) => {
-                return <Event2 event={event} key={event._id} />
+                return <Event event={event} key={event._id} />
               })}
             </div>
           </div>
@@ -36,7 +36,7 @@ class TabGuest extends Component {
 }
 
 
-export default withTracker(() => {
+export default TabGuest = withTracker(() => {
   let eventsSub = Meteor.subscribe('events_current');
   let userSub = Meteor.subscribe('currentUser');
   return {
@@ -48,5 +48,5 @@ export default withTracker(() => {
       appliedList: { $in: [Meteor.userId()] }
     }).fetch(),
   };
-})(TabGuest);
+})(TabGuestComponent);
 

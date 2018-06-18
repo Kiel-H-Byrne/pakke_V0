@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 import AddTalentForm from './forms/AddTalentForm';
 import Events from '../startup/collections/events';
-import Event2 from './Event2';
+import Event from './Event2';
 
-class TabHost extends Component {
+class TabHostComponent extends Component {
     render() {
     const isTalent = Roles.userIsInRole(Meteor.userId(), ["talent"])
 
@@ -66,7 +66,7 @@ class TabHost extends Component {
               <h3>Your Entertaining these Pakkes:</h3>
               <div className="scroll-wrapper-x">
                 {this.props.eventsFromCollection.map((event) => {
-                return <Event2 event={event} key={event._id} />
+                return <Event event={event} key={event._id} />
                 })}
               </div>
               <div>
@@ -87,7 +87,7 @@ class TabHost extends Component {
 }
 
 
-export default withTracker(() => {
+export default TabHost = withTracker(() => {
   let eventsSub = Meteor.subscribe('events_current');
   let userSub = Meteor.subscribe('currentUser');
   return {
@@ -99,4 +99,4 @@ export default withTracker(() => {
       entertainers: { $in: [Meteor.userId()] }
     }).fetch(),
   };
-})(TabHost);
+})(TabHostComponent);

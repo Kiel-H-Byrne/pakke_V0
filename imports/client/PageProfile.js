@@ -14,8 +14,9 @@ import TabGuest from './TabGuest';
 import TabHost from './TabHost';
 import TabTalent from './TabTalent';
 import LandingPage2 from './UI/PageLanding2';
+import PageError from './PageError';
 
-class PageProfile extends Component {
+class PageProfileComponent extends Component {
   state = {}
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -56,6 +57,9 @@ class PageProfile extends Component {
       )
     }
     // console.log(this);
+    if (!this.props.thisUser) {
+      return (<PageError />)
+    }
     const model = this.props.thisUser.profile;
 
     const omitFields = ["talents.$.talentId", "venue.$.venueId"];
@@ -128,7 +132,7 @@ class PageProfile extends Component {
   }
 
 
-export default withTracker(() => {
+export default PageProfile = withTracker(() => {
   const handle = Meteor.subscribe('currentUser');
   const loading = !handle.ready();
   const thisUser = Meteor.user();
@@ -138,4 +142,4 @@ export default withTracker(() => {
     loading,
     thisUser
   };
-})(PageProfile);
+})(PageProfileComponent);

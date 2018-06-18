@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Accounts } from 'meteor/std:accounts-ui';
@@ -36,7 +36,7 @@ import AccessibilityIcon from '@material-ui/icons/Accessibility';
 // import AccountsUIWrapper2 from './AccountsUIWrapper2';
 
 
-class Header3 extends React.Component {
+class HeaderComponent extends Component {
 
     state = {
         left: false,
@@ -266,7 +266,7 @@ class Header3 extends React.Component {
                                     aria-owns={open2 ? 'menu-appbar' : null}
                                     aria-haspopup="true"
                                     onClick={this.handleMenu}
-                                    style={{borderRadius: "50%"}}
+                                    style={{borderRadius: 5}}
                                     >
                                     Sign In 
                                     </Button>
@@ -316,8 +316,8 @@ class Header3 extends React.Component {
 }
 
 
-export default withTracker(() => {
+export default Header = withTracker(() => {
     return {
         currentUser: Meteor.user(),
     };
-})(Header3)
+})(HeaderComponent)

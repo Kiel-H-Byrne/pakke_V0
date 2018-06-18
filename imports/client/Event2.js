@@ -13,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 
 
 
-export default class Event2 extends Component {
+export default class Event extends Component {
     constructor(props) {
         super(props)
         this.state = {

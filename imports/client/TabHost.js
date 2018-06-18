@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import AddVenueForm from './forms/AddVenueForm';
 import AddEventForm from './forms/AddEventForm';
 import Events from '../startup/collections/events';
-import Event2 from './Event2';
+import Event from './Event2';
 
 const HostModal = (props) => {
   return (
@@ -25,7 +25,7 @@ const HostModal = (props) => {
   )
 };
 
-class TabHost extends Component {
+class TabHostComponent extends Component {
   render() {
     const isHost = Roles.userIsInRole(Meteor.userId(), ["host"]);
 
@@ -46,7 +46,7 @@ class TabHost extends Component {
             <h3>Your Pakkes:</h3>
             <div className="scroll-wrapper-x">
             {this.props.eventsFromCollection.map((event) => {
-              return <Event2 event={event} key={event._id} />
+              return <Event event={event} key={event._id} />
             })}
             </div>
             <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Form another Pakke!</button>
@@ -59,7 +59,7 @@ class TabHost extends Component {
   }
 }
 
-export default withTracker(({user}) => {
+export default TabHost = withTracker(({user}) => {
   let eventsSub = Meteor.subscribe('events_hosted', user._id)
 
   return {
@@ -68,4 +68,4 @@ export default withTracker(({user}) => {
       hostId: user._id
     }).fetch()
   };
-})(TabHost);
+})(TabHostComponent);

@@ -15,7 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
 
 import Uploads from '/imports/startup/collections/uploads';
-import IndividualFile from './FileDetails.js';
+import IndividualFile from '/imports/client/forms/FileDetails.js';
 
 
 class FileUploadComponent extends Component {
@@ -60,6 +60,7 @@ class FileUploadComponent extends Component {
 
             // Remove the filename from the upload box
             self.refs['fileinput'].value = '';
+            console.log(self)
 
             // Reset our state for the next file
             self.setState({
@@ -117,7 +118,6 @@ class FileUploadComponent extends Component {
   render() {
     
       let fileCursors = this.props.files;
-
       // Run through each file that the user has stored
       // (make sure the subscription only sends files owned by this user)
       let display = fileCursors.map((aFile, key) => {
@@ -160,7 +160,7 @@ class FileUploadComponent extends Component {
 // This is the HOC - included in this file just for convenience, but usually kept
 // in a separate file to provide separation of concerns.
 //
-export default withTracker( ( props ) => {
+export default FileUpload = withTracker( ( props ) => {
   const filesHandle = Meteor.subscribe('uploads');
   const docsReadyYet = filesHandle.ready();
   const files = Uploads.find({}, {sort: {name: 1}}).fetch();

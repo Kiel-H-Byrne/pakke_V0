@@ -191,7 +191,9 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
 
 if (Meteor.isServer) {
   Meteor.publish('uploads', function () {
-    return Uploads.collection.find({}, {
+    return Uploads.collection.find({
+      userId: Meteor.userId()
+    }, {
       fields: {
         name: 1,
         size: 1,

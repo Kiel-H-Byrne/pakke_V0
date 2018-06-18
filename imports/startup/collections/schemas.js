@@ -5,17 +5,12 @@ import SimpleSchema from 'simpl-schema';
 import uniforms from 'uniforms';
 import filterDOMProps from 'uniforms/filterDOMProps';
 
-// import ImageUpload from '../../client/ImageUpload';
+if (Meteor.isClient) {
+import FileUpload from '/imports/client/forms/FileUpload.js';
+}
 
 Schema = {};
 
-class ImageUploadComponent extends Component {
-  render() {
-    return (
-      <div><input type="file" /></div>
-    );
-  }
-};
 
 filterDOMProps.register('unique');
 
@@ -137,7 +132,7 @@ Schema.Venue = new SimpleSchema({
   },
   'images.$': {
     type: Object,
-    uniforms: ImageUploadComponent
+    uniforms: Meteor.isClient ? FileUpload : null
   },
   // 'images.$.url': {
   //   type: String
@@ -362,7 +357,7 @@ Schema.Profile = new SimpleSchema({
   avatar: {
     type: String,
     optional: true,
-    // uniforms: ImageUploadComponent
+    uniforms: Meteor.isClient ? FileUpload : null
   },
   bio: {
     type: String,
@@ -548,7 +543,7 @@ Schema.Event = new SimpleSchema({
   image: {
     type: String,
     optional: true,
-    // uniforms: ImageUploadComponent,
+    uniforms: (Meteor.isClient ? FileUpload : null),
     label: 'Event Preview Image'
   },
   description: {
