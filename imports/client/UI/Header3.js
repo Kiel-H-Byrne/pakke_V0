@@ -105,6 +105,11 @@ class HeaderComponent extends Component {
                 margin: '.5rem .5rem',
                 height: '7rem',
                 borderRadius: '50%',
+            },
+            button: {
+                borderRadius: 5, 
+                backgroundColor: '#226199', 
+                color: 'white' 
             }
         };
 
@@ -266,7 +271,7 @@ class HeaderComponent extends Component {
                                     aria-owns={open2 ? 'menu-appbar' : null}
                                     aria-haspopup="true"
                                     onClick={this.handleMenu}
-                                    style={{borderRadius: 5}}
+                                    style={styles.button}
                                     >
                                     Sign In 
                                     </Button>

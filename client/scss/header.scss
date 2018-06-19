@@ -85,8 +85,10 @@
 }
 
 .accounts-ui {
-  padding: 1rem;
-    .fields, .buttons, .password-or-service {
+  padding: .5rem;
+  border-color: #225199;
+
+    .fields, .buttons, .password-or-service, .or-sep {
       display: none
     }
     .social-buttons {
