@@ -52,7 +52,7 @@ class IndividualFile extends Component {
     return (
     <div>
       <Card className={classes.card}>
-        {this.props.fileExt == "jpg" ? (
+        {this.props.fileExt == "jpg" || "png" || "gif" ? (
           <CardMedia 
           className={classes.media}
           image={this.props.fileUrl}

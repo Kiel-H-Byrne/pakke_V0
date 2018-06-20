@@ -25,7 +25,8 @@ class FileUploadComponent extends Component {
     this.state = {
       uploading: [],
       progress: 0,
-      inProgress: false
+      inProgress: false,
+      file: {}
     };
 
     this.uploadIt = this.uploadIt.bind(this);
@@ -40,62 +41,58 @@ class FileUploadComponent extends Component {
       // We upload only one file, in case
       // there was multiple files selected
       let file = e.currentTarget.files[0];
-
-      if (file) {
+      // console.log(file);
         
-        let uploadInstance = Uploads.insert({
-          file: file,
-          meta: {
-            locator: self.props.fileLocator,
-            userId: Meteor.userId() // Optional, used to check on server for file tampering
-          },
-          streams: 'dynamic',
-          chunkSize: 'dynamic',
-          allowWebWorkers: true,
-          onStart: () =>  {
-            // console.log('Starting');
-          },
-          onUploaded: (error, fileRef) => {
-            // console.log('uploaded: ', fileRef);
+      let uploadInstance = Uploads.insert({
+        file: file,
+        meta: {
+          locator: self.props.fileLocator,
+          userId: Meteor.userId() // Optional, used to check on server for file tampering
+        },
+        streams: 'dynamic',
+        chunkSize: 'dynamic',
+        onStart: () =>  {
+          // console.log('Starting');
+        },
+        onUploaded: (error, fileRef) => {
+          // console.log('uploaded: ', fileRef);
 
-            // Remove the filename from the upload box
-            self.refs['fileinput'].value = '';
-            console.log(self)
+          // Remove the filename from the upload box
+          self.refs['fileinput'].value = '';
+          // console.log(self)
 
-            // Reset our state for the next file
-            self.setState({
-              uploading: [],
-              progress: 0,
-              inProgress: false
-            });
-          },
-          onError: (error, fileData) => {
-            console.warn('Error during upload: ' + error)
-          },
-          onProgress: (progress, fileData) => {
-            console.log(`Upload Percentage: ${progress}%`)
-            // Update our progress bar
-            self.setState({
-              progress: progress
-            });
-          }
-        }, false );
+          // Reset our state for the next file
+          self.setState({
+            file: file,
+            uploading: [],
+            progress: 0,
+            inProgress: false
+          });
+        },
+        onError: (error, fileData) => {
+          console.warn('Error during upload: ' + error)
+        },
+        onProgress: (progress, fileData) => {
+          console.log(`Upload Percentage: ${progress}%`)
+          // Update our progress bar
+          self.setState({
+            progress: progress
+          });
+        }
+      }, false );
 
-        uploadInstance.start()
-        
-        self.setState({
-          uploading: uploadInstance, // Keep track of this instance to use below
-          inProgress: true // Show the progress bar now
-        });
-        
-
-      }
+      uploadInstance.start()
+      
+      self.setState({
+        uploading: uploadInstance, // Keep track of this instance to use below
+        inProgress: true // Show the progress bar now
+      });
     }
   }
 
   // This is our progress bar, bootstrap styled
   // Remove this function if not needed
-  showUploads() {
+  showProgress() {
     // console.log('**********************************', this.state.uploading);
 
     if (!_.isEmpty(this.state.uploading)) {
@@ -120,7 +117,7 @@ class FileUploadComponent extends Component {
       let fileCursors = this.props.files;
       // Run through each file that the user has stored
       // (make sure the subscription only sends files owned by this user)
-      let display = fileCursors.map((aFile, key) => {
+      let preview = fileCursors.map((aFile, key) => {
         // console.log('A file: ', aFile)
         let link = Uploads.findOne({_id: aFile._id}).link();  //The "view/download" link
         // console.log(link);
@@ -139,17 +136,16 @@ class FileUploadComponent extends Component {
       return (
       <Grid container direction="column">
         <Grid item xs={12}>
-            <p>Upload New File:</p>
             <Input type="file" id="fileinput" size="large" color="secondary"  disabled={this.state.inProgress} ref="fileinput" onChange={this.uploadIt}/>
         </Grid>
 
         <Grid item xs={12} className="">
-            {this.showUploads()}
+            {this.showProgress()}
         </Grid>
 
         <Grid item xs={12}>
           <Grid container direction="row">
-            {display}
+            {preview}
           </Grid>
         </Grid>
       </Grid>

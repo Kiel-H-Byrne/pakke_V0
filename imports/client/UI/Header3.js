@@ -63,7 +63,8 @@ class HeaderComponent extends Component {
                 // this.props.history.push('/')
             } else {
                 Bert.alert("We don't even KNOW you anymore!", "success");
-                this.props.history.push('/')
+                
+                // this.props.history.push('/')
             }
         })
     }
