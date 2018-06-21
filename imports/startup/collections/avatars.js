@@ -29,10 +29,10 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
   });
 
   // Declare the Meteor file collection on the Server
-  Uploads = new FilesCollection({
+  Avatars = new FilesCollection({
     debug: false, // Change to `true` for debugging
-    storagePath: 'assets/app/uploads/uploadedFiles',
-    collectionName: 'uploads',
+    storagePath: 'assets/app/uploads/avatars',
+    collectionName: 'avatars',
     // Disallow Client to execute remove, use the Meteor.method
     allowClientCode: false,
     onBeforeUpload() {
@@ -48,7 +48,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
       _.each(fileRef.versions, (vRef, version) => {
         // We use Random.id() instead of real file's _id
         // to secure files from reverse engineering on the AWS client
-        const filePath = `uploads/${(Random.id())}-${version}.${fileRef.extension}`;
+        const filePath = `avatars/${(Random.id())}-${version}.${fileRef.extension}`;
         // const filePath = `${module}/${id}/${Random.id()}-${version}.${fileRef.extension}`
         //where module is event, venue, avatar & id  = eventId, venueId, userId
         
@@ -92,7 +92,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
 
         let url = `https://s3.us-east-2.amazonaws.com/pakke-images/${filePath}`;
         console.log(url)
-        //   ... /uploads/vKhgc74cjEtc3y2P5-original.jpg
+        //   ... /avatars/vKhgc74cjEtc3y2P5-original.jpg
       });
     },
 
@@ -165,8 +165,8 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
   });
 
   // Intercept FilesCollection's remove method to remove file from AWS:S3
-  const _origRemove = Uploads.remove;
-  Uploads.remove = function (search) {
+  const _origRemove = Avatars.remove;
+  Avatars.remove = function (search) {
     const cursor = this.collection.find(search);
     cursor.forEach((fileRef) => {
       _.each(fileRef.versions, (vRef) => {
@@ -190,14 +190,15 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
     _origRemove.call(this, search);
   };
 
-  export default Uploads;
+  export default Avatars;
+
 } else {
   throw new Meteor.Error(401, 'Missing Meteor file settings');
 }
 
 if (Meteor.isServer) {
-  Meteor.publish('uploads', function () {
-    return Uploads.collection.find({
+  Meteor.publish('avatars', function () {
+    return Avatars.collection.find({
       userId: Meteor.userId()
     }, {
       fields: {
@@ -216,17 +217,17 @@ if (Meteor.isServer) {
    * Deny all
    * @see http://docs.meteor.com/#/full/deny
    */
-  // Uploads.denyClient();
+  // Avatars.denyClient();
 
   /* Allow all
    * @see http://docs.meteor.com/#/full/allow
    */
-  Uploads.allowClient();
+  Avatars.allowClient();
 
   /* Deny per action
    * @see http://docs.meteor.com/#/full/deny
    */
-  // Uploads.deny({
+  // Avatars.deny({
   //   insert: function() {
   //     return false;
   //   },
@@ -241,7 +242,7 @@ if (Meteor.isServer) {
   /* Allow per action
    * @see http://docs.meteor.com/#/full/allow
    */
-  Uploads.allow({
+  Avatars.allow({
     insert: function() {
       return true;
     },

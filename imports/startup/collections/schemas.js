@@ -357,6 +357,7 @@ Schema.Profile = new SimpleSchema({
   avatar: {
     type: String,
     optional: true,
+    label: 'Change your Avatar',
     uniforms: Meteor.isClient ? FileUpload : null
   },
   bio: {

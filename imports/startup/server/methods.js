@@ -5,7 +5,7 @@ import Zoho from 'zoho';
 
 import Events from '/imports/startup/collections/events';
 import Venues from '/imports/startup/collections/venues';
-import Uploads from '/imports/startup/collections/uploads';
+import Avatars from '/imports/startup/collections/avatars';
 import MongoCache from '/imports/startup/server/MongoCache';
 
 const OCache = new MongoCache('rest', 100000);

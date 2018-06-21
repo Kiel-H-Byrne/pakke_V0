@@ -62,7 +62,7 @@ class PageProfileComponent extends Component {
     }
     const model = this.props.thisUser.profile;
 
-    const omitFields = ["talents.$.talentId", "venue.$.venueId"];
+    const omitFields = ["talentId", "venue.$.venueId"];
 
       return (
         <div>
