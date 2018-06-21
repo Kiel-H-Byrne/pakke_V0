@@ -7,6 +7,8 @@ import filterDOMProps from 'uniforms/filterDOMProps';
 
 if (Meteor.isClient) {
 import FileUpload from '/imports/client/forms/FileUpload.js';
+import AvatarUpload from '/imports/client/forms/AvatarUpload.js';
+
 }
 
 Schema = {};
@@ -358,7 +360,7 @@ Schema.Profile = new SimpleSchema({
     type: String,
     optional: true,
     label: 'Change your Avatar',
-    uniforms: Meteor.isClient ? FileUpload : null
+    uniforms: Meteor.isClient ? AvatarUpload : null
   },
   bio: {
     type: String,
@@ -561,13 +563,10 @@ Schema.Event = new SimpleSchema({
       step: 0.50
     },
   },
-  eventAddress: {
-    type: Schema.Address,
-    label: 'Event Address'
-  },
-  venueId: {
-    type: String,
-    optional: true
+  venue: {
+    type: Schema.Venue,
+    optional: true,
+    // uniform: VenuesForm
     //SOMEHOW SHOW RADIO BOXES WITH NAMES OF VENUES FROM HOSTS VENUEARRAY
   },
   contact: {

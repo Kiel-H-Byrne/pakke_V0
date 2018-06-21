@@ -18,7 +18,7 @@ import Avatars from '/imports/startup/collections/avatars';
 import IndividualFile from '/imports/client/forms/FileDetails.js';
 
 
-class FileUploadComponent extends Component {
+class AvatarUploadComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -43,7 +43,7 @@ class FileUploadComponent extends Component {
       let file = e.currentTarget.files[0];
       // console.log(file);
         
-      let uploadInstance = Uploads.insert({
+      let uploadInstance = Avatars.insert({
         file: file,
         meta: {
           locator: self.props.fileLocator,
@@ -156,7 +156,7 @@ class FileUploadComponent extends Component {
 // This is the HOC - included in this file just for convenience, but usually kept
 // in a separate file to provide separation of concerns.
 //
-export default FileUpload = withTracker( ( props ) => {
+export default AvatarUpload = withTracker( ( props ) => {
   const filesHandle = Meteor.subscribe('avatars');
   const docsReadyYet = filesHandle.ready();
   const files = Avatars.find({}, {sort: {name: 1}}).fetch();
@@ -165,4 +165,4 @@ export default FileUpload = withTracker( ( props ) => {
     docsReadyYet,
     files,
   };
-})(FileUploadComponent);
+})(AvatarUploadComponent);

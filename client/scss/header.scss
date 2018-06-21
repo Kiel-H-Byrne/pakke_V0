@@ -88,12 +88,21 @@
   padding: .5rem;
   border-color: #225199;
 
-    .fields, .buttons, .password-or-service, .or-sep {
+    .fields, .buttons, .password-or-service, .or-sep, .messages {
       display: none
     }
     .social-buttons {
       button {
-        margin: 3px
+        margin: 3px;
+        border: none;
+        padding: 11px;
+        color: white;
+      }
+      .facebook {
+        background-color: #3b5998;
+      }
+      .google {
+        background-color: #d62d20;
       }
     }
   }

@@ -14,7 +14,7 @@ import Radio from '@material-ui/core/Radio';
 import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
 
-import Avatars from '/imports/startup/collections/avatars';
+import venueImages from '/imports/startup/collections/venueImages.js';
 import IndividualFile from '/imports/client/forms/FileDetails.js';
 
 
@@ -43,7 +43,7 @@ class FileUploadComponent extends Component {
       let file = e.currentTarget.files[0];
       // console.log(file);
         
-      let uploadInstance = Uploads.insert({
+      let uploadInstance = Avatars.insert({
         file: file,
         meta: {
           locator: self.props.fileLocator,
@@ -157,9 +157,12 @@ class FileUploadComponent extends Component {
 // in a separate file to provide separation of concerns.
 //
 export default FileUpload = withTracker( ( props ) => {
-  const filesHandle = Meteor.subscribe('avatars');
+  let venueId = 1;
+  const filesHandle = Meteor.subscribe('venueImages', venueId);
   const docsReadyYet = filesHandle.ready();
-  const files = Avatars.find({}, {sort: {name: 1}}).fetch();
+  const files = venueImages.find({
+    "meta.venueId": venueId 
+  }, {sort: {name: 1}}).fetch();
 
   return {
     docsReadyYet,

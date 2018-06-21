@@ -44,7 +44,8 @@ class AddEventForm extends Component {
     render() {
         const model = Schema.Event.clean({});
         // console.log(model);
-        const omitFields = ["submitted", "hostId", "categories", "appliedList", "invitedList", "confirmedList", "entertainers", "venueId", "partner", "featured"];
+        const omitFields = ["submitted", "venue", "hostId", "categories", "appliedList", "invitedList", "confirmedList", "entertainers", "venueId", "partner", "featured"];
+        const shownFields = [""]
 
         return (
             // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}
@@ -58,12 +59,13 @@ class AddEventForm extends Component {
         onSubmitFailure={this.handleFailure} >
 
             <AutoFields omitFields={omitFields} />
+            <VenuesForm />
             <SubmitField value="Submit"  />
             <ErrorsField />
         </AutoForm>
         
         </div>
         );
-}
+    }
 }
 export default AddEventForm;

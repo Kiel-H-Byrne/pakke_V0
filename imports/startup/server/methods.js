@@ -213,13 +213,13 @@ Meteor.methods({
     });
   },
   uploadFile: function(obj) {
-    let upload =  Uploads.insert(obj, false);
+    let upload =  Avatars.insert(obj, false);
     console.log(upload);
     return upload;
 
   },
   removeFile: function(fileId) {
-    Uploads.remove(fileId)
+    Avatars.remove(fileId)
   },
   
   sendEmail: function(to, from, subject, html) {
