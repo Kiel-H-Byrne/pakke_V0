@@ -29,7 +29,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
   });
   // const uid = Meteor.userId();
   // Declare the Meteor file collection on the Server
-  venueImages = new FilesCollection({
+  VenueImages = new FilesCollection({
     debug: false, // Change to `true` for debugging
     storagePath: 'assets/app/uploads/venues',
     collectionName: 'venueImages',
@@ -167,8 +167,8 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
   });
 
   // Intercept FilesCollection's remove method to remove file from AWS:S3
-  const _origRemove = venueImages.remove;
-  venueImages.remove = function (search) {
+  const _origRemove = VenueImages.remove;
+  VenueImages.remove = function (search) {
     const cursor = this.collection.find(search);
     cursor.forEach((fileRef) => {
       _.each(fileRef.versions, (vRef) => {
@@ -192,7 +192,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
     _origRemove.call(this, search);
   };
 
-  export default venueImages;
+  export default VenueImages;
 
 } else {
   throw new Meteor.Error(401, 'Missing Meteor file settings');
@@ -200,7 +200,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
 
 if (Meteor.isServer) {
   Meteor.publish('venueImages', function (venueId) {
-    return venueImages.collection.find({
+    return VenueImages.collection.find({
       "meta.venueId": venueId
     }, {
       fields: {
@@ -219,17 +219,17 @@ if (Meteor.isServer) {
    * Deny all
    * @see http://docs.meteor.com/#/full/deny
    */
-  // venueImages.denyClient();
+  // VenueImages.denyClient();
 
   /* Allow all
    * @see http://docs.meteor.com/#/full/allow
    */
-  venueImages.allowClient();
+  VenueImages.allowClient();
 
   /* Deny per action
    * @see http://docs.meteor.com/#/full/deny
    */
-  // venueImages.deny({
+  // VenueImages.deny({
   //   insert: function() {
   //     return false;
   //   },
@@ -244,7 +244,7 @@ if (Meteor.isServer) {
   /* Allow per action
    * @see http://docs.meteor.com/#/full/allow
    */
-  venueImages.allow({
+  VenueImages.allow({
     insert: function() {
       return true;
     },

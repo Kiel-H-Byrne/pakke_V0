@@ -31,7 +31,7 @@ class AddVenueForm extends Component {
       Bert.alert("Sorry, Something Went Wrong", "danger", "growl-top-right");
   };
   render() {
-    const model = Schema.Venue.clean({});
+    // const model = Schema.Venue.clean({});
     const omitFields = ["venueId"];
     //ALLOWS FOR DEFAULT VALUES TO GET PULLED INTO FORM VALUES FOR VALIDATION/SUBMISSION. 
     //WITHOUT THIS, AUTOVALUES/DEFAULTVALUES ARE EMPTY WHEN FORM IS SUBMITTED!!!
@@ -39,9 +39,7 @@ class AddVenueForm extends Component {
         // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}
         // onSubmitFailure={() => console.log('Promise rejected!')}/>
       <AutoForm  
-      validate="onChangeAfterSubmit"
       schema={Schema.Venue} 
-      model={model} 
       onSubmit={this.handleSubmit} 
       onSubmitSuccess={this.handleSuccess} 
       onSubmitFailure={this.handleFailure} >

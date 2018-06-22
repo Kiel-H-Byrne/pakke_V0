@@ -5,10 +5,17 @@ import SimpleSchema from 'simpl-schema';
 import uniforms from 'uniforms';
 import filterDOMProps from 'uniforms/filterDOMProps';
 
+import VenueImages from './VenueImages'
+import EventImages from './EventImages'
+
 if (Meteor.isClient) {
+import UploadField from '/imports/client/forms/UploadField.js';
 import FileUpload from '/imports/client/forms/FileUpload.js';
 import AvatarUpload from '/imports/client/forms/AvatarUpload.js';
+import VenueImagesUpload from '/imports/client/forms/VenueImagesUpload.js';
+import EventImagesUpload from '/imports/client/forms/EventImagesUpload.js';
 
+import VenuesForm from '/imports/client/forms/VenuesForm.js';
 }
 
 Schema = {};
@@ -98,11 +105,11 @@ Schema.Venue = new SimpleSchema({
   nickname: {
     type: String,
     unique: true,
-    label: 'A nickname for this place.'
+    label: 'Give this venue a nickname.'
   },
   description: {
     type: String,
-    label: "A brief description of the venue:",
+    label: "What's it like?:",
     max: 240
   },
   address: {
@@ -112,8 +119,8 @@ Schema.Venue = new SimpleSchema({
   },
   venueType: { 
     type: String,
-    label: 'What type of venue is this?',
-    allowedValues: ["Commercial", "Apartment", "Condo", "Town Home", "Detached Home"],
+    label: 'Type:',
+    allowedValues: ["Retail", "Apartment", "Condo", "Town Home", "Detached Home", "Other"],
     optional: true
   },
   capacity: {
@@ -128,18 +135,15 @@ Schema.Venue = new SimpleSchema({
     defaultValue: false
   },
   images: {
-    type: Array,
-    optional: true,
-    defaultValue: []
-  },
-  'images.$': {
     type: Object,
-    uniforms: Meteor.isClient ? FileUpload : null
-  },
-  // 'images.$.url': {
-  //   type: String
-  // }
-
+    blackbox: true,
+    optional: true,
+    uniforms: Meteor.isClient ? {
+      label: "Images of this place.",
+      component: Meteor.isClient ? AvatarUpload : null,
+      collection: VenueImages
+    } : null
+  }
 });
 
 Schema.Talent = new SimpleSchema({
@@ -546,7 +550,10 @@ Schema.Event = new SimpleSchema({
   image: {
     type: String,
     optional: true,
-    uniforms: (Meteor.isClient ? FileUpload : null),
+    uniforms: {
+      component: (Meteor.isClient ? EventImagesUpload : null),
+      collection: EventImages
+    },
     label: 'Event Preview Image'
   },
   description: {
@@ -564,9 +571,9 @@ Schema.Event = new SimpleSchema({
     },
   },
   venue: {
-    type: Schema.Venue,
+    type: Object,
     optional: true,
-    // uniform: VenuesForm
+    uniforms: (Meteor.isClient ? VenuesForm : null),
     //SOMEHOW SHOW RADIO BOXES WITH NAMES OF VENUES FROM HOSTS VENUEARRAY
   },
   contact: {

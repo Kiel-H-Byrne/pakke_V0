@@ -1,5 +1,5 @@
-import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { _ } from 'underscore';
@@ -15,11 +15,11 @@ import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
 
 import { BarLoader } from 'react-spinners';
-// import VenueImages from '/imports/startup/collections/VenueImages.js';
+import EventImages from '/imports/startup/collections/EventImages.js';
 import IndividualFile from '/imports/client/forms/FileDetails.js';
 
 
-class FileUploadComponent extends Component {
+class EventImagesUploadComponent extends Component {
   constructor(props) {
     super(props);
     console.log(props);
@@ -44,11 +44,11 @@ class FileUploadComponent extends Component {
       let file = e.currentTarget.files[0];
       // console.log(file);
         
-      let uploadInstance = Avatars.insert({
+      let uploadInstance = EventImages.insert({
         file: file,
         meta: {
           locator: self.props.fileLocator,
-          userId: Meteor.userId() // Optional, used to check on server for file tampering
+          eventId: Meteor.userId() // Optional, used to check on server for file tampering
         },
         streams: 'dynamic',
         chunkSize: 'dynamic',
@@ -130,7 +130,7 @@ class FileUploadComponent extends Component {
       // (make sure the subscription only sends files owned by this user)
       let preview = fileCursors.map((aFile, key) => {
         // console.log('A file: ', aFile)
-        let link = Avatars.findOne({_id: aFile._id}).link();  //The "view/download" link
+        let link = EventImages.findOne({_id: aFile._id}).link();  //The "view/download" link
         // console.log(link);
         // Send out components that show details of each file
         return <div key={'file' + key}>
@@ -167,16 +167,17 @@ class FileUploadComponent extends Component {
 // This is the HOC - included in this file just for convenience, but usually kept
 // in a separate file to provide separation of concerns.
 //
-export default FileUpload = withTracker( ( props ) => {
-  let venueId = 1;
-  const filesHandle = Meteor.subscribe('venueImages', venueId);
+export default EventImagesUpload = withTracker( ( props ) => {
+  console.log(props)
+  let eventId = 1;
+  const filesHandle = Meteor.subscribe('eventImages', eventId);
   const loading = !filesHandle.ready();
-  const files = VenueImages.find({
-    "meta.venueId": venueId 
+  const files = EventImages.find({
+    "meta.venueId": eventId 
   }, {sort: {name: 1}}).fetch();
 
   return {
     loading,
     files,
   };
-})(FileUploadComponent);
+})(EventImagesUploadComponent);

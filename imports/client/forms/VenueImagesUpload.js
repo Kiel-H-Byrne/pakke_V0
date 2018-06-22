@@ -15,7 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
 
 import { BarLoader } from 'react-spinners';
-// import VenueImages from '/imports/startup/collections/VenueImages.js';
+import VenueImages from '/imports/startup/collections/VenueImages.js';
 import IndividualFile from '/imports/client/forms/FileDetails.js';
 
 
@@ -44,11 +44,11 @@ class FileUploadComponent extends Component {
       let file = e.currentTarget.files[0];
       // console.log(file);
         
-      let uploadInstance = Avatars.insert({
+      let uploadInstance = VenueImages.insert({
         file: file,
         meta: {
           locator: self.props.fileLocator,
-          userId: Meteor.userId() // Optional, used to check on server for file tampering
+          eventId: Meteor.userId() // Optional, used to check on server for file tampering
         },
         streams: 'dynamic',
         chunkSize: 'dynamic',
@@ -130,7 +130,7 @@ class FileUploadComponent extends Component {
       // (make sure the subscription only sends files owned by this user)
       let preview = fileCursors.map((aFile, key) => {
         // console.log('A file: ', aFile)
-        let link = Avatars.findOne({_id: aFile._id}).link();  //The "view/download" link
+        let link = VenueImages.findOne({_id: aFile._id}).link();  //The "view/download" link
         // console.log(link);
         // Send out components that show details of each file
         return <div key={'file' + key}>

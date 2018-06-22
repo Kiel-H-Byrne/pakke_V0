@@ -11,6 +11,7 @@ import SubmitField from 'uniforms-material/SubmitField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 
 import VenueOption from './VenueOption.js'
+// import AddVenueModal from './AddVenueModal.js'
 
 class VenuesFormComponent extends Component {
 	constructor(props) {
@@ -24,14 +25,16 @@ class VenuesFormComponent extends Component {
       if (this.props.venues.length) {
       	return (
 	      	<div className="venuesList">
-		      {this.props.venues.map((venueId) => { return <VenueOption venueId={venueId} key={venueId} /> }
+		      {this.props.venues.map((venue) => {return <VenueOption venue={venue} key={venue.venueId} /> }
 	        )}
-	        <button>New Venue</button>
+	        <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#addVenueModal">New Venue</button>
 		      </div>
 	      )
 	      } else {
 	      return (
-		      <AutoField schema="venue" />
+          <div>
+  		      <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#addVenueModal">New Venue</button>
+          </div>
 		      )
 	      }
   }

@@ -29,10 +29,10 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
   });
   // const uid = Meteor.userId();
   // Declare the Meteor file collection on the Server
-  Avatars = new FilesCollection({
+  EventImages = new FilesCollection({
     debug: false, // Change to `true` for debugging
-    storagePath: 'assets/app/uploads/avatars',
-    collectionName: 'avatars',
+    storagePath: `assets/app/uploads/event/{eventId}/EventImages`,
+    collectionName: 'eventImages',
     // Disallow Client to execute remove, use the Meteor.method
     allowClientCode: false,
     onBeforeUpload() {
@@ -48,7 +48,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
       _.each(fileRef.versions, (vRef, version) => {
         // We use Random.id() instead of real file's _id
         // to secure files from reverse engineering on the AWS client
-        const filePath = `avatars/${(Random.id())}-${version}.${fileRef.extension}`;
+        const filePath = `events/${eventId}/${(Random.id())}-${version}.${fileRef.extension}`;
         // const filePath = `${module}/${id}/${Random.id()}-${version}.${fileRef.extension}`
         //where module is event, venue, avatar & id  = eventId, venueId, userId
         
@@ -173,8 +173,8 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
   });
 
   // Intercept FilesCollection's remove method to remove file from AWS:S3
-  const _origRemove = Avatars.remove;
-  Avatars.remove = function (search) {
+  const _origRemove = EventImages.remove;
+  EventImages.remove = function (search) {
     const cursor = this.collection.find(search);
     cursor.forEach((fileRef) => {
       _.each(fileRef.versions, (vRef) => {
@@ -198,16 +198,16 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
     _origRemove.call(this, search);
   };
 
-  export default Avatars;
+  export default EventImages;
 
 } else {
   throw new Meteor.Error(401, 'Missing Meteor file settings');
 }
 
 if (Meteor.isServer) {
-  Meteor.publish('avatars', function () {
-    return Avatars.collection.find({
-      userId: Meteor.userId()
+  Meteor.publish('eventImages', function (eventId) {
+    return EventImages.collection.find({
+      "meta.eventId": eventId
     }, {
       fields: {
         name: 1,
@@ -225,12 +225,12 @@ if (Meteor.isServer) {
    * Deny all
    * @see http://docs.meteor.com/#/full/deny
    */
-  // Avatars.denyClient();
+  // EventImages.denyClient();
 
   /* Allow all
    * @see http://docs.meteor.com/#/full/allow
    */
-  Avatars.allowClient();
+  EventImages.allowClient();
 
   /* Deny per action
    * @see http://docs.meteor.com/#/full/deny
@@ -250,7 +250,7 @@ if (Meteor.isServer) {
   /* Allow per action
    * @see http://docs.meteor.com/#/full/allow
    */
-  Avatars.allow({
+  EventImages.allow({
     insert: function() {
       return true;
     },
