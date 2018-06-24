@@ -9,12 +9,9 @@ import VenueImages from './VenueImages'
 import EventImages from './EventImages'
 
 if (Meteor.isClient) {
-import UploadField from '/imports/client/forms/UploadField.js';
-import FileUpload from '/imports/client/forms/FileUpload.js';
 import AvatarUpload from '/imports/client/forms/AvatarUpload.js';
-import VenueImagesUpload from '/imports/client/forms/VenueImagesUpload.js';
 import EventImagesUpload from '/imports/client/forms/EventImagesUpload.js';
-
+import UploadField from '/imports/client/forms/UploadField.js';
 import VenuesForm from '/imports/client/forms/VenuesForm.js';
 }
 
@@ -102,14 +99,18 @@ Schema.Venue = new SimpleSchema({
     type: String,
     autoValue: () => Random.id()
   },
+  hostId: {
+    type: String,
+    autoValue: () => Meteor.userId()
+  },
   nickname: {
     type: String,
     unique: true,
-    label: 'Give this venue a nickname.'
+    label: 'Give this place a nickname:'
   },
   description: {
     type: String,
-    label: "What's it like?:",
+    label: "What's this place like?",
     max: 240
   },
   address: {
@@ -124,25 +125,44 @@ Schema.Venue = new SimpleSchema({
     optional: true
   },
   capacity: {
-    type: SimpleSchema.Integer,
+    type: Number,
     label: "How many people can comfortably fit?",
-    max: 99
+    max: 99,
+    uniforms: {
+      step: 1
+    },
   },
   ownedStatus: {
     type: Boolean,
-    label: 'I own this venue.',
+    label: 'I own this place.',
     optional: true,
     defaultValue: false
   },
-  images: {
-    type: Object,
-    blackbox: true,
+  image: {
+    type: String,
     optional: true,
-    uniforms: Meteor.isClient ? {
-      label: "Images of this place.",
-      component: Meteor.isClient ? AvatarUpload : null,
-      collection: VenueImages
-    } : null
+    regEx: SimpleSchema.RegEx.Url,
+    uniforms: {
+      component: function() {
+        return null
+      }
+    },
+    autoValue: function() {
+      if ( this.field('images').value) {
+        let images = this.field('images').value;
+        console.log(images);
+        return images[0]
+      }
+    }
+  },
+  images: {
+    type: Array,
+    optional: true
+  },
+  'images.$': {
+    type: String,
+    optional: true,
+    regEx: SimpleSchema.RegEx.Url
   }
 });
 
@@ -151,26 +171,42 @@ Schema.Talent = new SimpleSchema({
     type: String,
     autoValue: () => Random.id()
   },
-  name: {
-    type: String,
-    label: 'Stage Name?',
-    unique: true,
-    optional: true
-  },
   talentType: {
     type: String,
     unique: true,
     label: 'How do you entertain a crowd?',
   },
-  experience: {
+  name: {
     type: String,
-    label: 'How long have you done this?',
+    label: 'Do you go by a different name for this?',
+    unique: true,
     optional: true
   },
-  audienceSize: {
+  sample: {
     type: String,
+    optional: true,
+    regEx: SimpleSchema.RegEx.Url,
+    uniforms: {
+      component: function() {
+        return null
+      }
+    }
+  },
+  experience: {
+    type: String,
+    label: 'How many years have you been doing this?',
+    optional: true,
+    uniforms: {
+      step: 0.50
+    },
+  },
+  audienceSize: {
+    type: Number,
     label: 'Preferred audience size?',
-    optional: true
+    optional: true,
+    uniforms: {
+      step: 1
+    }
   },
   fee: {
     type: Number,
@@ -361,10 +397,15 @@ Schema.Profile = new SimpleSchema({
       }
   },
   avatar: {
+    //url of social media image, or self upload
     type: String,
     optional: true,
-    label: 'Change your Avatar',
-    uniforms: Meteor.isClient ? AvatarUpload : null
+    uniforms: {
+      component: function() {
+        return null
+      }
+    },
+    regEx: SimpleSchema.RegEx.Url,
   },
   bio: {
     type: String,
@@ -393,7 +434,7 @@ Schema.Profile = new SimpleSchema({
   },
   venues: {
     type: Array,
-    label: 'Add A New Venue!',
+    label: 'Add A New Place!',
     optional: true,
     defaultValue: []
   },
@@ -537,8 +578,8 @@ Schema.Event = new SimpleSchema({
     },
   },
   size: {
-    type: SimpleSchema.Integer,
-    min: 7,
+    type: Number,
+    min: 5,
     max: 99
   },
   byline: {
@@ -548,13 +589,33 @@ Schema.Event = new SimpleSchema({
     max: '33'
   },
   image: {
-    type: String,
+    type: Object,
+    blackbox: true,
+    label: 'Event Preview Image',
     optional: true,
     uniforms: {
-      component: (Meteor.isClient ? EventImagesUpload : null),
-      collection: EventImages
+      component: (Meteor.isClient ? AvatarUpload : null),
     },
-    label: 'Event Preview Image'
+    autoValue: function() {
+      if ( this.field('images').value) {
+        let images = this.field('images').value;
+        console.log(images);
+        return images[0]
+      }
+    }
+  },
+  images: {
+    type: Array,
+    optional: true,
+    uniforms: {
+      component: function() {
+        return null
+      }
+    }
+  },
+  'images.$': {
+    type: String,
+    optional: true,
   },
   description: {
     type: String,
@@ -572,6 +633,7 @@ Schema.Event = new SimpleSchema({
   },
   venue: {
     type: Object,
+    blackbox: true,
     optional: true,
     uniforms: (Meteor.isClient ? VenuesForm : null),
     //SOMEHOW SHOW RADIO BOXES WITH NAMES OF VENUES FROM HOSTS VENUEARRAY
@@ -633,7 +695,9 @@ Schema.Event = new SimpleSchema({
     defaultValue: false,
     label: 'Featured Event',
     uniforms: {
-      hidden: true
+      component: function() {
+        return null
+      }
     },
   },
   partner: {
@@ -642,7 +706,9 @@ Schema.Event = new SimpleSchema({
     defaultValue: false,
     label: 'Pakke Partner',
     uniforms: {
-      hidden: true
+      component: function() {
+        return null
+      }
     }
   },
   partnerLink: {
@@ -651,7 +717,9 @@ Schema.Event = new SimpleSchema({
     regEx: SimpleSchema.RegEx.Url,
     label: 'Event Details & Sales',
     uniforms: {
-      hidden: true
+      component: function() {
+        return null
+      }
     }
   }
 });

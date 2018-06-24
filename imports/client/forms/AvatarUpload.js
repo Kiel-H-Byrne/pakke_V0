@@ -17,7 +17,6 @@ import Input from '@material-ui/core/Input';
 import Avatars from '/imports/startup/collections/avatars';
 import IndividualFile from '/imports/client/forms/FileDetails.js';
 
-
 class AvatarUploadComponent extends Component {
   constructor(props) {
     super(props);
@@ -41,12 +40,11 @@ class AvatarUploadComponent extends Component {
       // We upload only one file, in case
       // there was multiple files selected
       let file = e.currentTarget.files[0];
-      // console.log(file);
-        
+       
       let uploadInstance = Avatars.insert({
         file: file,
         meta: {
-          locator: self.props.fileLocator,
+          collection: self.props.collection,
           userId: Meteor.userId() // Optional, used to check on server for file tampering
         },
         streams: 'dynamic',
@@ -55,15 +53,14 @@ class AvatarUploadComponent extends Component {
           // console.log('Starting');
         },
         onUploaded: (error, fileRef) => {
-          // console.log('uploaded: ', fileRef);
+          console.log('uploaded: ', fileRef);
 
           // Remove the filename from the upload box
-          self.refs['fileinput'].value = '';
-          // console.log(self)
+          self.refs['fileinput'].value = fileRef._id;
 
           // Reset our state for the next file
           self.setState({
-            file: file,
+            file: fileRef,
             uploading: [],
             progress: 0,
             inProgress: false
@@ -113,26 +110,22 @@ class AvatarUploadComponent extends Component {
   }
 
   render() {
-    
-      let fileCursors = this.props.files;
-      // Run through each file that the user has stored
-      // (make sure the subscription only sends files owned by this user)
-      let preview = fileCursors.map((aFile, key) => {
-        // console.log('A file: ', aFile)
-        let link = Avatars.findOne({_id: aFile._id}).link();  //The "view/download" link
-        // console.log(link);
-        // Send out components that show details of each file
-        return <div key={'file' + key}>
-          <IndividualFile
-            fileName={aFile.name}
-            fileUrl={link}
-            fileId={aFile._id}
-            fileSize={aFile.size}
-            fileExt={aFile.extension}
-          />
-        </div>
-      })
+    let preview;
+    if (this.state.file) {
+      let aFile = this.state.file
+      // let link = Avatars.find({ _id: aFile._id }).link();
 
+      preview = () => (
+        <IndividualFile
+              fileName={aFile.name}
+              fileId={aFile._id}
+              fileSize={aFile.size}
+              fileExt={aFile.extension}
+            />
+                         )
+      
+    }
+    
       return (
       <Grid container direction="column">
         <Grid item xs={12}>
@@ -159,10 +152,10 @@ class AvatarUploadComponent extends Component {
 export default AvatarUpload = withTracker( ( props ) => {
   const filesHandle = Meteor.subscribe('avatars');
   const docsReadyYet = filesHandle.ready();
-  const files = Avatars.find({}, {sort: {name: 1}}).fetch();
+  let collection = 'avatars'
 
   return {
     docsReadyYet,
-    files,
+    collection
   };
 })(AvatarUploadComponent);

@@ -31,7 +31,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
   // Declare the Meteor file collection on the Server
   EventImages = new FilesCollection({
     debug: false, // Change to `true` for debugging
-    storagePath: `assets/app/uploads/event/{eventId}/EventImages`,
+    storagePath: `assets/app/uploads/events/EventImages`,
     collectionName: 'eventImages',
     // Disallow Client to execute remove, use the Meteor.method
     allowClientCode: false,
@@ -48,7 +48,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
       _.each(fileRef.versions, (vRef, version) => {
         // We use Random.id() instead of real file's _id
         // to secure files from reverse engineering on the AWS client
-        const filePath = `events/${eventId}/${(Random.id())}-${version}.${fileRef.extension}`;
+        const filePath = `events/${(Random.id())}-${version}.${fileRef.extension}`;
         // const filePath = `${module}/${id}/${Random.id()}-${version}.${fileRef.extension}`
         //where module is event, venue, avatar & id  = eventId, venueId, userId
         
@@ -206,9 +206,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
 
 if (Meteor.isServer) {
   Meteor.publish('eventImages', function (eventId) {
-    return EventImages.collection.find({
-      "meta.eventId": eventId
-    }, {
+    return EventImages.collection.find({}, {
       fields: {
         name: 1,
         size: 1,
@@ -263,6 +261,5 @@ if (Meteor.isServer) {
   });
 
 }
-
 
 

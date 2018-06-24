@@ -1,42 +1,47 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'react';
+import PropTypes from 'prop-types';
 //
 import { Meteor } from 'meteor/meteor';
 import {_} from 'meteor/underscore';
 //
-import { connectField } from 'uniforms/connectField'; 
+import connectField from 'uniforms/connectField';
 //
 import EventImages from '/imports/startup/collections/EventImages.js';
 
-export class UploadFieldComponent extends Component {
-  getInitialState(){
-    return {
+class UploadFieldComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       uploading: [],
       progress: 0,
       inProgress: false,
       uploadState: null,
-      uploadError: null
-    }
-  },
+      uploadError: null,
+      files: []
+    };
+    // this.uploadFile = this.uploadFile.bind(this)
+    this.uploadIt = this.uploadIt.bind(this)
+  }
   setUploadProgress(progress) {
     this.setState({
       progress: progress
     });
-  },
+  }
   setUploadState(uploadState) {
     this.setState({
       uploadState: uploadState
     });
-  },
+  }
   setUploadError(error){
     this.setState({
       uploadError: error
     });
-  },
+  }
+
   uploadFile(self, file, _onUploadDone) {
 
     if (file) {
-      let uploadInstance = Xfiles.insert({
+      let uploadInstance = EventImages.insert({
         file: file,
         meta: {
           locator: self.props.fileLocator,
@@ -81,9 +86,11 @@ export class UploadFieldComponent extends Component {
 
       uploadInstance.on('uploaded', function (error, fileObj) {
         console.log('uploaded: ', fileObj);
-        /*
+        
         // Remove the filename from the upload box
-        self.refs['fileinput'].value = '';
+
+        console.log(self.refs)
+        // self.refs['fileinput'].value = fid;
 
         // Reset our state for the next file
         self.setState({
@@ -91,13 +98,13 @@ export class UploadFieldComponent extends Component {
           progress: 0,
           inProgress: false
         });
-          */
+          
       });
 
       uploadInstance.start(); // Must manually start the upload
     }
 
-  },
+  }
 
   setValue(fileObj) {
     const valueData  = {
@@ -106,7 +113,7 @@ export class UploadFieldComponent extends Component {
     };
     // set data to model
     this.props.onChange(valueData);
-  },
+  }
   onUploadDone(err,fileObj){
     console.log('On end File Object: ', fileObj);
 
@@ -115,9 +122,9 @@ export class UploadFieldComponent extends Component {
         xfileId : fileObj._id,
         xfileCollection : fileObj._collectionName
       };
-      this.setValue(fileObj);
+      // this.setValue(fileObj);
       console.log('success; uploaded=' + fileObj.name );
-
+      console.log(self.props);
       /*
       this.props.value.xfileId = fileObj._id;
       this.props.value.xfileCollection = fileObj._collectionName;
@@ -129,7 +136,7 @@ export class UploadFieldComponent extends Component {
       throw new Meteor.Error('upload-file-fail', error);
     }
 
-  },
+  }
   uploadIt(e){
     "use strict";
     e.preventDefault();
@@ -139,18 +146,10 @@ export class UploadFieldComponent extends Component {
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // there was multiple files selected
-      var file = e.currentTarget.files[0];
+      const file = e.currentTarget.files[0];
       self.uploadFile(self, file, self.onUploadDone);
     }
-  },
-
-  onDrop(acceptedFiles, rejectedFiles) {
-    // only take one
-    const file = acceptedFiles[0];
-    let self = this;
-
-    self.uploadFile(self, file, self.onUploadDone);
-  },
+  }
 
   // This is our progress bar, bootstrap styled
   // Remove this function if not needed
@@ -199,10 +198,11 @@ export class UploadFieldComponent extends Component {
         */}
       </div>
     }
-  },
+  }
 
   showWidget() {
-    const renderType = 'dropzoneWidget';//'fileWidget';
+    let widget;
+    const renderType = 'fileWidget';//'buttonWidget';
     if('fileWidget' == renderType) {
       widget = (
         <input type="file"
@@ -234,7 +234,7 @@ export class UploadFieldComponent extends Component {
     }
     return widget;
 
-  },
+  }
 
   render() {
       return (
@@ -250,20 +250,10 @@ export class UploadFieldComponent extends Component {
             </div>
           </div>
 
-          <div className="row m-t-sm m-b-sm">
-            <div className="col-md-6">
-
-              {this.showUploads()}
-
-            </div>
-            <div className="col-md-6">
-            </div>
-          </div>
-
         </div>
       )
-  },
-});
+  }
+}
 
 
 UploadFieldComponent.propTypes = {

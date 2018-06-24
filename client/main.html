@@ -73,6 +73,7 @@
 
 <body>
   <script type="text/javascript">
+  //FACEBOOK SDK INIT & PAGEVIEW
     window.fbAsyncInit = function () {
       FB.init({
         appId: Meteor.settings.public.keys.facebookOAuth.app_id,
@@ -91,6 +92,12 @@
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+    
+    //CRISP API & WIDGET INIT
+    window.$crisp=[];window.CRISP_WEBSITE_ID="540e869a-324f-4260-82ee-be521a8b9f7e";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
+    
+    $crisp.push(["safe", true])
+
   </script>
   
 

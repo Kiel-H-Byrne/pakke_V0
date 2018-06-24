@@ -155,9 +155,7 @@ class EventImagesUploadComponent extends Component {
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container direction="row">
             {preview}
-          </Grid>
         </Grid>
       </Grid>
   )}
@@ -168,7 +166,6 @@ class EventImagesUploadComponent extends Component {
 // in a separate file to provide separation of concerns.
 //
 export default EventImagesUpload = withTracker( ( props ) => {
-  console.log(props)
   let eventId = 1;
   const filesHandle = Meteor.subscribe('eventImages', eventId);
   const loading = !filesHandle.ready();
