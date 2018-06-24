@@ -37,11 +37,13 @@ class EventListComponent extends Component {
 
 
 export default EventList = withTracker(() => {
-  let eventsSub = Meteor.subscribe('events_all');
+  let eventsSub = Meteor.subscribe('events_current');
 
   return {
     ready: eventsSub.ready(),
-    events: Events.find({}, {
+    events: Events.find({
+      "featured": false
+    }, {
       sort: { date: 1 }
     }).fetch()
   }

@@ -24,7 +24,10 @@ const styles = theme => ({
   cards: {
     marginTop: theme.spacing.unit * 5,
   },
-
+  featured: {
+    backgroundColor: 'rgba(34,97,153,0.2)',
+    display: 'flex'
+  },  
   whatIsPakkeEvent: {
     marginTop: theme.spacing.unit * 5,
     height: 400,
@@ -50,15 +53,21 @@ class PageLanding2 extends Component {
             <WhatIsPakkeEvent />
             <HowItWorks />
 
-            <Grid container justify={'center'} style={{ marginTop: '10%' }}>
+            <Grid container justify='center' style={{ marginTop: '10%' }}>
               <Paper align={'center'}style={{width: 350}}>
                 <Typography style={{margin: '3%'}} variant='display2'> Events</Typography>
-                
               </Paper>
             </Grid>
-            <Grid container spacing={16} justify={'center'} className={classes.cards} >
-                <EventList className={classes.card} />
-            </Grid>
+            <div className={`${classes.cards} scroll-wrapper-x`} >
+                <div className={classes.featured} > 
+                  <FeaturedEventList /> 
+                  {/* <Paper justify='center' align={'center'} style={{width: '100%', display:'block', clear: 'both'}}>
+                    <Typography style={{backgroundColor: '#226199', color: 'white'}} variant='display2'> Featured</Typography>
+                  </Paper>
+                */}
+                </div>
+                <EventList  />
+            </div>
 
 
           </div>

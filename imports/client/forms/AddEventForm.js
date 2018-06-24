@@ -7,6 +7,7 @@ import SubmitField from 'uniforms-material/SubmitField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 
 import UploadField from './UploadField.js';
+import EventImagesUpload from './EventImagesUpload.js'; 
 import VenuesForm from './VenuesForm';
 import AddVenueForm from './AddVenueForm.js'
 
@@ -85,7 +86,7 @@ class AddEventForm extends Component {
                 <AutoField name="price" />
                 <VenuesForm />
                 <AutoField name="contact" />
-                <AvatarUpload name="image" />
+                <EventImagesUpload name="image" />
                 <SubmitField value="Submit"  />
                 <ErrorsField />
             </AutoForm>

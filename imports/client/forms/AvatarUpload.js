@@ -138,7 +138,7 @@ class AvatarUploadComponent extends Component {
 
         <Grid item xs={12}>
           <Grid container direction="row">
-            {preview}
+            {/*preview*/}
           </Grid>
         </Grid>
       </Grid>

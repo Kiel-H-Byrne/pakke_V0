@@ -49,7 +49,6 @@ export default class Event extends Component {
             card: {
                 maxWidth: 350,
                 minWidth: 350,
-                height: '100%',
                 margin: '2rem'
                 // display: 'flex',
             },

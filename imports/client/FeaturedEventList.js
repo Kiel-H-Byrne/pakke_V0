@@ -29,7 +29,7 @@ class FeaturedEventListComponent extends Component {
 };
 
 export default FeaturedEventList = withTracker(() => {
-  const eventsSub = Meteor.subscribe('events_current');
+  const eventsSub = Meteor.subscribe('events_all');
   // let showAll = Session.get('showAll');
   return {
     currentUser: Meteor.user(),

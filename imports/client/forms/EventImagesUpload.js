@@ -167,10 +167,9 @@ class EventImagesUploadComponent extends Component {
 //
 export default EventImagesUpload = withTracker( ( props ) => {
   let eventId = 1;
-  const filesHandle = Meteor.subscribe('eventImages', eventId);
+  const filesHandle = Meteor.subscribe('eventImages');
   const loading = !filesHandle.ready();
   const files = EventImages.find({
-    "meta.venueId": eventId 
   }, {sort: {name: 1}}).fetch();
 
   return {

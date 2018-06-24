@@ -20,7 +20,10 @@
   /* Large devices */
   @media screen and (min-width: 900px) {
      .scroll-wrapper-x {
-      display: grid; 
-       grid-template-columns: 1fr 1fr 1fr;
+      // display: grid; 
+      flex-wrap: wrap;
+  flex-grow: 1;
+
+     // grid-template-columns: 1fr 1fr 1fr;
      }
    }

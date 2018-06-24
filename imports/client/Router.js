@@ -12,6 +12,7 @@ import EventList from './EventList';
 import EventDetails from './EventDetail';
 import PageProfile from './PageProfile';
 import PageError from './PageError';
+import PageTerms from './PageTerms';
 import BecomeHost from './forms/BecomeHost';
 import BecomeTalent from './forms/BecomeTalent';
 import PageEventMap from './PageEventMap';
@@ -41,6 +42,7 @@ class Router extends Component {
             <Route path='/host' component={BecomeHost} />
             <Route path='/talent' component={BecomeTalent} />
             <Route path='/nomadico2018' component={NomadicoDetails} />
+            <Route path='/terms' component={PageTerms} />
             { Meteor.isDevelopment ?
             (<Route path='/test' component={PageTest} />)
             : ('')

@@ -594,7 +594,7 @@ Schema.Event = new SimpleSchema({
     label: 'Event Preview Image',
     optional: true,
     uniforms: {
-      component: (Meteor.isClient ? AvatarUpload : null),
+      component: (Meteor.isClient ? EventImagesUpload : null),
     },
     autoValue: function() {
       if ( this.field('images').value) {

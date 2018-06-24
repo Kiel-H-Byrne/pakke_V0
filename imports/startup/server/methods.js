@@ -218,8 +218,8 @@ Meteor.methods({
     return upload;
 
   },
-  removeFile: function(fileId) {
-    Avatars.remove(fileId)
+  removeEventImage: function(fileId) {
+    EventImages.remove(fileId)
   },
   
   sendEmail: function(to, from, subject, html) {
