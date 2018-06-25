@@ -59,22 +59,18 @@ class PageLanding2 extends Component {
               </Paper>
             </Grid>
             <div className={`${classes.cards} scroll-wrapper-x`} >
+                {/*
                 <div className={classes.featured} > 
                   <FeaturedEventList /> 
-                  {/* <Paper justify='center' align={'center'} style={{width: '100%', display:'block', clear: 'both'}}>
+                   <Paper justify='center' align={'center'} style={{width: '100%', display:'block', clear: 'both'}}>
                     <Typography style={{backgroundColor: '#226199', color: 'white'}} variant='display2'> Featured</Typography>
                   </Paper>
-                */}
+                
                 </div>
+                */}
                 <EventList  />
             </div>
-
-
           </div>
-
-
-
-        {/* </MuiThemeProvider > */}
       </ParallaxProvider>
     );
 

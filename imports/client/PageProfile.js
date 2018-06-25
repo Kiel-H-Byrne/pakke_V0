@@ -6,6 +6,7 @@ import AutoForm from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
+
 import { BarLoader } from 'react-spinners';
 import Redirect from 'react-router';
 import Events from '../startup/collections/events';
@@ -15,6 +16,9 @@ import TabHost from './TabHost';
 import TabTalent from './TabTalent';
 import LandingPage2 from './UI/PageLanding2';
 import PageError from './PageError';
+
+import EditAvatarButton from './header/EditAvatarButton'
+
 
 class PageProfileComponent extends Component {
   state = {}
@@ -69,11 +73,13 @@ class PageProfileComponent extends Component {
 
           <div className='profile-head'>
             <div className='profile-head-image'>
+              <EditAvatarButton />
               {this.props.thisUser.profile.avatar ? (
                 <img data-toggle="dropdown" className="icon avatar dropdown-toggle" src={this.props.thisUser.profile.avatar} />
               ) : (
                   <img data-toggle="dropdown" className="icon avatar dropdown-toggle" src='/missing_profile.png' />
                 )}
+
             </div>
             <div className='profile-head-text'>
               {(this.props.thisUser.profile.name) ? (

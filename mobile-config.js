@@ -1,7 +1,7 @@
 App.info({
   id: 'us.Pakke',
   name: 'Pakke',
-  version: '0.0.1',
+  version: '0.1.0',
   description: 'Pakke: Not your typical night out...',
   author: 'Kiel H. Byrne',
   email: 'kiel.byrne@pakke.us',

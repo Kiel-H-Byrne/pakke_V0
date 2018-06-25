@@ -57,7 +57,8 @@ Accounts.onCreateUser(function(options, user) {
     console.log(fb);
     myUser.username = fb.name;
     myUser.emails = [{address: fb.email, verified: true}];
-    myUser.profile.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=large`;
+    // myUser.profile.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=large`;
+    (fb.picture.data.is_silhouette == false) ? myUser.profile.avatar = fb.picture.data.url : null
     myUser.profile.birthDate = new Date(fb.birthday) || null;
   }
   //CHECK & MERGE GOOGLE INFO

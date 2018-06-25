@@ -22,7 +22,6 @@ import IndividualFile from '/imports/client/forms/FileDetails.js';
 class EventImagesUploadComponent extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       uploading: [],
       progress: 0,
