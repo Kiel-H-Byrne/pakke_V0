@@ -22,7 +22,7 @@ class EventListComponent extends Component {
             return (
                 <GridLoader 
                 loading={!this.props.ready} 
-                color='#226199'
+                color='#2964ff'
                 size={20}
                 margin='2px' />
                 )

@@ -5,8 +5,8 @@ import SimpleSchema from 'simpl-schema';
 import uniforms from 'uniforms';
 import filterDOMProps from 'uniforms/filterDOMProps';
 
-import VenueImages from './VenueImages'
-import EventImages from './EventImages'
+import VenueImages from './venueImages'
+import EventImages from './eventImages'
 
 if (Meteor.isClient) {
 import AvatarUpload from '/imports/client/forms/AvatarUpload.js';
@@ -704,7 +704,7 @@ Schema.Event = new SimpleSchema({
     type: Boolean, 
     optional: true,
     defaultValue: false,
-    label: 'Pakke Partner',
+    label: 'PAKKE Partner',
     uniforms: {
       component: function() {
         return null

@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 const eventAppliedTemplate = (user,event) => {
 
-  const emailTitle = "Pakke Event Application";
+  const emailTitle = "PAKKE Event Application";
   return renderedEmail = 
     `
       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -298,9 +298,9 @@ const eventAppliedTemplate = (user,event) => {
                           <tr>
                             <td>
                               <p>Hi there <strong>${user.profile.name}</strong>!</p>
-                              <p>Pakke.us and the host of <strong>'${event.byline}'</strong> would like to thank you for applying!
+                              <p>PAKKE.us and the host of <strong>'${event.byline}'</strong> would like to thank you for applying!
                               <br />
-                              Now we wait until some more folks join the event. Pakke will then ensure that the party is full of diverse and fun folks, and once the final guest list is confirmed you can buy your ticket! 
+                              Now we wait until some more folks join the event. PAKKE will then ensure that the party is full of diverse and fun folks, and once the final guest list is confirmed you can buy your ticket! 
                               <br />
                               Sounds good?  <em>Good!</em>
                               </p>
@@ -319,7 +319,7 @@ const eventAppliedTemplate = (user,event) => {
                                   </tr>
                                 </tbody>
                               </table>
-                              <p>View more events at Pakke.us.</p>
+                              <p>View more events at PAKKE.us.</p>
                               <p>Good luck! Hope to see you soon!.</p>
                             </td>
                           </tr>

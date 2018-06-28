@@ -63,7 +63,7 @@ class TabHostComponent extends Component {
         }
         {this.props.eventsFromCollection.length !== 0 ? (
             <div>
-              <h3>Your Entertaining these Pakkes:</h3>
+              <h3>Your Entertaining these PAKKEs:</h3>
               <div className="scroll-wrapper-x">
                 {this.props.eventsFromCollection.map((event) => {
                 return <Event event={event} key={event._id} />
@@ -75,7 +75,7 @@ class TabHostComponent extends Component {
             </div>
             ) : (
             <div>
-              <h3>Not Entertaining Any Pakkes Yet...</h3>
+              <h3>Not Entertaining Any PAKKEs Yet...</h3>
               <h4>Search <Link to='/events'>Events</Link> to showcase your talent.</h4>
             </div>
             )

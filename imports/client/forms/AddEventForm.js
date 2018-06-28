@@ -86,7 +86,9 @@ class AddEventForm extends Component {
                 <AutoField name="price" />
                 <VenuesForm />
                 <AutoField name="contact" />
+                {/*
                 <EventImagesUpload name="image" />
+                */}
                 <SubmitField value="Submit"  />
                 <ErrorsField />
             </AutoForm>

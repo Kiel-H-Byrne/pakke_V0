@@ -6,13 +6,16 @@ import Grid from '@material-ui/core/Grid';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import Typography from '@material-ui/core/Typography/Typography';
+import Button from '@material-ui/core/Button';
 
 import muiTheme from '../UI/muiTheme';
-import WhatIsPakkeEvent from '../UI/WhatIsPakkeEvent';
+import WhatIsPAKKEEvent from '../UI/WhatIsPAKKEEvent';
 import HowItWorks from '../UI/HowItWorks';
 import Hero from '../UI/Hero';
 import EventList from '../EventList';
 import FeaturedEventList from '../FeaturedEventList';
+import AddVenueForm from '../forms/AddVenueForm';
+import AddEventForm from '../forms/AddEventForm';
 
 const styles = theme => ({
   root: {
@@ -28,21 +31,31 @@ const styles = theme => ({
     backgroundColor: 'rgba(34,97,153,0.2)',
     display: 'flex'
   },  
-  whatIsPakkeEvent: {
+  whatIsPAKKEEvent: {
     marginTop: theme.spacing.unit * 5,
     height: 400,
     // background: theme.palette.secondary.light
   },
   triangle: {
     maxHeight: 50,
+  },
+  button: {
+      borderRadius: 5, 
+      backgroundColor: '#2964ff', 
+      color: 'white',
+      fontSize: 20,
+      marginBottom: 30,
   }
 
 });
 
+
 class PageLanding2 extends Component {
 
   render() {
-
+    const loginAlert = () => Bert.alert("Please Log In First.", "info", "growl-top-right");
+    
+    const thisUser = Meteor.user();
     const { classes } = this.props;
 
     return (
@@ -50,10 +63,10 @@ class PageLanding2 extends Component {
         {/* <MuiThemeProvider theme={muiTheme}> */}
           <div className={classes.root}>
             <Hero />
-            <WhatIsPakkeEvent />
+            <WhatIsPAKKEEvent />
             <HowItWorks />
 
-            <Grid container justify='center' style={{ marginTop: '10%' }}>
+            <Grid container justify='center' style={{ marginTop: '3%' }}>
               <Paper align={'center'}style={{width: 350}}>
                 <Typography style={{margin: '3%'}} variant='display2'> Local Experiences</Typography>
               </Paper>
@@ -63,13 +76,35 @@ class PageLanding2 extends Component {
                 <div className={classes.featured} > 
                   <FeaturedEventList /> 
                    <Paper justify='center' align={'center'} style={{width: '100%', display:'block', clear: 'both'}}>
-                    <Typography style={{backgroundColor: '#226199', color: 'white'}} variant='display2'> Featured</Typography>
+                    <Typography style={{backgroundColor: '#2964ff', color: 'white'}} variant='display2'> Featured</Typography>
                   </Paper>
                 
                 </div>
                 */}
                 <EventList  />
             </div>
+            {thisUser ? (
+              <div className='host-button'>
+                <Button variant="raised" className={classes.button} data-toggle="modal" data-target="#hostProfileModal" >Form Your PAKKE Today!</Button>
+                <div className="modal fade" id="hostProfileModal" role="dialog">
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <Button type="button" className="close" data-dismiss="modal">&times;</Button>
+                        <h4 className="modal-title">Form your PAKKE:</h4>
+                      </div>
+                      <div className="modal-body">
+                        <AddEventForm />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className='host-button'>
+                <Button variant="raised" size="large" className={classes.button} onClick={loginAlert} >Become a Host</Button>
+              </div>
+            )}
           </div>
       </ParallaxProvider>
     );

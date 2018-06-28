@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Session } from 'meteor/session';
 import { _ } from 'underscore';
 
+import { BarLoader } from 'react-spinners';
+
 // import GoogleMap from './GoogleMap';
 import GoogleMapContainer from './MapGoogle';
 
@@ -165,7 +167,12 @@ class MyMap extends Component {
         onReady={this.handleOnReady}
         mapOptions={this.handleMapOptions}
       >
-        Loading!
+      <BarLoader 
+        loading={this.props.loading} 
+        color='#2964ff'
+        width={-1}
+        height={10}
+      />
       </GoogleMapContainer>
     );
   }

@@ -18,7 +18,7 @@ import Mood from '@material-ui/icons/Mood';
 import People from '@material-ui/icons/People';
 
 
-function PageAboutPakke(props) {
+function PageAboutPAKKE(props) {
 
     const { theme } = props;
     //   const primaryText = theme.palette.text.primary;
@@ -82,12 +82,12 @@ function PageAboutPakke(props) {
 
     return (
 
-        <div id="PageAboutPakke">
+        <div id="PageAboutPAKKE">
             <Grid container justify={'center'} alignItems={'center'} style={styles.wrapper1}>
 
                 <Grid item md style={{ width: '100%', }}>
                     <Grid container justify={'center'} style={{ background: 'theme.palette.text.primary.main' }}>
-                        <Typography align={'center'} variant={'display2'} style={styles.box1}>Pakke events encourage you to discover unique environments, connect with new people, and experience more in your city.</Typography>
+                        <Typography align={'center'} variant={'display2'} style={styles.box1}>PAKKE events encourage you to discover unique environments, connect with new people, and experience more in your city.</Typography>
                     </Grid>
                 </Grid>
                 {/* </Paper> */}
@@ -98,7 +98,7 @@ function PageAboutPakke(props) {
                 <Paper style={styles.paper}>
                     <Grid container justify={'center'} style={{ marginTop: '1%' }} >
                         <Grid item>
-                            <Typography variant='display2' component="h1" align={'center'} style={styles.box1}>What does Pakke do?</Typography>
+                            <Typography variant='display2' component="h1" align={'center'} style={styles.box1}>What does PAKKE do?</Typography>
                         </Grid>
                     </Grid>
 
@@ -112,7 +112,7 @@ function PageAboutPakke(props) {
                             </Grid>
                             <Typography align={'center'} style={styles.box1} variant="display1" component="h1">Guests</Typography>
                             <hr style={styles.divider} />
-                            <Typography align={'center'} style={styles.box2} variant="headline">Pakke’s vision is to focus on the overall experience of how we socialize and more importantly, where and with who. As a guest, this is your opportunity to meet new people, learn about your city, and save money.</Typography>
+                            <Typography align={'center'} style={styles.box2} variant="headline">PAKKE’s vision is to focus on the overall experience of how we socialize and more importantly, where and with who. As a guest, this is your opportunity to meet new people, learn about your city, and save money.</Typography>
                         </Grid>
 
                         <Grid item style={styles.box0}>
@@ -133,7 +133,7 @@ function PageAboutPakke(props) {
                             <Typography align={'center'} style={styles.box1} variant="display1">Talent</Typography>
                             <hr style={styles.divider} />
 
-                            <Typography align={'center'} style={styles.box2} variant='headline'>Pakke believes in the power of experiences but finding ways to tap into a unique social outting, we need creative people to guide us there. This is why we pay very close attention to our talented professionals who choose Pakke as a way to bring their art, craft or trade to our communities. Join us today and see how your talent can earn recognition and money.</Typography>
+                            <Typography align={'center'} style={styles.box2} variant='headline'>PAKKE believes in the power of experiences but finding ways to tap into a unique social outting, we need creative people to guide us there. This is why we pay very close attention to our talented professionals who choose PAKKE as a way to bring their art, craft or trade to our communities. Join us today and see how your talent can earn recognition and money.</Typography>
                         </Grid>
 
                     </Grid>
@@ -145,7 +145,7 @@ function PageAboutPakke(props) {
                 <Paper style={styles.paper}>
                     <Grid container justify={'center'} style={{ marginTop: '1%' }} >
                         <Grid item>
-                            <Typography variant='display2' component="h1" align={'center'} style={styles.box1}>Who is Pakke</Typography>
+                            <Typography variant='display2' component="h1" align={'center'} style={styles.box1}>Who is PAKKE</Typography>
                         </Grid>
                     </Grid>
 
@@ -187,8 +187,8 @@ function PageAboutPakke(props) {
     );
 }
 
-PageAboutPakke.propTypes = {
+PageAboutPAKKE.propTypes = {
     theme: PropTypes.object.isRequired,
 };
 
-export default withTheme()(PageAboutPakke); // Let's get the theme as a property
+export default withTheme()(PageAboutPAKKE); // Let's get the theme as a property

@@ -129,20 +129,20 @@ Accounts.validateNewUser(function(user) {
 
 // =========================== EMAIL TEMPLATES ================================
 
-Accounts.emailTemplates.siteName = 'Pakke.us';
-Accounts.emailTemplates.from = 'Pakke.us <noreply@pakke.us>';
+Accounts.emailTemplates.siteName = 'PAKKE.us';
+Accounts.emailTemplates.from = 'PAKKE.us <noreply@pakke.us>';
 
 Accounts.emailTemplates.enrollAccount.subject = (user) => {
-  return `Welcome to Pakke!, ${user.profile.name}`;
+  return `Welcome to PAKKE!, ${user.profile.name}`;
 };
 
 Accounts.emailTemplates.enrollAccount.text = (user, url) => {
   return `
-  Welcome to Pakke ${user.profile.name}!
+  Welcome to PAKKE ${user.profile.name}!
 
-  Knowing this may be your first introduction to Pakke, we would like to start off with who we are but more importantly, what you will NOT find here. To start, our team isn’t one flavor of ice cream. Instead, think of us as a desert experience that rivals any fancy French restaurant but replace the stuffy waiter with Tina Fey, the cook with Anthony Bourdain and the pianist with Chance the Rapper. 
+  Knowing this may be your first introduction to PAKKE, we would like to start off with who we are but more importantly, what you will NOT find here. To start, our team isn’t one flavor of ice cream. Instead, think of us as a desert experience that rivals any fancy French restaurant but replace the stuffy waiter with Tina Fey, the cook with Anthony Bourdain and the pianist with Chance the Rapper. 
 
-  So what are we not? We are not the crowded bar. Certainly not the restaurant that serves over-priced “squid pasta.” And more emphatically, we are not the art gallery or concert venue that reaps the overwhelming benefits from the artists talent. Pakke focuses on the experience because we know it doesn’t really matter where people gather, what’s important is what happens when they get there. Our goal is you will discover, connect and experience something new every time you attend a Pakke event. So first things first: get out there.
+  So what are we not? We are not the crowded bar. Certainly not the restaurant that serves over-priced “squid pasta.” And more emphatically, we are not the art gallery or concert venue that reaps the overwhelming benefits from the artists talent. PAKKE focuses on the experience because we know it doesn’t really matter where people gather, what’s important is what happens when they get there. Our goal is you will discover, connect and experience something new every time you attend a PAKKE event. So first things first: get out there.
 
   Any questions, send us an email!
 
@@ -151,18 +151,18 @@ Accounts.emailTemplates.enrollAccount.text = (user, url) => {
   To activate your account, simply click the link below:
       ${url}
 
-  The Pakke Team 
+  The PAKKE Team 
   `
 };
 
 Accounts.emailTemplates.resetPassword.from = () => {
   // Overrides the value set in `Accounts.emailTemplates.from` when resetting
   // passwords.
-  return 'Pakke.us Password Reset <noreply@pakke.us>';
+  return 'PAKKE.us Password Reset <noreply@pakke.us>';
 };
 Accounts.emailTemplates.verifyEmail = {
    subject() {
-      return "Activate your Pakke account now!";
+      return "Activate your PAKKE account now!";
    },
    text(user, url) {
       return `Hey ${user}! Verify your e-mail by following this link: ${url}`;

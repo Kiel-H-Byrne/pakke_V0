@@ -14,7 +14,7 @@ const HostModal = (props) => {
         <div className="modal-content">
           <div className="modal-header">
             <button type="button" className="close" data-dismiss="modal">&times;</button>
-            <h4 className="modal-title">Form a Pakke!</h4>
+            <h4 className="modal-title">Form a PAKKE!</h4>
           </div>
           <div className="modal-body">
             <AddEventForm />
@@ -38,18 +38,18 @@ class TabHostComponent extends Component {
         {!isHost ? (
           <div>
             <h3>You are not currently Hosting.</h3>
-            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Form a Pakke!</button>
+            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Form a PAKKE!</button>
             <HostModal />
           </div>
           ) : (
           <div>
-            <h3>Your Pakkes:</h3>
+            <h3>Your PAKKEs:</h3>
             <div className="scroll-wrapper-x">
             {this.props.eventsFromCollection.map((event) => {
               return <Event event={event} key={event._id} />
             })}
             </div>
-            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Form another Pakke!</button>
+            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Form another PAKKE!</button>
             <HostModal />
           </div>
           )

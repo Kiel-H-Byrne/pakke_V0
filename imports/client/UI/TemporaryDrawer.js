@@ -48,7 +48,7 @@ class TemporaryDrawer extends React.Component {
                         {/* <ListItemIcon>
                             <DraftsIcon />
                         </ListItemIcon> */}
-                        <ListItemText primary="About Pakke" />
+                        <ListItemText primary="About PAKKE" />
                     </ListItem></List>
                 <Divider />
                 <List>

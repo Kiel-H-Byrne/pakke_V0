@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 
-function WhatIsPakkeEvent(props) {
+function WhatIsPAKKEEvent(props) {
 
     const { theme } = props;
     //   const primaryText = theme.palette.text.primary;
@@ -39,7 +39,7 @@ function WhatIsPakkeEvent(props) {
 
                 <Grid item md style={{ width: '100%', }}>
                     <Grid container justify={'center'} style={{background: 'theme.palette.text.primary.main'}}>
-                        <Typography align={'center'} variant={'display2'} style={styles.box1}>Pakke events encourage you to discover unique environments, connect with new people, and experience more in your city.</Typography>
+                        <Typography align={'center'} variant={'display2'} style={styles.box1}>PAKKE events encourage you to discover unique environments, connect with new people, and experience more in your city.</Typography>
                     </Grid>
                 </Grid>
                 {/* </Paper> */}
@@ -51,8 +51,8 @@ function WhatIsPakkeEvent(props) {
     );
 }
 
-WhatIsPakkeEvent.propTypes = {
+WhatIsPAKKEEvent.propTypes = {
     theme: PropTypes.object.isRequired,
 };
 
-export default withTheme()(WhatIsPakkeEvent); // Let's get the theme as a property
+export default withTheme()(WhatIsPAKKEEvent); // Let's get the theme as a property

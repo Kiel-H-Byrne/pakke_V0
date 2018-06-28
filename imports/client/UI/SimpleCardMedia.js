@@ -42,7 +42,7 @@ function SimpleMediaCard(props) {
 
         <CardContent>
           <Typography gutterBottom variant="headline" component="h2">
-            Pakke Launch Event
+            PAKKE Launch Event
           </Typography>
           
           <Typography component="p">

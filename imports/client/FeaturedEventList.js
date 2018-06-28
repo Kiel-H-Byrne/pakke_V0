@@ -12,7 +12,7 @@ class FeaturedEventListComponent extends Component {
       return <div>
         <GridLoader 
               loading={this.props.loading} 
-              color='#226199'
+              color='#2964ff'
               size={10}
               margin='2px'
             />
@@ -37,6 +37,6 @@ export default FeaturedEventList = withTracker(() => {
     ready: eventsSub.ready(),
     events: Events.find({
       "featured": true
-    }).fetch()
+    })
   }
 })(FeaturedEventListComponent);

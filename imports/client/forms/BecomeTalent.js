@@ -15,7 +15,7 @@ class BecomeTalent extends Component {
           <h1>Share Your Talent</h1>
           <h2>Show us what you got</h2>
           <h3>Perform at new venues around the city and make extra cash.</h3>
-          <p>Click the button below to register your tallent with Pakke</p>
+          <p>Click the button below to register your tallent with PAKKE</p>
         </div>
         {this.props.authenticated ? (
           <div className='talent-button'>

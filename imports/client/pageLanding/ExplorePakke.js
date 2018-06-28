@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 
-class ExplorePakke extends Component {
+class ExplorePAKKE extends Component {
     render() {
         return (
             <div>
@@ -35,7 +35,7 @@ class ExplorePakke extends Component {
                             <Link to='/events'>
                                 <img src='Events.jpg'></img>
                                 <p>Find Events</p>
-                                {/* <p><span className="branded_pakke">Pakke</span> brings you the different and the unique above the surface. Find local events here!</p> */}
+                                {/* <p><span className="branded_pakke">PAKKE</span> brings you the different and the unique above the surface. Find local events here!</p> */}
                             </Link>
                         </div>
 
@@ -51,7 +51,7 @@ class ExplorePakke extends Component {
                             <Link to='/talent'>
                                 <img src='Talent.jpg'></img>
                                 <p> Share Your Talent </p>
-                                {/* <p><span className="branded_pakke">Pakke</span> encourages performers and artists to show the world what it means to be a creative. Join other creatives in your community!</p> */}
+                                {/* <p><span className="branded_pakke">PAKKE</span> encourages performers and artists to show the world what it means to be a creative. Join other creatives in your community!</p> */}
 
                             </Link>
                         </div>
@@ -65,4 +65,4 @@ class ExplorePakke extends Component {
 }
 
 
-export default ExplorePakke;
+export default ExplorePAKKE;

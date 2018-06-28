@@ -6,7 +6,7 @@ import {_} from 'meteor/underscore';
 //
 import connectField from 'uniforms/connectField';
 //
-import EventImages from '/imports/startup/collections/EventImages.js';
+import EventImages from '/imports/startup/collections/eventImages.js';
 
 class UploadFieldComponent extends Component {
   constructor(props) {

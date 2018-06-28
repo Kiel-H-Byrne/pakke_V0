@@ -101,7 +101,7 @@ class FileUploadComponent extends Component {
         {this.state.uploading.file.name}
 
         <div className="progress progress-bar-default">
-          <div style={{width: this.state.progress + '%', 'backgroundColor':'#226199' }} aria-valuemax="100"
+          <div style={{width: this.state.progress + '%', 'backgroundColor':'#2964ff' }} aria-valuemax="100"
              aria-valuemin="0"
              aria-valuenow={this.state.progress || 0} role="progressbar"
              className="progress-bar">
@@ -119,7 +119,7 @@ class FileUploadComponent extends Component {
       return (
           <BarLoader 
               loading={this.props.loading} 
-              color='#226199'
+              color='#2964ff'
               width={-1}
               height={10}
             />

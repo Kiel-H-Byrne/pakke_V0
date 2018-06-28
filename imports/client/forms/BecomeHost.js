@@ -24,13 +24,13 @@ class BecomeHostComponent extends Component {
         </div>
         {this.props.thisUser ? (
           <div className='host-button'>
-            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Form A Pakke!</button>
+            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Form A PAKKE!</button>
             <div className="modal fade" id="hostProfileModal" role="dialog">
               <div className="modal-dialog">
                 <div className="modal-content">
                   <div className="modal-header">
                     <button type="button" className="close" data-dismiss="modal">&times;</button>
-                    <h4 className="modal-title">Form your Pakke:</h4>
+                    <h4 className="modal-title">Form your PAKKE</h4>
                   </div>
                   <div className="modal-body">
                     <AddEventForm />

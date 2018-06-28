@@ -15,7 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
 
 import { BarLoader } from 'react-spinners';
-import EventImages from '/imports/startup/collections/EventImages.js';
+import EventImages from '/imports/startup/collections/eventImages.js';
 import IndividualFile from '/imports/client/forms/FileDetails.js';
 
 
@@ -100,7 +100,7 @@ class EventImagesUploadComponent extends Component {
         {this.state.uploading.file.name}
 
         <div className="progress progress-bar-default">
-          <div style={{width: this.state.progress + '%', 'backgroundColor':'#226199' }} aria-valuemax="100"
+          <div style={{width: this.state.progress + '%', 'backgroundColor':'#2964ff' }} aria-valuemax="100"
              aria-valuemin="0"
              aria-valuenow={this.state.progress || 0} role="progressbar"
              className="progress-bar">
@@ -118,7 +118,7 @@ class EventImagesUploadComponent extends Component {
       return (
           <BarLoader 
               loading={this.props.loading} 
-              color='#226199'
+              color='#2964ff'
               width={-1}
               height={10}
             />

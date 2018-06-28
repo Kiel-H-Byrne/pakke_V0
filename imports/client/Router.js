@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import PageHome from './PageHome';
-import PageAboutPakke from './PageAboutPakke';
+import PageAboutPAKKE from './PageAboutPAKKE';
 import PageLanding2 from './UI/PageLanding2';
 import HowItWorks from './UI/HowItWorks'
 
@@ -35,7 +35,7 @@ class Router extends Component {
             <Route exact path='/' component={PageHome} />
             <Route path='/howitworks' component={HowItWorks} />
             <Route path='/landing' component={PageLanding2} />
-            <Route path='/about' component={PageAboutPakke} />
+            <Route path='/about' component={PageAboutPAKKE} />
             <Route path='/events' component={PageEventMap} />            
             <Route path='/event/:id' component={EventDetails} />
             <Route path='/profile' component={PageProfile} />
@@ -50,7 +50,7 @@ class Router extends Component {
             <Route component={PageError} />
 
             {/* <Route path='/login' component={PageLogin} /> */}
-            {/* <Route path='/signup' component={PageSignUp} /> */}
+            {/* <Route path='/signup' comFponent={PageSignUp} /> */}
 
         </Switch>
 )

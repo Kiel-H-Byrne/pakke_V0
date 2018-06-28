@@ -109,7 +109,7 @@ class HeaderComponent extends Component {
             },
             button: {
                 borderRadius: 5, 
-                backgroundColor: '#226199', 
+                backgroundColor: '#2964ff', 
                 color: 'white' 
             }
         };
@@ -139,7 +139,7 @@ class HeaderComponent extends Component {
                         <ListItemIcon>
                             <ChangeHistoryIcon />
                         </ListItemIcon>
-                        <ListItemText inset disableTypography primary="About Pakke" />
+                        <ListItemText inset disableTypography primary="About PAKKE" />
                     </ListItem>
                     <ListItem button component={Link} to="/howitworks">
                         <ListItemIcon>

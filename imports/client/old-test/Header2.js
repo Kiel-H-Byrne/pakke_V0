@@ -72,7 +72,7 @@ class Header2 extends React.Component {
                     </ListItem>
 
                     <ListItem button component={Link} to="/about">
-                        <ListItemText primary="About Pakke" />
+                        <ListItemText primary="About PAKKE" />
                     </ListItem>
                     <ListItem button component={Link} to="/">
                         <ListItemText primary="How It Works" />
