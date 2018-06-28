@@ -73,7 +73,9 @@ class PageProfileComponent extends Component {
 
           <div className='profile-head'>
             <div className='profile-head-image'>
+              {/*
               <EditAvatarButton />
+              */}
               {this.props.thisUser.profile.avatar ? (
                 <img data-toggle="dropdown" className="icon avatar dropdown-toggle" src={this.props.thisUser.profile.avatar} />
               ) : (

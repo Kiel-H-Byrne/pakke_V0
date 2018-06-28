@@ -55,7 +55,7 @@ class PageLanding2 extends Component {
 
             <Grid container justify='center' style={{ marginTop: '10%' }}>
               <Paper align={'center'}style={{width: 350}}>
-                <Typography style={{margin: '3%'}} variant='display2'> Events</Typography>
+                <Typography style={{margin: '3%'}} variant='display2'> Local Experiences</Typography>
               </Paper>
             </Grid>
             <div className={`${classes.cards} scroll-wrapper-x`} >

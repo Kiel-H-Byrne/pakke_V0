@@ -18,7 +18,7 @@ class Header extends Component {
     render() {
         if (this.props.currentUser) {
             return (
-                <div className='header' id="header-target">
+                <div className='' id="header-target">
                     <div className='header-links-left-signedin'>
                         <div className='dropdown'>
                             <Link to='/landing'><img className="icon logo" src='/img/brand/PAKKE_LOGO_black.png' /></Link>
