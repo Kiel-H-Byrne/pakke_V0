@@ -25,6 +25,9 @@
         "key": "AKIAJFICQU6THFIJD3PQ",
         "secret": "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",
         "bucket": "pakke-images"
+      },
+      "tinymce": {
+        "key": "y7yhejp7nih1ii5xyv0xweyo1j95aptehy95ltzrv6zars6a"
       }
     }
   },

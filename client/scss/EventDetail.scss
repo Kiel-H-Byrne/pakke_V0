@@ -1,6 +1,6 @@
 .event-detail-container {
   position: relative;
-  max-width: 880px;
+  max-width: 960px;
   margin: auto;
 
   h1 {
@@ -16,13 +16,8 @@
 
 .event-detail-image {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
-  max-width: 1000px;
+  margin:0 auto;
   max-height: 750px;
-
-  h1 {}
 }
 
 .event-detail-bottom {
