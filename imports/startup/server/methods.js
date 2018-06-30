@@ -90,14 +90,27 @@ Meteor.methods({
   },
   addEvent: function(doc) {
     if (! Roles.userIsInRole(Meteor.userId(), ["host"])) {
+      //NEW HOST
+      analytics.track(event, [properties], [options], [callback]);
+
+      analytics.track("New Host", {
+        label: Meteor.userId()
+      })
       Meteor.call('addRole', Meteor.userId(), ["host"]);
     }
 
     Events.insert(doc , function(err, res){
       if (err) {
         console.log(`EVENT INSERT FAILED: ${doc.byline}: ${err}`);
+
       } else {
-        console.log(`EVENT INSERT SUCCESS: ${doc.byline}`);
+        console.log(`NEW EVENT: ${doc.byline}`);
+        analytics.track("New Event", {
+        label: doc.byline,
+        commerce: doc.price,
+        value: doc.price*doc.size,
+        host: doc.hostId,
+      })
       }
     });
   },
@@ -119,6 +132,10 @@ Meteor.methods({
     Events.update(eventId, { $addToSet: { "appliedList": Meteor.userId() } }, (err,res) => {
       err ? console.log(err) : null;
     });
+    analytics.track("Events: Applied to event", {
+      label: eventId
+    })
+
   },
   amInvited: function(eventId) {
     Events.update(eventId, { $addToSet: { "invitedList": Meteor.userId() } });

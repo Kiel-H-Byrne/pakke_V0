@@ -9,6 +9,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
+
 import Grid from '@material-ui/core/Grid';
 
 
@@ -22,7 +24,6 @@ export default class Event extends Component {
         }
     }
     render() {
-
         let confirmedCount = 0;
         if (this.props.event.confirmedList) {
             confirmedCount = this.props.event.confirmedList.length;
@@ -83,6 +84,11 @@ export default class Event extends Component {
                 verticalAlign: 'super',
                 fontSize: '1.5rem',
                 left: '-.3rem',
+            },
+            button: {
+                backgroundColor: '#2964ff',
+                color: '#fff',
+                fontSize: '12px',
             }
         };
 
@@ -103,15 +109,19 @@ export default class Event extends Component {
 
                         <CardContent>
                             <Typography gutterBottom variant="display1" component="h2">{this.props.event.byline}</Typography>
-
-                            <Typography variant="headline" component="p">{this.props.event.price}$ per person </Typography>
-                            <Typography variant='headline' component='p'><strong>{this.props.event.size}</strong> tickets available | <strong>{remainingTickets}</strong> remain</Typography>
+                            <Typography variant="headline" component="h3">{this.props.event.eventAddress.city}, {this.props.event.eventAddress.zip} </Typography>
+                            <Typography variant="headline" component="p">{this.props.event.description} </Typography>
+                            {/*
+                            <Typography variant='headline' component='p'><strong>{this.props.event.size}</strong> tickets available 
+                                 <strong>{remainingTickets}</strong> remain
+                            </Typography>
+                            */}
                         </CardContent>
                         <CardActions style={styles.actions}>
                         {this.state.soldOut ? (
-                            <Button size="large" color="secondary">Sold Out</Button>
+                            <Button size="large" disabled >Sold Out</Button>
                             ) : (
-                            <Button onClick={null} size="large" color="secondary">Apply</Button>
+                            <Button onClick={null} size="large" style={styles.button} >Apply</Button>
                             )}
                             
                             {/*<img src="ImageLogoBlack.png" style={styles.logo} /> */}

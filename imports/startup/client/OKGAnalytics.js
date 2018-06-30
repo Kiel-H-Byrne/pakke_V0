@@ -1,5 +1,5 @@
 import { initAnalytics } from '@okgrow/auto-analytics';
-import analytics from '../../../lib/analytics/analytics.min.js';
+import analytics from '/lib/analytics/analytics.min.js';
 
 
 // Add your analytics integrations and their tracking ids + config options here.

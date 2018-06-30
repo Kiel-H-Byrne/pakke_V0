@@ -1,4 +1,5 @@
 import { Accounts } from 'meteor/std:accounts-ui'
+import analytics from '/lib/analytics/analytics.min.js';
 
 Meteor.startup(() => {
     //=====  HTML Attributes for Facebook opengraph api =====
@@ -26,6 +27,9 @@ Meteor.startup(() => {
   }
 });
 
+if (Meteor.isDevelopment) {
+   analytics.debug(); 
+} 
 
 Accounts.ui.config({
   requestPermissions: {

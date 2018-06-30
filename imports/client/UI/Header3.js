@@ -110,7 +110,8 @@ class HeaderComponent extends Component {
             button: {
                 borderRadius: 5, 
                 backgroundColor: '#2964ff', 
-                color: 'white' 
+                color: 'white',
+                fontSize: 12,
             }
         };
 

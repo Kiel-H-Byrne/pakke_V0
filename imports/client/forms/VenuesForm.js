@@ -16,13 +16,16 @@ import VenueOption from './VenueOption.js'
 class VenuesFormComponent extends Component {
 	constructor(props) {
     super(props)
+    props = {
+      venues: Meteor.user().profile.venues
+    }
     this.state = {
       venueId: ''
     }
   }
 
   render() {
-      if (this.props.venues.length) {
+      if (this.props.venues && this.props.venues.length) {
       	return (
 	      	<div className="venuesList">
 		      {this.props.venues.map((venue) => {return <VenueOption venue={venue} key={venue.venueId} /> }
@@ -43,12 +46,10 @@ class VenuesFormComponent extends Component {
 export default VenuesForm = withTracker(({ match }) => {
   let handle = Meteor.subscribe('currentUser');
   let loading = !handle.ready(); 
-  let venues = Meteor.user().profile.venues;
   
   return {
     handle,
-    loading,
-    venues
+    loading
   }
 })(VenuesFormComponent);
 

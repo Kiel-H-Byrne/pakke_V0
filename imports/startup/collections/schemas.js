@@ -257,11 +257,11 @@ Schema.Interests = new SimpleSchema({
     label: 'Who is your favorite local artist right now?',
     optional: true
   },
-  yearAhead: {
-    type: String,
-    label: 'What is something you would like to learn in the year ahead?',
-    optional: true
-  },
+  // yearAhead: {
+  //   type: String,
+  //   label: 'What is something you would like to learn in the year ahead?',
+  //   optional: true
+  // },
   localBetter: {
     type: String,
     label: 'What would make this city better?',
@@ -567,10 +567,12 @@ Schema.Event = new SimpleSchema({
     autoValue: () => Meteor.userId()
   },
   date: {
-    type: Date
+    type: Date,
+    label: "When is this experience?"
   },
   duration: {
     type: Number,
+    label: "How long will this last?",
     min: 2,
     max: 12,
     uniforms: {
@@ -579,19 +581,20 @@ Schema.Event = new SimpleSchema({
   },
   size: {
     type: Number,
+    label: "How many people would you like to entertain?",
     min: 5,
     max: 99
   },
   byline: {
     type: String,
     unique: true,
-    label: 'Event Name',
+    label: 'Give this experience a name!',
     max: '33'
   },
   image: {
     type: Object,
     blackbox: true,
-    label: 'Event Preview Image',
+    label: 'Upload an image that illustrates this experience.',
     optional: true,
     uniforms: {
       component: (Meteor.isClient ? EventImagesUpload : null),
@@ -619,12 +622,13 @@ Schema.Event = new SimpleSchema({
   },
   description: {
     type: String,
-    label: 'Event Description',
+    label: 'Describe this experience.',
     optional: true,
     max: 550
   },
   price: {
     type: Number,
+    label: "How much is the ticket price?",
     min: 5,
     max: 200,
     uniforms: {
@@ -633,6 +637,7 @@ Schema.Event = new SimpleSchema({
   },
   venue: {
     type: Object,
+    label: "Where will this take place?",
     blackbox: true,
     optional: true,
     uniforms: (Meteor.isClient ? VenuesForm : null),
@@ -640,7 +645,7 @@ Schema.Event = new SimpleSchema({
   },
   contact: {
     type: String,
-    label: 'Contact Number',
+    label: 'Please list a contact number so a PAKKE concierge can assist you with this experience.',
     max: 15,
     optional: true
   },
