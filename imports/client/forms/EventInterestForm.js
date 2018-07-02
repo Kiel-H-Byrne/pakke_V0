@@ -53,7 +53,7 @@ export default class EventInterestForm extends Component {
         Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
         analytics.track("Events: Applied to event", {
           label: event._id,
-          value: email
+          value: userEmail
         })
     };
 
