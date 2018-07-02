@@ -4,6 +4,7 @@ import { Random } from 'meteor/random';
 import SimpleSchema from 'simpl-schema';
 import uniforms from 'uniforms';
 import filterDOMProps from 'uniforms/filterDOMProps';
+import { Editor } from '@tinymce/tinymce-react';
 
 import VenueImages from './venueImages'
 import EventImages from './eventImages'
@@ -82,7 +83,7 @@ Schema.Address = new SimpleSchema({
   },
   zip: {
     type: String,
-    regEx: SimpleSchema.RegEx.ZipCode,
+    regEx: SimpleSchema.RegEx.ZipCode,   
     optional: true
   },
   // country: {
@@ -252,16 +253,21 @@ Schema.Insight = new SimpleSchema({
 })
 
 Schema.Interests = new SimpleSchema({
-  localArtist: {
-    type: String,
-    label: 'Who is your favorite local artist right now?',
-    optional: true
-  },
+  // localArtist: {
+  //   type: String,
+  //   label: 'Who is your favorite local artist right now?',
+  //   optional: true
+  // },
   // yearAhead: {
   //   type: String,
   //   label: 'What is something you would like to learn in the year ahead?',
   //   optional: true
   // },
+  partyFrequency: {
+    type: String,
+    label: 'How many nights a week do you spend going to bars and restaurants?',
+    optional: true
+  },
   localBetter: {
     type: String,
     label: 'What would make this city better?',
@@ -434,7 +440,7 @@ Schema.Profile = new SimpleSchema({
   },
   venues: {
     type: Array,
-    label: 'Add A New Place!',
+    label: 'Your Venues:',
     optional: true,
     defaultValue: []
   },
@@ -635,19 +641,34 @@ Schema.Event = new SimpleSchema({
       step: 0.50
     },
   },
-  venue: {
-    type: Object,
-    label: "Where will this take place?",
-    blackbox: true,
-    optional: true,
-    uniforms: (Meteor.isClient ? VenuesForm : null),
-    //SOMEHOW SHOW RADIO BOXES WITH NAMES OF VENUES FROM HOSTS VENUEARRAY
+  eventAddress: {
+    type: Schema.Address
+  },
+  // venue: {
+  //   type: Object,
+  //   label: "Where will this take place?",
+  //   blackbox: true,
+  //   optional: true,
+  //   uniforms: (Meteor.isClient ? VenuesForm : null),
+  //   //SOMEHOW SHOW RADIO BOXES WITH NAMES OF VENUES FROM HOSTS VENUEARRAY
+  // },
+  venueId: {
+    type: String,
+    uniforms: {
+      options: function() {
+        //return array or listed 
+        let venuesArray = Meteor.user().profile.venues;
+        console.log(venuesArray);
+        //get just names?
+        return venuesArray
+      }
+    }
   },
   contact: {
     type: String,
-    label: 'Please list a contact number so a PAKKE concierge can assist you with this experience.',
-    max: 15,
-    optional: true
+    label: 'Contact Number',
+    regEx: SimpleSchema.RegEx.Phone,
+    max: 15
   },
   categories: {
     type: Array,

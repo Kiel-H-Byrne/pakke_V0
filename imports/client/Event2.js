@@ -110,7 +110,6 @@ export default class Event extends Component {
                         <CardContent>
                             <Typography gutterBottom variant="display1" component="h2">{this.props.event.byline}</Typography>
                             <Typography variant="headline" component="h3">{this.props.event.eventAddress.city}, {this.props.event.eventAddress.zip} </Typography>
-                            <Typography variant="headline" component="p">{this.props.event.description} </Typography>
                             {/*
                             <Typography variant='headline' component='p'><strong>{this.props.event.size}</strong> tickets available 
                                  <strong>{remainingTickets}</strong> remain

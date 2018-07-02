@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-const eventPurchasedTemplate = (user,event) => {
+const eventCreatedAdminTemplate = (user,event) => {
 
-  const emailTitle = "PAKKE Event Confirmation";
+  const emailTitle = "EVENTS: Event Created";
   return renderedEmail = 
     `
       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -292,40 +292,18 @@ const eventPurchasedTemplate = (user,event) => {
             <table class="main">
 
               <!-- START MAIN CONTENT AREA -->
-              <tr>
-                <td class="wrapper">
-                  <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
-                      <td>
-                        <p>Hi ${user.profile.name}!</p>
-                        <p>You've just reserved your place for ${event.byline}!
-                        <br />
-                        It's on now!! 
-                        <br />
-                        See you Soon!
-                        </p>
-                        <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
-                          <tbody>
-                            <tr>
-                              <td align="left">
-                                <table border="0" cellpadding="0" cellspacing="0">
-                                  <tbody>
-                                    <tr>
-                                      <td> <a href="https://www.pakke.us/event/${event._id}" target="_blank">View Event Details</a> </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </td>
-                            </tr>
-                          </tbody>
+                      <td class="wrapper">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                          <tr>
+                            <td>
+                              <p><strong>${user.profile.username}</strong> (${user.emails[0].address}) has created an event: '${event.byline}' (#${event._id})</p>
+                              <p>We can contact ${user.profile.name} at ${event.contact}</p>
+                            </td>
+                          </tr>
                         </table>
-                        <p>Vew more events at PAKKE.us.</p>
-                        <p>Good luck! Hope to see you soon!.</p>
                       </td>
                     </tr>
-                  </table>
-                </td>
-              </tr>
 
             <!-- END MAIN CONTENT AREA -->
             </table>
@@ -340,7 +318,7 @@ const eventPurchasedTemplate = (user,event) => {
                 </tr>
                 <tr>
                   <td class="content-block powered-by">
-                    Powered by <a href="https://www.linkedin.com/in/kielbyrne/">Wizards...</a>.
+                    Powered by <a href="https://www.pakke.us">Wizards...</a>.
                   </td>
                 </tr>
               </table>
@@ -360,4 +338,4 @@ const eventPurchasedTemplate = (user,event) => {
 };
 
 
-export default eventPurchasedTemplate;
+export default eventCreatedAdminTemplate;

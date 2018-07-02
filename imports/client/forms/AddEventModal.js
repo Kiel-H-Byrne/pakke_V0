@@ -6,24 +6,25 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 
-import AddVenueForm from './AddVenueForm.js'
+import AddEventForm from './AddEventForm.js'
 
 
 const styles = theme => ({
   paper: {
     position: 'absolute',
     // width: theme.spacing.unit * 50,
+    width: '50%',
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 1,
     top: '50%',
     left: '50%',
     transform: `translate(-50%, -50%)`,
-  }
+  },
 });
 
 
-class AddVenueModalComponent extends Component {
+class AddEventModalComponent extends Component {
   state = {
     open: false,
   };
@@ -40,16 +41,16 @@ class AddVenueModalComponent extends Component {
 
     return (
             <div>
-      <Button type="button" onClick={this.handleOpen} className={classes.button}> Add Venue </Button>
+      <Button type="button" onClick={this.handleOpen} className={classes.button}> Create A New Experience </Button>
       <Modal 
-        aria-labelledby="Add Venue Form"
-        aria-describedby="Add a new venue from which to host an experience."
+        aria-labelledby="New Event Form"
+        aria-describedby="Add a new experience."
         open={this.state.open}
         onClose={this.handleClose}
       >
       <div className={classes.paper}>
-        <Typography variant="title" id="modal-title">New Venue:</Typography>
-        <AddVenueForm />
+        <Typography variant="title" id="AddEventModal-title">Create your Experience:</Typography>
+        <AddEventForm />
       </div>
     </Modal>
     </div>
@@ -57,11 +58,11 @@ class AddVenueModalComponent extends Component {
   }
 }
 
-AddVenueModalComponent.propTypes = {
+AddEventModalComponent.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
 // We need an intermediary variable for handling the recursive nesting.
-const AddVenueModal = withStyles(styles)(AddVenueModalComponent);
+const AddEventModal = withStyles(styles)(AddEventModalComponent);
 
-export default AddVenueModal;
+export default AddEventModal;

@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'underscore';
 
+import analytics from '/lib/analytics/analytics.min.js';
 import AutoFields  from 'uniforms-material/AutoFields';
 import AutoForm    from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
-import eventAppliedTemplate from '../email/eventAppliedTemplate'
+import eventAppliedTemplate from '../email/eventAppliedTemplate';
+import eventAppliedAdminTemplate from '../email/eventAppliedAdminTemplate';
+
 
 import '../../startup/collections/schemas';
 
@@ -19,11 +22,17 @@ export default class EventInterestForm extends Component {
     const event = this.props.event;
     const userEmail = user.emails[0].address;
     
-     const emailProps = [
+    const userEmailProps = [
       "noreply@pakke.us",
       "Thank You for Applying!",
       eventAppliedTemplate(user,event)
-      ];
+    ];
+    const adminEmailProps = [
+      "noreply@pakke.us",
+      "EVENTS: APPLICATION RECEIVED",
+      eventAppliedAdminTemplate(user,event)
+
+    ]
 
     const handleSubmit = function(doc) {
         Meteor.call('addInterests', doc);
@@ -32,15 +41,20 @@ export default class EventInterestForm extends Component {
     const handleSuccess = () => {
         Bert.alert("Thank you for Applying!", "success");
         
-        Meteor.call('amApplied', event._id);
+        Meteor.call('amApplied', event._id, user);
         //AUTO-INVITE AFTER APPLYING TO EVENT SO THEY CAN BUY TICKET....
-        Meteor.call('amInvited', event._id);
+        Meteor.call('amInvited', event._id, user);
         //CAN ALSO COMMENT THIS OUT AND RUN:
         // Meteor.call('inviteGuests', eventId, emailArray)
         //BO INVITE MULTIPLE PEPLE AT ONCE.
 
         $('#eventInterestsModal').modal('toggle');
-        Meteor.call('sendEmail', userEmail, ...emailProps);
+        Meteor.call('sendEmail', userEmail, ...userEmailProps);
+        Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
+        analytics.track("Events: Applied to event", {
+          label: event._id,
+          value: email
+        })
     };
 
     const handleFailure = () => {
@@ -55,7 +69,10 @@ export default class EventInterestForm extends Component {
     //get fields with empty values
     //get sample of 3 fields
 
-    
+    if (this.props.user.profile.interests && this.props.user.profile.interests.localBetter) {
+      handleSuccess();
+      return <div></div>
+    }
 
     return (
       <AutoForm  

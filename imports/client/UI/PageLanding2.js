@@ -15,7 +15,7 @@ import Hero from '../UI/Hero';
 import EventList from '../EventList';
 import FeaturedEventList from '../FeaturedEventList';
 import AddVenueForm from '../forms/AddVenueForm';
-import AddEventForm from '../forms/AddEventForm';
+import AddEventModal from '../forms/AddEventModal';
 
 const styles = theme => ({
   root: {
@@ -85,20 +85,7 @@ class PageLanding2 extends Component {
             </div>
             {thisUser ? (
               <div className='host-button'>
-                <Button variant="raised" className={classes.button} data-toggle="modal" data-target="#hostProfileModal" >Form Your PAKKE Today!</Button>
-                <div className="modal fade" id="hostProfileModal" role="dialog">
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <Button type="button" className="close" data-dismiss="modal">&times;</Button>
-                        <h4 className="modal-title">Form your PAKKE:</h4>
-                      </div>
-                      <div className="modal-body">
-                        <AddEventForm />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <AddEventModal user={thisUser}/>
               </div>
             ) : (
               <div className='host-button'>

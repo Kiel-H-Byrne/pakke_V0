@@ -12,12 +12,6 @@ import eventPurchasedTemplate from '../email/eventPurchasedTemplate'
 import PaymentRequestForm from './PaymentRequestForm'
 
 
-const emailProps = [
-  "noreply@pakke.us",
-  "Thank You for Applying!",
-  eventPurchasedTemplate
-  ];
-
 class EventPurchaseForm extends Component {
   render() {
     // console.log(this);

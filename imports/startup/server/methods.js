@@ -8,6 +8,7 @@ import Venues from '/imports/startup/collections/venues';
 import Avatars from '/imports/startup/collections/avatars';
 import MongoCache from '/imports/startup/server/MongoCache';
 
+
 const OCache = new MongoCache('rest', 100000);
 const zcrm = new Zoho.CRM({authtoken: Meteor.settings.private.keys.zohoCRM.oAuth});
 
@@ -89,13 +90,10 @@ Meteor.methods({
     });
   },
   addEvent: function(doc) {
+    let newEventEmailTemplate = `
+      
+    `;
     if (! Roles.userIsInRole(Meteor.userId(), ["host"])) {
-      //NEW HOST
-      analytics.track(event, [properties], [options], [callback]);
-
-      analytics.track("New Host", {
-        label: Meteor.userId()
-      })
       Meteor.call('addRole', Meteor.userId(), ["host"]);
     }
 
@@ -106,11 +104,19 @@ Meteor.methods({
       } else {
         console.log(`NEW EVENT: ${doc.byline}`);
         analytics.track("New Event", {
-        label: doc.byline,
-        commerce: doc.price,
-        value: doc.price*doc.size,
-        host: doc.hostId,
-      })
+          label: doc.byline,
+          commerce: doc.price,
+          value: doc.price*doc.size,
+          host: doc.hostId,
+        })
+
+        Email.send({
+          to: 'info@pakke.us', 
+          from: 'noreply@pakke.us', 
+          subject: 'EVENT ALERT: New Event Created', 
+          html: newEventEmailTemplate 
+        });
+
       }
     });
   },
@@ -127,17 +133,13 @@ Meteor.methods({
       $set: {"profile.interests": doc}
     });
   },
-  amApplied: function(eventId) {
+  amApplied: function(eventId,user) {
     // console.log(eventId, userId);
-    Events.update(eventId, { $addToSet: { "appliedList": Meteor.userId() } }, (err,res) => {
+    Events.update(eventId, { $addToSet: { "appliedList": user._id } }, (err,res) => {
       err ? console.log(err) : null;
     });
-    analytics.track("Events: Applied to event", {
-      label: eventId
-    })
-
   },
-  amInvited: function(eventId) {
+  amInvited: function(eventId,user) {
     Events.update(eventId, { $addToSet: { "invitedList": Meteor.userId() } });
   },
   inviteGuests: function(eventId, emailsArray) {

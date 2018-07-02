@@ -11,7 +11,7 @@ import SubmitField from 'uniforms-material/SubmitField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 
 import VenueOption from './VenueOption.js'
-// import AddVenueModal from './AddVenueModal.js'
+import AddVenueModal from './AddVenueModal.js'
 
 class VenuesFormComponent extends Component {
 	constructor(props) {
@@ -30,19 +30,15 @@ class VenuesFormComponent extends Component {
 	      	<div className="venuesList">
 		      {this.props.venues.map((venue) => {return <VenueOption venue={venue} key={venue.venueId} /> }
 	        )}
-	        <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#addVenueModal">New Venue</button>
+	        <AddVenueModal />
 		      </div>
 	      )
 	      } else {
-	      return (
-          <div>
-  		      <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#addVenueModal">New Venue</button>
-          </div>
-		      )
+  	      return <AddVenueModal />
 	      }
   }
 }
-
+            
 export default VenuesForm = withTracker(({ match }) => {
   let handle = Meteor.subscribe('currentUser');
   let loading = !handle.ready(); 

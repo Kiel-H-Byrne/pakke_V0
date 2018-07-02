@@ -49,7 +49,8 @@ class AddTalentForm extends Component {
       model={model} 
       onSubmit={this.handleSubmit} 
       onSubmitSuccess={this.handleSuccess} 
-      onSubmitFailure={this.handleFailure} >
+      onSubmitFailure={this.handleFailure}
+      margin="dense" >
 
       <AutoFields omitFields={omitFields} />
       <SubmitField value="Submit"  />

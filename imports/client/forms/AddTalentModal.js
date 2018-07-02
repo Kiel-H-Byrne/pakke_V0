@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 
-import AddVenueForm from './AddVenueForm.js'
+import AddTalentForm from './AddTalentForm.js'
 
 
 const styles = theme => ({
@@ -19,11 +19,11 @@ const styles = theme => ({
     top: '50%',
     left: '50%',
     transform: `translate(-50%, -50%)`,
-  }
+  },
 });
 
 
-class AddVenueModalComponent extends Component {
+class AddTalentModalComponent extends Component {
   state = {
     open: false,
   };
@@ -40,16 +40,16 @@ class AddVenueModalComponent extends Component {
 
     return (
             <div>
-      <Button type="button" onClick={this.handleOpen} className={classes.button}> Add Venue </Button>
+      <Button type="button" onClick={this.handleOpen} className={classes.button}> Register Your Talents! </Button>
       <Modal 
-        aria-labelledby="Add Venue Form"
-        aria-describedby="Add a new venue from which to host an experience."
+        aria-labelledby="Talent Registration Form"
+        aria-describedby="Add a new talent."
         open={this.state.open}
         onClose={this.handleClose}
       >
       <div className={classes.paper}>
-        <Typography variant="title" id="modal-title">New Venue:</Typography>
-        <AddVenueForm />
+        <Typography variant="title" id="eventPurchaseModal">Register your Talent:</Typography>
+        <AddTalentForm user = {this.props.user}/>
       </div>
     </Modal>
     </div>
@@ -57,11 +57,11 @@ class AddVenueModalComponent extends Component {
   }
 }
 
-AddVenueModalComponent.propTypes = {
+AddTalentModalComponent.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
 // We need an intermediary variable for handling the recursive nesting.
-const AddVenueModal = withStyles(styles)(AddVenueModalComponent);
+const AddTalentModal = withStyles(styles)(AddTalentModalComponent);
 
-export default AddVenueModal;
+export default AddTalentModal;

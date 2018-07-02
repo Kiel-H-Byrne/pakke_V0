@@ -63,8 +63,7 @@ class HeaderComponent extends Component {
                 // this.props.history.push('/')
             } else {
                 Bert.alert("We don't even KNOW you anymore!", "success");
-                
-                // this.props.history.push('/')
+                window.location.href="https://www.pakke.us/?logout"
             }
         })
     }

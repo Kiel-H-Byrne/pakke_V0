@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import AddTalentForm from './AddTalentForm';
+import AddTalentModal from './AddTalentModal';
 import { withTracker } from 'meteor/react-meteor-data';
 
 class BecomeTalent extends Component {
@@ -19,25 +19,11 @@ class BecomeTalent extends Component {
         </div>
         {this.props.authenticated ? (
           <div className='talent-button'>
-            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#talentProfileModal">Register Your Talent</button>
-            <div className="modal fade" id="talentProfileModal" role="dialog">
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <button type="button" className="close" data-dismiss="modal">&times;</button>
-                    <h4 className="modal-title">Talent Sign Up Form</h4>
-                  </div>
-                  <div className="modal-body">
-                    <AddTalentForm />
-                  </div>
-                </div>
-              </div>
-
-            </div>
+            <AddTalentModal />
           </div>
         ) : (
             <div className='talent-button'>
-              <button className="btn btn-info btn-lg" onClick={loginAlert}>Register Your Talent</button>
+              <Button onClick={loginAlert}>Register Your Talent</Button>
             </div>
           )
         }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { withTracker } from 'meteor/react-meteor-data';
 
-import AddVenueForm from '../forms/AddVenueForm';
-import AddEventForm from '../forms/AddEventForm';
+import AddVenueForm from './AddVenueForm';
+import AddEventModal from './AddEventModal';
 
 class BecomeHostComponent extends Component {
   constructor(props) {
@@ -24,20 +24,7 @@ class BecomeHostComponent extends Component {
         </div>
         {this.props.thisUser ? (
           <div className='host-button'>
-            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hostProfileModal">Form A PAKKE!</button>
-            <div className="modal fade" id="hostProfileModal" role="dialog">
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <button type="button" className="close" data-dismiss="modal">&times;</button>
-                    <h4 className="modal-title">Form your PAKKE</h4>
-                  </div>
-                  <div className="modal-body">
-                    <AddEventForm />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <AddEventModal user={this.props.thisUser}/>
           </div>
         ) : (
             <div className='host-button'>

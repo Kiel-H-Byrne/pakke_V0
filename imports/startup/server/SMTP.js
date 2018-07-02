@@ -2,7 +2,7 @@
 const smtp = {
   // username: 'postmaster@sandbox6ba51b6be4634d88b492b2418b1b7c4c.mailgun.org',
   username: "noreply@pakke.us",
-  password: 'pakkeP@RTY!!',
+  password: 'pakkeP@RTY',
   server:   "smtp.zoho.com",
   port: 465
 };
