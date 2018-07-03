@@ -92,7 +92,8 @@ class EventDetailsComponent extends Component {
                     <button onClick={waitAlert} className="btn disabled btn-success btn-lg" >Applied!</button>
                   ) : (
                 
-                  <EventInterestModal user = {this.props.thisUser} event = {this.props.event}/>
+                  <EventPurchaseModal user = {this.props.thisUser} event = {this.props.event}/>
+                
                   ) ) : <Button onClick={loginAlert} className="btn btn-success btn-lg" >Apply</Button> }
               </div>
             </div>
@@ -106,15 +107,16 @@ class EventDetailsComponent extends Component {
 
 export default EventDetails = withTracker(({ match }) => {
 
-  let handle = Meteor.subscribe('events_all') && Meteor.subscribe('eventHost', match.params.id);
+  let handle = Meteor.subscribe('events_all') && Meteor.subscribe('eventHost', match.params.id) && Meteor.subscribe('currentUser', Meteor.userId());
   let loading = !handle.ready(); 
   const event = Events.findOne( match.params.id );
+  const thisUser = Meteor.users.findOne(Meteor.userId());
   
   return {
     handle,
     loading,
     event, 
-    thisUser: Meteor.user()
+    thisUser
   }
 })(EventDetailsComponent);
 

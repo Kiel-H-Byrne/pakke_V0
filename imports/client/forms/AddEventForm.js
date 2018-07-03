@@ -111,18 +111,21 @@ class AddEventForm extends Component {
                 <AutoField name="byline" margin="dense"/>
                 <AutoField component={ EditorField } name="description" margin="dense" />
                 <AutoField name="date" margin="dense" />
+
                 <AutoField name="eventAddress.street" margin="none" />
                 <AutoField name="eventAddress.place" margin="none" />
                 <AutoField name="eventAddress.city" margin="none" />
                 <AutoField name="eventAddress.state" margin="none" />
                 <AutoField name="eventAddress.zip" margin="none" />
+                
                 <AutoField name="duration" margin="dense" />
                 <AutoField name="size" margin="dense" />
                 <AutoField name="price" margin="dense" />
-{/*
+                <AutoField name="contact" margin="dense" />
+                {/*
                 <AutoField name="venueId" margin="dense" />
                 <VenuesForm />
-                <AutoField name="contact" margin="dense" />
+
                 */}
                 {/*
                 <EventImagesUpload name="image" />

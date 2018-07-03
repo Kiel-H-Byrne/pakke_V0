@@ -297,30 +297,23 @@ const eventPurchasedTemplate = (user,event) => {
                   <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <p>Hi ${user.profile.name}!</p>
-                        <p>You've just reserved your place for ${event.byline}!
-                        <br />
-                        It's on now!! 
-                        <br />
-                        See you Soon!
-                        </p>
-                        <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
-                          <tbody>
-                            <tr>
-                              <td align="left">
-                                <table border="0" cellpadding="0" cellspacing="0">
-                                  <tbody>
-                                    <tr>
-                                      <td> <a href="https://www.pakke.us/event/${event._id}" target="_blank">View Event Details</a> </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <p>Vew more events at PAKKE.us.</p>
-                        <p>Good luck! Hope to see you soon!.</p>
+
+<p>Hi there&nbsp;<em>${user.profile.name},</em><br /><br />Thanks for registering for PAKKE's "<em>Smells like DNA - a Pheromone Part</em>y". We are excited to explore this unique sensation and experience with you.</p>
+<h3><strong>How It Works<br /></strong></h3>
+<ul>
+<li>Starting on&nbsp;<span class="aBn" tabindex="0" data-term="goog_244162051"><span class="aQJ">July 15th</span></span>, sleep in a clean, white, 100% cotton tee shirt for 4 nights in a row to capture your odor print. Bring this shirt in a ziplock bag to the party on&nbsp;<span class="aBn" tabindex="0" data-term="goog_244162052"><span class="aQJ">July 19th</span></span>.</li>
+<li>Each bag is assigned a number. Only the owner of the shirt knows what their shirts number is.</li>
+<li>Bags are placed on a table and guests smell each shirt and rate their attraction to the odor on provided scoresheets throughout the evening.</li>
+<li>If a guest finds a smell particularly attractive, they write the number of the shirt they like under their photo which will be on a separate photo board. Remember they only know the number of the bag, not the person it belongs to.</li>
+<li>If you see a picture of a guest with your number written under it, strike up a conversation - they like the way you smell!</li>
+</ul>
+<h3><strong>Participating&nbsp;</strong></h3>
+<ul>
+<li>Please bring something cool to share - a bottle of wine, unique spirit, a book or a poem to share with someone. Anything that tells a story about you helps.&nbsp;</li>
+</ul>
+<p>Looking forward to seeing you on the 19th. The address of the party will be released to all registered guests on July 17th.&nbsp;</p>
+<p><strong>Gracias!</strong><br/>Amy, Lee, Emmett, Kiel and Zach</p>
+
                       </td>
                     </tr>
                   </table>

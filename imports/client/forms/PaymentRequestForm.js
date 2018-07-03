@@ -63,6 +63,7 @@ class PaymentRequestForm extends React.Component {
     // Within the context of `Elements`, this call to createToken knows which Element to
     // tokenize, since there's only one in this group.
     const user = this.props.user;
+          // console.log(user)
     const userEmail = user.emails[0].address;
     const userEmailProps = [
       "noreply@pakke.us",
@@ -75,6 +76,7 @@ class PaymentRequestForm extends React.Component {
       "EVENTS: Ticket Purchase",
       eventPurchasedAdminTemplate(user,this.props.event)
     ];
+
 
     this.props.stripe.createToken({'name': this.props.user.profile.name}).then(({error, token}) => {
       if (error) {

@@ -12,7 +12,8 @@ import EventPurchaseForm from './EventPurchaseForm.js'
 const styles = theme => ({
   paper: {
     position: 'absolute',
-    // width: theme.spacing.unit * 50,
+    minWidth: 350,
+    maxWidth: 720,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 1,
