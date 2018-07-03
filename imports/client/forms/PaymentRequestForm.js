@@ -19,7 +19,7 @@ class PaymentRequestForm extends React.Component {
       form.appendChild(hiddenInput);
       // Submit the form
       //add user phone and real name if not already there.
-      Meteor.call('amConfirmed', this.props.event._id);
+
       form.submit();
     }
 
@@ -82,11 +82,12 @@ class PaymentRequestForm extends React.Component {
       if (error) {
         Bert.alert(error.message, "danger", "growl-top-right");
       } else {
-        console.log('Payment Recieved token:', token);
-        Meteor.call('createCharge', this.props.event.price, this.props.event.byline, token);
+        console.log('Payment Received token:', token);
+        Meteor.call('createCharge', this.props.event.price, this.props.event.byline, token)
         Meteor.call('amConfirmed', this.props.event._id);
         Meteor.call('sendEmail', userEmail, ...userEmailProps);
-        Meteor.call('sendEmail', "kiel@pakke.us", ...adminEmailProps);
+        Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
+      
         $('#eventPurchaseModal').modal('toggle');
         //amex 3796 330728 93002 6/18 9534 20031
         //testcard 

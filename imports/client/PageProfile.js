@@ -6,6 +6,7 @@ import AutoForm from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
+import Button from '@material-ui/core/Button';
 
 import { BarLoader } from 'react-spinners';
 import Redirect from 'react-router';
@@ -19,7 +20,13 @@ import PageError from './PageError';
 
 import EditAvatarButton from './header/EditAvatarButton'
 
-
+const styles = {
+  profileForm: {
+    display: 'none',
+    width:'100vw',
+    transition: 'visibility 0s, opacity 0.5s linear'
+  }
+}
 class PageProfileComponent extends Component {
   state = {}
 
@@ -39,6 +46,19 @@ class PageProfileComponent extends Component {
 
   handleSubmit(doc) {
     Meteor.call('editProfile', doc)
+  }
+  
+  handleClick(e) {
+
+    let x = document.getElementById("profileForm");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        x.style.opacity = 1;
+    } else {
+        x.style.display = "none";
+        x.style.opacity = 0;
+    }
+
   }
 
   handleSuccess() {
@@ -90,29 +110,20 @@ class PageProfileComponent extends Component {
                   <h4> I'm a new user </h4>
                 )
               }
-              <button className='btn btn-info btn-sm center-block' type="button" data-toggle="modal" data-target="#profileModal">Edit Profile</button>
-              <div className="modal fade" id="profileModal" role="dialog">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <button type="button" className="close" data-dismiss="modal">&times;</button>
-                      <h4 className="modal-title">Edit Profile</h4>
-                    </div>
-                    <div className="modal-body">
-                      <AutoForm
-                        schema={Schema.Profile}
-                        model={model}
-                        onSubmit={this.handleSubmit}
-                        onSubmitSuccess={this.handleSuccess}
-                        onSubmitFailure={this.handleFailure} >
+              <Button onClick={this.handleClick} >Edit Profile</Button>
+              <div id="profileForm" role="dialog" style={styles.profileForm}>
+                <h4 >Edit Profile</h4>
+                <AutoForm
+                  schema={Schema.Profile}
+                  model={model}
+                  onSubmit={this.handleSubmit}
+                  onSubmitSuccess={this.handleSuccess}
+                  onSubmitFailure={this.handleFailure} >
 
-                        <AutoFields />
-                        <SubmitField value="Submit" />
-                        <ErrorsField />
-                      </AutoForm>
-                    </div>
-                  </div>
-                </div>
+                  <AutoFields />
+                  <SubmitField value="Submit" />
+                  <ErrorsField />
+                </AutoForm>
               </div>
             </div>
           </div>

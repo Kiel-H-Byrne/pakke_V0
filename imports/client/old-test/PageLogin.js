@@ -33,13 +33,13 @@ class PageLogin extends Component {
         return (
                 
             <div>
-                <div className="modal show">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
+                <div className="">
+                    <div className="">
+                        <div className="">
+                            <div className="">
                                 <h1 className="text-center">Login</h1>
                             </div>
-                            <div className="modal-body">
+                            <div className="-body">
                                 {error.length > 0 ?
                                     <div className="alert alert-danger fade in">{error}</div>
                                     : ''}
@@ -72,7 +72,7 @@ class PageLogin extends Component {
                                     </div>
                                 </form>
                             </div>
-                            <div className="modal-footer" style={{ borderTop: 0 }}></div>
+                            <div className="-footer" style={{ borderTop: 0 }}></div>
                         </div>
                     </div>
                 </div>

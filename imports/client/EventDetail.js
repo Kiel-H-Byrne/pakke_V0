@@ -94,7 +94,7 @@ class EventDetailsComponent extends Component {
                 
                   <EventPurchaseModal user = {this.props.thisUser} event = {this.props.event}/>
                 
-                  ) ) : <Button onClick={loginAlert} className="btn btn-success btn-lg" >Apply</Button> }
+                  ) ) : <Button onClick={loginAlert} className="btn btn-success btn-lg" >Buy Ticket</Button> }
               </div>
             </div>
           )}

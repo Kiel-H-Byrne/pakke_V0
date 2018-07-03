@@ -1,10 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 const eventPurchasedAdminTemplate = (user,event) => {
   let service, page;
-  if (user.service.facebook) {
-    service = user.service.facebook;
+  if (user.services.facebook) {
+    service = user.services.facebook;
   } else {
-    service = user.service.google
+    service = user.services.google
   };
   
   const emailTitle = "EVENTS: TICKET PURCHASED";

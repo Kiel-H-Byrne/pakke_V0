@@ -48,7 +48,7 @@ class AddVenueModalComponent extends Component {
         onClose={this.handleClose}
       >
       <div className={classes.paper}>
-        <Typography variant="title" id="modal-title">New Venue:</Typography>
+        <Typography variant="title" id="AddVenueForm-title">New Venue:</Typography>
         <AddVenueForm />
       </div>
     </Modal>
