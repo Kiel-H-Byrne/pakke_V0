@@ -120,7 +120,7 @@ export default class Event extends Component {
                         {this.state.soldOut ? (
                             <Button size="large" disabled >Sold Out</Button>
                             ) : (
-                            <Button onClick={null} size="large" style={styles.button} >Apply</Button>
+                            <Button onClick={null} size="large" style={styles.button} >Buy Ticket</Button>
                             )}
                             
                             {/*<img src="ImageLogoBlack.png" style={styles.logo} /> */}

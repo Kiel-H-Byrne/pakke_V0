@@ -16,9 +16,6 @@ import AddVenueModal from './AddVenueModal.js'
 class VenuesFormComponent extends Component {
 	constructor(props) {
     super(props)
-    props = {
-      venues: Meteor.user().profile.venues
-    }
     this.state = {
       venueId: ''
     }
@@ -26,6 +23,7 @@ class VenuesFormComponent extends Component {
 
   render() {
       if (this.props.venues && this.props.venues.length) {
+        console.log(this.props.venues)
       	return (
 	      	<div className="venuesList">
 		      {this.props.venues.map((venue) => {return <VenueOption venue={venue} key={venue.venueId} /> }
@@ -34,6 +32,7 @@ class VenuesFormComponent extends Component {
 		      </div>
 	      )
 	      } else {
+          console.log(this.props)
   	      return <AddVenueModal />
 	      }
   }
@@ -42,10 +41,11 @@ class VenuesFormComponent extends Component {
 export default VenuesForm = withTracker(({ match }) => {
   let handle = Meteor.subscribe('currentUser');
   let loading = !handle.ready(); 
-  
+  let venues = Meteor.users.findOne(Meteor.userId()).profile.venues
   return {
     handle,
-    loading
+    loading,
+    venues
   }
 })(VenuesFormComponent);
 

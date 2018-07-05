@@ -23,7 +23,8 @@ import EditAvatarButton from './header/EditAvatarButton'
 const styles = {
   profileForm: {
     display: 'none',
-    width:'100vw',
+    maxWidth:'960px',
+    minWidth: '420px',
     transition: 'visibility 0s, opacity 0.5s linear'
   }
 }
@@ -84,9 +85,19 @@ class PageProfileComponent extends Component {
     if (!this.props.thisUser) {
       return (<PageError />)
     }
-    const model = this.props.thisUser.profile;
 
-    const omitFields = ["talentId", "venue.$.venueId"];
+    let talentModel = Schema.Talent.clean({})
+    let interestsModel = Schema.Interests.clean({})
+    let venueModel = Schema.Venue.clean({})
+    const thisProfile = this.props.thisUser.profile;
+
+    const model = Schema.Profile.clean(thisProfile)
+    // console.log(Schema.Profile.clean({'talents.$.talent': talentModel, 
+    //                                  'interests': interestsModel, 
+    //                                  'venues.$.venue': venueModel, 
+    //                                  ...thisProfile
+    //                                }));
+    // const omitFields = ["talentId", "venue.$.venueId"];
 
       return (
         <div>
@@ -154,7 +165,7 @@ class PageProfileComponent extends Component {
 export default PageProfile = withTracker(() => {
   const handle = Meteor.subscribe('currentUser');
   const loading = !handle.ready();
-  const thisUser = Meteor.user();
+  const thisUser = Meteor.users.findOne(Meteor.userId());
 
   return {
     handle,

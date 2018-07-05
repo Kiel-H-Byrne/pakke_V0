@@ -98,10 +98,12 @@ Schema.Address = new SimpleSchema({
 Schema.Venue = new SimpleSchema({
   venueId: {
     type: String,
+    uniforms: { component: () => null },
     autoValue: () => Random.id()
   },
   hostId: {
     type: String,
+    uniforms: { component: () => null },
     autoValue: () => Meteor.userId()
   },
   nickname: {
@@ -219,7 +221,7 @@ Schema.Talent = new SimpleSchema({
   }
 });
 
-Schema.Insight = new SimpleSchema({
+Schema.Insights = new SimpleSchema({
   experiences: {
     type: String,
     label: 'Experiences you love?',
@@ -434,8 +436,12 @@ Schema.Profile = new SimpleSchema({
     optional: true,
     label: 'Instagram Handle'
   },
+  insights: {
+    type: Schema.Insights,
+    optional: true,
+  },
   interests: {
-    type: Schema.Insight,
+    type: Schema.Interests,
     optional: true,
   },
   venues: {
@@ -570,6 +576,7 @@ Schema.Event = new SimpleSchema({
   // 'type' is where you can set the expected data type for the 'title' key's value
   hostId: {
     type: String,
+    uniforms: { component: () => null },
     autoValue: () => Meteor.userId()
   },
   date: {
@@ -651,18 +658,23 @@ Schema.Event = new SimpleSchema({
   //   optional: true,
   //   uniforms: (Meteor.isClient ? VenuesForm : null),
   //   //SOMEHOW SHOW RADIO BOXES WITH NAMES OF VENUES FROM HOSTS VENUEARRAY
-  // },
+  // },e
   venueId: {
     type: String,
     uniforms: {
       options: function() {
         //return array or listed 
         let venuesArray = Meteor.user().profile.venues;
-        console.log(venuesArray);
+        
         //get just names?
-        return venuesArray
-      }
-    }
+        return venuesArray.map( o => ({
+          'label': o.nickname,
+          'value': o.venueId
+          })
+        )
+      },
+    },
+    defaultValue: () => Random.id()
   },
   contact: {
     type: String,

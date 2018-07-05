@@ -89,6 +89,7 @@ class PaymentRequestForm extends React.Component {
         Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
       
         $('#eventPurchaseModal').modal('toggle');
+        //find class '.modal in' and change to '.modal hide'
         //amex 3796 330728 93002 6/18 9534 20031
         //testcard 
       }
