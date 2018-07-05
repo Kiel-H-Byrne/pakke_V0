@@ -54,6 +54,7 @@ Accounts.onCreateUser(function(options, user) {
   //CHECK & MERGE FACEBOOK INFO
   if (user.services.facebook) {
     const fb = user.services.facebook;
+    if (!fb.email) {return null}
     console.log(fb);
     myUser.username = fb.name;
     myUser.emails = [{address: fb.email, verified: true}];
@@ -64,6 +65,7 @@ Accounts.onCreateUser(function(options, user) {
   //CHECK & MERGE GOOGLE INFO
   if (user.services.google) {
     const gg = user.services.google;
+    if (!gg.email) {return null}
     console.log(gg);
     myUser.username = gg.name;
     myUser.emails = [{address: gg.email, verified: true}];
@@ -165,6 +167,6 @@ Accounts.emailTemplates.verifyEmail = {
       return "Activate your PAKKE account now!";
    },
    text(user, url) {
-      return `Hey ${user}! Verify your e-mail by following this link: ${url}`;
+      return `Hey ${user.profile.name}! Verify your e-mail by following this link: ${url}`;
    }
 };

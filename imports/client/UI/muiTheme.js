@@ -7,6 +7,9 @@ const muiTheme = createMuiTheme({
           backgroundColor: '#2964ff',
           color: '#fff',
           fontSize: '12px',
+        },
+        fab: {
+          backgroundColor: '#2964ff'
         }
       },
       MuiFormControl: {

@@ -25,7 +25,7 @@ class PaymentRequestForm extends React.Component {
 
 
 
-    const paymentRequest = props.stripe.paymentRequest({
+    let paymentRequest = props.stripe.paymentRequest({
       country: 'US',
       currency: 'usd',
       total: {
@@ -83,12 +83,16 @@ class PaymentRequestForm extends React.Component {
         Bert.alert(error.message, "danger", "growl-top-right");
       } else {
         console.log('Payment Received token:', token);
-        Meteor.call('createCharge', this.props.event.price, this.props.event.byline, token)
-        Meteor.call('amConfirmed', this.props.event._id);
-        Meteor.call('sendEmail', userEmail, ...userEmailProps);
-        Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
+        Meteor.call('createCharge', this.props.event.price, this.props.event.byline, token, function(error, result) {
+          if (!error) {
+            Meteor.call('amConfirmed', this.props.event._id);
+            Meteor.call('sendEmail', userEmail, ...userEmailProps);
+            Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
+          }
+        })
+        
       
-        $('#eventPurchaseModal').modal('toggle');
+        $('.modal-backdrop').removeClass('in').addClass('hide');
         //find class '.modal in' and change to '.modal hide'
         //amex 3796 330728 93002 6/18 9534 20031
         //testcard 
@@ -128,7 +132,7 @@ class PaymentRequestForm extends React.Component {
         <fieldset>
             <div className="row">
             <label htmlFor="card-phone" >Phone</label>
-            <input id="card-phone" type="tel" placeholder={this.props.user.phone || "(202) 555-0123"}  required="" />
+            <input id="card-phone" type="tel" placeholder={this.props.user.phone || ""}  required="" />
           </div>        
         </fieldset>
         <fieldset>

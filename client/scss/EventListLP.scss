@@ -27,3 +27,12 @@
      // grid-template-columns: 1fr 1fr 1fr;
      }
    }
+
+    .scroll-wrapper-y {
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }

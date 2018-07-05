@@ -62,7 +62,7 @@ Meteor.methods({
     Roles.addUsersToRoles( id , role );
   },
   editProfile: function(doc) {
-    const uid = Meteor.userId();
+    const uid = this.userId;
     Meteor.users.update(uid, {
       $set: {
         profile: doc
@@ -71,8 +71,8 @@ Meteor.methods({
     
   },
   addTalent: function(doc) {
-    const uid = Meteor.userId();
-    if ( !Roles.userIsInRole(Meteor.userId(), ["talent"]) ) {
+    const uid = this.userId;
+    if ( !Roles.userIsInRole(uid, ["talent"]) ) {
       Meteor.call('addRole', uid, ["talent"]);
     }
      Meteor.users.update(uid, {
@@ -82,7 +82,7 @@ Meteor.methods({
     });
   },
   addVenue: function(doc) {
-    const uid = Meteor.userId();
+    const uid = this.userId;
     Meteor.users.update(uid, {
       $addToSet: { 
         "profile.venues" : doc
@@ -93,8 +93,8 @@ Meteor.methods({
     let newEventEmailTemplate = `
       
     `;
-    if (! Roles.userIsInRole(Meteor.userId(), ["host"])) {
-      Meteor.call('addRole', Meteor.userId(), ["host"]);
+    if (! Roles.userIsInRole(this.userId, ["host"])) {
+      Meteor.call('addRole', this.userId, ["host"]);
     }
 
     Events.insert(doc , function(err, res){
@@ -127,7 +127,7 @@ Meteor.methods({
     })
   },
   addInterests(doc) {
-    const uid = Meteor.userId(); 
+    const uid = this.userId; 
     // console.log(doc);
     Meteor.users.update(uid, {
       $set: {"profile.interests": doc}
@@ -140,7 +140,7 @@ Meteor.methods({
     });
   },
   amInvited: function(eventId,user) {
-    Events.update(eventId, { $addToSet: { "invitedList": Meteor.userId() } });
+    Events.update(eventId, { $addToSet: { "invitedList": this.userId } });
   },
   inviteGuests: function(eventId, emailsArray) {
     this.unblock()
@@ -148,7 +148,7 @@ Meteor.methods({
     //check admin role 
     //find userid of each email address
     //send "Congrats! You've been invited! Please Buy Ticket" email to guest.
-    if (Roles.userIsInRole(Meteor.userId(), ["admin"])) {
+    if (Roles.userIsInRole(this.userId, ["admin"])) {
       let invitedEmailTitle, invitedEmailTemplate, invitedGuestsTemplate;
       const hid = Events.findOne(eventId).hostId;
       // const hid = event.hostId;
@@ -174,7 +174,7 @@ Meteor.methods({
     }
   },
   amConfirmed: function(eventId) {
-    Events.update(eventId, { $addToSet: { "confirmedList": Meteor.userId() } });
+    Events.update(eventId, { $addToSet: { "confirmedList": this.userId } });
   },
   geoCode: function(address) {
     this.unblock();
@@ -225,10 +225,13 @@ Meteor.methods({
       source: token.id,
     }, (err,charge) => {
       if (err) {
-        // throw new Meteor.Error("charge-alert", err.message);
         console.log(err.message);
-      } 
-      return charge;
+        // throw new Meteor.Error("charge-alert", err.message);
+      } else {
+        console.log('Payment Received: ' + description)
+        return charge;
+      }
+      
     });
   },
   uploadFile: function(obj) {
