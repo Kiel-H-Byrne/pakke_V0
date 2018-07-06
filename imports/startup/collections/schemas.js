@@ -727,6 +727,12 @@ Schema.Event = new SimpleSchema({
     type: Date,
     autoValue: () => new Date()
   }, 
+  isPrivate: {
+    type: Boolean,
+    optional: true,
+    defaultValue: false,
+    label: 'Private Party? (Will not be listed & guests must apply first)'
+  },
   featured: {
     type: Boolean, 
     optional: true,

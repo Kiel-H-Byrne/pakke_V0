@@ -48,7 +48,7 @@ class AddEventModalComponent extends Component {
         open={this.state.open}
         onClose={this.handleClose}
       >
-      <div className={classes.paper}>
+      <div className={classes.paper + ' scroll-wrapper-y'}>
         <Typography variant="title" id="AddEventModal-title">Create your Experience:</Typography>
         <AddEventForm />
       </div>

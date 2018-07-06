@@ -19,13 +19,10 @@ class PaymentRequestForm extends React.Component {
       form.appendChild(hiddenInput);
       // Submit the form
       //add user phone and real name if not already there.
-
       form.submit();
     }
 
-
-
-    let paymentRequest = props.stripe.paymentRequest({
+    const paymentRequest = props.stripe.paymentRequest({
       country: 'US',
       currency: 'usd',
       total: {
@@ -34,12 +31,10 @@ class PaymentRequestForm extends React.Component {
       },
       requestPayerName: true,
       requestPayerEmail: true,
-
-
     });
 
     paymentRequest.on('token', ({complete, token, ...data}) => {
-      // console.log('Received Stripe token: ', token);
+      console.log('Received Stripe token: ', token);
       console.log('Received customer information: ', data);
       stripeTokenHandler(token);
       complete('success');
@@ -50,7 +45,7 @@ class PaymentRequestForm extends React.Component {
     // paymentRequest.canMakePayment().then(result => {
     //   this.setState({canMakePayment: !!result});
     // });
-
+    
     this.state = {
       canMakePayment: false,
       paymentRequest,
@@ -82,9 +77,14 @@ class PaymentRequestForm extends React.Component {
       if (error) {
         Bert.alert(error.message, "danger", "growl-top-right");
       } else {
-        console.log('Payment Received token:', token);
+        let handleClose = this.props.handleClose
+        // console.log('Payment Received token:', token);
         Meteor.call('createCharge', this.props.event.price, this.props.event.byline, token, function(error, result) {
           if (!error) {
+            // console.log('payment success')
+            handleClose();
+            // $('.modal-backdrop').removeClass('in').addClass('hide');
+            Bert.alert("You're in! Check your inbox for more info!", "success");
             Meteor.call('amConfirmed', this.props.event._id);
             Meteor.call('sendEmail', userEmail, ...userEmailProps);
             Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
@@ -92,7 +92,7 @@ class PaymentRequestForm extends React.Component {
         })
         
       
-        $('.modal-backdrop').removeClass('in').addClass('hide');
+        
         //find class '.modal in' and change to '.modal hide'
         //amex 3796 330728 93002 6/18 9534 20031
         //testcard 

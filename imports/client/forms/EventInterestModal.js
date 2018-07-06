@@ -55,7 +55,7 @@ class EventInterestModalComponent extends Component {
         open={this.state.open}
         onClose={this.handleClose}
       >
-      <div className={classes.paper}>
+      <div className={classes.paper + ' scroll-wrapper-y'}>
         <Typography variant="title" id="eventInterestModal">Tell us a bit about yourself:</Typography>
         <Typography variant="subheading"> A few questions will help us find you the perfect party experience! </Typography>
         <EventInterestForm user = {this.props.user} event = {this.props.event}/>

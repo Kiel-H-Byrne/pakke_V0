@@ -47,7 +47,7 @@ class AddTalentModalComponent extends Component {
         open={this.state.open}
         onClose={this.handleClose}
       >
-      <div className={classes.paper}>
+      <div className={classes.paper + ' scroll-wrapper-y'}>
         <Typography variant="title" id="eventPurchaseModal">Register your Talent:</Typography>
         <AddTalentForm user = {this.props.user}/>
       </div>

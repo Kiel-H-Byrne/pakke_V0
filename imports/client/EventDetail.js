@@ -17,7 +17,6 @@ class EventDetailsComponent extends Component {
     }
   }
 
-
   static getDerivedStateFromProps(nextProps, prevState) {
     // console.log(nextProps, prevState)
     let eventHost;
@@ -80,21 +79,23 @@ class EventDetailsComponent extends Component {
             <div className='attend-event-button-area'>
               <div className='attend-event-button'>
               <p>${this.props.event.price}</p>
-              {this.props.thisUser ? (
-                  this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
-                  
-                    <Button onClick={boughtAlert} disabled variant="outlined" color="secondary">Purchased!</Button>
-                  ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
-                  
-                  <EventPurchaseModal  user = {this.props.thisUser} event = {this.props.event}/>
-                  ) : this.props.event.appliedList.includes(this.props.thisUser._id) ? (
-                
-                    <button onClick={waitAlert} className="btn disabled btn-success btn-lg" >Applied!</button>
-                  ) : (
-                
-                  <EventPurchaseModal user = {this.props.thisUser} event = {this.props.event}/>
-                
-                  ) ) : <Button onClick={loginAlert} className="btn btn-success btn-lg" >Buy Ticket</Button> }
+                {this.props.thisUser ? (
+                    this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
+                    
+                      <Button onClick={boughtAlert} disabled variant="outlined" color="secondary">Purchased!</Button>
+                    ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
+                    //IF YOU'VE BEEN INVITED, PLEASE BUY A TICKET
+                    <EventPurchaseModal  user = {this.props.thisUser} event = {this.props.event}/>
+                    ) : this.props.event.appliedList.includes(this.props.thisUser._id) ? (
+                      <Button onClick={waitAlert} >Applied!</Button>
+                    ) : this.props.event.isPrivate ? (
+                    //IF THERE IS A WAITING LIST: "private", PLEASE APPLY FOR A TICKET.
+                    <EventInterestModal user = {this.props.thisUser} event = {this.props.event}/>
+                    ) : ( //OTHERWISE, BUY A TICKET TO ANY EVENT (2nd DEFAULT)
+                    <EventPurchaseModal user = {this.props.thisUser} event = {this.props.event}/>
+                    ) // OTHERWISE, LOGIN TO BUY A TICKET.
+                  ) : <Button onClick={loginAlert} >Buy Ticket</Button> 
+                }
               </div>
             </div>
           )}
