@@ -57,8 +57,6 @@ class EventDetailsComponent extends Component {
         <Helmet>
           <title>PAKKE Event: {this.props.event.byline}</title>
           <meta name="description" content={this.props.event.description}/>
-          <meta name="keywords" content="Night Life, Nightlife, Night Out, Social Events, Parties in DC, Events in DC "+ {this.props.event.description} />
-
           <meta property="og:title" content={this.props.event.byline} />
           <meta property="og:type" content="website" />
           <meta property="og:image" content={this.props.event.image} />
@@ -67,17 +65,16 @@ class EventDetailsComponent extends Component {
           <meta property="og:image:width" content="529" />
           <meta property="og:image:height" content="529" />
           <meta property="og:image:alt" content={this.props.event.byline} />
-          <meta property="og:url" content="https://www.pakke.us/event/"+{this.props.event._id} />
+          <meta property="og:url" content={`https://www.pakke.us/event/${this.props.event._id}`} />
           <meta property="og:description" content={this.props.event.description}/>
           <meta property="og:determiner" content="auto" />
           <meta property="og:locale" content="en_US" />
           <meta property="og:site_name" content="PAKKE" />
           <meta property="fb:app_id" content="168356840569104" />
-          
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={this.props.event.byline} />
           <meta name="twitter:description" content={this.props.event.description} />
-          <meta name="twitter:url" content="https://www.pakke.us/event/"+{this.props.event._id}  />
+          <meta name="twitter:url" content={`https://www.pakke.us/event/${this.props.event._id}`}  />
           <meta name="twitter:image" content={this.props.event.image} />
         </Helmet>
 
