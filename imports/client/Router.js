@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { Accounts } from 'meteor/std:accounts-ui';
 
 import PageHome from './PageHome';
 import PageAboutPAKKE from './PageAboutPAKKE';
@@ -43,6 +44,7 @@ class Router extends Component {
             <Route path='/talent' component={BecomeTalent} />
             <Route path='/nomadico2018' component={NomadicoDetails} />
             <Route path='/terms' component={PageTerms} />
+            <Route path='/admin' component={Accounts.ui.LoginForm} />
             { Meteor.isDevelopment ?
             (<Route path='/test' component={PageTest} />)
             : ('')

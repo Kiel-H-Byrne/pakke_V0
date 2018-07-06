@@ -34,7 +34,7 @@ const styles = {
                 alignItems: 'center',
             },
             typo: {
-                marginTop: 10,
+                marginTop: 5,
             },
 
             media: {
@@ -53,11 +53,6 @@ const styles = {
                 fontSize: '1.5rem',
                 left: '-.3rem',
             },
-            button: {
-                backgroundColor: '#2964ff',
-                color: '#fff',
-                fontSize: '12px',
-            }
         };
 
 export default class Event extends Component {
@@ -129,13 +124,12 @@ export default class Event extends Component {
                             </CardContent>
                         </Link>
                         <CardActions style={styles.actions}>
-                        {this.state.soldOut ? (
-                            <Button size="large" disabled >Sold Out</Button>
-                            ) : (
-                            <Button onClick={null} size="large" style={styles.button} >Buy Ticket</Button>
-                            )}
-                        {this.state.isHost ? ( <EditEventButton event={this.props.event} />) : null}
-                            
+                        {this.state.isHost ? ( <EditEventButton event={this.props.event} />) : this.state.soldOut ? (
+                          <Button size="large" disabled >Sold Out</Button>
+                        ) : (
+                          <Button component={Link} to={`/event/${this.props.event._id}`}>Buy Ticket</Button>
+                        )}
+                        
                             {/*<img src="ImageLogoBlack.png" style={styles.logo} /> */}
                         </CardActions>
                     </Card>
