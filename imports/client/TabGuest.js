@@ -45,7 +45,7 @@ export default TabGuest = withTracker(() => {
     currentUser: Meteor.user(),
     allEvents: Events.find({}, {}).fetch(),
     eventsFromCollection: Events.find({
-      appliedList: { $in: [Meteor.userId()] }
+      confirmedList: { $in: [Meteor.userId()] }
     }).fetch(),
   };
 })(TabGuestComponent);

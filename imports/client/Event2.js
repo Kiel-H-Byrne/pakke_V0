@@ -61,9 +61,11 @@ export default class Event extends Component {
         this.state = {
           eventHost: Meteor.users.findOne({_id: this.props.event.hostId}),
           isHost: false,
-          soldOut: false
+          soldOut: false,
+          isConfirmed: false
         }
         if (Meteor.userId() == this.props.event.hostId) { this.state.isHost = true }
+        if (this.props.event.confirmedList.includes(Meteor.userId())) { this.state.isConfirmed = true }
 
         let confirmedCount = 0;
         if (this.props.event.confirmedList) {
@@ -98,6 +100,7 @@ export default class Event extends Component {
             }
         };
         
+
         return (
             <Grid item>
                 
@@ -126,6 +129,8 @@ export default class Event extends Component {
                         <CardActions style={styles.actions}>
                         {this.state.isHost ? ( <EditEventButton event={this.props.event} />) : this.state.soldOut ? (
                           <Button size="large" disabled >Sold Out</Button>
+                        ) : this.state.isConfirmed ? (
+                          <Button component={Link} to={`/event/${this.props.event._id}`}>View Details</Button>  
                         ) : (
                           <Button component={Link} to={`/event/${this.props.event._id}`}>Buy Ticket</Button>
                         )}
