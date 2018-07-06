@@ -122,20 +122,14 @@ class PaymentRequestForm extends React.Component {
       <form id="payment-form" onSubmit={this.handleSubmit}>
         <fieldset>
           <div className="row">
-            <InputLabel htmlFor="card-name" >Name</InputLabel>
-            <Input id="card-name" type="text" placeholder={this.props.user.username || "Jane Dough"}  required="" />
+            <label htmlFor="card-name" >Name</label>
+            <input id="card-name" type="text" placeholder={this.props.user.username || "Jane Dough"}  required="" />
           </div>
         </fieldset>
         <fieldset>
             <div className="row">
-            <InputLabel htmlFor="card-email" >E-mail</InputLabel>
-            <Input id="card-email" type="email" placeholder={this.props.user.emails[0].address || "jdough@pakke.com"}  required="" />
-          </div>        
-        </fieldset>
-        <fieldset>
-            <div className="row">
-            <InputLabel htmlFor="card-phone" >Phone</InputLabel>
-            <Input id="card-phone" type="tel" placeholder={this.props.user.phone || ""}  required="" />
+            <label htmlFor="card-phone" >Phone</label>
+            <input id="card-phone" type="tel" placeholder={this.props.user.phone || ""}  required="" />
           </div>        
         </fieldset>
         <fieldset>
