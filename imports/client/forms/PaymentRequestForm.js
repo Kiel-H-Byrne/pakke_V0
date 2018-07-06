@@ -1,5 +1,8 @@
 import React from 'react';
 import { CardElement, injectStripe, PaymentRequestButtonElement } from 'react-stripe-elements';
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 import eventPurchasedTemplate from '../email/eventPurchasedTemplate';
 import eventPurchasedAdminTemplate from '../email/eventPurchasedAdminTemplate';
 
@@ -119,20 +122,20 @@ class PaymentRequestForm extends React.Component {
       <form id="payment-form" onSubmit={this.handleSubmit}>
         <fieldset>
           <div className="row">
-            <label htmlFor="card-name" >Name</label>
-            <input id="card-name" type="text" placeholder={this.props.user.username || "Jane Dough"}  required="" />
+            <InputLabel htmlFor="card-name" >Name</InputLabel>
+            <Input id="card-name" type="text" placeholder={this.props.user.username || "Jane Dough"}  required="" />
           </div>
         </fieldset>
         <fieldset>
             <div className="row">
-            <label htmlFor="card-email" >E-mail</label>
-            <input id="card-email" type="email" placeholder={this.props.user.emails[0].address || "jdough@pakke.com"}  required="" />
+            <InputLabel htmlFor="card-email" >E-mail</InputLabel>
+            <Input id="card-email" type="email" placeholder={this.props.user.emails[0].address || "jdough@pakke.com"}  required="" />
           </div>        
         </fieldset>
         <fieldset>
             <div className="row">
-            <label htmlFor="card-phone" >Phone</label>
-            <input id="card-phone" type="tel" placeholder={this.props.user.phone || ""}  required="" />
+            <InputLabel htmlFor="card-phone" >Phone</InputLabel>
+            <Input id="card-phone" type="tel" placeholder={this.props.user.phone || ""}  required="" />
           </div>        
         </fieldset>
         <fieldset>
@@ -141,7 +144,7 @@ class PaymentRequestForm extends React.Component {
           </div>
           <div id="card-errors" role="alert"></div>    
         </fieldset>
-        <button className="btn btn-success btn-lg">Pay ${this.props.event.price}</button>
+        <Button type="submit">Pay ${this.props.event.price}</Button>
 
         <div className="error" role="alert">
           <svg width="17" height="17" viewBox="0 0 17 17">

@@ -13,10 +13,6 @@ import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 
 const styles = theme => ({
-	button: {
-		margin: theme.spacing.unit,
-		color: '#fff'
-	},
 	paper: {
     position: 'absolute',
     // width: theme.spacing.unit * 50,

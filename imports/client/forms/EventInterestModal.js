@@ -13,6 +13,7 @@ const styles = theme => ({
   paper: {
     position: 'absolute',
     width: theme.spacing.unit * 50,
+    maxHeight: '90vh',
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
@@ -20,13 +21,6 @@ const styles = theme => ({
     left: '50%',
     transform: `translate(-50%, -50%)`,
   },
-  button: {
-    backgroundColor: '#2964ff',
-    color: '#fff',
-    fontSize: '12px',
-  }
-
-
 });
 
 
