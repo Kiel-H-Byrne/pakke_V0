@@ -214,7 +214,6 @@ Meteor.methods({
   createCharge: function(amount, description, token) {
     //makre sure old object is added to new object, update rewrites fields.
     const stripe = require("stripe")(Meteor.settings.private.keys.stripe.key);
-
     description = `PAKKE EVENT: ${description}`;
     
     // console.log(token);
@@ -223,16 +222,17 @@ Meteor.methods({
       currency: 'usd',
       description: description,
       source: token.id,
+      capture: false
     }, (err,charge) => {
       if (err) {
-        console.log(err.message);
-        // throw new Meteor.Error("charge-alert", err.message);
+        console.log("err",err.message)
+        let error = err.message;
+        return
       } else {
         console.log('Payment Received: ' + description)
         return charge;
       }
-      
-    });
+    })
   },
   uploadFile: function(obj) {
     let upload =  Avatars.insert(obj, false);

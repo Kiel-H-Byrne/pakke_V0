@@ -83,9 +83,14 @@ class PaymentRequestForm extends React.Component {
         let handleClose = this.props.handleClose
         let event = this.props.event
         // console.log('Payment Received token:', token);
-        Meteor.call('createCharge', this.props.event.price, this.props.event.byline, token, function(error, result) {
-          if (!error) {
-            // console.log('payment success')
+       let rez = Meteor.call('createCharge', this.props.event.price, this.props.event.byline, token, (error, result) => {
+          if (error) {
+            console.log("Callback error:")
+            console.log(error)
+            Bert.alert(err.message, "error");
+          } else {
+            // console.log("Callback result:")
+            // console.log(result)
             handleClose();
             // $('.modal-backdrop').removeClass('in').addClass('hide');
             Bert.alert("You're in! Check your inbox for more info!", "success");
@@ -93,12 +98,12 @@ class PaymentRequestForm extends React.Component {
             Meteor.call('sendEmail', userEmail, ...userEmailProps);
             Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
           }
-        })
-        
-      
-        
+        })      
+        if (rez) {
+          console.log(rez)
+        }
         //find class '.modal in' and change to '.modal hide'
-        //amex 3796 330728 93002 6/18 9534 20031
+        //amex 3796 330728 93002 6/20 9534 20031
         //testcard 
       }
     });
