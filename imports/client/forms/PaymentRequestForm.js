@@ -81,6 +81,7 @@ class PaymentRequestForm extends React.Component {
         Bert.alert(error.message, "danger", "growl-top-right");
       } else {
         let handleClose = this.props.handleClose
+        let event = this.props.event
         // console.log('Payment Received token:', token);
         Meteor.call('createCharge', this.props.event.price, this.props.event.byline, token, function(error, result) {
           if (!error) {
@@ -88,7 +89,7 @@ class PaymentRequestForm extends React.Component {
             handleClose();
             // $('.modal-backdrop').removeClass('in').addClass('hide');
             Bert.alert("You're in! Check your inbox for more info!", "success");
-            Meteor.call('amConfirmed', this.props.event._id);
+            Meteor.call('amConfirmed', event._id);
             Meteor.call('sendEmail', userEmail, ...userEmailProps);
             Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
           }
