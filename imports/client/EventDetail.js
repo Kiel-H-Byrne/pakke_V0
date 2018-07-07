@@ -57,6 +57,7 @@ class EventDetailsComponent extends Component {
         <Helmet>
           <title>PAKKE Event: {this.props.event.byline}</title>
           <meta name="description" content={this.props.event.description}/>
+          <meta name="keywords" content={`Night Life, Nightlife, Night Out, Social Events, Parties in DC, Events in DC, ${this.props.event.description}`}/>
           <meta property="og:title" content={this.props.event.byline} />
           <meta property="og:type" content="website" />
           <meta property="og:image" content={this.props.event.image} />
