@@ -211,7 +211,7 @@ Meteor.methods({
       return res.data;
     });
   },
-  createCharge: function(amount, description, token) {
+  createCharge: function(email,amount, description, token) {
     //makre sure old object is added to new object, update rewrites fields.
     const stripe = require("stripe")(Meteor.settings.private.keys.stripe.key);
     description = `PAKKE EVENT: ${description}`;
@@ -222,6 +222,7 @@ Meteor.methods({
       currency: 'usd',
       description: description,
       source: token.id,
+      receipt_email: email,
       capture: false
     }, (err,charge) => {
       if (err) {

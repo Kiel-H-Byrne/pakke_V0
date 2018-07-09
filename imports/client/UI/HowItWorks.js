@@ -96,7 +96,7 @@ function HowItWorks(props) {
 
                             <Typography align={'center'} style={styles.box1} variant="display1">2. Get Selected</Typography>
                             <hr style={styles.divider} />
-                            <Typography align={'center'} style={styles.box2} variant='headline'>Selections are made using a lottory system. Once you are selected, you will be able to purchase your ticket.</Typography>
+                            <Typography align={'center'} style={styles.box2} variant='headline'>Selections are made using a lottery system. Once you are selected, you will be able to purchase your ticket.</Typography>
                         </Grid>
 
                         <Grid item style={styles.box0}>

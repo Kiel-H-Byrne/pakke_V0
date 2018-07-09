@@ -61,6 +61,8 @@ class PaymentRequestForm extends React.Component {
     // Within the context of `Elements`, this call to createToken knows which Element to
     // tokenize, since there's only one in this group.
     const user = this.props.user;
+    const event = this.props.event
+    const handleClose = this.props.handleClose
           // console.log(user)
     const userEmail = user.emails[0].address;
     const userEmailProps = [
@@ -80,10 +82,10 @@ class PaymentRequestForm extends React.Component {
       if (error) {
         Bert.alert(error.message, "danger", "growl-top-right");
       } else {
-        let handleClose = this.props.handleClose
-        let event = this.props.event
+        
+        
         // console.log('Payment Received token:', token);
-       let rez = Meteor.call('createCharge', this.props.event.price, this.props.event.byline, token, (error, result) => {
+       let rez = Meteor.call('createCharge', userEmail, this.props.event.price, this.props.event.byline, token, (error, result) => {
           if (error) {
             console.log("Callback error:")
             console.log(error)
@@ -97,6 +99,13 @@ class PaymentRequestForm extends React.Component {
             Meteor.call('amConfirmed', event._id);
             Meteor.call('sendEmail', userEmail, ...userEmailProps);
             Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
+            
+            // analytics.track("Ticket Purchase", {
+            //   label: event.byline,
+            //   commerce: event.price,
+            //   value: event.price,
+            //   host: event.hostId,
+            // })
           }
         })      
         if (rez) {

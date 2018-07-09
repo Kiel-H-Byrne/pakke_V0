@@ -17,7 +17,8 @@ import PageTerms from './PageTerms';
 import BecomeHost from './forms/BecomeHost';
 import BecomeTalent from './forms/BecomeTalent';
 import PageEventMap from './PageEventMap';
-import NomadicoDetails from './old-test/Nomadico';
+import NomadicoDetails from './events/Nomadico';
+import ZarahnaDetails from './events/Zarahna'
 
 // import PageEventMap from './pageEventMap/PageEventMap';
 // import PageSignUp from './PageSignUp';
@@ -43,6 +44,8 @@ class Router extends Component {
             <Route path='/host' component={BecomeHost} />
             <Route path='/talent' component={BecomeTalent} />
             <Route path='/nomadico2018' component={NomadicoDetails} />
+            <Route path='/LOZ2018' component={ZarahnaDetails} />
+            
             <Route path='/terms' component={PageTerms} />
             <Route path='/admin' component={Accounts.ui.LoginForm} />
             { Meteor.isDevelopment ?
