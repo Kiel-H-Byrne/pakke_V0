@@ -244,7 +244,6 @@ Meteor.methods({
   removeEventImage: function(fileId) {
     EventImages.remove(fileId)
   },
-  
   sendEmail: function(to, from, subject, html) {
     // check([to, from, subject, html], [String]);
     this.unblock();

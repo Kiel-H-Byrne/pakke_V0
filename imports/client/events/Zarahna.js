@@ -23,8 +23,7 @@ class ZarahnaDetails extends Component {
     return (
       <Grid container direction="column">
         <Grid item xs={12}>
-          <a href="https://nomadicofestival.com/tickets/" target="_blank">
-          <img src={'img/events/nomadico__cover.png'} style={{ width: '100%' }} /></a>
+          <img src="https://s3.us-east-2.amazonaws.com/pakke-images/events/IMG_LOZ2018.jpeg" style={{ width: '100%' }} />
        </Grid>
        <Grid item xs={12}>
         <Paper align={'center'} style={{ width: '80%', margin: '2% auto'}}>
@@ -41,7 +40,7 @@ class ZarahnaDetails extends Component {
            <li>Swimming and kayaking</li>
          </ul>
          </Typography>
-          <Button size="large" color={"#2964ff"} href="https://nomadicofestival.com/tickets/" target="_blank">Get Tickets</Button>
+          <Button href="https://nomadicofestival.com/tickets/" target="_blank">Get Tickets</Button>
        </Paper>
       </Grid>
 

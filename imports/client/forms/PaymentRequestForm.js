@@ -45,9 +45,9 @@ class PaymentRequestForm extends React.Component {
     //PaymentRequestButtonElement NOT WORKING (just times out), SO COMMENTED OUT 
     // Timed out waiting for a PaymentResponse.complete() call.
     //SETS VARIABLE TO TRUE IF IT CAN, (I DON'T WANT IT TO)
-    // paymentRequest.canMakePayment().then(result => {
-    //   this.setState({canMakePayment: !!result});
-    // });
+    paymentRequest.canMakePayment().then(result => {
+      this.setState({canMakePayment: !!result});
+    });
     
     this.state = {
       canMakePayment: false,
@@ -100,12 +100,12 @@ class PaymentRequestForm extends React.Component {
             Meteor.call('sendEmail', userEmail, ...userEmailProps);
             Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
             
-            // analytics.track("Ticket Purchase", {
-            //   label: event.byline,
-            //   commerce: event.price,
-            //   value: event.price,
-            //   host: event.hostId,
-            // })
+            analytics.track("Ticket Purchase", {
+              label: event.byline,
+              commerce: event.price,
+              value: event.price,
+              host: event.hostId,
+            })
           }
         })      
         if (rez) {

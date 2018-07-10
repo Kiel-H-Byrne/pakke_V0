@@ -22,6 +22,20 @@ if (Meteor.isServer) {
       const cursor = Events.find({
         date: {
           $gte: new Date() 
+        },
+      },
+      {
+        sort: { date: 1 }
+      });
+
+    // console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] CURRENT EVENTS =-");
+    return cursor;
+  });
+
+  Meteor.publish('events_public', function () {
+      const cursor = Events.find({
+        date: {
+          $gte: new Date() 
         }
       },
       {

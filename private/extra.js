@@ -1,4 +1,4 @@
-Meteor.login("noreply@pakke.us", "pakkeP@RTY")
+Meteor.loginWithPassword("noreply@pakke.us", "pakkeP@RTY")
 
 
 analytics.page({
