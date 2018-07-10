@@ -45,9 +45,9 @@ class PaymentRequestForm extends React.Component {
     //PaymentRequestButtonElement NOT WORKING (just times out), SO COMMENTED OUT 
     // Timed out waiting for a PaymentResponse.complete() call.
     //SETS VARIABLE TO TRUE IF IT CAN, (I DON'T WANT IT TO)
-    paymentRequest.canMakePayment().then(result => {
-      this.setState({canMakePayment: !!result});
-    });
+    // paymentRequest.canMakePayment().then(result => {
+    //   this.setState({canMakePayment: !!result});
+    // });
     
     this.state = {
       canMakePayment: false,
