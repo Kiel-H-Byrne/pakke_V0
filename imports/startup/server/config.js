@@ -49,17 +49,23 @@ Accounts.onCreateUser(function(options, user) {
   if (options.profile) {
     myUser.profile =  Schema.Profile.clean(options.profile);
   }
-    // console.log(user);
+  // console.log(user);
+  //IF USERNAME EXISTS, APPEND A NUMBER TO IT.
+
 
   //CHECK & MERGE FACEBOOK INFO
   if (user.services.facebook) {
     const fb = user.services.facebook;
     if (!fb.email) {return null}
     console.log(fb);
-    myUser.username = fb.name;
+    if (Accounts.findUserByUsername(fb.name)) {
+      myUser.username = fb.name + fb.name.charAt(3);
+    } else {
+      myUser.username = fb.name;
+    }
     myUser.emails = [{address: fb.email, verified: true}];
     // myUser.profile.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=large`;
-    (fb.picture.data.is_silhouette == false) ? myUser.profile.avatar = fb.picture.data.url : null
+    (fb.picture.data.is_silhouette == false) ? myUser.profile.avatar = fb.picture.data.url : myUser.profile.avatar = "/img/holders/default-avatar.jpg"
     myUser.profile.birthDate = new Date(fb.birthday) || null;
   }
   //CHECK & MERGE GOOGLE INFO
@@ -67,9 +73,13 @@ Accounts.onCreateUser(function(options, user) {
     const gg = user.services.google;
     if (!gg.email) {return null}
     console.log(gg);
-    myUser.username = gg.name;
+    if (Accounts.findUserByUsername(gg.name)) {
+      myUser.username = gg.name + gg.name.charAt(3);
+    } else {
+      myUser.username = gg.name;
+    }
     myUser.emails = [{address: gg.email, verified: true}];
-    myUser.profile.avatar = gg.picture;
+    myUser.profile.avatar = gg.picture || "/img/holders/default-avatar.jpg";
   }
   // console.log(myUser);
   return myUser;

@@ -46,6 +46,3 @@ analytics.track('Events: Purchased Ticket', {
   others: 'others...'
 });
 
-
-
-

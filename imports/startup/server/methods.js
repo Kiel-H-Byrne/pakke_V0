@@ -250,8 +250,31 @@ Meteor.methods({
 
     //check if logged in, or else anyone can send email from client
     Email.send({to, from, subject, html });
+  },
+  getCL: function(eventId) {
+    const event = Events.findOne({_id: eventId});
+    const CL = event.confirmedList;
+    let htmlRowsArray;
+    CL.map((uid) => {
+      console.log(uid)
+      let u = Meteor.users.findOne({_id: uid});
+      htmlRowsArray.push(`
+        <tr> <td>${u.emails[0].address}</td>
+        <td>${u.profile.name}</td>
+        <td>${u.profile.avatar}</td></tr>
+      `);
+
+    });
+    let htmlRows = htmlRowsArray.join();
+    const template = `<h3> Guest List for ${event.byline} </h3>
+        <table> <thead> <tr> <th>Name</th> <th>E-mail</th> <th>Picture</th> </tr> </thead> <tbody>
+        ${htmlRows}
+        </tbody></table>`;
+    console.log(template)
+
+    Email.send("kiel.byrne@gmail.com", "noreply@pakke.us", "Guest List", template);
+    //send email to kiel@Pakke.us with this info
+ 
   }
   
 });
-
-
