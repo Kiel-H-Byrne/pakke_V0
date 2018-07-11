@@ -78,7 +78,7 @@ Accounts.onCreateUser(function(options, user) {
 
 Accounts.validateNewUser(function(user) {
     console.log('Checking for Existing E-mail...');
-    if (user.emails) {
+    if (user && user.emails) {
       const user_email = user.emails[0].address;
       const existing_user = Accounts.findUserByEmail(user_email);
       let crmParams = {};
