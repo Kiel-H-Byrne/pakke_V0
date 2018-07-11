@@ -1,37 +1,12 @@
-.event-detail-container {
-  position: relative;
-  max-width: 960px;
-  margin: auto;
-
-  h1 {
-    text-align: center;
-  }
-
-  p {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-.event-detail-image {
-  display: block;
-  margin:0 auto;
-  max-height: 750px;
-}
-
 .event-detail-bottom {
   display: flex;
   justify-content: space-around;
+  padding: 2rem;
 }
 
 .attend-event-button-area {
   float: right;
   border-radius: 1rem;
-}
-
-.attend-event-button {
-  padding: 2rem;
 }
 
 .event-detail-description {
@@ -48,4 +23,5 @@
 .host-image {
   border-radius: 50%;
   max-height: 10rem;
+  margin: 0 20px;
 }

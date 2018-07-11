@@ -8,8 +8,15 @@ const muiTheme = createMuiTheme({
           color: '#fff',
           fontSize: '12px',
         },
+        disabled: {
+          backgroundColor: '#A3A7B2',
+          color: '#fff'
+        },
         fab: {
           backgroundColor: '#2964ff'
+        },
+        focusVisible: {
+          backgroundColor: '#266199'
         }
       },
       MuiFormControl: {
