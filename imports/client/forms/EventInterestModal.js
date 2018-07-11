@@ -42,7 +42,7 @@ class EventInterestModalComponent extends Component {
 
     return (
             <div>
-      <Button type="button" onClick={this.handleOpen} className={classes.button}> Apply </Button>
+      <Button type="button" onClick={this.handleOpen} className={classes.button} fullWidth={true} > Apply </Button>
       <Modal 
         aria-labelledby="New Event Form"
         aria-describedby="Add a new experience."

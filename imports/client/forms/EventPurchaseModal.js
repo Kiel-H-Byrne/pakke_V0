@@ -49,7 +49,7 @@ class EventPurchaseModalComponent extends Component {
 
     return (
       <div>
-        <Button type="button" onClick={this.handleOpen} className={classes.button}> Buy Tickets </Button>
+        <Button type="button" onClick={this.handleOpen} className={classes.button} fullWidth={true} > Buy Tickets </Button>
         <Modal 
           aria-labelledby="Event Purchase Form"
           aria-describedby="Buy a ticket for this event."
