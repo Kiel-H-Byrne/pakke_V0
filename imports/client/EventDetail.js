@@ -5,6 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withStyles } from '@material-ui/core/styles';
 import Events from '../startup/collections/events';
 import { BarLoader } from 'react-spinners';
+import {Helmet} from "react-helmet";
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -91,78 +92,105 @@ class EventDetailsComponent extends Component {
   // console.log(this.state);
 
     return (
-      <Card className={classes.container}>
-        <CardMedia image={this.props.event.image ? this.props.event.image : `""`} title='Event Preview' className={classes.image} />
-        <CardContent>
-          <Typography variant="display2" align="center" gutterBottom >{this.props.event.byline}</Typography>
-          <Typography component="p" variant="display1" paragraph >{this.props.event.description}</Typography>
-          <Grid 
-          container
-          alignItems="center"
-          direction="row"
-          justify="center"
-          className={classes.grid}
-          >
+      <div>
+        <head>
+          <Helmet>
+            <title>PAKKE Event: {this.props.event.byline}</title>
+            <meta name="description" content={this.props.event.description}/>
+            <meta name="keywords" content={`Night Life, Nightlife, Night Out, Social Events, Parties in DC, Events in DC, ${this.props.event.description}`}/>
+            <meta property="og:title" content={this.props.event.byline} />
+            <meta property="og:type" content="website" />
+            <meta property="og:image" content={this.props.event.image} />
+            <meta property="og:image:secure_url" content={this.props.event.image} />
+            <meta property="og:image:type" content="image/png" />
+            <meta property="og:image:width" content="529" />
+            <meta property="og:image:height" content="529" />
+            <meta property="og:image:alt" content={this.props.event.byline} />
+            <meta property="og:url" content={`https://www.pakke.us/event/${this.props.event._id}`} />
+            <meta property="og:description" content={this.props.event.description}/>
+            <meta property="og:determiner" content="auto" />
+            <meta property="og:locale" content="en_US" />
+            <meta property="og:site_name" content="PAKKE" />
+            <meta property="fb:app_id" content="168356840569104" />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={this.props.event.byline} />
+            <meta name="twitter:description" content={this.props.event.description} />
+            <meta name="twitter:url" content={`https://www.pakke.us/event/${this.props.event._id}`}  />
+            <meta name="twitter:image" content={this.props.event.image} />
+          </Helmet>
+        </head>
+        <Card className={classes.container}>
+          <CardMedia image={this.props.event.image ? this.props.event.image : `""`} title='Event Preview' className={classes.image} />
+          <CardContent>
+            <Typography variant="display2" align="center" gutterBottom >{this.props.event.byline}</Typography>
+            <Typography component="p" variant="display1" paragraph >{this.props.event.description}</Typography>
+            <Grid 
+            container
+            alignItems="center"
+            direction="row"
+            justify="center"
+            className={classes.grid}
+            >
 
-            <Grid item>
-            {this.state.eventHost ? (
-              <Paper elevation={0}>
-                <Typography variant="headline" align="center">Your Host:</Typography>
-                <img className='host-image' src={this.state.eventHost.profile.avatar} />
-                <Typography variant="title" align="center">{this.state.eventHost.profile.name}</Typography>
-              </Paper> 
-              ) : (
-                <div >
-                
-              </div> 
-              )
-            }
+              <Grid item>
+              {this.state.eventHost ? (
+                <Paper elevation={0}>
+                  <Typography variant="headline" align="center">Your Host:</Typography>
+                  <img className='host-image' src={this.state.eventHost.profile.avatar} />
+                  <Typography variant="title" align="center">{this.state.eventHost.profile.name}</Typography>
+                </Paper> 
+                ) : (
+                  <div >
+                  
+                </div> 
+                )
+              }
+              </Grid>
+              <Grid item>
+              {this.props.event.partner ? (
+                <div> 
+                  <Button component={Link} to={this.props.event.partnerLink} target="_blank" className="btn btn-info btn-lg"> Apply </Button>
+               </div>
+                ) : (
+                <div>
+                  <Table>
+                    <TableBody className={classes.table}>
+                      <TableRow>
+                        <TableCell className={classes.cell}><h5>WHEN:</h5> </TableCell>
+                        <TableCell numeric={true} className={classes.cell}>{this.props.event.date.toDateString().substring(0, (this.props.event.date.toDateString()).length - 5)}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className={classes.cell}><h5>PRICE:</h5> </TableCell>
+                        <TableCell  numeric={true} className={classes.cell}>${this.props.event.price}</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                  
+                  {this.props.thisUser ? (
+                      this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
+                      
+                        <Button onClick={boughtAlert} disabled={true} fullWidth={true} variant="outlined" color="secondary">Purchased!</Button>
+                      ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
+                      //IF YOU'VE BEEN INVITED, PLEASE BUY A TICKET
+                      <EventPurchaseModal  user = {this.props.thisUser} event = {this.props.event}/>
+                      ) : this.props.event.appliedList.includes(this.props.thisUser._id) ? (
+                        <Button onClick={waitAlert} fullWidth={true}>Applied!</Button>
+                      ) : this.props.event.isPrivate ? (
+                      //IF THERE IS A WAITING LIST: "private", PLEASE APPLY FOR A TICKET.
+                      <EventInterestModal user = {this.props.thisUser} event = {this.props.event}/>
+                      ) : ( //OTHERWISE, BUY A TICKET TO ANY EVENT (2nd DEFAULT)
+                      <EventPurchaseModal user = {this.props.thisUser} event = {this.props.event}/>
+                      ) // OTHERWISE, LOGIN TO BUY A TICKET.
+                    ) : <Button onClick={loginAlert} fullWidth={true} >Buy Ticket</Button> 
+                  }
+                  
+                  </div>
+              )}
+              </Grid>
             </Grid>
-            <Grid item>
-            {this.props.event.partner ? (
-              <div> 
-                <Button component={Link} to={this.props.event.partnerLink} target="_blank" className="btn btn-info btn-lg"> Apply </Button>
-             </div>
-              ) : (
-              <div>
-                <Table>
-                  <TableBody className={classes.table}>
-                    <TableRow>
-                      <TableCell className={classes.cell}><h5>WHEN:</h5> </TableCell>
-                      <TableCell numeric={true} className={classes.cell}>{this.props.event.date.toDateString().substring(0, (this.props.event.date.toDateString()).length - 5)}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className={classes.cell}><h5>PRICE:</h5> </TableCell>
-                      <TableCell  numeric={true} className={classes.cell}>${this.props.event.price}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-                
-                {this.props.thisUser ? (
-                    this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
-                    
-                      <Button onClick={boughtAlert} disabled={true} fullWidth={true} variant="outlined" color="secondary">Purchased!</Button>
-                    ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
-                    //IF YOU'VE BEEN INVITED, PLEASE BUY A TICKET
-                    <EventPurchaseModal  user = {this.props.thisUser} event = {this.props.event}/>
-                    ) : this.props.event.appliedList.includes(this.props.thisUser._id) ? (
-                      <Button onClick={waitAlert} fullWidth={true}>Applied!</Button>
-                    ) : this.props.event.isPrivate ? (
-                    //IF THERE IS A WAITING LIST: "private", PLEASE APPLY FOR A TICKET.
-                    <EventInterestModal user = {this.props.thisUser} event = {this.props.event}/>
-                    ) : ( //OTHERWISE, BUY A TICKET TO ANY EVENT (2nd DEFAULT)
-                    <EventPurchaseModal user = {this.props.thisUser} event = {this.props.event}/>
-                    ) // OTHERWISE, LOGIN TO BUY A TICKET.
-                  ) : <Button onClick={loginAlert} fullWidth={true} >Buy Ticket</Button> 
-                }
-                
-                </div>
-            )}
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
-
+          </CardContent>
+        </Card>
+      </div>
     )
   }
 }
