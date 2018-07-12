@@ -254,25 +254,32 @@ Meteor.methods({
   getCL: function(eventId) {
     const event = Events.findOne({_id: eventId});
     const CL = event.confirmedList;
-    let htmlRowsArray;
+    let htmlRowsArray = [];
     CL.map((uid) => {
-      console.log(uid)
       let u = Meteor.users.findOne({_id: uid});
       htmlRowsArray.push(`
-        <tr> <td>${u.emails[0].address}</td>
-        <td>${u.profile.name}</td>
-        <td>${u.profile.avatar}</td></tr>
+        <tr> 
+          <td>${u.profile.name}</td>
+          <td>${u.emails[0].address}</td>
+          <td><img style="border-radius:50%" src="${u.profile.avatar}" height="50" width="50" /></td>
+        </tr>
       `);
 
     });
-    let htmlRows = htmlRowsArray.join();
-    const template = `<h3> Guest List for ${event.byline} </h3>
+    let htmlRows = htmlRowsArray.join('');
+    const template = `<h3> GUEST LIST: <em>"${event.byline}"</em> </h3>
         <table> <thead> <tr> <th>Name</th> <th>E-mail</th> <th>Picture</th> </tr> </thead> <tbody>
         ${htmlRows}
         </tbody></table>`;
-    console.log(template)
+    // console.log(template)
 
-    Email.send("kiel.byrne@gmail.com", "noreply@pakke.us", "Guest List", template);
+    Email.send({
+      'to': ["info@pakke.us"],
+      'cc': ["amy@pakke.us", "emmett@pakke.us", "zach@pakke.us", "kiel@pakke.us"],
+      'from': "noreply@pakke.us", 
+      'subject': "-<{ GUEST LIST: " + event.byline + " }>-", 
+      'html': template
+    });
     //send email to kiel@Pakke.us with this info
  
   }
