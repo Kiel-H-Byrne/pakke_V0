@@ -267,7 +267,9 @@ Meteor.methods({
 
     });
     let htmlRows = htmlRowsArray.join('');
-    const template = `<h3> GUEST LIST: <em>"${event.byline}"</em> </h3>
+    const template = `
+    <h3> GUEST LIST: <em>"${event.byline}"</em> </h3>
+    <h4> GUEST COUNT: ${CL.length} </h4>
         <table> <thead> <tr> <th>Name</th> <th>E-mail</th> <th>Picture</th> </tr> </thead> <tbody>
         ${htmlRows}
         </tbody></table>`;
