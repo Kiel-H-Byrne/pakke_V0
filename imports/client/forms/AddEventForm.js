@@ -9,11 +9,17 @@ import AutoFields  from 'uniforms-material/AutoFields';
 import AutoField  from 'uniforms-material/AutoField';
 import SubmitField from 'uniforms-material/SubmitField';
 import ErrorsField from 'uniforms-material/ErrorsField';
+import HiddenField from 'uniforms-material/HiddenField'; 
+import LongTextField from 'uniforms-material/LongTextField'; // Choose your theme package.
+import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+
 
 import UploadField from './UploadField.js';
 import EventImagesUpload from './EventImagesUpload.js'; 
 import VenuesForm from './VenuesForm';
 import AddVenueForm from './AddVenueForm.js'
+import TinyInput from './TinyInput.js'
 import eventCreatedAdminTemplate from '../email/eventCreatedAdminTemplate';
 import '../../startup/collections/schemas';
 
@@ -26,60 +32,21 @@ import '../../startup/collections/schemas';
 //WITHOUT THIS, AUTOVALUES/DEFAULTVALUES ARE EMPTY WHEN FORM IS SUBMITTED!!!
 
 
-
-class EditorComponent extends Component {
-    handleEditorChange = e => {
-    console.log('Content was updated:', e.target.getContent());
-    console.log(e);
-    }
-
-    handleVenueChange = e => {
-        console.log(e.target.value);
-    }
-    state = {
-        venue: null,
-    }
-    render() {
-        return (
-            <Editor
-                apiKey={Meteor.settings.public.keys.tinymce.key}
-                initialValue="Describe this experience..."
-                init={{
-                  selector: "textarea",
-                  plugins: 'link',
-                  toolbar: 'undo redo | bold italic | bullist numlist | link  ',
-                  menubar: false,
-                  statusbar: false,
-                  resize: false,
-                  branding: false
-                }}
-                onChange={this.handleEditorChange}
-                style={{width:'100%'}}
-              />
-        )
-    }
-}
-
-const EditorField = connectField(EditorComponent, {
-    ensureValue: false,
-    includeInChain: false,
-    initialValue: false
-});
-
 class AddEventForm extends Component {
-
+    
     handleSubmit(doc) {
         console.log(doc)
         // Meteor.call('addEvent', doc);
 
-        const adminEmailProps = [
-          "noreply@pakke.us",
-          "EVENTS: EVENT CREATED",
-          eventCreatedAdminTemplate(this.props.user,doc)
-        ];
+        // const adminEmailProps = [
+        //   "noreply@pakke.us",
+        //   "EVENTS: EVENT CREATED",
+        //   eventCreatedAdminTemplate(this.props.user,doc)
+        // ];
 
         //send admin email
-        Meteor.call('sendEmail', "kiel@pakke.us", ...adminEmailProps);
+
+        // Meteor.call('sendEmail', "kiel@pakke.us", ...adminEmailProps);
         // let crmParams = {
         //   "Event Owner": Meteor.user().username,
         //   "Subject": doc.byline ,
@@ -114,22 +81,17 @@ class AddEventForm extends Component {
             onSubmit={this.handleSubmit} 
             onSubmitSuccess={this.handleSuccess} 
             onSubmitFailure={this.handleFailure} >
-
+                <VenuesForm />
                 <AutoField name="byline" margin="dense"/>
-                <AutoField component={ EditorField } name="description" margin="dense" />
+                <TinyInput name="description"/>
                 <AutoField name="date" margin="dense" />
-              
                 <AutoField name="duration" margin="dense" />
                 <AutoField name="size" margin="dense" />
                 <AutoField name="price" margin="dense" />
                 <AutoField name="contact" margin="dense" />
                 
-                <VenuesForm />
-
-                
-                {/*
                 <EventImagesUpload name="image" />
-                */}
+                
                 <SubmitField value="Submit" />
                 <ErrorsField />
             </AutoForm>

@@ -4,13 +4,29 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Editor } from '@tinymce/tinymce-react';
 
-import FileUpload from '../forms/FileUpload';
+import Button from '@material-ui/core/Button';
+
+import FileUpload from '../forms/FileUpload.js';
 import EditAvatarButton from '../header/EditAvatarButton.js'
 // import UserFiles from '../../startup/collections/files';
 
+import TinyInput from '../forms/TinyInput.js'
+
 class PageTest extends Component {
-  handleEditorChange = (e) => {
-    console.log('Content was updated:', e.target.getContent());
+  constructor(props) {
+    super(props);
+    this.state = { content: '' };
+    this.handleEditorChange = this.handleEditorChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  handleEditorChange = (content) => {
+    console.log('Content was updated:', content);
+    this.setState({ content });
+  }
+  
+  onSubmit = (e) => {
+    console.log(e);
   }
 
   render() {
@@ -20,19 +36,10 @@ class PageTest extends Component {
     // <FileUpload />
     <div>
     <EditAvatarButton />
-    <Editor
-        apiKey={Meteor.settings.public.keys.tinymce.key}
-        initialValue="<p>This is the initial content of the editor</p>"
-        init={{
-          selector: "textarea",
-          plugins: 'link',
-          toolbar: 'undo redo | bold italic | bullist numlist | link  ',
-          menubar: false,
-          resize: false,
-          branding: false
-        }}
-        onChange={this.handleEditorChange}
-      />
+    <form>
+    <TinyInput />
+      <Button type="submit"> Submit </Button>
+    </form>
       </div>
     )
   }

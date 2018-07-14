@@ -78,8 +78,9 @@ Schema.Address = new SimpleSchema({
   },
   state: {
     type: String,
-    allowedValues: ["AL","AK","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
-    defaultValue: 'DC'
+    allowedValues: ["DC","MD","VA"],
+    // allowedValues: ["AL","AK","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
+    // defaultValue: 'DC'
   },
   zip: {
     type: String,
@@ -649,7 +650,8 @@ Schema.Event = new SimpleSchema({
     },
   },
   eventAddress: {
-    type: Schema.Address
+    type: Schema.Address,
+    optional: true,
   },
   // venue: {
   //   type: Object,
@@ -658,23 +660,9 @@ Schema.Event = new SimpleSchema({
   //   optional: true,
   //   uniforms: (Meteor.isClient ? VenuesForm : null),
   //   //SOMEHOW SHOW RADIO BOXES WITH NAMES OF VENUES FROM HOSTS VENUEARRAY
-  // },e
+  // },
   venueId: {
     type: String,
-    uniforms: {
-      options: function() {
-        //return array or listed 
-        let venuesArray = Meteor.user().profile.venues;
-        
-        //get just names?
-        return venuesArray.map( o => ({
-          'label': o.nickname,
-          'value': o.venueId
-          })
-        )
-      },
-    },
-    defaultValue: () => Random.id()
   },
   contact: {
     type: String,

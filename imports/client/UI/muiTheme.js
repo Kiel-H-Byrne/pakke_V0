@@ -13,7 +13,8 @@ const muiTheme = createMuiTheme({
           color: '#fff'
         },
         fab: {
-          backgroundColor: '#2964ff'
+          backgroundColor: '#2964ff',
+          color:' #ffc429'
         },
         focusVisible: {
           backgroundColor: '#266199'

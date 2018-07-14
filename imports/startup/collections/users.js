@@ -16,13 +16,14 @@ Meteor.publish('currentUser', function () {
 Meteor.publish('eventHost', function (eventId) {
   // console.log("-= PUBLISHING: HOST USER DATA  =-");
   let event = Events.findOne(eventId);
-  
+  if (event) {
   let eventHost = event.hostId;
   return Meteor.users.find({_id: eventHost}, {
     fields: {
       'profile': 1
     }
   });
+}
 });
 
 

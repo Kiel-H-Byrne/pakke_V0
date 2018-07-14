@@ -252,38 +252,41 @@ Meteor.methods({
     Email.send({to, from, subject, html });
   },
   getCL: function(eventId) {
-    const event = Events.findOne({_id: eventId});
-    const CL = event.confirmedList;
-    let htmlRowsArray = [];
-    CL.map((uid) => {
-      let u = Meteor.users.findOne({_id: uid});
-      htmlRowsArray.push(`
-        <tr> 
-          <td>${u.profile.name}</td>
-          <td>${u.emails[0].address}</td>
-          <td><img style="border-radius:50%" src="${u.profile.avatar}" height="50" width="50" /></td>
-        </tr>
-      `);
+    if (Roles.userIsInRole(this.userId, ["admin"])) {
+      const event = Events.findOne({_id: eventId});
+      const CL = event.confirmedList;
+      let htmlRowsArray = [];
+      CL.map((uid) => {
+        let u = Meteor.users.findOne({_id: uid});
+        htmlRowsArray.push(`
+          <tr> 
+            <td>${u.profile.name}</td>
+            <td>${u.emails[0].address}</td>
+            <td><img style="border-radius:50%" src="${u.profile.avatar}" height="50" width="50" /></td>
+          </tr>
+        `);
 
-    });
-    let htmlRows = htmlRowsArray.join('');
-    const template = `
-    <h3> GUEST LIST: <em>"${event.byline}"</em> </h3>
-    <h4> GUEST COUNT: ${CL.length} </h4>
-        <table> <thead> <tr> <th>Name</th> <th>E-mail</th> <th>Picture</th> </tr> </thead> <tbody>
-        ${htmlRows}
-        </tbody></table>`;
-    // console.log(template)
+      });
+      let htmlRows = htmlRowsArray.join('');
+      const template = `
+      <h3> GUEST LIST: <em>"${event.byline}"</em> </h3>
+      <h4> GUEST COUNT: ${CL.length} </h4>
+          <table> <thead> <tr> <th>Name</th> <th>E-mail</th> <th>Picture</th> </tr> </thead> <tbody>
+          ${htmlRows}
+          </tbody></table>`;
+      // console.log(template)
 
-    Email.send({
-      'to': ["info@pakke.us"],
-      'cc': ["amy@pakke.us", "emmett@pakke.us", "zach@pakke.us", "kiel@pakke.us"],
-      'from': "noreply@pakke.us", 
-      'subject': "-<{ GUEST LIST: " + event.byline + " }>-", 
-      'html': template
-    });
-    //send email to kiel@Pakke.us with this info
- 
+      Email.send({
+        'to': ["info@pakke.us"],
+        'cc': ["amy@pakke.us", "emmett@pakke.us", "zach@pakke.us", "kiel@pakke.us"],
+        'from': "noreply@pakke.us", 
+        'subject': "-<{ GUEST LIST: " + event.byline + " }>-", 
+        'html': template
+      });
+      //send email to kiel@Pakke.us with this info
+     } else {
+      console.log("MUST BE ADMIN TO GET CONFIRMED LIST")
+     }
   }
   
 });

@@ -6,11 +6,15 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import EditIcon from '@material-ui/icons/Edit'
 
-import AutoFields  from 'uniforms-material/AutoFields';
+import AutoField  from 'uniforms-material/AutoFields';
 import AutoForm    from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
+import EventImagesUpload from './EventImagesUpload.js'; 
+import VenuesForm from './VenuesForm';
+
+import TinyInput from './TinyInput.js'
 
 const styles = theme => ({
 	paper: {
@@ -38,7 +42,7 @@ const styles = theme => ({
 		this.handleClose = this.handleClose.bind(this)
 	}
 	handleSubmit(doc) {
-      Meteor.call('addVenue', doc);
+      Meteor.call('editEvent', doc);
   }; 
 
   handleSuccess() {
@@ -60,6 +64,7 @@ const styles = theme => ({
 		
 		const { classes } = this.props;
     const model = Schema.Event.clean(this.props.event);
+    const omitFields = ["submitted", "venue", "hostId", "categories", "appliedList", "invitedList", "confirmedList", "entertainers", "partner", "featured"];
 
 		return (
 			<div>
@@ -73,22 +78,29 @@ const styles = theme => ({
         onClose={this.handleClose}
 
       > 
-      <div className={classes.paper + ' scroll-wrapper-y'}>
-        <Typography variant="title" id="eventPurchaseModal">Edit Event:</Typography>
-        <AutoForm  
-	      schema={Schema.Event} 
-	      onSubmit={this.handleSubmit} 
-	      model={model}
-	      onSubmitSuccess={this.handleSuccess} 
-	      onSubmitFailure={this.handleFailure} 
-	      >
-
-	        <AutoFields/>
-	        <SubmitField value="Submit"  />
-	        <ErrorsField />
-	      </AutoForm>
-	      </div>
-    </Modal>
+        <div className={classes.paper + ' scroll-wrapper-y'}>
+          <Typography variant="display2" align="center" id="eventPurchaseModal">Edit Event:</Typography>
+          <AutoForm  
+  	      schema={Schema.Event} 
+  	      onSubmit={this.handleSubmit} 
+  	      model={model}
+  	      onSubmitSuccess={this.handleSuccess} 
+  	      onSubmitFailure={this.handleFailure} 
+  	      >
+            <VenuesForm />
+            <AutoField name="byline" margin="dense"/>
+            <TinyInput name="description" content = {model.description}/>
+            <AutoField name="date" margin="dense" />
+            <AutoField name="duration" margin="dense" />
+            <AutoField name="size" margin="dense" />
+            <AutoField name="price" margin="dense" />
+            <AutoField name="contact" margin="dense" />
+            
+            <SubmitField value="Submit" />
+            <ErrorsField />
+  	      </AutoForm>
+        </div>
+      </Modal>
     </div>
 		)
 	}

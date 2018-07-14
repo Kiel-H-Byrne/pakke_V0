@@ -5,34 +5,66 @@ import { BarLoader } from 'react-spinners';
 
 import AutoFields  from 'uniforms-material/AutoFields';
 import AutoField  from 'uniforms-material/AutoField';
+import HiddenField from 'uniforms-material/HiddenField'; 
+
 import QuickForm  from 'uniforms-material/QuickForm';
 import AutoForm    from 'uniforms-material/AutoForm';
+
 import SubmitField from 'uniforms-material/SubmitField';
 import ErrorsField from 'uniforms-material/ErrorsField';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Radio from '@material-ui/core/Radio';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import VenueOption from './VenueOption.js'
 import AddVenueModal from './AddVenueModal.js'
 
 class VenuesFormComponent extends Component {
+
 	constructor(props) {
+  let firstVenue; 
+  props.venues ? firstVenue = props.venues[0].venueId : null
     super(props)
     this.state = {
-      venueId: ''
+      value: '',
+      selected: firstVenue || ''
     }
-  }
+    this.handleChange = this.handleChange.bind(this)
+  };
+
+  handleChange(event) {
+    this.setState({ selected: event.target.value });
+  };
 
   render() {
       if (this.props.venues && this.props.venues.length) {
-        console.log(this.props.venues)
       	return (
 	      	<div className="venuesList">
-		      {this.props.venues.map((venue) => {return <VenueOption venue={venue} key={venue.venueId} /> }
-	        )}
-	        <AddVenueModal />
+            <RadioGroup
+              aria-label="venue-id"
+              onChange={this.handleChange}
+            >
+    		      {this.props.venues.map((venue) => {
+                return (
+                <div key={venue.venueId}>
+                  <div> img: {venue.image} </div>
+                  <div> Name: {venue.nickname} </div>
+                  <div> Address: {venue.address.city}, {venue.address.zip} </div>
+                  <FormControlLabel 
+                    control={ <Radio checked={this.state.selected == venue.venueId} />}
+                    label={venue.nickname}
+                    onChange = {this.handleChange}
+                    />
+                </div>
+                )
+              })          }
+            </RadioGroup>
+  	        <HiddenField name="venueId" value={this.state.selected}/>
+            <AddVenueModal />
 		      </div>
 	      )
 	      } else {
-          console.log(this.props)
   	      return <AddVenueModal />
 	      }
   }

@@ -22,6 +22,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 import Button from '@material-ui/core/Button';
 
+import PageError from './PageError';
 import EventInterestModal from './forms/EventInterestModal'
 import EventPurchaseModal from './forms/EventPurchaseModal'
 
@@ -49,6 +50,7 @@ const styles = {
 
 class EventDetailsComponent extends Component {
   constructor(props) {
+    console.log(props)
     super(props)
     this.state = {
       eventHost: {},
@@ -70,6 +72,7 @@ class EventDetailsComponent extends Component {
   }
 
   render() {
+    console.log(this.props.event)
     const { classes } = this.props;
 
     const loginAlert = () => Bert.alert("Please Log In First.", "info", "growl-top-right");
@@ -89,7 +92,9 @@ class EventDetailsComponent extends Component {
         </div>
       )
     }
-  // console.log(this.state);
+    if (!this.props.event) {
+      return <PageError />
+    }
 
     return (
       <div>
@@ -121,7 +126,7 @@ class EventDetailsComponent extends Component {
           <CardMedia image={this.props.event.image ? this.props.event.image : `""`} title='Event Preview' className={classes.image} />
           <CardContent>
             <Typography variant="display2" align="center" gutterBottom >{this.props.event.byline}</Typography>
-            <Typography component="p" variant="display1" paragraph >{this.props.event.description}</Typography>
+            <Typography variant="display1" dangerouslySetInnerHTML={{__html: this.props.event.description}} />
             <Grid 
             container
             alignItems="center"
@@ -195,7 +200,7 @@ class EventDetailsComponent extends Component {
 
 export default EventDetails = withTracker(({ match }) => {
 
-  let handle = Meteor.subscribe('events_all') && Meteor.subscribe('eventHost', match.params.id) && Meteor.subscribe('currentUser', Meteor.userId());
+  let handle = Meteor.subscribe('event', match.params.id) && Meteor.subscribe('eventHost', match.params.id) && Meteor.subscribe('currentUser', Meteor.userId());
   let loading = !handle.ready(); 
   const event = Events.findOne( match.params.id );
   const thisUser = Meteor.users.findOne(Meteor.userId());
