@@ -3,7 +3,7 @@ import Events from './events';
 
 Meteor.publish('currentUser', function () {
   // console.log("-= PUBLISHING: USER DATA  =-");
-  return Meteor.users.find({_id: Meteor.userId()}, {
+  return Meteor.users.find({_id: this.userId}, {
     fields: {
       'profile': 1,
       'roles': 1,

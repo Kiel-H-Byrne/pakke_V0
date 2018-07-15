@@ -82,12 +82,26 @@ Meteor.methods({
     });
   },
   addVenue: function(doc) {
-    const uid = this.userId;
-    Meteor.users.update(uid, {
-      $addToSet: { 
-        "profile.venues" : doc
+    Venues.insert(doc, (err,res) => {
+      if (err) {
+        console.log(`VENUE INSERT FAILED: ${doc.byline}: ${err}`);
+
+      } else {
+        console.log(`NEW VENUE: ${doc.byline}`);
+        analytics.track("New Venue", {
+          label: doc.name,
+          host: doc.hostId
+        })
+
+        // Email.send({
+        //   to: 'info@pakke.us', 
+        //   from: 'noreply@pakke.us', 
+        //   subject: 'EVENT ALERT: New Event Created', 
+        //   html: newEventEmailTemplate 
+        // });
+
       }
-    });
+    })
   },
   editVenue: function(id,doc) {
     //makre sure old object is added to new object, update rewrites fields.

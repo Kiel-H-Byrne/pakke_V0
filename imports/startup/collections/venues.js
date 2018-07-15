@@ -6,12 +6,19 @@ const Venues = new Mongo.Collection('venues');
 
 if (Meteor.isServer) {
   // ALLOW FOR SORTING (?) 
-  Events._ensureIndex( { lastUpdated: 1 } );
+  Events._ensureIndex( { "address.zipcode": 1 } );
 
   Meteor.publish('venues_all', function () {
-      const cursor = Venues.find();
-
+    const cursor = Venues.find();
     console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] Venues =-");
+    return cursor;
+  });
+
+  Meteor.publish('my_venues', function (userId) {
+    const cursor = Venues.find({
+      hostId: {}
+    });
+    console.log("-= PUBLISHING: ["+ cursor.count() +"] USER Venues =-");
     return cursor;
   });
 }

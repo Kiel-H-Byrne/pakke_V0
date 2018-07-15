@@ -9,7 +9,7 @@ Events = new Mongo.Collection('events');
 
 if (Meteor.isServer) {
   // ALLOW FOR SORTING (?) 
-  Events._ensureIndex( { lastUpdated: 1 } );
+  // Events._ensureIndex( { lastUpdated: 1 } );
 
   Meteor.publish('events_all', function () {
       const cursor = Events.find();

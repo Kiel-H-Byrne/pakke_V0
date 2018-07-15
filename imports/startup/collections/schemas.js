@@ -97,20 +97,14 @@ Schema.Address = new SimpleSchema({
 });
 
 Schema.Venue = new SimpleSchema({
-  venueId: {
-    type: String,
-    uniforms: { component: () => null },
-    autoValue: () => Random.id()
-  },
   hostId: {
     type: String,
-    uniforms: { component: () => null },
-    autoValue: () => Meteor.userId()
+    autoValue: () => this.userId
   },
   nickname: {
     type: String,
     unique: true,
-    label: 'Give this place a nickname:'
+    label: 'Give this place a name:'
   },
   description: {
     type: String,
@@ -125,7 +119,7 @@ Schema.Venue = new SimpleSchema({
   venueType: { 
     type: String,
     label: 'Type:',
-    allowedValues: ["Retail", "Apartment", "Condo", "Town Home", "Detached Home", "Other"],
+    allowedValues: ["Retail Space", "Apartment", "Condo", "Town Home", "Detached Home", "Office", "Other"],
     optional: true
   },
   capacity: {
@@ -138,8 +132,7 @@ Schema.Venue = new SimpleSchema({
   },
   ownedStatus: {
     type: Boolean,
-    label: 'I own this place.',
-    optional: true,
+    label: 'I control (open & lock up) this place.'
     defaultValue: false
   },
   image: {
@@ -573,7 +566,7 @@ Schema.Event = new SimpleSchema({
   hostId: {
     type: String,
     uniforms: { component: () => null },
-    autoValue: () => Meteor.userId()
+    autoValue: () => this.userId
   },
   date: {
     type: Date,
@@ -629,7 +622,7 @@ Schema.Event = new SimpleSchema({
     type: String,
     label: 'Describe this experience.',
     optional: true,
-    max: 550
+    // max: 3550
   },
   price: {
     type: Number,
@@ -733,6 +726,11 @@ Schema.Event = new SimpleSchema({
         return null
       }
     }
+  },
+  checkedPolicy: {
+    type: Boolean,
+    defaultValue: false,
+    label: 'Have you reviewed and agreed to our Terms & Conditions? '
   },
   partnerLink: {
     type: String,
