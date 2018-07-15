@@ -69,7 +69,7 @@ const styles = theme => ({
 
 		return (
 			<div>
-	    <Button variant="fab" aria-label="edit" className={classes.button} onClick={this.handleOpen}> 
+	    <Button variant="fab" mini={true} aria-label="edit" className={classes.button} onClick={this.handleOpen}> 
 				<EditIcon />
 			</Button>
 			<Modal 
@@ -98,7 +98,6 @@ const styles = theme => ({
             <AutoField name="contact" margin="dense" />
             <Typography align="center" variant="display1">Your Places:</Typography>
             <VenuesForm />       
-            <AutoField name="image" margin="dense" />
             <EventImagesUpload name="image" fileUrl={model.image} />
      
             <SubmitField value="Submit" />
