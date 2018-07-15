@@ -77,7 +77,7 @@ class IndividualFile extends Component {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="large" color="secondary" onClick={this.removeFile} >
+          <Button onClick={this.removeFile} >
             Delete
           </Button>
         </CardActions>

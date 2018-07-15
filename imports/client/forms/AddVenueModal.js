@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 
 import AddVenueForm from './AddVenueForm.js'
 
-
 const styles = theme => ({
   paper: {
     position: 'absolute',
@@ -22,7 +21,6 @@ const styles = theme => ({
     transform: `translate(-50%, -50%)`,
   }
 });
-
 
 class AddVenueModalComponent extends Component {
   state = {
@@ -41,7 +39,7 @@ class AddVenueModalComponent extends Component {
 
     return (
             <div>
-      <Button type="button" onClick={this.handleOpen} className={classes.button}> Add Venue </Button>
+      <Button variant="fab" onClick={this.handleOpen} size="medium" className={classes.button}> + </Button>
       <Modal 
         aria-labelledby="Add Venue Form"
         aria-describedby="Add a new venue from which to host an experience."
@@ -50,7 +48,7 @@ class AddVenueModalComponent extends Component {
       >
       <div className={classes.paper + ' scroll-wrapper-y'}>
         <Typography variant="title" id="AddVenueForm-title">New Venue:</Typography>
-        <AddVenueForm />
+        <AddVenueForm onSubmit={this.handleClose}/>
       </div>
     </Modal>
     </div>

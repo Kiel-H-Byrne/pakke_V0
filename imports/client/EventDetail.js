@@ -50,7 +50,6 @@ const styles = {
 
 class EventDetailsComponent extends Component {
   constructor(props) {
-    console.log(props)
     super(props)
     this.state = {
       eventHost: {},
@@ -59,12 +58,17 @@ class EventDetailsComponent extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    // console.log(nextProps, prevState)
-    let eventHost;
-    nextProps.event ? eventHost = Meteor.users.findOne(nextProps.event.hostId) : null
-    return {
-      eventHost: eventHost
-    };
+    let eventHost, venue;
+    if (nextProps.event) {
+      eventHost = Meteor.users.findOne(nextProps.event.hostId)
+      if (nextProps.event.venueId) {
+        venue = eventHost.profile.venues.filter((v) => (v.venueId === nextProps.event.venueId))
+      }
+      return {
+        eventHost: eventHost,
+        venue: venue[0]
+      };
+    } else return null
   }
 
   componentWillUnmount() {
@@ -72,9 +76,7 @@ class EventDetailsComponent extends Component {
   }
 
   render() {
-    console.log(this.props.event)
     const { classes } = this.props;
-
     const loginAlert = () => Bert.alert("Please Log In First.", "info", "growl-top-right");
     const waitAlert = () => Bert.alert("Please Check Your E-mail.", "info", "growl-top-right");
     const boughtAlert = () => Bert.alert("See you Soon!", "info", "growl-top-right");
@@ -186,7 +188,6 @@ class EventDetailsComponent extends Component {
                       ) // OTHERWISE, LOGIN TO BUY A TICKET.
                     ) : <Button onClick={loginAlert} fullWidth={true} >Buy Ticket</Button> 
                   }
-                  
                   </div>
               )}
               </Grid>
@@ -204,7 +205,8 @@ export default EventDetails = withTracker(({ match }) => {
   let loading = !handle.ready(); 
   const event = Events.findOne( match.params.id );
   const thisUser = Meteor.users.findOne(Meteor.userId());
-  
+
+ 
   return {
     handle,
     loading,

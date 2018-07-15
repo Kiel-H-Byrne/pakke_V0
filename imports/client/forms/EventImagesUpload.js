@@ -3,6 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { _ } from 'underscore';
+import { BarLoader } from 'react-spinners';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -14,7 +15,8 @@ import Radio from '@material-ui/core/Radio';
 import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
 
-import { BarLoader } from 'react-spinners';
+import HiddenField from 'uniforms-material/HiddenField'; 
+
 import EventImages from '/imports/startup/collections/eventImages.js';
 import IndividualFile from '/imports/client/forms/FileDetails.js';
 
@@ -26,7 +28,8 @@ class EventImagesUploadComponent extends Component {
       uploading: [],
       progress: 0,
       inProgress: false,
-      file: {}
+      file: {},
+      fileUrl: props.fileUrl || ''
     };
 
     this.uploadIt = this.uploadIt.bind(this);
@@ -47,7 +50,7 @@ class EventImagesUploadComponent extends Component {
         file: file,
         meta: {
           locator: self.props.fileLocator,
-          eventId: Meteor.userId() // Optional, used to check on server for file tampering
+          userId: Meteor.userId() // Optional, used to check on server for file tampering
         },
         streams: 'dynamic',
         chunkSize: 'dynamic',
@@ -56,17 +59,18 @@ class EventImagesUploadComponent extends Component {
         },
         onUploaded: (error, fileRef) => {
           // console.log('uploaded: ', fileRef);
-
           // Remove the filename from the upload box
           self.refs['fileinput'].value = '';
           // console.log(self)
-
+          let filePath = `events/${fileRef.meta.userId}_${fileRef._id}.${fileRef.extension}`;
+          let url = `https://s3.us-east-2.amazonaws.com/pakke-images/${filePath}`
           // Reset our state for the next file
           self.setState({
             file: file,
             uploading: [],
             progress: 0,
-            inProgress: false
+            inProgress: false,
+            fileUrl: url
           });
         },
         onError: (error, fileData) => {
@@ -114,62 +118,62 @@ class EventImagesUploadComponent extends Component {
 
   render() {
     if (this.props.loading) {
-
       return (
-          <BarLoader 
-              loading={this.props.loading} 
-              color='#2964ff'
-              width={-1}
-              height={10}
-            />
+        <BarLoader 
+        loading={this.props.loading} 
+        color='#2964ff'
+        width={-1}
+        height={10}
+        />
       )
     }
-      let fileCursors = this.props.files;
-      // Run through each file that the user has stored
-      // (make sure the subscription only sends files owned by this user)
-      let preview = fileCursors.map((aFile, key) => {
-        // console.log('A file: ', aFile)
-        let link = EventImages.findOne({_id: aFile._id}).link();  //The "view/download" link
-        // console.log(link);
-        // Send out components that show details of each file
-        return <div key={'file' + key}>
-          <IndividualFile
-            fileName={aFile.name}
-            fileUrl={link}
-            fileId={aFile._id}
-            fileSize={aFile.size}
-            fileExt={aFile.extension}
-          />
-        </div>
-      })
+    // Run through each file that the user has stored
+    // (make sure the subscription only sends files owned by this user)
+    let preview = this.props.files.map((aFile, key) => {
+      // console.log('A file: ', aFile)
+      let link = EventImages.findOne({_id: aFile._id}).link();  //The "view/download" link
+      // console.log(link);
+      // Send out components that show details of each file
+      return <div key={'file' + key}>
+        <IndividualFile
+          fileName={aFile.name}
+          fileUrl={link}
+          fileId={aFile._id}
+          fileSize={aFile.size}
+          fileExt={aFile.extension}
+        />
+      </div>
+    })
 
-      return (
-      <Grid container direction="column">
-        <Grid item xs={12}>
-            <Input type="file" id="fileinput" size="large" color="secondary"  disabled={this.state.inProgress} ref="fileinput" onChange={this.uploadIt}/>
-        </Grid>
+    return (
+      <>
+        <HiddenField
+        id="eventImageInputUrl"  
+        name={this.props.name}
+        value={this.state.fileUrl}/>              
+        <Grid container direction="column">
+          <Grid item xs={12}>
+              <Input type="file" id="fileinput" size="large" color="secondary"  disabled={this.state.inProgress} ref="fileinput" onChange={this.uploadIt}/>
+          </Grid>
 
-        <Grid item xs={12} className="">
-            {this.showProgress()}
-        </Grid>
+          <Grid item xs={12} className="">
+              {this.showProgress()}
+          </Grid>
 
-        <Grid item xs={12}>
-            {preview}
+          <Grid item xs={12}>
+              <img src={this.state.fileUrl} width="300px" />
+          </Grid>
         </Grid>
-      </Grid>
-  )}
+      </>
+    )
+  }
 }
 
-//
-// This is the HOC - included in this file just for convenience, but usually kept
-// in a separate file to provide separation of concerns.
-//
+
 export default EventImagesUpload = withTracker( ( props ) => {
-  let eventId = 1;
   const filesHandle = Meteor.subscribe('eventImages');
   const loading = !filesHandle.ready();
-  const files = EventImages.find({
-  }, {sort: {name: 1}}).fetch();
+  const files = EventImages.find({}, {sort: {name: 1}}).fetch();
 
   return {
     loading,

@@ -89,6 +89,12 @@ Meteor.methods({
       }
     });
   },
+  editVenue: function(id,doc) {
+    //makre sure old object is added to new object, update rewrites fields.
+    Venues.update({_id: id}, {
+      $set: doc
+    })
+  },
   addEvent: function(doc) {
     let newEventEmailTemplate = `
       

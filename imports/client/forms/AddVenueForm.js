@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import AutoFields  from 'uniforms-material/AutoFields';
 import AutoForm    from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
+import AutoField  from 'uniforms-material/AutoField';
+import HiddenField from 'uniforms-material/HiddenField'; 
+import LongTextField from 'uniforms-material/LongTextField'; // Choose your theme package.
+import InputLabel from '@material-ui/core/InputLabel';
+
+import { BarLoader } from 'react-spinners';
+import TinyInput from './TinyInput.js'
+import VenueImagesUpload from './VenueImagesUpload.js'; 
 
 import '../../startup/collections/schemas';
 
@@ -22,12 +29,14 @@ class AddVenueForm extends Component {
 
 
   handleSubmit(doc) {
+    console.log(doc)
       Meteor.call('addVenue', doc);
+      this.props.handleSubmit();
   }; 
 
   handleSuccess() {
-      Bert.alert("Your Profile Was Updated!", "success");
-      $('#hostProfileModal').modal('toggle');
+      Bert.alert("You have a new venue!", "success");
+      
 
   };
 
@@ -38,7 +47,6 @@ class AddVenueForm extends Component {
     const { classes } = this.props;
 
     const model = Schema.Venue.clean({});
-    const omitFields = ["venueId", "hostId"];
     //ALLOWS FOR DEFAULT VALUES TO GET PULLED INTO FORM VALUES FOR VALIDATION/SUBMISSION. 
     //WITHOUT THIS, AUTOVALUES/DEFAULTVALUES ARE EMPTY WHEN FORM IS SUBMITTED!!!
     return (
@@ -51,9 +59,16 @@ class AddVenueForm extends Component {
       onSubmitSuccess={this.handleSuccess} 
       onSubmitFailure={this.handleFailure} 
       >
-
-        <AutoFields omitFields={omitFields}/>
-        <SubmitField value="Submit"  />
+        <AutoField name="nickname" margin="dense" />
+        <LongTextField name="description"/>
+          <AutoField name="ownedStatus" margin="dense" />
+          <AutoField name="venueType" margin="dense" />
+          <AutoField name="capacity" margin="dense" />
+          <AutoField name="address" margin="dense" />
+          
+          <VenueImagesUpload name="image" />
+                
+        <SubmitField>Submit</SubmitField>
         <ErrorsField />
       </AutoForm>
     );

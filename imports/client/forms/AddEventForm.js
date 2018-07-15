@@ -3,9 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { Editor } from '@tinymce/tinymce-react';
 
-import connectField from 'uniforms/connectField';
 import AutoForm    from 'uniforms-material/AutoForm';
-import AutoFields  from 'uniforms-material/AutoFields';
 import AutoField  from 'uniforms-material/AutoField';
 import SubmitField from 'uniforms-material/SubmitField';
 import ErrorsField from 'uniforms-material/ErrorsField';
@@ -36,7 +34,7 @@ class AddEventForm extends Component {
     
     handleSubmit(doc) {
         console.log(doc)
-        // Meteor.call('addEvent', doc);
+        Meteor.call('addEvent', doc);
 
         // const adminEmailProps = [
         //   "noreply@pakke.us",
@@ -58,7 +56,6 @@ class AddEventForm extends Component {
 
     handleSuccess(){
         Bert.alert("Your Event Was Posted!", "success");
-          $('#hostProfileModal').modal('toggle');
     };
 
     handleFailure() {
@@ -68,19 +65,17 @@ class AddEventForm extends Component {
     render() {
         const model = Schema.Event.clean({});
         // console.log(model);
-        const omitFields = ["submitted", "venue", "hostId", "categories", "appliedList", "invitedList", "confirmedList", "entertainers", "partner", "featured"];
-        const shownFields = [""]
-
         return (
             // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}
             // onSubmitFailure={() => console.log('Promise rejected!')}/>
-        <div>
             <AutoForm  
             schema={Schema.Event} 
             model={model} 
             onSubmit={this.handleSubmit} 
             onSubmitSuccess={this.handleSuccess} 
-            onSubmitFailure={this.handleFailure} >
+            onSubmitFailure={this.handleFailure} 
+            className="tinyForm"
+            >
                 <VenuesForm />
                 <AutoField name="byline" margin="dense"/>
                 <TinyInput name="description"/>
@@ -92,11 +87,9 @@ class AddEventForm extends Component {
                 
                 <EventImagesUpload name="image" />
                 
-                <SubmitField value="Submit" />
+                <SubmitField>Submit</SubmitField>
                 <ErrorsField />
             </AutoForm>
-
-        </div>
         );
     }
 }

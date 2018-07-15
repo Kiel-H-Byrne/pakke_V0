@@ -6,14 +6,15 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import EditIcon from '@material-ui/icons/Edit'
 
-import AutoField  from 'uniforms-material/AutoFields';
+import AutoField  from 'uniforms-material/AutoField';
 import AutoForm    from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
+import InputLabel from '@material-ui/core/InputLabel';
+
 import EventImagesUpload from './EventImagesUpload.js'; 
 import VenuesForm from './VenuesForm';
-
 import TinyInput from './TinyInput.js'
 
 const styles = theme => ({
@@ -41,22 +42,22 @@ const styles = theme => ({
 		this.handleOpen = this.handleOpen.bind(this)
 		this.handleClose = this.handleClose.bind(this)
 	}
-	handleSubmit(doc) {
-      Meteor.call('editEvent', doc);
+	handleSubmit = (doc) => {
+    console.log(doc)
+    Meteor.call('editEvent', this.props.event._id, doc);
   }; 
 
-  handleSuccess() {
-      Bert.alert("Your Profile Was Updated!", "success");
-      $('#hostProfileModal').modal('toggle');
-
+  handleSuccess = () => {
+      Bert.alert("Your Event Was Updated.", "success");
+      this.handleClose();
   }
-  handleFailure() {
-      Bert.alert("Sorry, Something Went Wrong", "danger", "growl-top-right");
+  handleFailure = () => {
+      Bert.alert("Try that again...", "danger", "growl-top-right");
   }
-   handleOpen() {
+   handleOpen = () => {
     this.setState({ open: true });
   }
-  handleClose() {
+  handleClose = () =>  {
     this.setState({ open: false });
   }
 
@@ -86,8 +87,8 @@ const styles = theme => ({
   	      model={model}
   	      onSubmitSuccess={this.handleSuccess} 
   	      onSubmitFailure={this.handleFailure} 
+          className="tinyForm"
   	      >
-            <VenuesForm />
             <AutoField name="byline" margin="dense"/>
             <TinyInput name="description" content = {model.description}/>
             <AutoField name="date" margin="dense" />
@@ -95,7 +96,11 @@ const styles = theme => ({
             <AutoField name="size" margin="dense" />
             <AutoField name="price" margin="dense" />
             <AutoField name="contact" margin="dense" />
-            
+            <Typography align="center" variant="display1">Your Places:</Typography>
+            <VenuesForm />       
+            <AutoField name="image" margin="dense" />
+            <EventImagesUpload name="image" fileUrl={model.image} />
+     
             <SubmitField value="Submit" />
             <ErrorsField />
   	      </AutoForm>

@@ -22,19 +22,20 @@ const muiTheme = createMuiTheme({
       },
       MuiFormControl: {
         root: {
+          fontSize: 12,
           margin: '0 auto',
         }
       },
       MuiInput: {
         root: {
-
+          fontSize: 12,
         },
         formControl: {
           margin: 0,
+          fontSize: 12,
         }
-      }
+      },
     },  
-
     palette: {
       primary: {
         light: '#ffffff',

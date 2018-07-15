@@ -146,11 +146,6 @@ Schema.Venue = new SimpleSchema({
     type: String,
     optional: true,
     regEx: SimpleSchema.RegEx.Url,
-    uniforms: {
-      component: function() {
-        return null
-      }
-    },
     autoValue: function() {
       if ( this.field('images').value) {
         let images = this.field('images').value;
@@ -606,13 +601,9 @@ Schema.Event = new SimpleSchema({
     max: '33'
   },
   image: {
-    type: Object,
-    blackbox: true,
+    type: String,
     label: 'Upload an image that illustrates this experience.',
     optional: true,
-    uniforms: {
-      component: (Meteor.isClient ? EventImagesUpload : null),
-    },
     autoValue: function() {
       if ( this.field('images').value) {
         let images = this.field('images').value;
@@ -624,11 +615,11 @@ Schema.Event = new SimpleSchema({
   images: {
     type: Array,
     optional: true,
-    uniforms: {
-      component: function() {
-        return null
-      }
-    }
+    // uniforms: {
+    //   component: function() {
+    //     return null
+    //   }
+    // }
   },
   'images.$': {
     type: String,

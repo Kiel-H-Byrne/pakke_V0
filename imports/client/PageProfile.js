@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import AutoFields from 'uniforms-material/AutoFields';
+import { BarLoader } from 'react-spinners';
+import Redirect from 'react-router';
+
+import AutoField from 'uniforms-material/AutoField';
 import AutoForm from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 import Button from '@material-ui/core/Button';
 
-import { BarLoader } from 'react-spinners';
-import Redirect from 'react-router';
 import Events from '../startup/collections/events';
+import TinyInput from './forms/TinyInput.js'
+import VenuesForm from './forms/VenuesForm';
+import EditAvatarButton from './header/EditAvatarButton'
 import Event from './Event';
 import TabGuest from './TabGuest';
 import TabHost from './TabHost';
@@ -18,7 +22,8 @@ import TabTalent from './TabTalent';
 import LandingPage2 from './UI/PageLanding2';
 import PageError from './PageError';
 
-import EditAvatarButton from './header/EditAvatarButton'
+
+
 
 const styles = {
   profileForm: {
@@ -129,9 +134,21 @@ class PageProfileComponent extends Component {
                   model={model}
                   onSubmit={this.handleSubmit}
                   onSubmitSuccess={this.handleSuccess}
-                  onSubmitFailure={this.handleFailure} >
+                  onSubmitFailure={this.handleFailure} 
+                  className="tinyForm"
+                  >
 
-                  <AutoFields />
+                  <AutoField name="name" />
+                  <AutoField name="birthDate" />
+                  <AutoField name="social" />
+                  <TinyInput name="bio" />
+                  
+                  <AutoForm 
+                  schema={Schema.Venue}
+                  model={venueModel}
+                  > 
+                    <VenuesForm />
+                  </AutoForm>
                   <SubmitField value="Submit" />
                   <ErrorsField />
                 </AutoForm>

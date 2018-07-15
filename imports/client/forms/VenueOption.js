@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import EditVenueButton from './forms/EditVenueButton'
 
 export default class VenueOption extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export default class VenueOption extends Component {
   	return (
 			<div>
         <div> img: {this.props.venue.image} </div>
+        <EditVenueButton />
         <div> Name: {this.props.venue.nickname} </div>
         <div> Address: {this.props.venue.address.city}, {this.props.venue.address.zip} </div>
         <FormControlLabel 

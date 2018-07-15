@@ -58,21 +58,30 @@ const styles = {
 export default class Event extends Component {
     constructor(props) {
         super(props)
+        const eventHost = Meteor.users.findOne({_id: this.props.event.hostId})
+
         this.state = {
-          eventHost: Meteor.users.findOne({_id: this.props.event.hostId}),
+          eventHost: eventHost,
           isHost: false,
           soldOut: false
         }
+
+        let eventAddress;
         if (Meteor.userId() == this.props.event.hostId) { this.state.isHost = true }
 
+        if (this.props.event && this.props.event.venueId) {
+            // console.log(eventHost.profile.venues)
+            let venue = eventHost.profile.venues.filter((v) => (v.venueId === this.props.event.venueId))
+            venue.length ? (eventAddress = venue[0].address) : ''
+            console.log(venue,eventAddress);
+        }
         let confirmedCount = 0;
         if (this.props.event.confirmedList) {
             confirmedCount = this.props.event.confirmedList.length;
         }
         let remainingTickets = this.props.event.size - confirmedCount;
+      
         if (remainingTickets === 0) {this.state.soldOut = true}
-
-
     }
 
     render() {
@@ -103,7 +112,7 @@ export default class Event extends Component {
                 
                     <Card style={styles.card}>
                         <Link className='event-card-link' to={`/event/${this.props.event._id}`}>
-                            <CardMedia style={styles.image} image={this.props.event.image ? this.props.event.image : `""` }>
+                            <CardMedia style={styles.image} image={this.props.event.image ? this.props.event.image : "" }>
                                 <CardContent >
                                     <Card style={styles.date}>
                                         <Typography style={styles.typo} align={'center'} variant={'display1'} color={'secondary'}> {eventDate.month}</Typography>
@@ -115,8 +124,9 @@ export default class Event extends Component {
 
                             <CardContent>
                                 <Typography gutterBottom variant="display1" component="h2">{this.props.event.byline}</Typography>
-                                <Typography variant="headline" component="h3">{this.props.event.eventAddress.state}, {this.props.event.eventAddress.zip} </Typography>
+                                
                                 {/*
+                                <Typography variant="headline" component="h3">{this.props.event.eventAddress.state}, {this.props.event.eventAddress.zip} </Typography>
                                 <Typography variant='headline' component='p'><strong>{this.props.event.size}</strong> tickets available 
                                      <strong>{remainingTickets}</strong> remain
                                 </Typography>

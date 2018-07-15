@@ -48,7 +48,8 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
       _.each(fileRef.versions, (vRef, version) => {
         // We use Random.id() instead of real file's _id
         // to secure files from reverse engineering on the AWS client
-        const filePath = `venues/${(Random.id())}-${version}.${fileRef.extension}`;
+        // const filePath = `venues/${(Random.id())}-${version}.${fileRef.extension}`;
+        const filePath = `venues/${fileRef.meta.userId}_${fileRef._id}.${fileRef.extension}`;
         // const filePath = `${module}/${id}/${Random.id()}-${version}.${fileRef.extension}`
         //where module is event, venue, avatar & id  = eventId, venueId, userId
         
@@ -58,7 +59,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
         // Key is the file name we are creating on AWS:S3, so it will be like files/XXXXXXXXXXXXXXXXX-original.XXXX
         // Body is the file stream we are sending to AWS
         s3.putObject({
-          // ServerSideEncryption: 'AES256', // Optional
+          ServerSideEncryption: 'AES256', // Optional
           StorageClass: 'STANDARD',
           Bucket: s3Conf.bucket,
           Key: filePath,
@@ -90,7 +91,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
           });
         });
 
-        let url = `https://s3.us-east-2.amazonaws.com/pakke-images/${filePath}`;
+        // let url = `https://s3.us-east-2.amazonaws.com/pakke-images/${filePath}`;
         // console.log(url)
  
         //   ... /avatars/vKhgc74cjEtc3y2P5-original.jpg
@@ -199,9 +200,9 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
 }
 
 if (Meteor.isServer) {
-  Meteor.publish('venueImages', function (venueId) {
+  Meteor.publish('venueImages', function() {
     return VenueImages.collection.find({
-      "meta.venueId": venueId
+      userId: Meteor.userId()
     }, {
       fields: {
         name: 1,
