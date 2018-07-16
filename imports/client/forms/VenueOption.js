@@ -19,7 +19,7 @@ export default class VenueOption extends Component {
         <div> Name: {this.props.venue.nickname} </div>
         <div> Address: {this.props.venue.address.city}, {this.props.venue.address.zip} </div>
         <FormControlLabel 
-          value={this.props.venue.venueId} 
+          value={this.props.venue._id} 
           control={ <Radio/>}
           label={this.props.venue.nickname}
           name="venueId"

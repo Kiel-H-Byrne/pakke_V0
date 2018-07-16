@@ -17,11 +17,11 @@ import Input from '@material-ui/core/Input';
 
 import HiddenField from 'uniforms-material/HiddenField'; 
 
-import VenueImages from '/imports/startup/collections/venueImages.js';
+import Uploads from '/imports/startup/collections/uploads.js';
 import IndividualFile from '/imports/client/forms/FileDetails.js';
 
 
-class VenueImagesUploadComponent extends Component {
+class ImagesUploadComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,10 +46,9 @@ class VenueImagesUploadComponent extends Component {
       let file = e.currentTarget.files[0];
       // console.log(file);
         
-      let uploadInstance = VenueImages.insert({
+      let uploadInstance = Uploads.insert({
         file: file,
         meta: {
-          locator: self.props.fileLocator,
           userId: Meteor.userId() // Optional, used to check on server for file tampering
         },
         streams: 'dynamic',
@@ -132,7 +131,7 @@ class VenueImagesUploadComponent extends Component {
       // (make sure the subscription only sends files owned by this user)
       let preview = this.props.files.map((aFile, key) => {
         // console.log('A file: ', aFile)
-        let link = VenueImages.findOne({_id: aFile._id}).link();  //The "view/download" link
+        let link = Uploads.findOne({_id: aFile._id}).link();  //The "view/download" link
         // console.log(link);
         // Send out components that show details of each file
         return <div key={'file' + key}>
@@ -149,12 +148,12 @@ class VenueImagesUploadComponent extends Component {
       return (
               <>
         <HiddenField
-        id="venueImageInputUrl"  
+        id="ImageInputUrl"  
         name={this.props.name}
         value={this.state.fileUrl}/>  
       <Grid container direction="column">
         <Grid item xs={12}>
-            <Input type="file" id="fileinput" size="large" color="secondary"  disabled={this.state.inProgress} ref="fileinput" onChange={this.uploadIt}/>
+            <Input type="file" id="fileinput" size="large"  disabled={this.state.inProgress} ref="fileinput" onChange={this.uploadIt}/>
         </Grid>
 
         <Grid item xs={12} className="">
@@ -162,7 +161,8 @@ class VenueImagesUploadComponent extends Component {
         </Grid>
 
         <Grid item xs={12}>
-            <img src={this.state.fileUrl} alt="file preview" height="100px" width="100px"/>
+            {/* <img src={this.state.fileUrl} alt="file preview" height="100px" width="100px"/> */}
+            {preview}
         </Grid>
       </Grid>
       </>
@@ -173,13 +173,13 @@ class VenueImagesUploadComponent extends Component {
 // This is the HOC - included in this file just for convenience, but usually kept
 // in a separate file to provide separation of concerns.
 //
-export default VenueImagesUpload = withTracker( ( props ) => {
-  const filesHandle = Meteor.subscribe('venueImages');
+export default ImagesUpload = withTracker( ( props ) => {
+  const filesHandle = Meteor.subscribe('my_uploads');
   const loading = !filesHandle.ready();
-  const files = VenueImages.find({}, {sort: {name: 1}}).fetch();
+  const files = Uploads.find({}, {sort: {name: 1}}).fetch();
 
   return {
     loading,
     files,
   };
-})(VenueImagesUploadComponent);
+})(ImagesUploadComponent);

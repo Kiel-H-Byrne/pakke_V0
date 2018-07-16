@@ -21,7 +21,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
-
+import Venues from '/imports/startup/collections/venues';
 import AddVenueModal from './AddVenueModal.js'
 import EditVenueButton from './EditVenueButton.js'; 
 
@@ -59,34 +59,37 @@ const styles = {
     }
 };
 class VenuesFormComponent extends Component {
-
 	constructor(props) {
     super(props)
-    let firstVenue; 
-    this.props.venues ? firstVenue = this.props.venues[0].venueId : ''
     this.state = {
-      value: '',
-      selected: firstVenue || ''
+      selected: ''
     }
     this.handleChange = this.handleChange.bind(this)
   };
-
+  static getDerivedStateFromProps(nextProps, prevState) {
+    let firstVenue; 
+    nextProps.venues[0] ? firstVenue = nextProps.venues[0]._id : ''
+    return {
+      selected: firstVenue
+    }
+  }
   handleChange(event) {
     this.setState({ selected: event.target.value });
   };
-
   render() {
-      if (this.props.venues && this.props.venues.length) {
-      	return (
-	      	<div className="venuesList" style={styles.flexRow}>
+  	return (
+    	<div className="venuesList" >
+        <Typography align="center" variant="display1">Your Places:</Typography>
+        { (this.props.venues && this.props.venues.length) ? (
+          <div style={styles.flexRow}>
             <RadioGroup
               aria-label="venue-id"
               onChange={this.handleChange}
               style={styles.flexRow}
-            >
+              >
     		      {this.props.venues.map((venue) => {
                 return (
-                  <Card style={styles.card} key={venue.venueId}>
+                  <Card style={styles.card} key={venue._id}>
                     <CardMedia style={styles.media} image={venue.image ? venue.image : `/img/holders/holder_venue_200.png` }>
                       {/* <EditVenueButton /> */}
                     </CardMedia> 
@@ -98,36 +101,40 @@ class VenuesFormComponent extends Component {
                     </CardContent>
                     <CardActions style={styles.actions}>
                       <FormControlLabel 
-                      control={ <Radio checked={this.state.selected == venue.venueId} />}
+                      control={ <Radio checked={this.state.selected == venue._id} />}
                       label={venue.nickname}
                       onChange = {this.handleChange}
-                      value={venue.venueId}
+                      value={venue._id}
                       />
                     </CardActions>
                   </Card>
                 )
               })          }
             </RadioGroup>
-  	        <HiddenField name="venueId" value={this.state.selected}/>
+  	        {/* <HiddenField name="venueId" value={this.state.selected}/> */}
             <AddVenueModal />
-		      </div>
-	      )
-	      } else {
-  	      return <AddVenueModal />
-	      }
+          </div>
+          ) : (
+          <div>
+            <Typography variant="title">Add A Place:</Typography>
+            <AddVenueModal />
+          </div>
+          )
+        }
+      </div>
+    )
   }
 }
             
-export default VenuesForm = withTracker(({ match }) => {
-  let handle = Meteor.subscribe('currentUser');
+export default VenuesForm = withTracker(() => {
+  let handle = Meteor.subscribe('my_venues');
   let loading = !handle.ready(); 
-  let venues = Meteor.users.findOne(Meteor.userId()).profile.venues
+  let venues = Venues.find({ hostId: Meteor.userId() }).fetch();
   return {
     handle,
     loading,
     venues
   }
 })(VenuesFormComponent);
-
 
 

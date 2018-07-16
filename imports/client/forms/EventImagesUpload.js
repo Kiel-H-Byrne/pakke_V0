@@ -20,7 +20,6 @@ import HiddenField from 'uniforms-material/HiddenField';
 import EventImages from '/imports/startup/collections/eventImages.js';
 import IndividualFile from '/imports/client/forms/FileDetails.js';
 
-
 class EventImagesUploadComponent extends Component {
   constructor(props) {
     super(props);

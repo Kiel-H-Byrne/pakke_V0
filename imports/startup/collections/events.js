@@ -116,7 +116,7 @@ Events.allow({
 
   // only allow event creation if you are logged in
   insert: (userId, doc) => !! userId,
-  // anyone can add themselves as guest to the event (update only guest scope of Event document).
+// anyone can add themselves as guest to the event (update only guest scope of Event document).
   // update: (userId, doc) => true
   update: (userId, doc) => userId == doc.hostId
   //only allow update if userID is event.hostId

@@ -33,7 +33,7 @@ import '../../startup/collections/schemas';
 class AddEventForm extends Component {
     
     handleSubmit(doc) {
-        console.log(doc)
+        // console.log(doc)
         Meteor.call('addEvent', doc);
 
         // const adminEmailProps = [
@@ -64,6 +64,7 @@ class AddEventForm extends Component {
     
     render() {
         const model = Schema.Event.clean({});
+        // console.log(model)
         // console.log(model);
         return (
             // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}
@@ -87,6 +88,7 @@ class AddEventForm extends Component {
                 
                 <EventImagesUpload name="image" />
                 
+                <HiddenField name="hostId" />                
                 <SubmitField>Submit</SubmitField>
                 <ErrorsField />
             </AutoForm>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { _ } from 'underscore';
+import { withTracker } from 'meteor/react-meteor-data';
 
 import EditEventButton from './forms/EditEventButton.js'
 import Card from '@material-ui/core/Card';
@@ -13,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 
 import Grid from '@material-ui/core/Grid';
+
+import Venues from '/imports/startup/collections/venues';
 
 const styles = {
             card: {
@@ -71,9 +74,10 @@ export default class Event extends Component {
 
         if (this.props.event && this.props.event.venueId) {
             // console.log(eventHost.profile.venues)
-            let venue = eventHost.profile.venues.filter((v) => (v.venueId === this.props.event.venueId))
+            // let venue = eventHost.profile.venues.filter((v) => (v.venueId === this.props.event.venueId))
+            let venue = Venues.find({_id: this.props.event.venueId})
             venue.length ? (eventAddress = venue[0].address) : ''
-            console.log(venue,eventAddress);
+            // console.log(venue,eventAddress);
         }
         let confirmedCount = 0;
         if (this.props.event.confirmedList) {
@@ -83,7 +87,9 @@ export default class Event extends Component {
       
         if (remainingTickets === 0) {this.state.soldOut = true}
     }
-
+    componentDidMount() {
+        Meteor.subscribe('event_venue', this.props.event._id)
+    }
     render() {
         let confirmedCount = 0;
         if (this.props.event.confirmedList) {

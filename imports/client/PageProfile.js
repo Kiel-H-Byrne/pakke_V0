@@ -142,13 +142,6 @@ class PageProfileComponent extends Component {
                   <AutoField name="birthDate" />
                   <AutoField name="social" />
                   <TinyInput name="bio" />
-                  
-                  <AutoForm 
-                  schema={Schema.Venue}
-                  model={venueModel}
-                  > 
-                    <VenuesForm />
-                  </AutoForm>
                   <SubmitField value="Submit" />
                   <ErrorsField />
                 </AutoForm>

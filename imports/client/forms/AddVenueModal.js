@@ -47,8 +47,8 @@ class AddVenueModalComponent extends Component {
         onClose={this.handleClose}
       >
       <div className={classes.paper + ' scroll-wrapper-y'}>
-        <Typography variant="title" id="AddVenueForm-title">New Venue:</Typography>
-        <AddVenueForm onSubmit={this.handleClose}/>
+        <Typography variant="title" id="AddVenueForm-title">New Place:</Typography>
+        <AddVenueForm handleClose={this.handleClose}/>
       </div>
     </Modal>
     </div>

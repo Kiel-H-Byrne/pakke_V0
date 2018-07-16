@@ -92,7 +92,7 @@ const styles = theme => ({
                 <AutoField name="venueType" margin="dense" />
                 <AutoField name="capacity" margin="dense" />
                 
-                <VenueImagesUpload name="image" />
+                <ImagesUpload name="image" />
                       
               <SubmitField>Submit</SubmitField>
               <ErrorsField />

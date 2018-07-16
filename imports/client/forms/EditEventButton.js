@@ -96,7 +96,6 @@ const styles = theme => ({
             <AutoField name="size" margin="dense" />
             <AutoField name="price" margin="dense" />
             <AutoField name="contact" margin="dense" />
-            <Typography align="center" variant="display1">Your Places:</Typography>
             <VenuesForm />       
             <EventImagesUpload name="image" fileUrl={model.image} />
      

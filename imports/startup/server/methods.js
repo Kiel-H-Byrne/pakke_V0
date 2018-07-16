@@ -84,14 +84,9 @@ Meteor.methods({
   addVenue: function(doc) {
     Venues.insert(doc, (err,res) => {
       if (err) {
-        console.log(`VENUE INSERT FAILED: ${doc.byline}: ${err}`);
-
+        console.log(`VENUE INSERT FAILED: ${doc.nickname}: ${err}`);
       } else {
-        console.log(`NEW VENUE: ${doc.byline}`);
-        analytics.track("New Venue", {
-          label: doc.name,
-          host: doc.hostId
-        })
+        console.log(`NEW VENUE: ${doc.nickname}`);
 
         // Email.send({
         //   to: 'info@pakke.us', 
@@ -261,8 +256,8 @@ Meteor.methods({
     return upload;
 
   },
-  removeEventImage: function(fileId) {
-    EventImages.remove(fileId)
+  removeFile: function(fileId) {
+    Uploads.remove(fileId);
   },
   sendEmail: function(to, from, subject, html) {
     // check([to, from, subject, html], [String]);

@@ -22,6 +22,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 import Button from '@material-ui/core/Button';
 
+import Venues from '/imports/startup/collections/venues';
 import PageError from './PageError';
 import EventInterestModal from './forms/EventInterestModal'
 import EventPurchaseModal from './forms/EventPurchaseModal'
@@ -56,21 +57,25 @@ class EventDetailsComponent extends Component {
       soldOut: false
     }
   }
-
+  
   static getDerivedStateFromProps(nextProps, prevState) {
     let eventHost, venue;
     if (nextProps.event) {
       eventHost = Meteor.users.findOne(nextProps.event.hostId)
       if (nextProps.event.venueId) {
-        venue = eventHost.profile.venues.filter((v) => (v.venueId === nextProps.event.venueId))
+        // venue = eventHost.profile.venues.filter((v) => (v.venueId === nextProps.event.venueId))
+        venue = Venues.find({ events: { $in: [nextProps.event._id] } }).fetch();
+        console.log(venue)
       }
       return {
         eventHost: eventHost,
-        venue: venue[0]
+        venue: venue
       };
     } else return null
   }
-
+  componentWillmount() {
+    Meteor.subscribe('event_venue', this.props.event._id)
+  }
   componentWillUnmount() {
     this.props.handle.stop();
   }
@@ -205,7 +210,6 @@ export default EventDetails = withTracker(({ match }) => {
   let loading = !handle.ready(); 
   const event = Events.findOne( match.params.id );
   const thisUser = Meteor.users.findOne(Meteor.userId());
-
  
   return {
     handle,

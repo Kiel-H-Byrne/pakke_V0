@@ -6,7 +6,7 @@ import uniforms from 'uniforms';
 import filterDOMProps from 'uniforms/filterDOMProps';
 import { Editor } from '@tinymce/tinymce-react';
 
-import VenueImages from './venueImages'
+import Uploads from './uploads'
 import EventImages from './eventImages'
 
 if (Meteor.isClient) {
@@ -99,7 +99,7 @@ Schema.Address = new SimpleSchema({
 Schema.Venue = new SimpleSchema({
   hostId: {
     type: String,
-    autoValue: () => this.userId
+    autoValue: () => Meteor.userId()
   },
   nickname: {
     type: String,
@@ -132,7 +132,7 @@ Schema.Venue = new SimpleSchema({
   },
   ownedStatus: {
     type: Boolean,
-    label: 'I control (open & lock up) this place.'
+    label: 'I control (open & lock up) this place.',
     defaultValue: false
   },
   image: {
@@ -155,6 +155,14 @@ Schema.Venue = new SimpleSchema({
     type: String,
     optional: true,
     regEx: SimpleSchema.RegEx.Url
+  }, 
+  events: {
+    type: Array,
+    optional: true
+  }, 
+  'events.$': {
+    type: String, 
+    optional: true
   }
 });
 
@@ -433,15 +441,15 @@ Schema.Profile = new SimpleSchema({
     type: Schema.Interests,
     optional: true,
   },
-  venues: {
-    type: Array,
-    label: 'Your Venues:',
-    optional: true,
-    defaultValue: []
-  },
-  "venues.$": {
-    type: Schema.Venue
-  },
+  // venues: {
+  //   type: Array,
+  //   label: 'Your Venues:',
+  //   optional: true,
+  //   defaultValue: []
+  // },
+  // "venues.$": {
+  //   type: Schema.Venue
+  // },
   talents: {
     type: Array,
     label: 'Add A New Talent!',
@@ -565,8 +573,7 @@ Schema.Event = new SimpleSchema({
   // 'type' is where you can set the expected data type for the 'title' key's value
   hostId: {
     type: String,
-    uniforms: { component: () => null },
-    autoValue: () => this.userId
+    autoValue: () => Meteor.userId()
   },
   date: {
     type: Date,

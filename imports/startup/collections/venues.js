@@ -14,11 +14,19 @@ if (Meteor.isServer) {
     return cursor;
   });
 
-  Meteor.publish('my_venues', function (userId) {
+  Meteor.publish('my_venues', function () {
     const cursor = Venues.find({
-      hostId: {}
+      hostId: this.userId
     });
     console.log("-= PUBLISHING: ["+ cursor.count() +"] USER Venues =-");
+    return cursor;
+  });
+
+  Meteor.publish('event_venue', function (eventId) {
+    const cursor = Venues.find({
+      events: { $in: [eventId] }
+    });
+    console.log("-= PUBLISHING: ["+ cursor.count() +"] Event Venue =-");
     return cursor;
   });
 }
@@ -28,7 +36,7 @@ Venues.allow({
   // only allow event creation if you are logged in
   insert: (userId, doc) => !! userId,
   // anyone can add themselves as guest to the event (update only guest scope of Event document).
-  update: (userId, doc) => true
+  update: (userId, doc) => doc.hostId == userId
   // remove not authorized if not owner and not inside of a "creator" field of events.
 });
 

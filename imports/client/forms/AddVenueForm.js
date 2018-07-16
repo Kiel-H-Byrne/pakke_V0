@@ -11,7 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 import { BarLoader } from 'react-spinners';
 import TinyInput from './TinyInput.js'
-import VenueImagesUpload from './VenueImagesUpload.js'; 
+import ImagesUpload from './ImagesUpload.js'; 
 
 import '../../startup/collections/schemas';
 
@@ -24,20 +24,17 @@ const styles = theme => ({
 class AddVenueForm extends Component {
   constructor(props) {
     super(props);
-    this.formRef = null;
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 
   handleSubmit(doc) {
-    console.log(doc)
       Meteor.call('addVenue', doc);
-      this.props.handleSubmit();
+      this.props.handleClose();
   }; 
 
   handleSuccess() {
-      Bert.alert("You have a new venue!", "success");
-      
-
+      Bert.alert("You have a new place!", "success");
   };
 
   handleFailure() {
@@ -47,6 +44,7 @@ class AddVenueForm extends Component {
     const { classes } = this.props;
 
     const model = Schema.Venue.clean({});
+    // console.log(model);
     //ALLOWS FOR DEFAULT VALUES TO GET PULLED INTO FORM VALUES FOR VALIDATION/SUBMISSION. 
     //WITHOUT THIS, AUTOVALUES/DEFAULTVALUES ARE EMPTY WHEN FORM IS SUBMITTED!!!
     return (
@@ -59,6 +57,7 @@ class AddVenueForm extends Component {
       onSubmitSuccess={this.handleSuccess} 
       onSubmitFailure={this.handleFailure} 
       >
+      <HiddenField name="hostId" />
         <AutoField name="nickname" margin="dense" />
         <LongTextField name="description"/>
           <AutoField name="ownedStatus" margin="dense" />
@@ -66,7 +65,7 @@ class AddVenueForm extends Component {
           <AutoField name="capacity" margin="dense" />
           <AutoField name="address" margin="dense" />
           
-          <VenueImagesUpload name="image" />
+          <ImagesUpload name="image" />
                 
         <SubmitField>Submit</SubmitField>
         <ErrorsField />
