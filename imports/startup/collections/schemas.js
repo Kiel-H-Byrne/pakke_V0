@@ -587,7 +587,7 @@ Schema.Event = new SimpleSchema({
     type: Number,
     label: "How long will this last?",
     min: 2,
-    max: 12,
+    max: 72,
     uniforms: {
       step: 0.50
     },
@@ -602,7 +602,7 @@ Schema.Event = new SimpleSchema({
     type: String,
     unique: true,
     label: 'Give this experience a name!',
-    max: '33'
+    max: 50
   },
   image: {
     type: Object,
@@ -637,13 +637,13 @@ Schema.Event = new SimpleSchema({
     type: String,
     label: 'Describe this experience.',
     optional: true,
-    max: 550
+    max: 3550
   },
   price: {
     type: Number,
     label: "How much is the ticket price?",
     min: 5,
-    max: 200,
+    max: 500,
     uniforms: {
       step: 0.50
     },
