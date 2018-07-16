@@ -631,6 +631,11 @@ Schema.Event = new SimpleSchema({
     optional: true,
     max: 3000
   },
+  emailTemplate: {
+    type: String,
+    label: 'Confirmation Email:',
+    optional: true
+  },
   price: {
     type: Number,
     label: "How much is the ticket price?",
