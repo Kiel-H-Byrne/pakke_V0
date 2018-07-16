@@ -298,10 +298,10 @@ const eventPurchasedTemplate = (user,event) => {
                     <tr>
                       <td>
 
-<p>Hi there&nbsp;<em>${user.profile.name},</em><br /><br />Thanks for registering for PAKKE's "<em>Smells like DNA - a Pheromone Part</em>y". We are excited to explore this unique sensation and experience with you.</p>
+<p>Hi there&nbsp;<em>${user.profile.name},</em><br /><br />Thanks for registering for PAKKE's "<em>Smells like DNA - a Pheromone Part</em>y". We are excited to explore this unique sensation and experience with you. Please note this experiment is double blind/anonymous. </p>
 <h3><strong>How It Works<br /></strong></h3>
 <ul>
-<li>Starting on&nbsp;<span class="aBn" tabindex="0" data-term="goog_244162051"><span class="aQJ">July 15th</span></span>, sleep in a clean, white, 100% cotton tee shirt for 4 nights in a row to capture your odor print. Bring this shirt in a ziplock bag to the party on&nbsp;<span class="aBn" tabindex="0" data-term="goog_244162052"><span class="aQJ">July 19th</span></span>.</li>
+<li><strong>Starting Tonight</strong>, sleep in a clean, white, 100% cotton tee shirt for 4 nights in a row to capture your odor print. Bring this shirt in a ziplock bag to the party on&nbsp;<span class="aBn" tabindex="0" data-term="goog_244162052"><span class="aQJ">July 19th</span></span>.</li>
 <li>Each bag is assigned a number. Only the owner of the shirt knows what their shirts number is.</li>
 <li>Bags are placed on a table and guests smell each shirt and rate their attraction to the odor on provided scoresheets throughout the evening.</li>
 <li>If a guest finds a smell particularly attractive, they write the number of the shirt they like under their photo which will be on a separate photo board. Remember they only know the number of the bag, not the person it belongs to.</li>

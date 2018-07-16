@@ -416,7 +416,7 @@ Schema.Profile = new SimpleSchema({
     type: String,
     label: 'Bio',
     optional: true,
-    max: 280
+    max: 500
   },
   social: {
     type: Object,
@@ -583,7 +583,7 @@ Schema.Event = new SimpleSchema({
     type: Number,
     label: "How long will this last?",
     min: 2,
-    max: 12,
+    max: 72,
     uniforms: {
       step: 0.50
     },
@@ -598,7 +598,7 @@ Schema.Event = new SimpleSchema({
     type: String,
     unique: true,
     label: 'Give this experience a name!',
-    max: '33'
+    max: 50
   },
   image: {
     type: String,
@@ -629,13 +629,13 @@ Schema.Event = new SimpleSchema({
     type: String,
     label: 'Describe this experience.',
     optional: true,
-    // max: 3550
+    max: 3000
   },
   price: {
     type: Number,
     label: "How much is the ticket price?",
     min: 5,
-    max: 200,
+    max: 500,
     uniforms: {
       step: 0.50
     },
