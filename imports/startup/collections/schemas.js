@@ -583,7 +583,7 @@ Schema.Event = new SimpleSchema({
     type: Number,
     label: "How long will this last?",
     min: 2,
-    max: 12,
+    max: 72,
     uniforms: {
       step: 0.50
     },
@@ -598,7 +598,7 @@ Schema.Event = new SimpleSchema({
     type: String,
     unique: true,
     label: 'Give this experience a name!',
-    max: '33'
+    max: 50
   },
   image: {
     type: String,
@@ -629,7 +629,7 @@ Schema.Event = new SimpleSchema({
     type: String,
     label: 'Describe this experience.',
     optional: true,
-    // max: 3550
+    max: 5550
   },
   price: {
     type: Number,
@@ -652,9 +652,7 @@ Schema.Event = new SimpleSchema({
   //   uniforms: (Meteor.isClient ? VenuesForm : null),
   //   //SOMEHOW SHOW RADIO BOXES WITH NAMES OF VENUES FROM HOSTS VENUEARRAY
   // },
-  venueId: {
-    type: String,
-  },
+  venueId: String,
   contact: {
     type: String,
     label: 'Contact Number',
@@ -675,33 +673,25 @@ Schema.Event = new SimpleSchema({
     optional: true,
     defaultValue: []
   },
-  "appliedList.$": {
-    type: String
-  },
+  "appliedList.$": String,
   invitedList: {
     type: Array,
     optional: true,
     defaultValue: []
   },
-  "invitedList.$": {
-    type: String
-  },
+  "invitedList.$": String,
   confirmedList: {
     type: Array,
     optional: true,
     defaultValue: []
   },
-  "confirmedList.$": {
-    type: String
-  },
+  "confirmedList.$": String,
   entertainers: {
     type: Array,
     optional: true,
     defaultValue: []
   },
-  "entertainers.$": {
-    type: String
-  },
+  "entertainers.$": String,
   submitted: {
     type: Date,
     autoValue: () => new Date()

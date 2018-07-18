@@ -8,6 +8,10 @@ const muiTheme = createMuiTheme({
           color: '#fff',
           fontSize: '12px',
         },
+        raised: {
+          backgroundColor: '#2964ff',
+          color: '#fff'
+        },
         disabled: {
           backgroundColor: '#A3A7B2',
           color: '#fff'

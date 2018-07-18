@@ -26,7 +26,7 @@ import ZarahnaDetails from './events/Zarahna'
 import PageTest from './old-test/PageTest'
 // import { LoginFormContainer } from './accounts/ui/components/LoginForm'
 // import TestLogin from './TestLogin';
-// import PageLogin from './PageLogin';
+
 
 
 
@@ -43,14 +43,14 @@ class Router extends Component {
             <Route path='/profile' component={PageProfile} />
             <Route path='/host' component={BecomeHost} />
             <Route path='/talent' component={BecomeTalent} />
-            <Route path='/nomadico2018' component={NomadicoDetails} />
-            <Route path='/LOZ2018' component={ZarahnaDetails} />
-            
             <Route path='/terms' component={PageTerms} />
-            <Route path='/admin' component={Accounts.ui.LoginForm} />
-            { Meteor.isDevelopment ?
-            (<Route path='/test' component={PageTest} />)
-            : ('')
+            
+            { Meteor.isDevelopment ? (
+                <>
+                <Route path='/test' component={PageTest} />
+                <Route path='/admin' component={Accounts.ui.LoginForm} />
+                </>
+            ) : ('')
             }
             <Route component={PageError} />
 

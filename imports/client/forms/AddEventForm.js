@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { Editor } from '@tinymce/tinymce-react';
+import { Link } from 'react-router-dom';
 
 import AutoForm    from 'uniforms-material/AutoForm';
 import AutoField  from 'uniforms-material/AutoField';
@@ -11,7 +12,7 @@ import HiddenField from 'uniforms-material/HiddenField';
 import LongTextField from 'uniforms-material/LongTextField'; // Choose your theme package.
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
-
+import Typography from '@material-ui/core/Typography';
 
 import UploadField from './UploadField.js';
 import EventImagesUpload from './EventImagesUpload.js'; 
@@ -33,8 +34,8 @@ import '../../startup/collections/schemas';
 class AddEventForm extends Component {
     
     handleSubmit(doc) {
-        // console.log(doc)
-        Meteor.call('addEvent', doc);
+        console.log(doc)
+        // Meteor.call('addEvent', doc);
 
         // const adminEmailProps = [
         //   "noreply@pakke.us",
@@ -84,10 +85,17 @@ class AddEventForm extends Component {
                 <AutoField name="duration" margin="dense" />
                 <AutoField name="size" margin="dense" />
                 <AutoField name="price" margin="dense" />
+                <AutoField name="isPrivate" margin="dense" />
                 <AutoField name="contact" margin="dense" />
-                
                 <EventImagesUpload name="image" />
-                
+                <AutoField name="checkedPolicy" margin="dense" />
+                <Typography 
+                component={Link}
+                to="/terms"
+                variant="caption"
+                align="right"
+                >Peruse the PAKKE Privacy Policy
+                </Typography>
                 <HiddenField name="hostId" />                
                 <SubmitField>Submit</SubmitField>
                 <ErrorsField />

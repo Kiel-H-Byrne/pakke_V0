@@ -10,7 +10,7 @@ if (Meteor.isServer) {
 
   Meteor.publish('venues_all', function () {
     const cursor = Venues.find();
-    console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] Venues =-");
+    // console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] Venues =-");
     return cursor;
   });
 
@@ -18,7 +18,7 @@ if (Meteor.isServer) {
     const cursor = Venues.find({
       hostId: this.userId
     });
-    console.log("-= PUBLISHING: ["+ cursor.count() +"] USER Venues =-");
+    // console.log("-= PUBLISHING: ["+ cursor.count() +"] USER Venues =-");
     return cursor;
   });
 
@@ -26,7 +26,7 @@ if (Meteor.isServer) {
     const cursor = Venues.find({
       events: { $in: [eventId] }
     });
-    console.log("-= PUBLISHING: ["+ cursor.count() +"] Event Venue =-");
+    // console.log("-= PUBLISHING: ["+ cursor.count() +"] Event Venue =-");
     return cursor;
   });
 }

@@ -42,7 +42,7 @@ class AddEventModalComponent extends Component {
 
     return (
             <div>
-      <Button type="button" onClick={this.handleOpen} className={classes.button}> Create A New Experience </Button>
+      <Button type="button" onClick={this.handleOpen} variant="raised" className={classes.button}> Create A New Experience </Button>
       <Modal 
         aria-labelledby="New Event Form"
         aria-describedby="Add a new experience."

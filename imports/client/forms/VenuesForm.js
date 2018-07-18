@@ -10,6 +10,7 @@ import QuickForm  from 'uniforms-material/QuickForm';
 import AutoForm    from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import ErrorsField from 'uniforms-material/ErrorsField';
+import Input from '@material-ui/core/Input';
 
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -61,6 +62,7 @@ const styles = {
 class VenuesFormComponent extends Component {
 	constructor(props) {
     super(props)
+    console.log(props)
     this.state = {
       selected: ''
     }
@@ -77,16 +79,23 @@ class VenuesFormComponent extends Component {
     this.setState({ selected: event.target.value });
   };
   render() {
+    if (this.props.loading) {
+      return (
+        <BarLoader 
+          loading={this.props.loading} 
+          color='#2964ff'
+          width={-1}
+          height={5}
+        />
+      )
+    }
+
   	return (
+            <>
     	<div className="venuesList" >
         <Typography align="center" variant="display1">Your Places:</Typography>
         { (this.props.venues && this.props.venues.length) ? (
           <div style={styles.flexRow}>
-            <RadioGroup
-              aria-label="venue-id"
-              onChange={this.handleChange}
-              style={styles.flexRow}
-              >
     		      {this.props.venues.map((venue) => {
                 return (
                   <Card style={styles.card} key={venue._id}>
@@ -98,20 +107,19 @@ class VenuesFormComponent extends Component {
                         {venue.nickname}
                       </Typography>
                       <Typography component="p">{venue.address.city}, {venue.address.zip}</Typography>
-                    </CardContent>
-                    <CardActions style={styles.actions}>
-                      <FormControlLabel 
-                      control={ <Radio checked={this.state.selected == venue._id} />}
-                      label={venue.nickname}
+                      <Radio 
+                      checked={this.state.selected == venue._id} 
                       onChange = {this.handleChange}
                       value={venue._id}
+                      align="center"
+                      id={`vri_${venue._id}`}
                       />
-                    </CardActions>
+                    </CardContent>
                   </Card>
-                )
-              })          }
-            </RadioGroup>
-  	        {/* <HiddenField name="venueId" value={this.state.selected}/> */}
+                  )
+                }
+              )          
+            }
             <AddVenueModal />
           </div>
           ) : (
@@ -122,18 +130,18 @@ class VenuesFormComponent extends Component {
           )
         }
       </div>
+      <HiddenField name="venueId" value={this.state.selected}/>
+      </>
     )
   }
 }
             
-export default VenuesForm = withTracker(() => {
-  let handle = Meteor.subscribe('my_venues');
-  let loading = !handle.ready(); 
-  let venues = Venues.find({ hostId: Meteor.userId() }).fetch();
+export default VenuesForm = withTracker((props) => {
+  const handle = Meteor.subscribe('my_venues');
   return {
     handle,
-    loading,
-    venues
+    loading: !handle.ready(),
+    venues: Venues.find({ hostId: Meteor.userId() }).fetch()
   }
 })(VenuesFormComponent);
 

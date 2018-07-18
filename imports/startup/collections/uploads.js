@@ -45,6 +45,7 @@ if (s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket) {
     // after fully received by the Meteor server
     onAfterUpload(fileRef) {
       // Run through each of the uploaded file
+      console.log(fileRef);
       _.each(fileRef.versions, (vRef, version) => {
         // We use Random.id() instead of real file's _id
         // to secure files from reverse engineering on the AWS client
