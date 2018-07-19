@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
 
-import AddVenueForm from './forms/AddVenueForm';
-import AddEventForm from './forms/AddEventForm';
 import AddEventModal from './forms/AddEventModal.js'
 
 import Events from '../startup/collections/events';

@@ -8,19 +8,21 @@ import AutoForm    from 'uniforms-material/AutoForm';
 import AutoField  from 'uniforms-material/AutoField';
 import SubmitField from 'uniforms-material/SubmitField';
 import ErrorsField from 'uniforms-material/ErrorsField';
-import HiddenField from 'uniforms-material/HiddenField'; 
 import LongTextField from 'uniforms-material/LongTextField'; // Choose your theme package.
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
+import HiddenField from 'uniforms-material/HiddenField'; 
 
+import '../../startup/collections/schemas';
+import eventCreatedAdminTemplate from '../email/eventCreatedAdminTemplate';
 import UploadField from './UploadField.js';
 import EventImagesUpload from './EventImagesUpload.js'; 
 import VenuesForm from './VenuesForm';
 import AddVenueForm from './AddVenueForm.js'
 import TinyInput from './TinyInput.js'
-import eventCreatedAdminTemplate from '../email/eventCreatedAdminTemplate';
-import '../../startup/collections/schemas';
+
+
 
 // This will render an automatic, validated form, with labelled fields, inline
 // validation and a submit button. If model will be present, form will be filled
@@ -78,7 +80,7 @@ class AddEventForm extends Component {
             onSubmitFailure={this.handleFailure} 
             className="tinyForm"
             >
-                <VenuesForm />
+                <VenuesForm user={this.props.user} />
                 <AutoField name="byline" margin="dense"/>
                 <TinyInput name="description"/>
                 <AutoField name="date" margin="dense" />

@@ -178,7 +178,8 @@ class EventDetailsComponent extends Component {
                   
                   {this.props.thisUser ? (
                       this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
-                      
+                      //USER HAS PURCHASD A TICKET: BELLS & WHISTLES
+                        <EventMap venue={this.props.event.venueId} event={this.props.event} />
                         <Button onClick={boughtAlert} disabled={true} fullWidth={true} variant="outlined" color="secondary">Purchased!</Button>
                       ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
                       //IF YOU'VE BEEN INVITED, PLEASE BUY A TICKET

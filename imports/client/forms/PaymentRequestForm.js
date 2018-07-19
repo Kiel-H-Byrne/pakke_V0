@@ -68,13 +68,13 @@ class PaymentRequestForm extends React.Component {
     const userEmailProps = [
       "noreply@pakke.us",
       "Ticket Purchase Confirmation",
-      eventPurchasedTemplate(user,this.props.event)
+      eventPurchasedTemplate(this.props.user,this.props.event)
     ];
     
     const adminEmailProps = [
       "noreply@pakke.us",
       "EVENTS: Ticket Purchase",
-      eventPurchasedAdminTemplate(user,this.props.event)
+      eventPurchasedAdminTemplate(this.props.user,this.props.event)
     ];
 
 
