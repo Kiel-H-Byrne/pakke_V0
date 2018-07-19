@@ -416,7 +416,7 @@ Schema.Profile = new SimpleSchema({
     type: String,
     label: 'Bio',
     optional: true,
-    max: 280
+    max: 500
   },
   social: {
     type: Object,
@@ -631,11 +631,16 @@ Schema.Event = new SimpleSchema({
     optional: true,
     max: 5550
   },
+  emailTemplate: {
+    type: String,
+    label: 'Confirmation Email:',
+    optional: true
+  },
   price: {
     type: Number,
     label: "How much is the ticket price?",
     min: 5,
-    max: 200,
+    max: 500,
     uniforms: {
       step: 0.50
     },

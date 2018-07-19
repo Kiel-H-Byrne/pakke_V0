@@ -298,6 +298,7 @@ const eventPurchasedTemplate = (user,event) => {
                     <tr>
                       <td>
 
+
 <p>Hi there&nbsp;<em>${user.profile.name},</em><br /><br />
 
 Thanks for registering for PAKKE's "<em>Smells like DNA - a Pheromone Part</em>y". We are excited to explore this unique sensation and experience with you.</p>

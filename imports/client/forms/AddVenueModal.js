@@ -11,10 +11,13 @@ import AddVenueForm from './AddVenueForm.js'
 const styles = theme => ({
   paper: {
     position: 'absolute',
-    // width: theme.spacing.unit * 50,f
+    // width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 1,
+    width: '60%',
+    minWidth: 360,
+    maxWidth: '85vh',
     maxHeight: '90vh',
     top: '50%',
     left: '50%',

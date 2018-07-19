@@ -13,7 +13,9 @@ const styles = theme => ({
   paper: {
     position: 'absolute',
     // width: theme.spacing.unit * 50,
-    width: '50%',
+    width: '60%',
+    minWidth: 360,
+    maxWidth: '85vh',
     maxHeight: '90vh',
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],

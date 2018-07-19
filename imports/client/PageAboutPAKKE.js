@@ -37,7 +37,7 @@ function PageAboutPAKKE(props) {
         },
         wrapper1: {
             marginTop: theme.spacing.unit * 8,
-            padding: `${theme.spacing.unit}px ${theme.spacing.unit * 20}px`,
+            padding: `${theme.spacing.unit}px ${theme.spacing.unit * 1.5}px`,
         },
         paper: {
             // background: theme.palette.primary.light,
@@ -51,7 +51,7 @@ function PageAboutPAKKE(props) {
             padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
         },
         box2: {
-            padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+            padding: `${theme.spacing.unit}px ${theme.spacing.unit * 1.5}px`,
             marginBottom: '5%',
         },
         icon: {
@@ -85,7 +85,7 @@ function PageAboutPAKKE(props) {
         <div id="PageAboutPAKKE">
             <Grid container justify={'center'} alignItems={'center'} style={styles.wrapper1}>
 
-                <Grid item md style={{ width: '100%', }}>
+                <Grid item style={{ width: '100%', }}>
                     <Grid container justify={'center'} style={{ background: 'theme.palette.text.primary.main' }}>
                         <Typography align={'center'} variant={'display2'} style={styles.box1}>PAKKE events encourage you to discover unique environments, connect with new people, and experience more in your city.</Typography>
                     </Grid>

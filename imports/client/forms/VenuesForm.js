@@ -92,6 +92,7 @@ class VenuesFormComponent extends Component {
 
   	return (
             <>
+      <HiddenField name="venueId" value={this.state.selected}/>
     	<div className="venuesList" >
         <Typography align="center" variant="display1">Your Places:</Typography>
         { (this.props.venues && this.props.venues.length) ? (
@@ -130,7 +131,6 @@ class VenuesFormComponent extends Component {
           )
         }
       </div>
-      <HiddenField name="venueId" value={this.state.selected}/>
       </>
     )
   }
