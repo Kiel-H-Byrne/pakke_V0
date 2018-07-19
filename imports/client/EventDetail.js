@@ -22,10 +22,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 import Button from '@material-ui/core/Button';
 
-import Venues from '/imports/startup/collections/venues';
-import PageError from './PageError';
-import EventInterestModal from './forms/EventInterestModal'
-import EventPurchaseModal from './forms/EventPurchaseModal'
+import Venues from '/imports/startup/collections/venues.js';
+import PageError from './PageError.js';
+import EventMap from './EventMap.js'
+import EventInterestModal from './forms/EventInterestModal.js'
+import EventPurchaseModal from './forms/EventPurchaseModal.js'
 
 const styles = {
   grid: {
@@ -179,8 +180,10 @@ class EventDetailsComponent extends Component {
                   {this.props.thisUser ? (
                       this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
                       //USER HAS PURCHASD A TICKET: BELLS & WHISTLES
-                        <EventMap venue={this.props.event.venueId} event={this.props.event} />
+                      <>
                         <Button onClick={boughtAlert} disabled={true} fullWidth={true} variant="outlined" color="secondary">Purchased!</Button>
+                        <EventMap venueId={this.props.event.venueId} event={this.props.event} />
+                      </>
                       ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
                       //IF YOU'VE BEEN INVITED, PLEASE BUY A TICKET
                       <EventPurchaseModal  user = {this.props.thisUser} event = {this.props.event}/>

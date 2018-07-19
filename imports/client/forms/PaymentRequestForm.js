@@ -65,6 +65,8 @@ class PaymentRequestForm extends React.Component {
     const handleClose = this.props.handleClose
           // console.log(user)
     const userEmail = user.emails[0].address;
+    
+if (Meteor.isProduction) {
     const userEmailProps = [
       "noreply@pakke.us",
       "Ticket Purchase Confirmation",
@@ -76,7 +78,7 @@ class PaymentRequestForm extends React.Component {
       "EVENTS: Ticket Purchase",
       eventPurchasedAdminTemplate(this.props.user,this.props.event)
     ];
-
+}
 
     this.props.stripe.createToken({'name': this.props.user.profile.name}).then(({error, token}) => {
       if (error) {
@@ -97,15 +99,19 @@ class PaymentRequestForm extends React.Component {
             // $('.modal-backdrop').removeClass('in').addClass('hide');
             Bert.alert("You're in! Check your inbox for more info!", "success");
             Meteor.call('amConfirmed', event._id);
-            Meteor.call('sendEmail', userEmail, ...userEmailProps);
-            Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
             
-            analytics.track("Ticket Purchase", {
-              label: event.byline,
-              commerce: event.price,
-              value: event.price,
-              host: event.hostId,
-            })
+            if (Meteor.isProduction) {
+              Meteor.call('sendEmail', userEmail, ...userEmailProps);
+              Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
+              analytics.track("Ticket Purchase", {
+                label: event.byline,
+                commerce: event.price,
+                value: event.price,
+                host: event.hostId
+              }) 
+            } else {
+            console.log("DEV MODE: Confirmed, Email & Analytics would have fired");
+          }
           }
         })      
         if (rez) {

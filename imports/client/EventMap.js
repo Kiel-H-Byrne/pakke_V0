@@ -6,14 +6,14 @@ import { BarLoader } from 'react-spinners';
 
 // import GoogleMap from './GoogleMap';
 import GoogleMapContainer from './MapGoogle';
-
-import Events from '../startup/collections/events';
+import Venues from '/imports/startup/collections/venues';
 
 
 class EventMap extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleOnReady = this.handleOnReady.bind(this);
+    console.log(props)
   }
 
   handleMapOptions() {
@@ -29,6 +29,8 @@ class EventMap extends Component {
                 // ============================= RETURN MAP OPTIONS ==================================    
                 center: new google.maps.LatLng(mapCenter),
                 zoom: 17,
+                minZoom: 15,
+                maxZoom: 17,
                 // mapTypeId:google.maps.MapTypeId.TERRAIN,
                 backgroundColor: "#555",
                 clickableIcons: false,
@@ -50,11 +52,16 @@ class EventMap extends Component {
                     // greyMonochrome
                     [{"featureType":"all","elementType":"geometry.fill","stylers":[{"weight":"2.00"}]},{"featureType":"all","elementType":"geometry.stroke","stylers":[{"color":"#9c9c9c"}]},{"featureType":"all","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#eeeeee"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#7b7b7b"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#c8d7d4"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#070707"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"}]}]
             };
-  }
+  } 
+  componentWillMount() {
+    Meteor.subscribe('event_venue', this.props.venueId)
 
+  }
   handleOnReady(name) {
     GoogleMaps.ready(name, map => {
       const GEO = new google.maps.Geocoder;
+      const venue = Venues.find({ events: { $in: [this.props.event._id] } }).fetch();
+      console.log(venue)
       const eventImage = {
         // url: 'img/markers/red_marker_sm.png'
         url: 'img/markers/PAKKE_marker_blk.png',
@@ -63,12 +70,12 @@ class EventMap extends Component {
       };
       // console.log(doc);
 
-      let addressString = `${doc.eventAddress.street} ${doc.eventAddress.city} ${doc.eventAddress.state} ${doc.eventAddress.zip}`;
+      let addressString = `${venue.street} ${venue.city} ${venue.state} ${venue.zip}`;
 
       GEO.geocode(
         { address: addressString },
         (res,err) => {
-          // console.log(res,err);
+          console.log(res,err);
           const latLngObj = res[0].geometry.location;
 
           let marker = new google.maps.Marker({
@@ -83,7 +90,6 @@ class EventMap extends Component {
   }
 
   componentWillUnmount() {
-    this.computation.stop();
   }
 
   render() {

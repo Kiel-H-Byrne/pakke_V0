@@ -305,8 +305,6 @@ const eventPurchasedAdminTemplate = (user,event) => {
                             <td>
                               <p><strong>${user.profile.name}</strong> (${user.emails[0].address}) has purchased a ticket to Event: '${event.byline}' (#${event._id})</p>
                               <p>${service.name} | ${service.id} </p>
-
-
                             </td>
                           </tr>
                         </table>
