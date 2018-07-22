@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { Accounts } from 'meteor/std:accounts-ui';
+import { Accounts, STATES } from 'meteor/std:accounts-ui';
 
 import PageHome from './PageHome';
 import PageAboutPAKKE from './PageAboutPAKKE';
 import PageLanding2 from './UI/PageLanding2';
 import HowItWorks from './UI/HowItWorks'
 
-
+import AdminPanel from './admin/AdminPanel';
 import Event from './Event';
 import EventList from './EventList';
 import EventDetails from './EventDetail';
@@ -26,8 +26,6 @@ import ZarahnaDetails from './events/Zarahna'
 import PageTest from './old-test/PageTest'
 // import { LoginFormContainer } from './accounts/ui/components/LoginForm'
 // import TestLogin from './TestLogin';
-
-
 
 
 class Router extends Component {
@@ -49,6 +47,7 @@ class Router extends Component {
                 <>
                 <Route path='/test' component={PageTest} />
                 <Route path='/admin' component={Accounts.ui.LoginForm} />
+                <Route path='/adminz' component={AdminPanel} />
                 </>
             ) : ('')
             }
