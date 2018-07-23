@@ -22,6 +22,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 import Button from '@material-ui/core/Button';
 
+import Venues from '/imports/startup/collections/venues';
+import PageError from './PageError';
 import EventInterestModal from './forms/EventInterestModal'
 import EventPurchaseModal from './forms/EventPurchaseModal'
 
@@ -55,23 +57,31 @@ class EventDetailsComponent extends Component {
       soldOut: false
     }
   }
-
+  
   static getDerivedStateFromProps(nextProps, prevState) {
-    // console.log(nextProps, prevState)
-    let eventHost;
-    nextProps.event ? eventHost = Meteor.users.findOne(nextProps.event.hostId) : null
-    return {
-      eventHost: eventHost
-    };
+    let eventHost, venue;
+    if (nextProps.event) {
+      eventHost = Meteor.users.findOne(nextProps.event.hostId)
+      if (nextProps.event.venueId) {
+        // venue = eventHost.profile.venues.filter((v) => (v.venueId === nextProps.event.venueId))
+        venue = Venues.find({ events: { $in: [nextProps.event._id] } }).fetch();
+        console.log(venue)
+      }
+      return {
+        eventHost: eventHost,
+        venue: venue
+      };
+    } else return null
   }
-
+  componentWillmount() {
+    Meteor.subscribe('event_venue', this.props.event._id)
+  }
   componentWillUnmount() {
     this.props.handle.stop();
   }
 
   render() {
     const { classes } = this.props;
-
     const loginAlert = () => Bert.alert("Please Log In First.", "info", "growl-top-right");
     const waitAlert = () => Bert.alert("Please Check Your E-mail.", "info", "growl-top-right");
     const boughtAlert = () => Bert.alert("See you Soon!", "info", "growl-top-right");
@@ -89,7 +99,9 @@ class EventDetailsComponent extends Component {
         </div>
       )
     }
-  // console.log(this.state);
+    if (!this.props.event) {
+      return <PageError />
+    }
 
     return (
       <div>
@@ -120,8 +132,8 @@ class EventDetailsComponent extends Component {
         <Card className={classes.container}>
           <CardMedia image={this.props.event.image ? this.props.event.image : `""`} title='Event Preview' className={classes.image} />
           <CardContent>
-            <Typography variant="display2" align="center" gutterBottom >{this.props.event.byline}</Typography>
-            <Typography component="p" variant="display1" paragraph >{this.props.event.description}</Typography>
+            <Typography variant="display1" align="center" gutterBottom >{this.props.event.byline}</Typography>
+            <Typography dangerouslySetInnerHTML={{__html: this.props.event.description}} />
             <Grid 
             container
             alignItems="center"
@@ -181,7 +193,6 @@ class EventDetailsComponent extends Component {
                       ) // OTHERWISE, LOGIN TO BUY A TICKET.
                     ) : <Button onClick={loginAlert} fullWidth={true} >Buy Ticket</Button> 
                   }
-                  
                   </div>
               )}
               </Grid>
@@ -195,11 +206,11 @@ class EventDetailsComponent extends Component {
 
 export default EventDetails = withTracker(({ match }) => {
 
-  let handle = Meteor.subscribe('events_all') && Meteor.subscribe('eventHost', match.params.id) && Meteor.subscribe('currentUser', Meteor.userId());
+  let handle = Meteor.subscribe('event', match.params.id) && Meteor.subscribe('eventHost', match.params.id) && Meteor.subscribe('currentUser', Meteor.userId());
   let loading = !handle.ready(); 
   const event = Events.findOne( match.params.id );
   const thisUser = Meteor.users.findOne(Meteor.userId());
-  
+ 
   return {
     handle,
     loading,

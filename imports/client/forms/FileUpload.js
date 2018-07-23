@@ -168,7 +168,6 @@ class FileUploadComponent extends Component {
 // in a separate file to provide separation of concerns.
 //
 export default FileUpload = withTracker( ( props ) => {
-  let venueId = 1;
   const filesHandle = Meteor.subscribe('venueImages', venueId);
   const loading = !filesHandle.ready();
   const files = VenueImages.find({

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { _ } from 'underscore';
+import { withTracker } from 'meteor/react-meteor-data';
 
 import EditEventButton from './forms/EditEventButton.js'
 import Card from '@material-ui/core/Card';
@@ -14,11 +15,13 @@ import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 
 import Grid from '@material-ui/core/Grid';
 
+import Venues from '/imports/startup/collections/venues';
+
 const styles = {
             card: {
                 maxWidth: 350,
                 minWidth: 350,
-                margin: '2rem'
+                margin: '1rem'
                 // display: 'flex',
             },
             image: {
@@ -28,8 +31,9 @@ const styles = {
             },
             date: {
                 background: 'rgba(255,255,255,.9)',
-                width: 100,
-                height: 100,
+                width: '5rem',
+                height: '5rem',
+                padding: "0.5rem",
                 // border: '1px solid black',
                 alignItems: 'center',
             },
@@ -50,31 +54,43 @@ const styles = {
             ordinal: {
                 position: 'relative',
                 verticalAlign: 'super',
-                fontSize: '1.5rem',
-                left: '-.3rem',
+                fontSize: '0.8rem',
+                // left: '-.3rem',
             },
         };
 
 export default class Event extends Component {
     constructor(props) {
         super(props)
+        const eventHost = Meteor.users.findOne({_id: this.props.event.hostId})
+
         this.state = {
-          eventHost: Meteor.users.findOne({_id: this.props.event.hostId}),
+          eventHost: eventHost,
           isHost: false,
           soldOut: false
         }
+
+        let eventAddress;
         if (Meteor.userId() == this.props.event.hostId) { this.state.isHost = true }
 
+        if (this.props.event && this.props.event.venueId) {
+            // console.log(eventHost.profile.venues)
+            // let venue = eventHost.profile.venues.filter((v) => (v.venueId === this.props.event.venueId))
+            let venue = Venues.find({_id: this.props.event.venueId})
+            venue.length ? (eventAddress = venue[0].address) : ''
+            // console.log(venue,eventAddress);
+        }
         let confirmedCount = 0;
         if (this.props.event.confirmedList) {
             confirmedCount = this.props.event.confirmedList.length;
         }
         let remainingTickets = this.props.event.size - confirmedCount;
+      
         if (remainingTickets === 0) {this.state.soldOut = true}
-
-
     }
-
+    componentDidMount() {
+        Meteor.subscribe('event_venue', this.props.event._id)
+    }
     render() {
         let confirmedCount = 0;
         if (this.props.event.confirmedList) {
@@ -100,23 +116,23 @@ export default class Event extends Component {
         
         return (
             <Grid item>
-                
                     <Card style={styles.card}>
                         <Link className='event-card-link' to={`/event/${this.props.event._id}`}>
-                            <CardMedia style={styles.image} image={this.props.event.image ? this.props.event.image : `""` }>
+                            <CardMedia style={styles.image} image={this.props.event.image ? this.props.event.image : "" }>
                                 <CardContent >
                                     <Card style={styles.date}>
-                                        <Typography style={styles.typo} align={'center'} variant={'display1'} color={'secondary'}> {eventDate.month}</Typography>
-                                        <Typography align={'center'} variant={'display2'}>{ eventDate.date}<span style={styles.ordinal}> {nth(eventDate.date) }</span></Typography>
-                                        <Typography align={'center'} variant={'display1'} color={'secondary'}>{eventDate.day}</Typography>
+                                        <Typography style={styles.typo} align={'center'} variant='title' color={'secondary'}> {eventDate.month}</Typography>
+                                        <Typography align={'center'} variant='title'>{ eventDate.date}<span style={styles.ordinal}> {nth(eventDate.date) }</span></Typography>
+                                        <Typography align={'center'} variant='title' color={'secondary'}>{eventDate.day}</Typography>
                                     </Card>
                                 </CardContent>
                             </CardMedia>
 
                             <CardContent>
-                                <Typography gutterBottom variant="display1" component="h2">{this.props.event.byline}</Typography>
-                                <Typography variant="headline" component="h3">{this.props.event.eventAddress.state}, {this.props.event.eventAddress.zip} </Typography>
+                                <Typography gutterBottom variant="headline" component="h2">{this.props.event.byline}</Typography>
+                                
                                 {/*
+                                <Typography variant="headline" component="h3">{this.props.event.eventAddress.state}, {this.props.event.eventAddress.zip} </Typography>
                                 <Typography variant='headline' component='p'><strong>{this.props.event.size}</strong> tickets available 
                                      <strong>{remainingTickets}</strong> remain
                                 </Typography>

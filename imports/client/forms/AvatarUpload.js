@@ -91,7 +91,7 @@ class AvatarUploadComponent extends Component {
   // Remove this function if not needed
   showProgress() {
     // console.log('**********************************', this.state.uploading);
-
+      console.log(uploadInstance)
     if (!_.isEmpty(this.state.uploading)) {
       return <div>
         {this.state.uploading.file.name}
@@ -151,11 +151,11 @@ class AvatarUploadComponent extends Component {
 //
 export default AvatarUpload = withTracker( ( props ) => {
   const filesHandle = Meteor.subscribe('avatars');
-  const docsReadyYet = filesHandle.ready();
+  const loading = !filesHandle.ready();
   let collection = 'avatars'
 
   return {
-    docsReadyYet,
+    loading,
     collection
   };
 })(AvatarUploadComponent);

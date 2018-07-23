@@ -1,5 +1,6 @@
 Meteor.loginWithPassword("noreply@pakke.us", "pakkeP@RTY")
 
+Meteor.call('getCL', "KnbJ5WkNbHhkLqHHx");
 
 analytics.page({
   title: 'Signup Modal',

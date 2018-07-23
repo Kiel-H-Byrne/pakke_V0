@@ -38,10 +38,6 @@ function HowItWorks(props) {
             // background: theme.palette.primary.light,
             // width: '100%',
         },
-        box0: {
-            width: 375,
-
-        },
         box1: {
             padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
         },
@@ -50,8 +46,10 @@ function HowItWorks(props) {
             marginBottom: '5%',
         },
         icon: {
-            height: 75,
-            width: 200,
+            display: 'block',
+            margin: 'auto',
+            color: theme.palette.text.primary,
+            fontSize: 50
         },
         divider: {
             // color: theme.palette.secondary.dark
@@ -63,60 +61,37 @@ function HowItWorks(props) {
         }
     };
 
-    //style == className in these withTheme components
-
     return (
+    <Grid id="HowItWorks" container justify={'center'} style={styles.wrapper}>
+        <Paper style={styles.paper}>
+            <Typography variant='display1' align={'center'} style={styles.box1}>How It Works</Typography>
 
-        <div id="HowItWorks">
-            <Grid container justify={'center'} style={styles.wrapper}>
-                <Paper style={styles.paper}>
-                    <Grid container justify={'center'} style={{ marginTop: '1%' }} >
-                        <Grid item>
-                            <Typography variant='display2' component="h1" align={'center'} style={styles.box1}>How It Works</Typography>
-                        </Grid>
-                    </Grid>
+            <Grid container justify={'center'} style={{ marginTop: '1%' }} direction='row'>
 
+                <Grid item xs={12} md={4}>
+                    <Launch style={styles.icon} />
+                    <Typography align={'center'} style={styles.box1} variant="headline">
+                    1. Apply for Ticket</Typography>
+                    <hr style={styles.divider} />
+                    <Typography align={'center'} style={styles.box2} variant="subheading">Its free to apply, just sign in! Apply up until the day before the event.</Typography>
+                </Grid>
 
+                <Grid item xs={12}  md={4}>
+                    <EventAvailable style={styles.icon} />
+                    <Typography align={'center'} style={styles.box1} variant="headline">2. Get Selected</Typography>
+                    <hr style={styles.divider} />
+                    <Typography align={'center'} style={styles.box2} variant='subheading'>Selections are made using a lottery system. Once you are selected, you will be able to purchase your ticket.</Typography>
+                </Grid>
 
-                    <Grid container justify={'center'} style={{ marginTop: '1%' }}>
-
-                        <Grid item style={styles.box0}>
-                            <Grid container justify={'center'}>
-                                <Launch style={styles.icon} />
-                            </Grid>
-                            <Typography align={'center'} style={styles.box1} variant="display1" component="h1">1. Apply for Ticket</Typography>
-                            <hr style={styles.divider} />
-                            <Typography align={'center'} style={styles.box2} variant="headline">Its free to apply, just sign in! Apply up until the day before the event.</Typography>
-                        </Grid>
-
-                        <Grid item style={styles.box0}>
-                            <Grid container justify={'center'}>
-                                <EventAvailable style={styles.icon} />
-                            </Grid>
-
-                            <Typography align={'center'} style={styles.box1} variant="display1">2. Get Selected</Typography>
-                            <hr style={styles.divider} />
-                            <Typography align={'center'} style={styles.box2} variant='headline'>Selections are made using a lottery system. Once you are selected, you will be able to purchase your ticket.</Typography>
-                        </Grid>
-
-                        <Grid item style={styles.box0}>
-                            <Grid container justify={'center'}>
-                                <ConfirmationNumber style={styles.icon} />
-                            </Grid>
-
-                            <Typography align={'center'} style={styles.box1} variant="display1">3. Buy Ticket</Typography>
-                            <hr style={styles.divider} />
-
-                            <Typography align={'center'} style={styles.box2} variant='headline'>Purchase your ticket to receive the event location and other important party details.</Typography>
-                        </Grid>
-                
-                    </Grid>
-                </Paper>
+                <Grid item xs={12}  md={4}>
+                    <ConfirmationNumber style={styles.icon} />
+                    <Typography align={'center'} style={styles.box1} variant="headline">3. Buy Ticket</Typography>
+                    <hr style={styles.divider} />
+                    <Typography align={'center'} style={styles.box2} variant='subheading'>Purchase your ticket to receive the event location and other important party details.</Typography>
+                </Grid>
             </Grid>
-        </div>
-
-
-
+        </Paper>
+    </Grid>
     );
 }
 

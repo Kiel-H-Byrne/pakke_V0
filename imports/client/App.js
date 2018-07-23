@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
-
-
 // import Header from './header/Header';
 // import Header2 from './UI/Header2';
 import Header3 from './UI/Header3';
@@ -17,7 +14,6 @@ class App extends Component {
         <Header />
         <Router />
       </div>
-
     )
   }
 }

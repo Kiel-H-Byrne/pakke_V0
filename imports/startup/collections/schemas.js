@@ -6,7 +6,7 @@ import uniforms from 'uniforms';
 import filterDOMProps from 'uniforms/filterDOMProps';
 import { Editor } from '@tinymce/tinymce-react';
 
-import VenueImages from './venueImages'
+import Uploads from './uploads'
 import EventImages from './eventImages'
 
 if (Meteor.isClient) {
@@ -21,6 +21,11 @@ Schema = {};
 
 filterDOMProps.register('unique');
 
+// SimpleSchema.messageBox.messages({
+//   en: {
+//     mustRead: 'You must agree to our Terms & Conditions before creating an event.',
+//   },
+// });
 
 Schema.Address = new SimpleSchema({
    // address: {
@@ -78,8 +83,9 @@ Schema.Address = new SimpleSchema({
   },
   state: {
     type: String,
-    allowedValues: ["AL","AK","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
-    defaultValue: 'DC'
+    allowedValues: ["DC","MD","VA"],
+    // allowedValues: ["AL","AK","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
+    // defaultValue: 'DC'
   },
   zip: {
     type: String,
@@ -96,20 +102,14 @@ Schema.Address = new SimpleSchema({
 });
 
 Schema.Venue = new SimpleSchema({
-  venueId: {
-    type: String,
-    uniforms: { component: () => null },
-    autoValue: () => Random.id()
-  },
   hostId: {
     type: String,
-    uniforms: { component: () => null },
     autoValue: () => Meteor.userId()
   },
   nickname: {
     type: String,
     unique: true,
-    label: 'Give this place a nickname:'
+    label: 'Give this place a name:'
   },
   description: {
     type: String,
@@ -124,7 +124,7 @@ Schema.Venue = new SimpleSchema({
   venueType: { 
     type: String,
     label: 'Type:',
-    allowedValues: ["Retail", "Apartment", "Condo", "Town Home", "Detached Home", "Other"],
+    allowedValues: ["Retail Space", "Apartment", "Condo", "Town Home", "Detached Home", "Office", "Other"],
     optional: true
   },
   capacity: {
@@ -137,19 +137,13 @@ Schema.Venue = new SimpleSchema({
   },
   ownedStatus: {
     type: Boolean,
-    label: 'I own this place.',
-    optional: true,
+    label: 'I control (open & lock up) this place.',
     defaultValue: false
   },
   image: {
     type: String,
     optional: true,
     regEx: SimpleSchema.RegEx.Url,
-    uniforms: {
-      component: function() {
-        return null
-      }
-    },
     autoValue: function() {
       if ( this.field('images').value) {
         let images = this.field('images').value;
@@ -166,6 +160,14 @@ Schema.Venue = new SimpleSchema({
     type: String,
     optional: true,
     regEx: SimpleSchema.RegEx.Url
+  }, 
+  events: {
+    type: Array,
+    optional: true
+  }, 
+  'events.$': {
+    type: String, 
+    optional: true
   }
 });
 
@@ -419,7 +421,7 @@ Schema.Profile = new SimpleSchema({
     type: String,
     label: 'Bio',
     optional: true,
-    max: 280
+    max: 500
   },
   social: {
     type: Object,
@@ -444,15 +446,15 @@ Schema.Profile = new SimpleSchema({
     type: Schema.Interests,
     optional: true,
   },
-  venues: {
-    type: Array,
-    label: 'Your Venues:',
-    optional: true,
-    defaultValue: []
-  },
-  "venues.$": {
-    type: Schema.Venue
-  },
+  // venues: {
+  //   type: Array,
+  //   label: 'Your Venues:',
+  //   optional: true,
+  //   defaultValue: []
+  // },
+  // "venues.$": {
+  //   type: Schema.Venue
+  // },
   talents: {
     type: Array,
     label: 'Add A New Talent!',
@@ -576,7 +578,6 @@ Schema.Event = new SimpleSchema({
   // 'type' is where you can set the expected data type for the 'title' key's value
   hostId: {
     type: String,
-    uniforms: { component: () => null },
     autoValue: () => Meteor.userId()
   },
   date: {
@@ -605,13 +606,9 @@ Schema.Event = new SimpleSchema({
     max: 50
   },
   image: {
-    type: Object,
-    blackbox: true,
+    type: String,
     label: 'Upload an image that illustrates this experience.',
     optional: true,
-    uniforms: {
-      component: (Meteor.isClient ? EventImagesUpload : null),
-    },
     autoValue: function() {
       if ( this.field('images').value) {
         let images = this.field('images').value;
@@ -623,11 +620,11 @@ Schema.Event = new SimpleSchema({
   images: {
     type: Array,
     optional: true,
-    uniforms: {
-      component: function() {
-        return null
-      }
-    }
+    // uniforms: {
+    //   component: function() {
+    //     return null
+    //   }
+    // }
   },
   'images.$': {
     type: String,
@@ -637,7 +634,12 @@ Schema.Event = new SimpleSchema({
     type: String,
     label: 'Describe this experience.',
     optional: true,
-    max: 3550
+    max: 5550
+  },
+  emailTemplate: {
+    type: String,
+    label: 'Confirmation Email:',
+    optional: true
   },
   price: {
     type: Number,
@@ -649,7 +651,8 @@ Schema.Event = new SimpleSchema({
     },
   },
   eventAddress: {
-    type: Schema.Address
+    type: Schema.Address,
+    optional: true,
   },
   // venue: {
   //   type: Object,
@@ -658,23 +661,18 @@ Schema.Event = new SimpleSchema({
   //   optional: true,
   //   uniforms: (Meteor.isClient ? VenuesForm : null),
   //   //SOMEHOW SHOW RADIO BOXES WITH NAMES OF VENUES FROM HOSTS VENUEARRAY
-  // },e
+  // },
   venueId: {
     type: String,
-    uniforms: {
-      options: function() {
-        //return array or listed 
-        let venuesArray = Meteor.user().profile.venues;
-        
-        //get just names?
-        return venuesArray.map( o => ({
-          'label': o.nickname,
-          'value': o.venueId
-          })
-        )
-      },
-    },
-    defaultValue: () => Random.id()
+    defaultValue: function() {
+      const venues = Venues.find({ hostId: Meteor.userId() }).fetch();
+      console.log(venues)
+      if (venues[0]) {
+        console.log(venues[0])
+        return venues[0]
+      }
+      return null
+    }
   },
   contact: {
     type: String,
@@ -696,33 +694,25 @@ Schema.Event = new SimpleSchema({
     optional: true,
     defaultValue: []
   },
-  "appliedList.$": {
-    type: String
-  },
+  "appliedList.$": String,
   invitedList: {
     type: Array,
     optional: true,
     defaultValue: []
   },
-  "invitedList.$": {
-    type: String
-  },
+  "invitedList.$": String,
   confirmedList: {
     type: Array,
     optional: true,
     defaultValue: []
   },
-  "confirmedList.$": {
-    type: String
-  },
+  "confirmedList.$": String,
   entertainers: {
     type: Array,
     optional: true,
     defaultValue: []
   },
-  "entertainers.$": {
-    type: String
-  },
+  "entertainers.$": String,
   submitted: {
     type: Date,
     autoValue: () => new Date()
@@ -754,6 +744,17 @@ Schema.Event = new SimpleSchema({
         return null
       }
     }
+  },
+  checkedPolicy: {
+    type: Boolean,
+    defaultValue: false,
+    label: 'Have you reviewed and agreed to our Terms & Conditions?',
+    custom: function() {
+      if (this.value !== true) {
+        return "mustRead"
+      }
+    }
+
   },
   partnerLink: {
     type: String,
