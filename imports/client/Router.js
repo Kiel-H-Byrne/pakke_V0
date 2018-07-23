@@ -46,7 +46,6 @@ class Router extends Component {
             { Meteor.isDevelopment ? (
                 <>
                 <Route path='/test' component={PageTest} />
-                <Route path='/admin' component={Accounts.ui.LoginForm} />
                 <Route path='/adminz' component={AdminPanel} />
                 </>
             ) : ('')
