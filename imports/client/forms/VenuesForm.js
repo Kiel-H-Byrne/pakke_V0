@@ -68,8 +68,11 @@ class VenuesFormComponent extends Component {
     this.handleChange = this.handleChange.bind(this)
     (props.firstVenue) ? (this.state.selected = firstVenue) : null
   };
-  handleChange(event) {
+  handleChange = (event) => {
+    console.log(event)
+    if (event){
     this.setState({ selected: event.target.value });
+  }
   };
   render() {
     if (this.props.loading) {

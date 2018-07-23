@@ -664,15 +664,14 @@ Schema.Event = new SimpleSchema({
   // },
   venueId: {
     type: String,
-    defaultValue: function() {
-      const venues = Venues.find({ hostId: Meteor.userId() }).fetch();
-      console.log(venues)
-      if (venues[0]) {
-        console.log(venues[0])
-        return venues[0]
-      }
-      return null
-    }
+    // defaultValue: function() {
+    //   const venues = Venues.find({ hostId: Meteor.userId() }).fetch();
+    //   console.log(venues)
+    //   if (venues[0]) {
+    //     return venues[0]
+    //   }
+    //   return null
+    // }
   },
   contact: {
     type: String,

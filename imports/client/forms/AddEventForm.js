@@ -66,7 +66,7 @@ class AddEventForm extends Component {
     
     render() {
         const model = Schema.Event.clean({});
-        console.log(model)
+        // console.log(model)
     
         return (
             <AutoForm  
