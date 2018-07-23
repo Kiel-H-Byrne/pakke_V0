@@ -4,12 +4,21 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { BarLoader } from 'react-spinners';
 import Redirect from 'react-router';
 
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+
 import AutoField from 'uniforms-material/AutoField';
 import AutoForm from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
-import Button from '@material-ui/core/Button';
+
 
 import Events from '../startup/collections/events';
 import TinyInput from './forms/TinyInput.js'
@@ -31,11 +40,21 @@ const styles = {
     maxWidth:'960px',
     minWidth: '420px',
     transition: 'visibility 0s, opacity 0.5s linear'
+  },
+  avatar: {
+    height: '4rem',
+    width: '4rem'
   }
 }
-class PageProfileComponent extends Component {
-  state = {}
 
+class PageProfileComponent extends Component {
+  constructor(props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+    this.state = {
+      value: 0
+    }
+  }
   static getDerivedStateFromProps(nextProps, prevState) {
     // console.log(nextProps, prevState)
     let eventHost;
@@ -54,6 +73,10 @@ class PageProfileComponent extends Component {
     Meteor.call('editProfile', doc)
   }
   
+  handleChange(event,value) {
+    this.setState({value})
+  }
+
   handleClick(e) {
 
     let x = document.getElementById("profileForm");
@@ -73,6 +96,7 @@ class PageProfileComponent extends Component {
   }
 
   render() {
+    const { value } = this.state;
 
     if (this.props.loading) {
       return (
@@ -105,68 +129,64 @@ class PageProfileComponent extends Component {
     // const omitFields = ["talentId", "venue.$.venueId"];
 
       return (
-        <div>
+        <Grid container
+        direction="column"
+        justify="center">
+          <Grid item xs={12} justify="center">
+            <Card>
+                {/*
+                <EditAvatarButton />
+                */}
+                {this.props.thisUser.profile.avatar ? (
+                  <CardMedia style={styles.avatar} image={this.props.thisUser.profile.avatar}  />
+                ) : (
+                    <CardMedia style={styles.avatar} image='/missing_profile.png' />
+                  )}
+              <CardContent>
+                <div className='profile-head-text'>
+                  {(this.props.thisUser.profile.name) ? (
+                    <h4>I'm {this.props.thisUser.profile.name}</h4>
+                  ) : (
+                      <h4> I'm a new user </h4>
+                    )
+                  }
+                  <Button onClick={this.handleClick} >Edit Profile</Button>
+                  <div id="profileForm" role="dialog" style={styles.profileForm}>
+                    <h4 >Edit Profile</h4>
+                    <AutoForm
+                      schema={Schema.Profile}
+                      model={model}
+                      onSubmit={this.handleSubmit}
+                      onSubmitSuccess={this.handleSuccess}
+                      onSubmitFailure={this.handleFailure} 
+                      className="tinyForm"
+                      >
 
-          <div className='profile-head'>
-            <div className='profile-head-image'>
-              {/*
-              <EditAvatarButton />
-              */}
-              {this.props.thisUser.profile.avatar ? (
-                <img data-toggle="dropdown" className="icon avatar dropdown-toggle" src={this.props.thisUser.profile.avatar} />
-              ) : (
-                  <img data-toggle="dropdown" className="icon avatar dropdown-toggle" src='/missing_profile.png' />
-                )}
-
-            </div>
-            <div className='profile-head-text'>
-              {(this.props.thisUser.profile.name) ? (
-                <h4>I'm {this.props.thisUser.profile.name}</h4>
-              ) : (
-                  <h4> I'm a new user </h4>
-                )
-              }
-              <Button onClick={this.handleClick} >Edit Profile</Button>
-              <div id="profileForm" role="dialog" style={styles.profileForm}>
-                <h4 >Edit Profile</h4>
-                <AutoForm
-                  schema={Schema.Profile}
-                  model={model}
-                  onSubmit={this.handleSubmit}
-                  onSubmitSuccess={this.handleSuccess}
-                  onSubmitFailure={this.handleFailure} 
-                  className="tinyForm"
-                  >
-
-                  <AutoField name="name" />
-                  <AutoField name="birthDate" />
-                  <AutoField name="social" />
-                  <TinyInput name="bio" />
-                  <SubmitField value="Submit" />
-                  <ErrorsField />
-                </AutoForm>
-              </div>
-            </div>
-          </div>
-
-          <ul className="nav nav-tabs">
-            <li className="active"><a data-toggle="tab" href="#home">Guest</a></li>
-            <li><a data-toggle="tab" href="#menu1">Host</a></li>
-            <li><a data-toggle="tab" href="#menu2">Talent</a></li>
-          </ul>
-
-          <div className="tab-content">
-            <div id="home" className="tab-pane fade in active">
-              <TabGuest user={this.props.thisUser} />
-            </div>
-            <div id="menu1" className="tab-pane fade">
-              <TabHost user={this.props.thisUser}  />
-            </div>
-            <div id="menu2" className="tab-pane fade">
-              <TabTalent user={this.props.thisUser}  />
-            </div>
-          </div>
-        </div>
+                      <AutoField name="name" />
+                      <AutoField name="birthDate" />
+                      <AutoField name="social" />
+                      <TinyInput name="bio" />
+                      <SubmitField value="Submit" />
+                      <ErrorsField />
+                    </AutoForm>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12}>
+            <Tabs value={value} onChange={this.handleChange} fullWidth centered>
+              <Tab label="Guest" />
+              <Tab label="Host" />
+              <Tab label="Talent" />
+            </Tabs>
+          </Grid>
+          <Grid item xs={12} alignContent="center">
+            {value === 0 && <TabGuest user={this.props.thisUser} />}
+            {value === 1 && <TabHost user={this.props.thisUser}  />}
+            {value === 2 && <TabTalent user={this.props.thisUser}  />}
+          </Grid>
+        </Grid>
       )
     } 
   }

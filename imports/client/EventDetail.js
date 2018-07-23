@@ -132,8 +132,8 @@ class EventDetailsComponent extends Component {
         <Card className={classes.container}>
           <CardMedia image={this.props.event.image ? this.props.event.image : `""`} title='Event Preview' className={classes.image} />
           <CardContent>
-            <Typography variant="display2" align="center" gutterBottom >{this.props.event.byline}</Typography>
-            <Typography variant="display1" dangerouslySetInnerHTML={{__html: this.props.event.description}} />
+            <Typography variant="display1" align="center" gutterBottom >{this.props.event.byline}</Typography>
+            <Typography dangerouslySetInnerHTML={{__html: this.props.event.description}} />
             <Grid 
             container
             alignItems="center"

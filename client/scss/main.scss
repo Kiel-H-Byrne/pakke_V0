@@ -1,25 +1,18 @@
-// html {
-//   box-sizing: border-box;
-// }
+html {
+  box-sizing: border-box;
+}
 
-// * {
-//   &::before,
-//   &::after {
-//     box-sizing: inherit;
-//   }
-// }
+* {
+  &::before,
+  &::after {
+    box-sizing: inherit;
+  }
+}
 
-// html,
-// body {
-//   font-family: helvetica;
-//   height: 100%;
-//   width: 100%;
-//   margin: 0;
-// }
-
-// .main-content {}
-
-// .center-block {
-//   display: block;
-//   margin: auto;
-// }
+html,
+body {
+  font-family: helvetica;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}

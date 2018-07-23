@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -34,17 +35,12 @@ const styles = theme => ({
   whatIsPAKKEEvent: {
     marginTop: theme.spacing.unit * 5,
     height: 400,
-    // background: theme.palette.secondary.light
   },
   triangle: {
     maxHeight: 50,
   },
   button: {
-      borderRadius: 5, 
-      backgroundColor: '#2964ff', 
-      color: 'white',
-      fontSize: 20,
-      marginBottom: 30,
+    marginBottom: 30,
   }
 
 });
@@ -68,10 +64,10 @@ class PageLanding2 extends Component {
 
             <Grid container justify='center' style={{ marginTop: '3%' }}>
               <Paper align={'center'}style={{width: 350}}>
-                <Typography style={{margin: '3%'}} variant='display2'> Local Experiences</Typography>
+                <Typography style={{margin: '3%'}} variant='display1'> Local Experiences</Typography>
               </Paper>
             </Grid>
-            <div className={`${classes.cards} scroll-wrapper-x`} >
+            <Grid container alignItems="baseline" justify="center" style={styles.cards} wrap="nowrap" className="scroll-wrapper-x" >
                 {/*
                 <div className={classes.featured} > 
                   <FeaturedEventList /> 
@@ -82,7 +78,7 @@ class PageLanding2 extends Component {
                 </div>
                 */}
                 <EventList  />
-            </div>
+            </Grid>
             {thisUser ? (
               <div className='host-button'>
                 <AddEventModal user={thisUser}/>

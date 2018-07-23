@@ -103,7 +103,7 @@ class HeaderComponent extends Component {
             },
             avatar: {
                 margin: '.5rem .5rem',
-                height: '7rem',
+                height: '4rem',
                 borderRadius: '50%',
             },
             button: {

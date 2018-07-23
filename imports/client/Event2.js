@@ -21,7 +21,7 @@ const styles = {
             card: {
                 maxWidth: 350,
                 minWidth: 350,
-                margin: '2rem'
+                margin: '1rem'
                 // display: 'flex',
             },
             image: {
@@ -31,8 +31,9 @@ const styles = {
             },
             date: {
                 background: 'rgba(255,255,255,.9)',
-                width: 100,
-                height: 100,
+                width: '5rem',
+                height: '5rem',
+                padding: "0.5rem",
                 // border: '1px solid black',
                 alignItems: 'center',
             },
@@ -53,8 +54,8 @@ const styles = {
             ordinal: {
                 position: 'relative',
                 verticalAlign: 'super',
-                fontSize: '1.5rem',
-                left: '-.3rem',
+                fontSize: '0.8rem',
+                // left: '-.3rem',
             },
         };
 
@@ -115,21 +116,20 @@ export default class Event extends Component {
         
         return (
             <Grid item>
-                
                     <Card style={styles.card}>
                         <Link className='event-card-link' to={`/event/${this.props.event._id}`}>
                             <CardMedia style={styles.image} image={this.props.event.image ? this.props.event.image : "" }>
                                 <CardContent >
                                     <Card style={styles.date}>
-                                        <Typography style={styles.typo} align={'center'} variant={'display1'} color={'secondary'}> {eventDate.month}</Typography>
-                                        <Typography align={'center'} variant={'display2'}>{ eventDate.date}<span style={styles.ordinal}> {nth(eventDate.date) }</span></Typography>
-                                        <Typography align={'center'} variant={'display1'} color={'secondary'}>{eventDate.day}</Typography>
+                                        <Typography style={styles.typo} align={'center'} variant='title' color={'secondary'}> {eventDate.month}</Typography>
+                                        <Typography align={'center'} variant='title'>{ eventDate.date}<span style={styles.ordinal}> {nth(eventDate.date) }</span></Typography>
+                                        <Typography align={'center'} variant='title' color={'secondary'}>{eventDate.day}</Typography>
                                     </Card>
                                 </CardContent>
                             </CardMedia>
 
                             <CardContent>
-                                <Typography gutterBottom variant="display1" component="h2">{this.props.event.byline}</Typography>
+                                <Typography gutterBottom variant="headline" component="h2">{this.props.event.byline}</Typography>
                                 
                                 {/*
                                 <Typography variant="headline" component="h3">{this.props.event.eventAddress.state}, {this.props.event.eventAddress.zip} </Typography>
