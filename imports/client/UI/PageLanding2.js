@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {Helmet} from "react-helmet";
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -55,6 +56,23 @@ class PageLanding2 extends Component {
     const { classes } = this.props;
 
     return (
+            <>
+      <Helmet>
+        <meta property="og:image" content="https://www.pakke.us/img/brand/SOCIAL/Logo_Facebook_wordmark.jpg" />
+        <meta property="og:image:secure_url" content="https://www.pakke.us/img/brand/SOCIAL/Logo_Facebook_wordmark.jpg" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="529" />
+        <meta property="og:image:height" content="529" />
+        <meta property="og:image:alt" content="P, Delta, K, K, E" />
+        <meta property="og:url" content="https://www.pakke.us" />
+        <meta property="og:description" content="Discover, Connect, Experience." />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="PAKKE" />
+        <meta name="twitter:description" content="Discover, Connect, Experience." />
+        <meta name="twitter:url" content="https://www.pakke.us" />
+        <meta name="twitter:image" content="https://www.pakke.us/img/brand/PAKKE_LOGO_black.png" />        
+      </Helmet>
       <ParallaxProvider>
         {/* <MuiThemeProvider theme={muiTheme}> */}
           <div className={classes.root}>
@@ -90,6 +108,7 @@ class PageLanding2 extends Component {
             )}
           </div>
       </ParallaxProvider>
+      </>
     );
 
   }

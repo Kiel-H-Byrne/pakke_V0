@@ -118,12 +118,6 @@ Meteor.methods({
 
       } else {
         console.log(`NEW EVENT: ${doc.byline}`);
-        analytics.track("New Event", {
-          label: doc.byline,
-          commerce: doc.price,
-          value: doc.price*doc.size,
-          host: doc.hostId,
-        })
 
         Email.send({
           to: 'info@pakke.us', 

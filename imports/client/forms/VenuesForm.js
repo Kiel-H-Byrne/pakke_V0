@@ -68,11 +68,12 @@ class VenuesFormComponent extends Component {
     this.handleChange = this.handleChange.bind(this)
     (props.firstVenue) ? (this.state.selected = firstVenue) : null
   };
-  handleChange = (event) => {
+
+  handleChange(event) {
     console.log(event)
     if (event){
-    this.setState({ selected: event.target.value });
-  }
+      this.setState({ selected: event.target.value });
+    }
   };
   render() {
     if (this.props.loading) {
@@ -107,7 +108,7 @@ class VenuesFormComponent extends Component {
                       <Typography component="p">{venue.address.city}, {venue.address.zip}</Typography>
                       <Radio 
                       checked={this.state.selected == venue._id} 
-                      onChange = {this.handleChange}
+                      onChange = {() => {this.handleChange}}
                       value={venue._id}
                       align="center"
                       id={`vri_${venue._id}`}

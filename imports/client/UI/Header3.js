@@ -294,14 +294,10 @@ class HeaderComponent extends Component {
                                     >
                                             <MenuItem
                                             component={Accounts.ui.LoginForm}
-                                            >
-                                            </MenuItem>
+                                             />
                                         </Menu>
                                     </div>
-
                                 )}
-
-
                         </Toolbar>
                     </AppBar>
                 </div>

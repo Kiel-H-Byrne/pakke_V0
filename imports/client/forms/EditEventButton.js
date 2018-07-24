@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 import EditIcon from '@material-ui/icons/Edit'
 
 import AutoField  from 'uniforms-material/AutoField';
+import HiddenField  from 'uniforms-material/HiddenField';
 import AutoForm    from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
@@ -98,7 +99,7 @@ const styles = theme => ({
             <AutoField name="contact" margin="dense" />
             <VenuesForm />       
             <EventImagesUpload name="image" fileUrl={model.image} />
-     
+            <HiddenField name="checkedPolicy" value="true" margin="dense" />
             <SubmitField value="Submit" />
             <ErrorsField />
   	      </AutoForm>

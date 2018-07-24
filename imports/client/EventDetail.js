@@ -102,7 +102,9 @@ class EventDetailsComponent extends Component {
     if (!this.props.event) {
       return <PageError />
     }
-
+    
+    const isExpired = (this.props.event.date - Date.now() < 1)
+    
     return (
       <div>
         <Helmet>
@@ -110,7 +112,6 @@ class EventDetailsComponent extends Component {
           <meta name="description" content={this.props.event.description}/>
           <meta name="keywords" content={`Night Life, Nightlife, Night Out, Social Events, Parties in DC, Events in DC, ${this.props.event.description}`}/>
           <meta property="og:title" content={this.props.event.byline} />
-          <meta property="og:type" content="website" />
           <meta property="og:image" content={this.props.event.image} />
           <meta property="og:image:secure_url" content={this.props.event.image} />
           <meta property="og:image:type" content="image/png" />
@@ -119,10 +120,7 @@ class EventDetailsComponent extends Component {
           <meta property="og:image:alt" content={this.props.event.byline} />
           <meta property="og:url" content={`https://www.pakke.us/event/${this.props.event._id}`} />
           <meta property="og:description" content={this.props.event.description}/>
-          <meta property="og:determiner" content="auto" />
-          <meta property="og:locale" content="en_US" />
-          <meta property="og:site_name" content="PAKKE" />
-          <meta property="fb:app_id" content="168356840569104" />
+
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={this.props.event.byline} />
           <meta name="twitter:description" content={this.props.event.description} />
@@ -177,9 +175,11 @@ class EventDetailsComponent extends Component {
                   </Table>
                   
                   {this.props.thisUser ? (
+                      isExpired ? (
+                        <Button disabled={true} fullWidth={true} variant="outlined" color="secondary">Sold Out!</Button>
+                      ) : 
                       this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
-                      
-                        <Button onClick={boughtAlert} disabled={true} fullWidth={true} variant="outlined" color="secondary">Purchased!</Button>
+                       <Button onClick={boughtAlert} disabled={true} fullWidth={true} variant="outlined" color="secondary">Purchased!</Button>
                       ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
                       //IF YOU'VE BEEN INVITED, PLEASE BUY A TICKET
                       <EventPurchaseModal  user = {this.props.thisUser} event = {this.props.event}/>

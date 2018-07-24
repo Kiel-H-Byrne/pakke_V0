@@ -6,7 +6,6 @@ import uniforms from 'uniforms';
 import filterDOMProps from 'uniforms/filterDOMProps';
 import { Editor } from '@tinymce/tinymce-react';
 
-import Uploads from './uploads'
 import EventImages from './eventImages'
 
 if (Meteor.isClient) {

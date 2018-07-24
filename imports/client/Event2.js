@@ -99,7 +99,7 @@ export default class Event extends Component {
         let weight = ((confirmedCount / this.props.event.size) * 100).toFixed();
 
         let remainingTickets = this.props.event.size - confirmedCount;
-        // if (remainingTickets === 0) {this.setState({soldOut: true})}
+                // if (remainingTickets === 0) {this.setState({soldOut: true})}
         const dateArr = this.props.event.date.toDateString().split(' ');
 
         const eventDate = _.object(["day","month","date","year"], dateArr)
