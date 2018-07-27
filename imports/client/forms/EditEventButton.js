@@ -90,9 +90,10 @@ const styles = theme => ({
   	      onSubmitFailure={this.handleFailure} 
           className="tinyForm"
   	      >
-            <AutoField name="byline" margin="dense"/>
-            <TinyInput name="description" content = {model.description}/>
-            <AutoField name="date" margin="dense" />
+            <AutoField name="byline" />
+            <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
+            <TinyInput name="description" content = {model.description} />
+            <AutoField name="date" />
             <AutoField name="duration" margin="dense" />
             <AutoField name="size" margin="dense" />
             <AutoField name="price" margin="dense" />
@@ -100,6 +101,7 @@ const styles = theme => ({
             <VenuesForm />       
             <EventImagesUpload name="image" fileUrl={model.image} />
             <HiddenField name="checkedPolicy" value="true" margin="dense" />
+
             <SubmitField value="Submit" />
             <ErrorsField />
   	      </AutoForm>

@@ -10,7 +10,6 @@ import QuickForm  from 'uniforms-material/QuickForm';
 import AutoForm    from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import ErrorsField from 'uniforms-material/ErrorsField';
-import Input from '@material-ui/core/Input';
 
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -30,7 +29,7 @@ const styles = {
     card: {
         maxWidth: 100,
         minWidth: 100,
-        margin: 3,
+        margin: '1rem',
     },
     image: {
         height: 75,
@@ -57,27 +56,46 @@ const styles = {
     },
     logo: {
         maxWidth: 75,
+    },
+    hidden: {
+      display: 'none'
+    },
+    radio: {
+      width: '100%',
+      height: '1rem',
+      paddingBottom: '.5rem'
     }
 };
 class VenuesFormComponent extends Component {
-	constructor(props) {
+  constructor(props) {
     super(props)
     this.state = {
       selected: ""
     }
-    this.handleChange = this.handleChange.bind(this)
-    (props.firstVenue) ? (this.state.selected = firstVenue) : null
-  };
+  }
+  
+  // componentDidMount = () => {
+  //   console.log(this.props)
+  //   if (this.props.venues) {
+  //     console.log(this.props.venues)
+  //     this.setState({selected: this.props.venues[0]._id})
+  //   } else {
+  //     console.log("nope")
+  //   }
+  // }
+  static getDerivedStateFromProps(props, state) {
+    if (props.venues && state.selected !== props.venues[0]._id) {
+      return {selected: props.venues[0]._id}
+    } 
+    return null
+  }
+  
+  handleChange = event => {
+    this.setState({ selected: event.target.value });
+  }
 
-  handleChange(event) {
-    console.log(event)
-    if (event){
-      this.setState({ selected: event.target.value });
-    }
-  };
   render() {
     if (this.props.loading) {
-      console.log('loading...')
       return (
         <BarLoader 
           loading={this.props.loading} 
@@ -90,7 +108,7 @@ class VenuesFormComponent extends Component {
 
   	return (
             <>
-      <input name="venueId" value={this.state.selected} type="hidden"/>
+      <AutoField name="venueId" value={this.state.selected} type="hidden" style={styles.hidden} label={false}/>
     	<div className="venuesList" >
         <Typography align="center" variant="display1">Your Places:</Typography>
         { (this.props.venues && this.props.venues.length) ? (
@@ -102,16 +120,19 @@ class VenuesFormComponent extends Component {
                       {/* <EditVenueButton /> */}
                     </CardMedia> 
                     <CardContent style={styles.content}>
-                      <Typography gutterBottom variant="headline" component="h2">
+                      <Typography gutterBottom variant="subheading">
                         {venue.nickname}
                       </Typography>
-                      <Typography component="p">{venue.address.city}, {venue.address.zip}</Typography>
+                      <Typography component="p" variant="caption">{venue.address.street}, {venue.address.zip}</Typography>
                       <Radio 
-                      checked={this.state.selected == venue._id} 
-                      onChange = {() => {this.handleChange}}
+                      style={styles.radio}
+                      checked={this.state.selected === venue._id} 
+                      onChange={this.handleChange}
                       value={venue._id}
-                      align="center"
+                      name="venueId"
                       id={`vri_${venue._id}`}
+                      form=""
+                      aria-label={venue.nickname}
                       />
                     </CardContent>
                   </Card>
@@ -135,18 +156,14 @@ class VenuesFormComponent extends Component {
 }
             
 export default VenuesForm = withTracker((props) => {
-  const handle = Meteor.subscribe('my_venues');
-  const loading = !handle.ready();
-  let venues, firstVenue;
+  let handle = Meteor.subscribe('my_venues');
+  let loading = !handle.ready();
   if (!loading) {
-    venues = Venues.find({ hostId: Meteor.userId() }).fetch()
-    firstVenue = venues[0]
+    return {
+      venues: Venues.find({ hostId: Meteor.userId() }).fetch()
+    } 
   }
-  return {
-    loading,
-    venues,
-    firstVenue
-  }
+  return { loading }
 })(VenuesFormComponent);
 
 

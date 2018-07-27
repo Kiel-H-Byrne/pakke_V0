@@ -12,13 +12,13 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import InputLabel from '@material-ui/core/InputLabel';
 
 import AutoField from 'uniforms-material/AutoField';
 import AutoForm from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
-
 
 import Events from '../startup/collections/events';
 import TinyInput from './forms/TinyInput.js'
@@ -30,8 +30,6 @@ import TabHost from './TabHost';
 import TabTalent from './TabTalent';
 import LandingPage2 from './UI/PageLanding2';
 import PageError from './PageError';
-
-
 
 
 const styles = {
@@ -121,6 +119,7 @@ class PageProfileComponent extends Component {
     const thisProfile = this.props.thisUser.profile;
 
     const model = Schema.Profile.clean(thisProfile)
+
     // console.log(Schema.Profile.clean({'talents.$.talent': talentModel, 
     //                                  'interests': interestsModel, 
     //                                  'venues.$.venue': venueModel, 
@@ -165,6 +164,7 @@ class PageProfileComponent extends Component {
                       <AutoField name="name" />
                       <AutoField name="birthDate" />
                       <AutoField name="social" />
+                      <InputLabel>Describe Yourself!</InputLabel>
                       <TinyInput name="bio" />
                       <SubmitField value="Submit" />
                       <ErrorsField />
@@ -174,6 +174,7 @@ class PageProfileComponent extends Component {
               </CardContent>
             </Card>
           </Grid>
+          
           <Grid item xs={12}>
             <Tabs value={value} onChange={this.handleChange} fullWidth centered>
               <Tab label="Guest" />

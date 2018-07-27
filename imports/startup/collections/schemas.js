@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import { Random } from 'meteor/random';
 import SimpleSchema from 'simpl-schema';
+import MessageBox from 'message-box';
 import uniforms from 'uniforms';
 import filterDOMProps from 'uniforms/filterDOMProps';
 import { Editor } from '@tinymce/tinymce-react';
@@ -20,11 +21,14 @@ Schema = {};
 
 filterDOMProps.register('unique');
 
-// SimpleSchema.messageBox.messages({
-//   en: {
-//     mustRead: 'You must agree to our Terms & Conditions before creating an event.',
-//   },
-// });
+MessageBox.defaults({
+  initialLanguage: 'en', // optional; default is 'en'
+  messages: {
+    en: {
+      mustRead: 'You must agree to our Terms & Conditions before creating an event.',
+    }
+  }
+});
 
 Schema.Address = new SimpleSchema({
    // address: {
@@ -635,7 +639,7 @@ Schema.Event = new SimpleSchema({
     optional: true,
     max: 5550
   },
-  emailTemplate: {
+  purchasedEmail: {
     type: String,
     label: 'Confirmation Email:',
     optional: true
@@ -746,7 +750,7 @@ Schema.Event = new SimpleSchema({
   checkedPolicy: {
     type: Boolean,
     defaultValue: false,
-    label: 'Have you reviewed and agreed to our Terms & Conditions?',
+    label: 'Have you reviewed and agreed to our Privacy Policy?',
     custom: function() {
       if (this.value !== true) {
         return "mustRead"

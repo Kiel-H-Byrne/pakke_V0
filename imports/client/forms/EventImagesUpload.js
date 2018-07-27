@@ -152,7 +152,7 @@ class EventImagesUploadComponent extends Component {
         value={this.state.fileUrl}/>              
         <Grid container direction="column">
           <Grid item xs={12}>
-              <Input type="file" id="fileinput" size="large" color="secondary"  disabled={this.state.inProgress} ref="fileinput" onChange={this.uploadIt}/>
+              <Input type="file" id="fileinput" size="large" color="secondary" accept="image/*" disabled={this.state.inProgress} ref="fileinput" onChange={this.uploadIt}/>
           </Grid>
 
           <Grid item xs={12} className="">

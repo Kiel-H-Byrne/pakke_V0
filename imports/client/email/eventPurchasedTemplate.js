@@ -138,7 +138,7 @@ const eventPurchasedTemplate = (user,event) => {
       ------------------------------------- */
       .btn {
         box-sizing: border-box;
-        width: 20rem%; 
+        width: 20rem; 
       }
         .btn > tbody > tr > td {
           padding-bottom: 15px; }
@@ -298,9 +298,8 @@ const eventPurchasedTemplate = (user,event) => {
                     <tr>
                       <td>
                         <p>Hi there ${userName}!</p>
-                        <p>Thanks for registering for "<em>${event.byline}</em>". We are excited to explore this unique experience with you.</p>
-Looking forward to seeing you. Please revisit the Event Details page for more information.</p>             
-                        </p>
+                        <p>Thanks for registering for "<em>${event.byline}</em>". We are excited to explore this unique experience with you. </p>
+                        <p> Please revisit the Event Details page for more information. </p>
                         <table border="0" cellpadding="0" cellspacing="0" >
                           <tbody>
                             <tr>
@@ -334,7 +333,7 @@ Looking forward to seeing you. Please revisit the Event Details page for more in
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="content-block">
-                    <span class="apple-link">PAKKE.us, P.O. Box 420, District of Columbia 20012</span>
+                    <span class="apple-link">PAKKE.us, District of Columbia </span>
                   </td>
                 </tr>
                 <tr>

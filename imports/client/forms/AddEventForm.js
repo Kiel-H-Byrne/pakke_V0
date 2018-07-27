@@ -7,6 +7,7 @@ import MaskedInput from 'react-text-mask'
 
 import AutoForm    from 'uniforms-material/AutoForm';
 import AutoField  from 'uniforms-material/AutoField';
+import DateField  from 'uniforms-material/DateField';
 import SubmitField from 'uniforms-material/SubmitField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 import HiddenField from 'uniforms-material/HiddenField'; 
@@ -76,21 +77,24 @@ class AddEventForm extends Component {
             onSubmitSuccess={this.handleSuccess} 
             onSubmitFailure={this.handleFailure} 
             className="tinyForm"
+            id="addeventForm"
             >
-                <VenuesForm />
+                <VenuesForm form="addeventForm"/>
                 <AutoField name="byline" margin="dense"/>
+                <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
                 <TinyInput name="description"/>
-                <AutoField name="date" margin="dense" />
+                <DateField name="date" margin="dense" />
                 <AutoField name="duration" margin="dense" />
                 <AutoField name="size" margin="dense" />
                 <AutoField name="price" margin="dense" />
                 <AutoField name="isPrivate" margin="dense" />
-                <MaskedInput 
+                <AutoField name="contact" margin="dense" />
+                {/* <MaskedInput 
                     mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
                     name="contact"
                     label="Contact Number"
 
-                />
+                /> */}
                 <EventImagesUpload name="image" />
                 <AutoField name="checkedPolicy" margin="dense" />
                 <Typography 

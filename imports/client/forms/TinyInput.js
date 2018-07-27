@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 class TinyInput extends Component {
   constructor(props) {
     super(props);
-    this.state = { content: props.content || 'Describe this Event:' };
+    this.state = { content: props.content || '' };
     this.handleEditorChange = this.handleEditorChange.bind(this);
   }
 

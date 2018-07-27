@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import FileUpload from '../forms/FileUpload.js';
 import EditAvatarButton from '../header/EditAvatarButton.js'
 // import UserFiles from '../../startup/collections/files';
+import VenuesForm from '../forms/VenuesForm';
 
 import TinyInput from '../forms/TinyInput.js'
 
@@ -61,6 +62,7 @@ class PageTest extends Component {
     <div>
     <form>
     <EditAvatarButton />
+    <VenuesForm/>
     </form>
       </div>
     )
