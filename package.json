@@ -60,7 +60,7 @@
     "react-social-login": "^3.4.2",
     "react-spinners": "^0.3.2",
     "react-stripe-elements": "^1.6.0",
-    "react-text-mask": "^5.4.2",
+    "react-text-mask": "^5.4.3",
     "simpl-schema": "^1.5.3",
     "stripe": "^5.8.0",
     "typeface-roboto": "0.0.54",

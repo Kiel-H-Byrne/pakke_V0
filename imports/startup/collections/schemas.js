@@ -589,7 +589,7 @@ Schema.Event = new SimpleSchema({
   },
   duration: {
     type: Number,
-    label: "How long will this last?",
+    label: "How long will this last? (in hours)",
     min: 2,
     max: 72,
     uniforms: {

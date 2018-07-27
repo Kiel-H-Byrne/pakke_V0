@@ -85,7 +85,7 @@ class PageLanding2 extends Component {
                 <Typography style={{margin: '3%'}} variant='display1'> Local Experiences</Typography>
               </Paper>
             </Grid>
-            <Grid container alignItems="baseline" justify="center" style={styles.cards} wrap="nowrap" className="scroll-wrapper-x" >
+            <Grid container alignItems="baseline" style={styles.cards} wrap="nowrap" className="scroll-wrapper-x" >
                 {/*
                 <div className={classes.featured} > 
                   <FeaturedEventList /> 

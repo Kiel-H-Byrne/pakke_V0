@@ -37,24 +37,24 @@ class AddEventForm extends Component {
     
     handleSubmit(doc) {
         console.log(doc)
-        // Meteor.call('addEvent', doc);
+        Meteor.call('addEvent', doc);
 
-        // const adminEmailProps = [
-        //   "noreply@pakke.us",
-        //   "EVENTS: EVENT CREATED",
-        //   eventCreatedAdminTemplate(this.props.user,doc)
-        // ];
+        const adminEmailProps = [
+          "noreply@pakke.us",
+          "EVENTS: EVENT CREATED",
+          eventCreatedAdminTemplate(Meteor.user(), doc)
+        ];
 
         //send admin email
 
-        // Meteor.call('sendEmail', "kiel@pakke.us", ...adminEmailProps);
-        // let crmParams = {
-        //   "Event Owner": Meteor.user().username,
-        //   "Subject": doc.byline ,
-        //   "Start DateTime" : doc.date: 
-        //   "End DateTime": doc.date + duration
-        // };
-        // Meteor.call('crmInsert', 'event', crmParams);
+        Meteor.call('sendEmail', "kiel@pakke.us", ...adminEmailProps);
+        let crmParams = {
+          "Event Owner": Meteor.user().username,
+          "Subject": doc.byline ,
+          "Start DateTime" : doc.date,
+          "End DateTime": doc.date + duration
+        };
+        Meteor.call('crmInsert', 'event', crmParams);
     }; 
 
     handleSuccess(){
@@ -89,6 +89,7 @@ class AddEventForm extends Component {
                 <AutoField name="price" margin="dense" />
                 <AutoField name="isPrivate" margin="dense" />
                 <AutoField name="contact" margin="dense" />
+                
                 {/* <MaskedInput 
                     mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
                     name="contact"

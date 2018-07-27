@@ -154,7 +154,9 @@ class PageProfileComponent extends Component {
                     )
                   }
                   <Button onClick={this.handleClick}>Edit Profile</Button>
-                  <div id="profileForm" role="dialog" style={styles.profileForm}>
+              </CardContent>
+            </Card>
+                              <div id="profileForm" role="dialog" style={styles.profileForm}>
                     <h3>Profile</h3>
                     <AutoForm
                       schema={Schema.Profile}
@@ -174,8 +176,6 @@ class PageProfileComponent extends Component {
                       <ErrorsField />
                     </AutoForm>
                   </div>
-              </CardContent>
-            </Card>
           </Grid>
           
           <Grid item xs={12}>

@@ -19,9 +19,8 @@ import Venues from '/imports/startup/collections/venues';
 
 const styles = {
             card: {
-                maxWidth: 350,
-                minWidth: 350,
-                margin: '1rem'
+                width: 300,
+                margin: '.7rem'
                 // display: 'flex',
             },
             image: {
