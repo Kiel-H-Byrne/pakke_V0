@@ -40,8 +40,13 @@ const styles = {
     transition: 'visibility 0s, opacity 0.5s linear'
   },
   avatar: {
-    height: '4rem',
-    width: '4rem'
+    height: 0,
+    paddingTop: '56.25%',
+  },
+  card: {
+    width: 250,
+    margin: '1rem'
+    // display: 'flex',
   }
 }
 
@@ -132,7 +137,7 @@ class PageProfileComponent extends Component {
         direction="column"
         justify="center">
           <Grid item xs={12}>
-            <Card>
+            <Card style={styles.card}>
                 {/*
                 <EditAvatarButton />
                 */}
@@ -141,17 +146,16 @@ class PageProfileComponent extends Component {
                 ) : (
                     <CardMedia style={styles.avatar} image='/missing_profile.png' />
                   )}
-              <CardContent>
-                <div className='profile-head-text'>
+              <CardContent className='profile-head-text'>
                   {(this.props.thisUser.profile.name) ? (
-                    <h4>I'm {this.props.thisUser.profile.name}</h4>
+                    <Typography variant="title" align="center">I'm {this.props.thisUser.profile.name}</Typography>
                   ) : (
                       <h4> I'm a new user </h4>
                     )
                   }
-                  <Button onClick={this.handleClick} >Edit Profile</Button>
+                  <Button onClick={this.handleClick}>Edit Profile</Button>
                   <div id="profileForm" role="dialog" style={styles.profileForm}>
-                    <h4 >Edit Profile</h4>
+                    <h3>Profile</h3>
                     <AutoForm
                       schema={Schema.Profile}
                       model={model}
@@ -170,7 +174,6 @@ class PageProfileComponent extends Component {
                       <ErrorsField />
                     </AutoForm>
                   </div>
-                </div>
               </CardContent>
             </Card>
           </Grid>

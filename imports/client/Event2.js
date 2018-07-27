@@ -27,7 +27,6 @@ const styles = {
             image: {
                 height: 200,
                 justifyContent: 'flex-start',
-
             },
             date: {
                 background: 'rgba(255,255,255,.9)',
@@ -119,7 +118,7 @@ export default class Event extends Component {
                     <Card style={styles.card}>
                         <Link className='event-card-link' to={`/event/${this.props.event._id}`}>
                             <CardMedia style={styles.image} image={this.props.event.image ? this.props.event.image : "" }>
-                                <CardContent >
+                                <CardContent style={{padding: "7px"}}>
                                     <Card style={styles.date}>
                                         <Typography style={styles.typo} align={'center'} variant='title' color={'secondary'}> {eventDate.month}</Typography>
                                         <Typography align={'center'} variant='title'>{ eventDate.date}<span style={styles.ordinal}> {nth(eventDate.date) }</span></Typography>
