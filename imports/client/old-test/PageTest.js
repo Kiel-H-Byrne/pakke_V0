@@ -13,11 +13,12 @@ import EditAvatarButton from '../header/EditAvatarButton.js'
 import VenuesForm from '../forms/VenuesForm';
 
 import TinyInput from '../forms/TinyInput.js'
+import AxiosUpload from './axiosUpload.js'
 
 class PageTest extends Component {
   constructor(props) {
     super(props);
-    this.state = { content: '' };
+    this.state = { content: '', endPoint: null };
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -30,40 +31,46 @@ class PageTest extends Component {
   onSubmit = (e) => {
     console.log(e);
   }
+  componentDidMount() {
+    const s3Conf = Meteor.settings.public.keys.s3;
+
+    const s3 = new S3({
+      secretAccessKey: s3Conf.secret,
+      accessKeyId: s3Conf.key,
+      // sslEnabled: true, // optional
+      httpOptions: {
+        timeout: 6000,
+        agent: false
+      }
+    });
+    // let path = `avatars/${fileRef.meta.userId}/${fileRef._id}.${fileRef.extension}`;
+    // let path = `${module}/${fileRef._id}.${fileRef.extension}`;
+    let path = "events/kbfile"
+
+    let params = {
+      Bucket: s3Conf.bucket,
+      Key: path,
+      Expires: 20,
+      // ContentType: fileType
+    }
+    const sUrl = s3.getSignedUrl('putObject', params, (err, url) => {
+      if (url) {
+        console.log('The URL is', url);
+        this.setState({endPoint: url})
+      }
+    });
+   }
 
   render() {
-  const s3Conf = Meteor.settings.public.keys.s3 || {};
-  if (s3Conf) {
-
-
-  const s3 = new S3({
-    secretAccessKey: s3Conf.secret,
-    accessKeyId: s3Conf.key,
-    // sslEnabled: true, // optional
-    httpOptions: {
-      timeout: 6000,
-      agent: false
-    }
-  });
-  // let path = `avatars/${fileRef.meta.userId}/${fileRef._id}.${fileRef.extension}`;
-  let path = "avatars/rPuBFBndLzQAgR8Ch_4R2xMLQ63haK8Wp6p.jpg"
-
-  let params = {
-    Bucket: s3Conf.bucket,
-    Key: path,
-    Expires: 60
-  }
-  let url = s3.getSignedUrl('getObject', params);
-  console.log('The URL is', url);
-}
+    
     return (
     
-
     <div>
-    <form>
-    <EditAvatarButton />
-    <VenuesForm/>
-    </form>
+    <p></p>
+    <hr/>
+
+   {this.state.endPoint ? <FileUpload endPoint={this.state.endPoint}/>  : "Loading..." }
+
       </div>
     )
   }
