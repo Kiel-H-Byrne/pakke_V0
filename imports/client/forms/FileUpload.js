@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { _ } from 'underscore';
 import axios from 'axios';
+import S3 from 'aws-sdk/clients/s3';
+import ReactS3Uploader from 'react-s3-uploader';
 
 
 import { withStyles } from '@material-ui/core/styles';
@@ -30,18 +32,59 @@ export default class FileUpload extends Component {
       uploading: [],
       progress: 0,
       inProgress: false,
-      selectedFile: null
+      selectedFile: null,
+      endPoint: ''
     };
 
     this.uploadIt = this.uploadIt.bind(this);
   }
+  generateSignedUrl = event => {
+    // console.log(event);
+    const file = event.currentTarget.files[0];
+    this.setState({selectedFile: file});
+    const s3Conf = Meteor.settings.public.keys.s3;
+  
+    const s3 = new S3({
+      accessKeyId: s3Conf.key,
+      secretAccessKey: s3Conf.secret
+    });
 
+    // let path = `avatars/${fileRef.meta.userId}/${fileRef._id}.${fileRef.extension}`;
+    // let path = `${module}/${fileRef._id}.${fileRef.extension}`;
+    let path = `api/uploads/${file.name}`
+
+    let params = {
+      ServerSideEncryption: 'AES256', // Optional
+      // StorageClass: 'STANDARD',
+      Bucket: s3Conf.bucket,
+      Key: path,
+      Expires: 3600,
+      ACL: 'bucket-owner-full-control',
+      // ACL: 'public-read',
+      ContentType: file.type,
+    }
+
+    // console.log(params)
+    s3.getSignedUrl('putObject', params, (err, url) => {
+      if (err) {
+        console.log('Error getting presigned', err)
+      } else {
+        console.log('The URL is', url);
+        this.setState({endPoint: url})
+        // return url;
+      }
+    });
+  }
+
+  putIt = event => {
+    // event.preventDefault();
+    const file = event.target.files[0];
+    console.log(file);
+    Meteor.call('s3Upload', file);
+  }
   uploadIt(e) {
     e.preventDefault();
-
     // let self = this;
-
-
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
       // there was multiple files selected
@@ -95,26 +138,44 @@ export default class FileUpload extends Component {
     }
   }
 
-
   uploadHandler = event => {
-    console.log(this)
-    axios.post(this.props.endPoint, this.state.selectedFile, {
-      onUploadProgress: progressEvent => {
-        console.log(progressEvent);
-        let status = progressEvent.loaded / progressEvent.total
-        if (status < 1) {
-          this.setState({inProgress: true})
-          this.setState(progress: status)
-        } else if (status == 1) {
-          this.setState({inProgress: false})
-        }
-      }
-    })
+    // console.log(this)e
+    let file = this.state.selectedFile;
+    let reader = new FileReader();
+    reader.onload = evt => {
 
+      axios.post(this.state.endPoint, evt.target.result, {
+        onUploadProgress: progressEvent => {
+          this.setState({uploading: true})
+          let status = progressEvent.loaded / progressEvent.total
+          if (status < 1) {
+            this.setState({inProgress: true})
+            this.setState({progress: status})
+          } else if (status == 1) {
+            this.setState({uploading: false, inProgress: false})
+          }
+        }
+      })
+    };
+    reader.readAsBinaryString(file);
+
+
+  }
+
+  fetchIt = event => {
+    let formData = new FormData();
+    formData.append('image', this.state.selectedFile);
+    fetch(this.state.endPoint, {
+      method: 'PUT',
+      body: formData
+    })
+    .then(response => response.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
   }
   // This is our progress bar, bootstrap styled
   // Remove this function if not needed
-  showProgress() {
+  showProgress = () => {
     // console.log('**********************************', this.state.uploading);
 
     if (!_.isEmpty(this.state.uploading)) {
@@ -176,9 +237,29 @@ export default class FileUpload extends Component {
       return (
       <Grid container direction="column">
         <Grid item xs={12}>
-            <Input type="file" id="fileinput" size="large" color="secondary"  disabled={this.state.inProgress} ref="fileinput" onChange={this.uploadIt}/>
-            <Button onClick={this.uploadHandler}>Upload!</Button>
-
+            <input type="file" id="fileinput" size="large" color="secondary"  disabled={this.state.inProgress} ref="fileinput" onChange={this.generateSignedUrl} accept="image/*"/>
+            {/**/}
+            <Button onClick={this.uploadHandler}>Upload!</Button> 
+            {/*
+            <ReactS3Uploader
+            getSignedUrl={this.generateSignedUrl}
+            accept="image/*"
+            // preprocess={this.onUploadStart}
+            // onSignedUrl={this.onSignedUrl}
+            // onProgress={this.showProgress}
+            // onError={this.onUploadError}
+            // onFinish={this.onUploadFinish}
+            // signingUrlHeaders={{ additional: headers }}
+            // signingUrlQueryParams={{ additional: query-params }}
+            // signingUrlWithCredentials={ true }      // in case when need to pass authentication credentials via CORS
+            uploadRequestHeaders={{ 'x-amz-acl': 'public-read' }}  // this is the default
+            contentDisposition="auto"
+            scrubFilename={(filename) => filename.replace(/[^\w\d_\-.]+/ig, '')}
+            // server="http://cross-origin-server.com"
+            // inputRef={cmp => this.uploadInput = cmp}
+            autoUpload={true}
+          />
+*/}
         </Grid>
 
         <Grid item xs={12} className="">

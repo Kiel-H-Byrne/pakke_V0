@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Email } from 'meteor/email';
-
+import fs from 'fs';
+import S3 from 'aws-sdk/clients/s3';
 import Zoho from 'zoho';
 
 import Events from '/imports/startup/collections/events';
@@ -56,6 +57,34 @@ const apiCall = function (apiUrl, callback) {
 };
 
 Meteor.methods({
+  s3Upload: function(file) {
+    console.log(file);
+    console.log(file.path)
+    let path = `api/uploads/${file.name}`
+
+    const s3Conf = Meteor.settings.public.keys.s3;
+    const s3 = new S3({
+      accessKeyId: s3Conf.key,
+      secretAccessKey: s3Conf.secret
+    });
+    
+    s3.putObject({
+          ServerSideEncryption: 'AES256', // Optional
+          StorageClass: 'STANDARD',
+          Bucket: s3Conf.bucket,
+          Key: path,
+          Body: fs.createReadStream(file.path),
+          ContentType: file.type,
+          ACL: "public-read"
+    }, (error) => {
+          if (error) {
+            console.error(error);
+          } else {
+            console.log("good!")
+          }
+    });
+
+  },
   addRole: function (id, role) {
     // check(id, Meteor.Collection.ObjectID);
     check(role, Array);
