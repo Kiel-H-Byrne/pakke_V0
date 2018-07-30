@@ -57,33 +57,34 @@ const apiCall = function (apiUrl, callback) {
 };
 
 Meteor.methods({
-  s3Upload: function(file) {
-    console.log(file);
-    console.log(file.path)
-    let path = `api/uploads/${file.name}`
-
+  s3Upload: function(module, fileName, fileType, dataurl) {
+    
+    let path = `api/${module}/${fileName}`
+    console.log("UPLOADING IMAGE:")
     const s3Conf = Meteor.settings.public.keys.s3;
     const s3 = new S3({
       accessKeyId: s3Conf.key,
       secretAccessKey: s3Conf.secret
     });
-    
+    const buffer = Buffer.from(dataurl.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+
     s3.putObject({
           ServerSideEncryption: 'AES256', // Optional
           StorageClass: 'STANDARD',
           Bucket: s3Conf.bucket,
           Key: path,
-          Body: fs.createReadStream(file.path),
-          ContentType: file.type,
+          Body: buffer,
+          ContentType: fileType,
           ACL: "public-read"
     }, (error) => {
           if (error) {
             console.error(error);
           } else {
-            console.log("good!")
+            console.log("... SUCCESS")
+            return `https://s3.amazonaws.com/${s3Conf.bucket}/${path}`
           }
     });
-
+    return 
   },
   addRole: function (id, role) {
     // check(id, Meteor.Collection.ObjectID);

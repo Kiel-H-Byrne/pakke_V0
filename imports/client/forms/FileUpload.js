@@ -7,7 +7,6 @@ import axios from 'axios';
 import S3 from 'aws-sdk/clients/s3';
 import ReactS3Uploader from 'react-s3-uploader';
 
-
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
@@ -29,15 +28,17 @@ export default class FileUpload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      uploading: [],
+      uploading: false,
       progress: 0,
       inProgress: false,
       selectedFile: null,
+      fileData: null,
       endPoint: ''
     };
 
-    this.uploadIt = this.uploadIt.bind(this);
+    this.putIt = this.putIt.bind(this);
   }
+
   generateSignedUrl = event => {
     // console.log(event);
     const file = event.currentTarget.files[0];
@@ -77,110 +78,34 @@ export default class FileUpload extends Component {
   }
 
   putIt = event => {
-    // event.preventDefault();
+    //GET INPUT FILE
+    //CONVERT TO BASE64
+    //CONVERT TO BUFFER
+    //SEND TO S3
+    event.preventDefault();
     const file = event.target.files[0];
-    console.log(file);
-    Meteor.call('s3Upload', file);
-  }
-  uploadIt(e) {
-    e.preventDefault();
-    // let self = this;
-    if (e.currentTarget.files && e.currentTarget.files[0]) {
-      // We upload only one file, in case
-      // there was multiple files selected
-      // const file = e.target.files[0]
-      const file = e.currentTarget.files[0];
-      this.setState({selectedFile: file})
-
-      // let uploadInstance = Avatars.insert({
-      //   file: file,
-      //   meta: {
-      //     locator: self.props.fileLocator,
-      //     userId: Meteor.userId() // Optional, used to check on server for file tampering
-      //   },
-      //   streams: 'dynamic',
-      //   chunkSize: 'dynamic',
-      //   onStart: () =>  {
-      //     // console.log('Starting');
-      //   },
-      //   onUploaded: (error, fileRef) => {
-      //     // console.log('uploaded: ', fileRef);
-
-      //     // Remove the filename from the upload box
-      //     self.refs['fileinput'].value = '';
-      //     // console.log(self)
-
-      //     // Reset our state for the next file
-      //     self.setState({
-      //       file: file,
-      //       uploading: [],
-      //       progress: 0,
-      //       inProgress: false
-      //     });
-      //   },
-      //   onError: (error, fileData) => {
-      //     console.warn('Error during upload: ' + error)
-      //   },
-      //   onProgress: (progress, fileData) => {
-      //     console.log(`Upload Percentage: ${progress}%`)
-      //     // Update our progress bar
-      //     self.setState({
-      //       progress: progress
-      //     });
-      //   }
-      // }, false );
-    // })
-      
-      // self.setState({
-      //   uploading: uploadInstance, // Keep track of this instance to use below
-      //   inProgress: true // Show the progress bar now
-      // });
-    }
-  }
-
-  uploadHandler = event => {
-    // console.log(this)e
-    let file = this.state.selectedFile;
+    this.setState({selectedFile: file});
     let reader = new FileReader();
     reader.onload = evt => {
+      //result is the DataURL (base64 string)
+      //split the string into file name and raw string: 
+      // console.log(evt.target.result)
+      let dataurl = evt.target.result;
+      this.setState({'fileData': dataurl});
+      // Meteor.call('s3Upload', "events", file.name, file.type, dataurl);
+    }
+    // reader.readAsBinaryString(file);
+    reader.readAsDataURL(file)
 
-      axios.post(this.state.endPoint, evt.target.result, {
-        onUploadProgress: progressEvent => {
-          this.setState({uploading: true})
-          let status = progressEvent.loaded / progressEvent.total
-          if (status < 1) {
-            this.setState({inProgress: true})
-            this.setState({progress: status})
-          } else if (status == 1) {
-            this.setState({uploading: false, inProgress: false})
-          }
-        }
-      })
-    };
-    reader.readAsBinaryString(file);
-
-
-  }
-
-  fetchIt = event => {
-    let formData = new FormData();
-    formData.append('image', this.state.selectedFile);
-    fetch(this.state.endPoint, {
-      method: 'PUT',
-      body: formData
-    })
-    .then(response => response.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
   }
   // This is our progress bar, bootstrap styled
   // Remove this function if not needed
   showProgress = () => {
     // console.log('**********************************', this.state.uploading);
 
-    if (!_.isEmpty(this.state.uploading)) {
+    if (this.state.uploading) {
       return <div>
-        {this.state.uploading.file.name}
+        {this.state.selectedFile.name}
 
         <div className="progress progress-bar-default">
           <div style={{width: this.state.progress + '%', 'backgroundColor':'#2964ff' }} aria-valuemax="100"
@@ -193,7 +118,20 @@ export default class FileUpload extends Component {
         </div>
       </div>
     }
-  }
+  } 
+  preview = () => {
+    if (this.state.selectedFile) {
+      const aFile = this.state.selectedFile;
+      const aFileData = this.state.fileData;
+      return (
+        <IndividualFile
+        fileName={aFile.name}
+        fileUrl={aFileData}
+        fileSize={aFile.size}
+        fileExt={aFile.extension}
+        /> )
+        }
+    }
 
   render() {
     if (this.props.loading) {
@@ -207,17 +145,28 @@ export default class FileUpload extends Component {
             />
       )
     }
-      let aFile = this.state.selectedFile;
+     
+      // let preview = () => {   
+       
+      //  let preview = document.querySelector('#prevImg');
+      //  const file = this.state.selectedFile
+      //  const reader = new FileReader();
+        
+      //  reader.addEventListener("load", () => {
+      //    preview.src=reader.result;
+      //  }, false)
+        
+      //  if (file) {
+      //     console.log("got file")
+      //    reader.readAsDataURL(file)
+      //    return <img id="prevImg" src="" alt=""/>
+      //   }
+
+      // }
 
       // Run through each file that the user has stored
       // (make sure the subscription only sends files owned by this user)
-      let preview = () => {(<IndividualFile
-        fileName={aFile.name}
-        fileUrl={link}
-        fileId={aFile._id}
-        fileSize={aFile.size}
-        fileExt={aFile.extension}
-      />)}
+      
       // let preview = fileCursors.map((aFile, key) => {
       //   // console.log('A file: ', aFile)
       //   let link = Avatars.findOne({_id: aFile._id}).link();  //The "view/download" link
@@ -234,12 +183,15 @@ export default class FileUpload extends Component {
       //   </div>
       // })
 
+
+
       return (
       <Grid container direction="column">
         <Grid item xs={12}>
-            <input type="file" id="fileinput" size="large" color="secondary"  disabled={this.state.inProgress} ref="fileinput" onChange={this.generateSignedUrl} accept="image/*"/>
-            {/**/}
+            <input type="file" id="fileinput" size="large" color="secondary"  disabled={this.state.inProgress} ref="fileinput" onChange={this.putIt} accept="image/*"/>
+            {/*
             <Button onClick={this.uploadHandler}>Upload!</Button> 
+            */}
             {/*
             <ReactS3Uploader
             getSignedUrl={this.generateSignedUrl}
@@ -264,6 +216,10 @@ export default class FileUpload extends Component {
 
         <Grid item xs={12} className="">
             {this.showProgress()}
+        </Grid>
+
+        <Grid item xs={12} className="">
+            {this.preview()}
         </Grid>
 
       </Grid>
