@@ -22,7 +22,8 @@ class EditAvatarButtonComponent extends Component {
       uploading: [],
       progress: 0,
       inProgress: false,
-      file: {}
+      file: {},
+      fileUrl: ''
     };
 
     this.uploadIt = this.uploadIt.bind(this);
@@ -46,7 +47,7 @@ class EditAvatarButtonComponent extends Component {
       // We upload only one file, in case
       // there was multiple files selected
       let file = e.currentTarget.files[0];
-       
+
       let uploadInstance = Avatars.insert({
         file: file,
         meta: {
@@ -59,16 +60,18 @@ class EditAvatarButtonComponent extends Component {
         },
         onUploaded: (error, fileRef) => {
           console.log('uploaded: ', fileRef);
-
           // Remove the filename from the upload box
           // self.refs['avatar_input'].value = '';
-
+          
+          let filePath = `avatars/${fileRef.meta.userId}_${fileRef._id}.${fileRef.extension}`;
+          let url = `https://s3.us-east-2.amazonaws.com/pakke-images/${filePath}`
           // Reset our state for the next file
           self.setState({
             file: fileRef,
             uploading: [],
             progress: 0,
-            inProgress: false
+            inProgress: false,
+            fileUrl: url
           });
         },
         onError: (error, fileData) => {

@@ -9,10 +9,30 @@ if (!Meteor.settings.public.keys) {
     console.log("--------------= SETTINGS FAILED. (USE 'NPM RUN' INSTEAD OF 'METEOR' AT COMMAND LINE) =--------------");
 }
 
+ServiceConfiguration.configurations.upsert({
+  service: "facebook"
+},{
+  $set: {
+    loginStyle: "popup",
+    appId: Meteor.settings.public.keys.facebookOAuth.app_id,
+    secret: Meteor.settings.public.keys.facebookOAuth.app_secret
+  }
+});
+
+ServiceConfiguration.configurations.upsert({
+  service: "google"
+},{
+  $set: {
+    loginStyle: "popup",
+    clientId: Meteor.settings.public.keys.googleOAuth.client_id,
+    secret: Meteor.settings.public.keys.googleOAuth.client_secret
+  }
+});
+
 
 const SOUP = Meteor.users.findOne({username: 'PAKKE'});
 if (!SOUP) {
-  console.log("CREATING FIRST USER: SOUP");
+  console.log("CREATING FIRST USER: PAKKE");
   const soupId = Accounts.createUser({
       "username": "PAKKE",
       "email": "noreply@pakke.us",
@@ -33,7 +53,7 @@ if (!SOUP) {
         });
 
       // Roles.setUserRoles( SOUP._id , 'admin');
-      console.log("-= ADMIN: 'Soup' is Admin =-");
+      console.log("-= ADMIN: 'PAKKE' is Admin =-");
     }
 }
 
@@ -49,27 +69,40 @@ Accounts.onCreateUser(function(options, user) {
   if (options.profile) {
     myUser.profile =  Schema.Profile.clean(options.profile);
   }
-    // console.log(user);
+  // console.log(user);
+  //IF USERNAME EXISTS, APPEND A NUMBER TO IT.
+
 
   //CHECK & MERGE FACEBOOK INFO
   if (user.services.facebook) {
     const fb = user.services.facebook;
     if (!fb.email) {return null}
     console.log(fb);
-    myUser.username = fb.name;
+    if (Accounts.findUserByUsername(fb.name)) {
+      myUser.username = fb.name + fb.name.charAt(3);
+    } else {
+      myUser.username = fb.name;
+    }
     myUser.emails = [{address: fb.email, verified: true}];
-    // myUser.profile.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=large`;
-    (fb.picture.data.is_silhouette == false) ? myUser.profile.avatar = fb.picture.data.url : null
+    
+    // (fb.picture.data.is_silhouette == false) ? myUser.profile.avatar = fb.picture.data.url : myUser.profile.avatar = "/img/holders/default-avatar.jpg"
+    (fb.picture.data.is_silhouette == false) ? myUser.profile.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=large` : myUser.profile.avatar = "/img/holders/default-avatar.jpg"
+    
     myUser.profile.birthDate = new Date(fb.birthday) || null;
+
   }
   //CHECK & MERGE GOOGLE INFO
   if (user.services.google) {
     const gg = user.services.google;
     if (!gg.email) {return null}
     console.log(gg);
-    myUser.username = gg.name;
+    if (Accounts.findUserByUsername(gg.name)) {
+      myUser.username = gg.name + gg.name.charAt(3);
+    } else {
+      myUser.username = gg.name;
+    }
     myUser.emails = [{address: gg.email, verified: true}];
-    myUser.profile.avatar = gg.picture;
+    myUser.profile.avatar = gg.picture || "/img/holders/default-avatar.jpg";
   }
   // console.log(myUser);
   return myUser;
@@ -78,56 +111,65 @@ Accounts.onCreateUser(function(options, user) {
 
 Accounts.validateNewUser(function(user) {
     console.log('Checking for Existing E-mail...');
-    const user_email = user.emails[0].address;
-    const existing_user = Accounts.findUserByEmail(user_email);
-    let crmParams = {};
+    if (user && user.emails) {
+      const user_email = user.emails[0].address;
+      const existing_user = Accounts.findUserByEmail(user_email);
+      let crmParams = {};
 
-    if (existing_user) {
-      // login and merge data! 
-      let provider;
+      if (existing_user) {
+        // login and merge data! 
+        let provider;
 
-      if (existing_user.services.facebook) {
-        provider = "Facebook";
-      }
-      if (existing_user.services.google) {
-        provider = "Google";
-      }
-      console.log("User Exists Already");
-      throw new Meteor.Error(500, `You've been here before! Login with ${provider}.`);
-    } else {
-      console.log(`-= NEW USER: ${user_email}=- `);
-      if (Meteor.isProduction) {
-        if (user.services.facebook) {
-          crmParams = {
-            "Last Name":user.services.facebook.last_name,
-            "First Name":user.services.facebook.first_name,
-            "Email": user_email,
-            "Lead Source": "Facebook Signup"
-          };
-          switch (user.services.facebook.gender) {
-            case "female":
-              crmParams["Salutation"] = "Ms.";
-              break;
-            case "male":
-              crmParams["Salutation"] = "Mr.";
-          };
+        if (existing_user.services.facebook) {
+          provider = "Facebook";
         }
-        if (user.services.google) {
-          crmParams = {
-            'Last Name' : user.services.google.family_name,
-            'First Name' : user.services.google.given_name,
-            'Email' : user_email,
-            "Lead Source": "Google Signup"
+        if (existing_user.services.google) {
+          provider = "Google";
+        }
+        console.log("User Exists Already");
+        throw new Meteor.Error(500, `You've been here before! Login with ${provider}.`);
+      } else {
+        console.log(`-= NEW USER: ${user_email}=- `);
+        if (Meteor.isProduction) {
+          if (user.services.facebook) {
+            crmParams = {
+              "Last Name":user.services.facebook.last_name,
+              "First Name":user.services.facebook.first_name,
+              "Email": user_email,
+              "Lead Source": "Facebook Signup"
+            };
+            switch (user.services.facebook.gender) {
+              case "female":
+                crmParams["Salutation"] = "Ms.";
+                break;
+              case "male":
+                crmParams["Salutation"] = "Mr.";
+            };
           }
-        }
-        
+          if (user.services.google) {
+            crmParams = {
+              'Last Name' : user.services.google.family_name,
+              'First Name' : user.services.google.given_name,
+              'Email' : user_email,
+              "Lead Source": "Google Signup"
+            }
+          }
+          
 
-       Meteor.call('crmInsert', 'leads', crmParams); 
-     }
-      
-      return true;
+         Meteor.call('crmInsert', 'leads', crmParams); 
+       }
+        
+        return true;
+      }
+    } else {
+      throw new Meteor.Error(403, 'There must be an e-mail address associated with this account.');
     }
 });
+
+// Accounts.onLogin(function(user) {
+//   console.log(user);
+//   Meteor.call('identifyUser', user);
+// });
 
 // =========================== EMAIL TEMPLATES ================================
 

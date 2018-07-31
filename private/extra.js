@@ -1,5 +1,6 @@
-Meteor.login("noreply@pakke.us", "pakkeP@RTY")
+Meteor.loginWithPassword("noreply@pakke.us", "pakkeP@RTY")
 
+Meteor.call('getCL', "KnbJ5WkNbHhkLqHHx");
 
 analytics.page({
   title: 'Signup Modal',
@@ -45,7 +46,4 @@ analytics.track('Events: Purchased Ticket', {
   revenue: event.price,
   others: 'others...'
 });
-
-
-
 

@@ -1,16 +1,30 @@
 import React, { Component } from 'react';
+import Radio from '@material-ui/core/Radio';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import EditVenueButton from './forms/EditVenueButton'
 
 export default class VenueOption extends Component {
+  constructor(props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(e) {
+    console.log(e.target.value);
+  }
 	render() {
   	return (
 			<div>
-        <ul>
-        <li> img: {this.props.venue.image} </li>
-        <li> Name: {this.props.venue.nickname} </li>
-        <li> Address: {this.props.venue.city} </li>
-        <input type="radio" value={this.props.venue.venueId} name={this.props.venue.nickname} />
-        <label htmlFor={this.props.venue.venueId}> {this.props.venue.nickname} </label>
-        </ul>
+        <div> img: {this.props.venue.image} </div>
+        <EditVenueButton />
+        <div> Name: {this.props.venue.nickname} </div>
+        <div> Address: {this.props.venue.address.city}, {this.props.venue.address.zip} </div>
+        <FormControlLabel 
+          value={this.props.venue._id} 
+          control={ <Radio/>}
+          label={this.props.venue.nickname}
+          name="venueId"
+          onChange = {this.handleChange}
+          />
       </div>
 		);
 	}

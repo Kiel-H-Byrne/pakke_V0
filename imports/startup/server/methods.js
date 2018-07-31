@@ -82,12 +82,27 @@ Meteor.methods({
     });
   },
   addVenue: function(doc) {
-    const uid = this.userId;
-    Meteor.users.update(uid, {
-      $addToSet: { 
-        "profile.venues" : doc
+    Venues.insert(doc, (err,res) => {
+      if (err) {
+        console.log(`VENUE INSERT FAILED: ${doc.nickname}: ${err}`);
+      } else {
+        console.log(`NEW VENUE: ${doc.nickname}`);
+
+        // Email.send({
+        //   to: 'info@pakke.us', 
+        //   from: 'noreply@pakke.us', 
+        //   subject: 'EVENT ALERT: New Event Created', 
+        //   html: newEventEmailTemplate 
+        // });
+
       }
-    });
+    })
+  },
+  editVenue: function(id,doc) {
+    //makre sure old object is added to new object, update rewrites fields.
+    Venues.update({_id: id}, {
+      $set: doc
+    })
   },
   addEvent: function(doc) {
     let newEventEmailTemplate = `
@@ -103,12 +118,6 @@ Meteor.methods({
 
       } else {
         console.log(`NEW EVENT: ${doc.byline}`);
-        analytics.track("New Event", {
-          label: doc.byline,
-          commerce: doc.price,
-          value: doc.price*doc.size,
-          host: doc.hostId,
-        })
 
         Email.send({
           to: 'info@pakke.us', 
@@ -211,7 +220,7 @@ Meteor.methods({
       return res.data;
     });
   },
-  createCharge: function(amount, description, token) {
+  createCharge: function(email,amount, description, token) {
     //makre sure old object is added to new object, update rewrites fields.
     const stripe = require("stripe")(Meteor.settings.private.keys.stripe.key);
     description = `PAKKE EVENT: ${description}`;
@@ -222,6 +231,7 @@ Meteor.methods({
       currency: 'usd',
       description: description,
       source: token.id,
+      receipt_email: email,
       capture: false
     }, (err,charge) => {
       if (err) {
@@ -240,18 +250,52 @@ Meteor.methods({
     return upload;
 
   },
-  removeEventImage: function(fileId) {
-    EventImages.remove(fileId)
+  removeFile: function(fileId) {
+    Uploads.remove(fileId);
   },
-  
   sendEmail: function(to, from, subject, html) {
     // check([to, from, subject, html], [String]);
     this.unblock();
 
     //check if logged in, or else anyone can send email from client
     Email.send({to, from, subject, html });
+  },
+  getCL: function(eventId) {
+    if (Roles.userIsInRole(this.userId, ["admin"])) {
+      const event = Events.findOne({_id: eventId});
+      const CL = event.confirmedList;
+      let htmlRowsArray = [];
+      CL.map((uid) => {
+        let u = Meteor.users.findOne({_id: uid});
+        htmlRowsArray.push(`
+          <tr> 
+            <td>${u.profile.name}</td>
+            <td>${u.emails[0].address}</td>
+            <td><img style="border-radius:50%" src="${u.profile.avatar}" height="50" width="50" /></td>
+          </tr>
+        `);
+
+      });
+      let htmlRows = htmlRowsArray.join('');
+      const template = `
+      <h3> GUEST LIST: <em>"${event.byline}"</em> </h3>
+      <h4> GUEST COUNT: ${CL.length} </h4>
+          <table> <thead> <tr> <th>Name</th> <th>E-mail</th> <th>Picture</th> </tr> </thead> <tbody>
+          ${htmlRows}
+          </tbody></table>`;
+      // console.log(template)
+
+      Email.send({
+        'to': ["info@pakke.us"],
+        'cc': ["amy@pakke.us", "emmett@pakke.us", "zach@pakke.us", "kiel@pakke.us"],
+        'from': "noreply@pakke.us", 
+        'subject': "-<{ GUEST LIST: " + event.byline + " }>-", 
+        'html': template
+      });
+      //send email to kiel@Pakke.us with this info
+     } else {
+      console.log("MUST BE ADMIN TO GET CONFIRMED LIST")
+     }
   }
   
 });
-
-

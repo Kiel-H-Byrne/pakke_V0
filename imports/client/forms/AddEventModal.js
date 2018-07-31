@@ -13,7 +13,9 @@ const styles = theme => ({
   paper: {
     position: 'absolute',
     // width: theme.spacing.unit * 50,
-    width: '50%',
+    width: '60%',
+    minWidth: 360,
+    maxWidth: '85vh',
     maxHeight: '90vh',
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
@@ -22,6 +24,9 @@ const styles = theme => ({
     left: '50%',
     transform: `translate(-50%, -50%)`,
   },
+  button: {
+    marginBottom: 30,
+  }
 });
 
 
@@ -42,7 +47,7 @@ class AddEventModalComponent extends Component {
 
     return (
             <div>
-      <Button type="button" onClick={this.handleOpen} className={classes.button}> Create A New Experience </Button>
+      <Button type="button" onClick={this.handleOpen} variant="raised" size="large" className={classes.button}> Create A New Experience </Button>
       <Modal 
         aria-labelledby="New Event Form"
         aria-describedby="Add a new experience."
@@ -50,7 +55,7 @@ class AddEventModalComponent extends Component {
         onClose={this.handleClose}
       >
       <div className={classes.paper + ' scroll-wrapper-y'}>
-        <Typography variant="title" id="AddEventModal-title">Create your Experience:</Typography>
+        <Typography variant="display2" align="center" id="AddEventModal-title">Create your Experience:</Typography>
         <AddEventForm />
       </div>
     </Modal>

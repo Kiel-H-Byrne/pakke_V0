@@ -49,7 +49,7 @@ class EventPurchaseModalComponent extends Component {
 
     return (
       <div>
-        <Button type="button" onClick={this.handleOpen} className={classes.button}> Buy Tickets </Button>
+        <Button type="button" onClick={this.handleOpen} className={classes.button} fullWidth={true} > Buy Tickets </Button>
         <Modal 
           aria-labelledby="Event Purchase Form"
           aria-describedby="Buy a ticket for this event."
@@ -57,17 +57,12 @@ class EventPurchaseModalComponent extends Component {
           onClose={this.handleClose}
         >
         <div className={classes.paper + ' scroll-wrapper-y '}>
-          <div className="">
-            <div className="">
-              <h3 className="">"{this.props.event.byline}"</h3>
-              <p className=""><em>Almost there... </em></p>
-              <StripeProvider apiKey={ Meteor.settings.public.keys.stripe.key }>
-                <Elements>
-                  <PaymentRequestForm event = {this.props.event} user = {this.props.user} handleClose={this.handleClose} />
-                </Elements>
-              </StripeProvider>
-            </div>
-          </div>
+          <h3 className="">"{this.props.event.byline}"</h3>
+          <StripeProvider apiKey={ Meteor.settings.public.keys.stripe.key }>
+            <Elements>
+              <PaymentRequestForm event = {this.props.event} user = {this.props.user} handleClose={this.handleClose} />
+            </Elements>
+          </StripeProvider>
         </div>
       </Modal>
     </div>

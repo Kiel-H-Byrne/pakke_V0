@@ -37,16 +37,13 @@ class EventDetailsComponent extends Component {
     const boughtAlert = () => Bert.alert("See you Soon!", "info", "growl-top-right");
 
     if (this.props.loading) {
-
       return (
-        <div>
           <BarLoader 
               loading={this.props.loading} 
               color='#2964ff'
               width={-1}
               height={10}
             />
-        </div>
       )
     }
   // console.log(this.state);

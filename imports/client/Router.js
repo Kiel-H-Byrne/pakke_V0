@@ -17,7 +17,8 @@ import PageTerms from './PageTerms';
 import BecomeHost from './forms/BecomeHost';
 import BecomeTalent from './forms/BecomeTalent';
 import PageEventMap from './PageEventMap';
-import NomadicoDetails from './old-test/Nomadico';
+import NomadicoDetails from './events/Nomadico';
+import ZarahnaDetails from './events/Zarahna'
 
 // import PageEventMap from './pageEventMap/PageEventMap';
 // import PageSignUp from './PageSignUp';
@@ -25,7 +26,7 @@ import NomadicoDetails from './old-test/Nomadico';
 import PageTest from './old-test/PageTest'
 // import { LoginFormContainer } from './accounts/ui/components/LoginForm'
 // import TestLogin from './TestLogin';
-// import PageLogin from './PageLogin';
+
 
 
 
@@ -42,12 +43,14 @@ class Router extends Component {
             <Route path='/profile' component={PageProfile} />
             <Route path='/host' component={BecomeHost} />
             <Route path='/talent' component={BecomeTalent} />
-            <Route path='/nomadico2018' component={NomadicoDetails} />
             <Route path='/terms' component={PageTerms} />
-            <Route path='/admin' component={Accounts.ui.LoginForm} />
-            { Meteor.isDevelopment ?
-            (<Route path='/test' component={PageTest} />)
-            : ('')
+            
+            { Meteor.isDevelopment ? (
+                <>
+                <Route path='/test' component={PageTest} />
+                <Route path='/admin' component={Accounts.ui.LoginForm} />
+                </>
+            ) : ('')
             }
             <Route component={PageError} />
 

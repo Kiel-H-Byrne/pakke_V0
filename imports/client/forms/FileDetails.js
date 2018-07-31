@@ -36,10 +36,10 @@ class IndividualFile extends Component {
     fileExt: PropTypes.string
   }
 
-  removeFile(){
+  removeFile() {
     let conf = confirm('Are you sure you want to delete the file?') || false;
     if (conf == true) {
-      Meteor.call('removeEventImage', this.props.fileId, function (err, res) {
+      Meteor.call('removeFile', this.props.fileId, function (err, res) {
         if (err)
           console.log(err);
       })
@@ -77,7 +77,7 @@ class IndividualFile extends Component {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="large" color="secondary" onClick={this.removeFile} >
+          <Button onClick={this.removeFile} >
             Delete
           </Button>
         </CardActions>

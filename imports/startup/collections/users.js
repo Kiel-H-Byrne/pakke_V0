@@ -3,7 +3,7 @@ import Events from './events';
 
 Meteor.publish('currentUser', function () {
   // console.log("-= PUBLISHING: USER DATA  =-");
-  return Meteor.users.find({_id: Meteor.userId()}, {
+  return Meteor.users.find({_id: this.userId}, {
     fields: {
       'profile': 1,
       'roles': 1,
@@ -16,13 +16,14 @@ Meteor.publish('currentUser', function () {
 Meteor.publish('eventHost', function (eventId) {
   // console.log("-= PUBLISHING: HOST USER DATA  =-");
   let event = Events.findOne(eventId);
-  
+  if (event) {
   let eventHost = event.hostId;
   return Meteor.users.find({_id: eventHost}, {
     fields: {
       'profile': 1
     }
   });
+}
 });
 
 

@@ -9,7 +9,7 @@ Events = new Mongo.Collection('events');
 
 if (Meteor.isServer) {
   // ALLOW FOR SORTING (?) 
-  Events._ensureIndex( { lastUpdated: 1 } );
+  // Events._ensureIndex( { lastUpdated: 1 } );
 
   Meteor.publish('events_all', function () {
       const cursor = Events.find();
@@ -19,6 +19,20 @@ if (Meteor.isServer) {
   });
 
   Meteor.publish('events_current', function () {
+      const cursor = Events.find({
+        date: {
+          $gte: new Date() 
+        },
+      },
+      {
+        sort: { date: 1 }
+      });
+
+    // console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] CURRENT EVENTS =-");
+    return cursor;
+  });
+
+  Meteor.publish('events_public', function () {
       const cursor = Events.find({
         date: {
           $gte: new Date() 
@@ -102,7 +116,7 @@ Events.allow({
 
   // only allow event creation if you are logged in
   insert: (userId, doc) => !! userId,
-  // anyone can add themselves as guest to the event (update only guest scope of Event document).
+// anyone can add themselves as guest to the event (update only guest scope of Event document).
   // update: (userId, doc) => true
   update: (userId, doc) => userId == doc.hostId
   //only allow update if userID is event.hostId

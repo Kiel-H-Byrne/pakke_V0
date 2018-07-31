@@ -57,9 +57,12 @@ Accounts.ui.config({
   }
 });
 
+
 Accounts.onLoginFailure(function(error) {
   Bert.alert(error.error.reason, "info", "growl-top-right")
 });
+
+
 
 // Facebook: https://developers.facebook.com/docs/authentication/permissions/
 // Google: https://developers.google.com/identity/protocols/googlescopes

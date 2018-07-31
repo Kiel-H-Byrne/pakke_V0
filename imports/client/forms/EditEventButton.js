@@ -6,11 +6,17 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import EditIcon from '@material-ui/icons/Edit'
 
-import AutoFields  from 'uniforms-material/AutoFields';
+import AutoField  from 'uniforms-material/AutoField';
+import HiddenField  from 'uniforms-material/HiddenField';
 import AutoForm    from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
+import InputLabel from '@material-ui/core/InputLabel';
+
+import EventImagesUpload from './EventImagesUpload.js'; 
+import VenuesForm from './VenuesForm';
+import TinyInput from './TinyInput.js'
 
 const styles = theme => ({
 	paper: {
@@ -37,22 +43,22 @@ const styles = theme => ({
 		this.handleOpen = this.handleOpen.bind(this)
 		this.handleClose = this.handleClose.bind(this)
 	}
-	handleSubmit(doc) {
-      Meteor.call('addVenue', doc);
+	handleSubmit = (doc) => {
+    console.log(doc)
+    Meteor.call('editEvent', this.props.event._id, doc);
   }; 
 
-  handleSuccess() {
-      Bert.alert("Your Profile Was Updated!", "success");
-      $('#hostProfileModal').modal('toggle');
-
+  handleSuccess = () => {
+      Bert.alert("Your Event Was Updated.", "success");
+      this.handleClose();
   }
-  handleFailure() {
-      Bert.alert("Sorry, Something Went Wrong", "danger", "growl-top-right");
+  handleFailure = () => {
+      Bert.alert("Try that again...", "danger", "growl-top-right");
   }
-   handleOpen() {
+   handleOpen = () => {
     this.setState({ open: true });
   }
-  handleClose() {
+  handleClose = () =>  {
     this.setState({ open: false });
   }
 
@@ -60,10 +66,11 @@ const styles = theme => ({
 		
 		const { classes } = this.props;
     const model = Schema.Event.clean(this.props.event);
+    const omitFields = ["submitted", "venue", "hostId", "categories", "appliedList", "invitedList", "confirmedList", "entertainers", "partner", "featured"];
 
 		return (
 			<div>
-	    <Button variant="fab" aria-label="edit" className={classes.button} onClick={this.handleOpen}> 
+	    <Button variant="fab" mini={true} aria-label="edit" className={classes.button} onClick={this.handleOpen}> 
 				<EditIcon />
 			</Button>
 			<Modal 
@@ -73,22 +80,33 @@ const styles = theme => ({
         onClose={this.handleClose}
 
       > 
-      <div className={classes.paper + ' scroll-wrapper-y'}>
-        <Typography variant="title" id="eventPurchaseModal">Edit Event:</Typography>
-        <AutoForm  
-	      schema={Schema.Event} 
-	      onSubmit={this.handleSubmit} 
-	      model={model}
-	      onSubmitSuccess={this.handleSuccess} 
-	      onSubmitFailure={this.handleFailure} 
-	      >
+        <div className={classes.paper + ' scroll-wrapper-y'}>
+          <Typography variant="display2" align="center" id="eventPurchaseModal">Edit Event:</Typography>
+          <AutoForm  
+  	      schema={Schema.Event} 
+  	      onSubmit={this.handleSubmit} 
+  	      model={model}
+  	      onSubmitSuccess={this.handleSuccess} 
+  	      onSubmitFailure={this.handleFailure} 
+          className="tinyForm"
+  	      >
+            <AutoField name="byline" />
+            <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
+            <TinyInput name="description" content = {model.description} />
+            <AutoField name="date" />
+            <AutoField name="duration" margin="dense" />
+            <AutoField name="size" margin="dense" />
+            <AutoField name="price" margin="dense" />
+            <AutoField name="contact" margin="dense" />
+            <VenuesForm />       
+            <EventImagesUpload name="image" fileUrl={model.image} />
+            <HiddenField name="checkedPolicy" value="true" margin="dense" />
 
-	        <AutoFields/>
-	        <SubmitField value="Submit"  />
-	        <ErrorsField />
-	      </AutoForm>
-	      </div>
-    </Modal>
+            <SubmitField value="Submit" />
+            <ErrorsField />
+  	      </AutoForm>
+        </div>
+      </Modal>
     </div>
 		)
 	}

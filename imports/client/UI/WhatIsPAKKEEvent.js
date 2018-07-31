@@ -15,39 +15,26 @@ function WhatIsPAKKEEvent(props) {
     const styles = {
         wrapper: {
             marginTop: theme.spacing.unit * 8,
-            padding: `${theme.spacing.unit}px ${theme.spacing.unit * 20}px`,
+            padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
         },
         box1: {
-            padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+            // padding: `${theme.spacing.unit}em ${theme.spacing.unit * 2}em`,
             color: theme.palette.text.primary,
-            minWidth: 340,
-            maxWidth: 850,
         },
         paper1: {
             width: 350,
-        },
-        wrapper2: {
-            margin: '5%',
         }
     };
 
     //style == className in these withTheme components
 
     return (
-        <div>
-            <Grid container justify={'center'} alignItems={'center'} style={styles.wrapper}>
-
-                <Grid item md style={{ width: '100%', }}>
-                    <Grid container justify={'center'} style={{background: 'theme.palette.text.primary.main'}}>
-                        <Typography align={'center'} variant={'display2'} style={styles.box1}>PAKKE events encourage you to discover unique environments, connect with new people, and experience more in your city.</Typography>
-                    </Grid>
-                </Grid>
-                {/* </Paper> */}
-            </Grid>
-        </div >
-
-
-
+    <Grid container justify={'center'} alignItems={'center'} style={styles.wrapper}>
+        <Grid item xs={12} lg={8}>
+            <Typography align='center' variant='display1' style={styles.box1}>PAKKE events encourage you to discover unique environments, connect with new people, and experience more in your city.
+            </Typography>
+        </Grid>
+    </Grid>
     );
 }
 

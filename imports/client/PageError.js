@@ -22,7 +22,7 @@ class PageError extends Component {
         <div className="container-fluid">
           <iframe className="giphy-embed" src="https://giphy.com/embed/9J7tdYltWyXIY?html5=true" width="100%" height="480" frameBorder="0" allowFullScreen="" style={styles.frame}></iframe>
         </div>
-        <p className="lead"><em>Try <Link to="/events" >searching for some local events</Link> instead...</em></p>
+        <p className="lead"><em>Try <Link to="/events" style={{color:"#ffc429"}}>searching for some local events</Link> instead...</em></p>
       </div>
             )
   }
