@@ -37,8 +37,8 @@ class PaymentRequestForm extends React.Component {
     });
 
     paymentRequest.on('token', ({complete, token, ...data}) => {
-      console.log('Received Stripe token: ', token);
-      console.log('Received customer information: ', data);
+      // console.log('Received Stripe token: ', token);
+      // console.log('Received customer information: ', data);
       stripeTokenHandler(token);
       complete('success');
     });
@@ -57,13 +57,14 @@ class PaymentRequestForm extends React.Component {
 
   handleSubmit(e) {
     console.log('submitting...');
+    console.log(e.target)
     e.preventDefault();
     // Within the context of `Elements`, this call to createToken knows which Element to
     // tokenize, since there's only one in this group.
     const user = this.props.user;
     const event = this.props.event
     const handleClose = this.props.handleClose
-          // console.log(user)
+    // console.log(user)
     const userEmail = user.emails[0].address;
     const userEmailProps = [
       "noreply@pakke.us",
@@ -85,7 +86,7 @@ class PaymentRequestForm extends React.Component {
         
         
         // console.log('Payment Received token:', token);
-       let rez = Meteor.call('createCharge', userEmail, this.props.event.price, this.props.event.byline, token, (error, result) => {
+       Meteor.call('createCharge', userEmail, this.props.event.price, this.props.event.byline, token, (error, result) => {
           if (error) {
             console.log("Callback error:")
             console.log(error)
@@ -95,6 +96,7 @@ class PaymentRequestForm extends React.Component {
             // console.log(result)
             handleClose();
             // $('.modal-backdrop').removeClass('in').addClass('hide');
+            console.log(this)
             Bert.alert("You're in! Check your inbox for more info!", "success");
             Meteor.call('amConfirmed', event._id);
             Meteor.call('sendEmail', userEmail, ...userEmailProps);
@@ -107,11 +109,7 @@ class PaymentRequestForm extends React.Component {
               host: event.hostId,
             })
           }
-        })      
-        if (rez) {
-          console.log(rez)
-        }
-        //find class '.modal in' and change to '.modal hide'
+        })     
         //amex 3796 330728 93002 6/20 9534 20031
         //testcard 
       }
