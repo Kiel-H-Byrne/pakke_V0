@@ -56,8 +56,8 @@ class PaymentRequestForm extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log('submitting...');
-    console.log(e.target)
+    // console.log('submitting...');
+    // console.log(e.target)
     e.preventDefault();
     // Within the context of `Elements`, this call to createToken knows which Element to
     // tokenize, since there's only one in this group.

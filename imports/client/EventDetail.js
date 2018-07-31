@@ -65,7 +65,7 @@ class EventDetailsComponent extends Component {
       if (nextProps.event.venueId) {
         // venue = eventHost.profile.venues.filter((v) => (v.venueId === nextProps.event.venueId))
         venue = Venues.find({ events: { $in: [nextProps.event._id] } }).fetch();
-        console.log(venue)
+        // console.log(venue)
       }
       return {
         eventHost: eventHost,
