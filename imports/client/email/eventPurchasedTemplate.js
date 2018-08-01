@@ -297,7 +297,7 @@ const eventPurchasedTemplate = (user,event) => {
                   <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <p>Hi there ${userName}!</p>
+                        <p>Hi there ${user.username}!</p>
                         <p>Thanks for registering for "<em>${event.byline}</em>". We are excited to explore this unique experience with you.</p>
 Looking forward to seeing you. Please revisit the Event Details page for more information.</p>             
                         </p>

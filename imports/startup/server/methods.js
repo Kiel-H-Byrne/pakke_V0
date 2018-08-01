@@ -7,6 +7,7 @@ import Events from '/imports/startup/collections/events';
 import Venues from '/imports/startup/collections/venues';
 import Avatars from '/imports/startup/collections/avatars';
 import MongoCache from '/imports/startup/server/MongoCache';
+import analytics from '/lib/analytics/analytics.min.js';
 
 
 const OCache = new MongoCache('rest', 100000);
@@ -106,7 +107,8 @@ Meteor.methods({
   },
   addEvent: function(doc) {
     let newEventEmailTemplate = `
-      
+      <p>Need template:</p>
+      ${doc.byline} | ${doc.price} | ${doc.contact} | ${doc.venueId}
     `;
     if (! Roles.userIsInRole(this.userId, ["host"])) {
       Meteor.call('addRole', this.userId, ["host"]);
@@ -120,7 +122,7 @@ Meteor.methods({
         console.log(`NEW EVENT: ${doc.byline}`);
 
         Email.send({
-          to: 'info@pakke.us', 
+          to: 'kiel@pakke.us', 
           from: 'noreply@pakke.us', 
           subject: 'EVENT ALERT: New Event Created', 
           html: newEventEmailTemplate 
@@ -226,6 +228,7 @@ Meteor.methods({
     description = `PAKKE EVENT: ${description}`;
     
     // console.log(token);
+    console.log("creating charge - promise")
     stripe.charges.create({
       amount: amount*100,
       currency: 'usd',
@@ -233,16 +236,27 @@ Meteor.methods({
       source: token.id,
       receipt_email: email,
       capture: false
-    }, (err,charge) => {
-      if (err) {
-        console.log("err",err.message)
-        let error = err.message;
-        return
-      } else {
-        console.log('Payment Received: ' + description)
-        return charge;
-      }
-    })
+    // }, (err,charge) => {
+    //   if (err) {
+    //     console.log("err",err.message)
+    //     let error = err.message;
+    //     return false
+    //     throw new Meteor.Error(err.)
+    //   } else {
+    //     console.log('Payment Received: ' + description)
+    //     return charge;
+    //   }
+    // })
+  }).then(
+  result => {
+    // console.log(result)
+    console.log(analytics)
+  }).catch(
+  err => {
+    console.log(err)
+    throw new Meteor.Error(err.code, err.message)
+  });
+
   },
   uploadFile: function(obj) {
     let upload =  Avatars.insert(obj, false);
