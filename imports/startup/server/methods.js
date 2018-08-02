@@ -7,7 +7,6 @@ import Events from '/imports/startup/collections/events';
 import Venues from '/imports/startup/collections/venues';
 import Avatars from '/imports/startup/collections/avatars';
 import MongoCache from '/imports/startup/server/MongoCache';
-import analytics from '/lib/analytics/analytics.min.js';
 
 
 const OCache = new MongoCache('rest', 100000);
@@ -222,14 +221,13 @@ Meteor.methods({
       return res.data;
     });
   },
-  createCharge: function(email,amount, description, token) {
-    //makre sure old object is added to new object, update rewrites fields.
+  createCharge: async function(email,amount, description, token) {
     const stripe = require("stripe")(Meteor.settings.private.keys.stripe.key);
     description = `PAKKE EVENT: ${description}`;
     
     // console.log(token);
-    console.log("creating charge - promise")
-    stripe.charges.create({
+    console.log("creating charge...")
+    await stripe.charges.create({
       amount: amount*100,
       currency: 'usd',
       description: description,
@@ -250,12 +248,19 @@ Meteor.methods({
   }).then(
   result => {
     // console.log(result)
-    console.log(analytics)
+    // analytics.track("Ticket Purchase", {
+    //   label: description,
+    //   commerce: amount*100,
+    //   value: amount*100,
+    //   guest: email,
+    // })
+    console.log("Success.")
+    return result
   }).catch(
   err => {
-    // console.log(err)
-    // throw new Meteor.Error(err.code, err.message)
-    console.log(err.code + ' - ' + err.message)
+    // console.log(err.code + ' - ' + err.message)
+    console.log("Failure: ", err.message)
+    throw new Meteor.Error(err.code, err.message)
   });
 
   },
@@ -263,7 +268,6 @@ Meteor.methods({
     let upload =  Avatars.insert(obj, false);
     console.log(upload);
     return upload;
-
   },
   removeFile: function(fileId) {
     Uploads.remove(fileId);
