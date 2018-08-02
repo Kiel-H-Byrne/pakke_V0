@@ -253,8 +253,9 @@ Meteor.methods({
     console.log(analytics)
   }).catch(
   err => {
-    console.log(err)
-    throw new Meteor.Error(err.code, err.message)
+    // console.log(err)
+    // throw new Meteor.Error(err.code, err.message)
+    console.log(err.code + ' - ' + err.message)
   });
 
   },

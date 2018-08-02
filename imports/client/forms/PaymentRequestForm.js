@@ -85,46 +85,46 @@ class PaymentRequestForm extends React.Component {
         
         
         // console.log('Payment Received token:', token);
-       Meteor.call('createCharge', userEmail, this.props.event.price, this.props.event.byline, token)
-       // , (error, result) => {
-       //    if (error) {
-       //      console.log("Callback error:")
-       //      console.log(error)
-       //      Bert.alert(err.message, "error");
-       //    } else {
-       //      // console.log("Callback result:")
-       //      // console.log(result)
-       //      handleClose();
-       //      // $('.modal-backdrop').removeClass('in').addClass('hide');
-       //      Bert.alert("You're in! Check your inbox for more info!", "success");
-       //      // Meteor.call('amConfirmed', event._id);
-       //      // Meteor.call('sendEmail', userEmail, ...userEmailProps);
-       //      // Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
-       //      console.log('emails sent')
+       Meteor.call('createCharge', userEmail, this.props.event.price, this.props.event.byline, token, (error, result) => {
+          if (error) {
+            console.log("Callback error:")
+            console.log(error)
+            Bert.alert(err.message, "error");
+          } else {
+            // console.log("Callback result:")
+            // console.log(result)
+            handleClose();
+            // $('.modal-backdrop').removeClass('in').addClass('hide');
+            Bert.alert("You're in! Check your inbox for more info!", "success");
+            // Meteor.call('amConfirmed', event._id);
+            // Meteor.call('sendEmail', userEmail, ...userEmailProps);
+            // Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
+            console.log('emails sent')
             
-       //      analytics.track("Ticket Purchase", {
-       //        label: event.byline,
-       //        commerce: event.price,
-       //        value: event.price,
-       //        host: event.hostId,
-       //      })
+            // analytics.track("Ticket Purchase", {
+            //   label: event.byline,
+            //   commerce: event.price,
+            //   value: event.price,
+            //   host: event.hostId,
+            // })
 
-       //      analytics.track('Order Completed', {
-       //        total: event.price,
-       //        revenue: event.price - ((event.price*.029)+.30),
-       //        currency: 'USD',
-       //        products: [
-       //          {
-       //            product_id: event._id,
-       //            name: event.byline,
-       //            price: event.price,
-       //            quantity: 1,
-       //            image_url: event.image
-       //          }
-       //        ]
-       //      });
-       //    }
-       //  })      
+            // analytics.track('Order Completed', {
+            //   total: event.price,
+            //   revenue: event.price - ((event.price*.029)+.30),
+            //   currency: 'USD',
+            //   products: [
+            //     {
+            //       product_id: event._id,
+            //       name: event.byline,
+            //       price: event.price,
+            //       quantity: 1,
+            //       image_url: event.image
+            //     }
+            //   ]
+            // });
+
+          }
+        })      
        
         // if (rez) {
         //   console.log(rez)
@@ -133,7 +133,7 @@ class PaymentRequestForm extends React.Component {
         //amex 3796 330728 93002 6/20 9534 20031
         //testcard 
       }
-    });
+    }); 
   }; 
   
 
