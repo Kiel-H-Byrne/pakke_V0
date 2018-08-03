@@ -51,9 +51,9 @@ export default class EventInterestForm extends Component {
         $('#eventInterestsModal').modal('toggle');
         Meteor.call('sendEmail', userEmail, ...userEmailProps);
         Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
-        analytics.track("Events: Applied to event", {
+        analytics.track("Applied to event", {
           label: event._id,
-          value: userEmail
+          value: event.price
         })
     };
 
