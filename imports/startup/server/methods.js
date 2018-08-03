@@ -135,6 +135,14 @@ Meteor.methods({
       $set: doc
     })
   },
+  cancelEvent: function(event) {
+    //makre sure old object is added to new object, update rewrites fields.
+    if (this.userId === event.hostId) {
+      Events.remove({_id: event._id})
+    } else {
+      console.log("Unauthorized attempt.")
+    }
+  },
   addInterests(doc) {
     const uid = this.userId; 
     // console.log(doc);

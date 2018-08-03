@@ -35,9 +35,11 @@ import '../../startup/collections/schemas';
 
 class AddEventForm extends Component {
     
-    handleSubmit(doc) {
-        console.log(doc)
+    handleSubmit = doc => {
+        // console.log(doc)
         Meteor.call('addEvent', doc);
+        this.props.handleClose();
+
 
         const adminEmailProps = [
           "noreply@pakke.us",
@@ -46,15 +48,18 @@ class AddEventForm extends Component {
         ];
 
         //send admin email
-
-        Meteor.call('sendEmail', "kiel@pakke.us", ...adminEmailProps);
-        let crmParams = {
-          "Event Owner": Meteor.user().username,
-          "Subject": doc.byline ,
-          "Start DateTime" : doc.date,
-          "End DateTime": doc.date + duration
-        };
-        Meteor.call('crmInsert', 'event', crmParams);
+        if (Meteor.isProduction) {
+            Meteor.call('sendEmail', "kiel@pakke.us", ...adminEmailProps);
+            let crmParams = {
+              "Event Owner": Meteor.user().username,
+              "Subject": doc.byline ,
+              "Start DateTime" : doc.date,
+              "End DateTime": doc.date + duration
+            };
+            Meteor.call('crmInsert', 'event', crmParams);
+        } else {
+            console.log (doc)
+        }
     }; 
 
     handleSuccess(){
@@ -80,15 +85,15 @@ class AddEventForm extends Component {
             id="addeventForm"
             >
                 <VenuesForm form="addeventForm"/>
-                <AutoField name="byline" margin="dense"/>
+                <AutoField name="byline" />
                 <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
                 <TinyInput name="description"/>
-                <DateField name="date" margin="dense" />
-                <AutoField name="duration" margin="dense" />
-                <AutoField name="size" margin="dense" />
-                <AutoField name="price" margin="dense" />
-                <AutoField name="isPrivate" margin="dense" />
-                <AutoField name="contact" margin="dense" />
+                <DateField name="date"  />
+                <AutoField name="duration"  />
+                <AutoField name="size" />
+                <AutoField name="price" />
+                <AutoField name="isPrivate" />
+                <AutoField name="contact" />
                 
                 {/* <MaskedInput 
                     mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
@@ -97,7 +102,7 @@ class AddEventForm extends Component {
 
                 /> */}
                 <EventImagesUpload name="image" />
-                <AutoField name="checkedPolicy" margin="dense" />
+                <AutoField name="checkedPolicy" />
                 <Typography 
                 component={Link}
                 to="/terms"

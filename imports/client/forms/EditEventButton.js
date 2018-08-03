@@ -52,6 +52,7 @@ const styles = theme => ({
       Bert.alert("Your Event Was Updated.", "success");
       this.handleClose();
   }
+
   handleFailure = () => {
       Bert.alert("Try that again...", "danger", "growl-top-right");
   }
@@ -60,6 +61,9 @@ const styles = theme => ({
   }
   handleClose = () =>  {
     this.setState({ open: false });
+  }
+  cancelEvent = () => {
+    Meteor.call('cancelEvent', this.props.event)
   }
 
 	render() {
@@ -103,6 +107,7 @@ const styles = theme => ({
             <HiddenField name="checkedPolicy" value="true" margin="dense" />
 
             <SubmitField value="Submit" />
+            <Button style={{backgroundColor: "transparent", color: "red", marginLeft: '1rem'}} variant="outlined" onClick={this.cancelEvent}>Cancel Event </Button>
             <ErrorsField />
   	      </AutoForm>
         </div>
