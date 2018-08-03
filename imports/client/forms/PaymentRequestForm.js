@@ -45,11 +45,10 @@ class PaymentRequestForm extends React.Component {
     //PaymentRequestButtonElement NOT WORKING (just times out), SO COMMENTED OUT 
     // Timed out waiting for a PaymentResponse.complete() call.
     //SETS VARIABLE TO TRUE IF IT CAN, (I DON'T WANT IT TO)
-    paymentRequest.canMakePayment().then(result => {
-      
-      console.log(result)
-      this.setState({canMakePayment: !!result});
-    });
+    // paymentRequest.canMakePayment().then(result => {
+    //   console.log(result)
+    //   this.setState({canMakePayment: !!result});
+    // });
     
     this.state = {
       canMakePayment: false,
@@ -58,7 +57,7 @@ class PaymentRequestForm extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log('submitting...');
+    // console.log('submitting...');
     e.preventDefault();
     // Within the context of `Elements`, this call to createToken knows which Element to
     // tokenize, since there's only one in this group.
@@ -136,6 +135,7 @@ class PaymentRequestForm extends React.Component {
   
 
   render() {
+    console.log(this.state)
     return this.state.canMakePayment ? (
       <PaymentRequestButtonElement
         paymentRequest={this.state.paymentRequest}

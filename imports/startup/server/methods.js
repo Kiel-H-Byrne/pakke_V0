@@ -226,7 +226,7 @@ Meteor.methods({
     description = `PAKKE EVENT: ${description}`;
     
     // console.log(token);
-    console.log("creating charge...")
+    console.log("CREATING CHARGE: " + description)
     await stripe.charges.create({
       amount: amount*100,
       currency: 'usd',
@@ -254,12 +254,12 @@ Meteor.methods({
     //   value: amount*100,
     //   guest: email,
     // })
-    console.log("Success.")
+    console.log("SUCCESS")
     return result
   }).catch(
   err => {
     // console.log(err.code + ' - ' + err.message)
-    console.log("Failure: ", err.message)
+    console.log("FAILED: ", err.message)
     throw new Meteor.Error(err.code, err.message)
   });
 
