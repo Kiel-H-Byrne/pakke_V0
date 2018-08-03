@@ -136,7 +136,7 @@ class PaymentRequestForm extends React.Component {
   
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     return this.state.canMakePayment ? (
       <PaymentRequestButtonElement
         paymentRequest={this.state.paymentRequest}
