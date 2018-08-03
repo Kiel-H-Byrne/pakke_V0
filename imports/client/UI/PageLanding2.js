@@ -58,6 +58,10 @@ class PageLanding2 extends Component {
     return (
             <>
       <Helmet>
+        <title>PAKKE.US </title>
+        <meta name="description" content={this.props.event.description}/>
+        <meta name="keywords" content={`Night Life, Nightlife, Night Out, Social Events, Parties in DC, Events in DC`}/>
+        <meta property="og:title" content="PAKKE" />
         <meta property="og:image" content="https://www.pakke.us/img/brand/SOCIAL/Logo_Facebook_wordmark.jpg" />
         <meta property="og:image:secure_url" content="https://www.pakke.us/img/brand/SOCIAL/Logo_Facebook_wordmark.jpg" />
         <meta property="og:image:type" content="image/png" />
