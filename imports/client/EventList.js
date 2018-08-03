@@ -41,8 +41,9 @@ export default EventList = withTracker(() => {
   return {
     ready: eventsSub.ready(),
     events: Events.find({
-      "featured": false, 
-      "isPrivate": false,
+      $or: [
+      {"featured": false},
+      {"isPrivate": false}]
     }, {
       sort: { date: 1 }
     }).fetch()
