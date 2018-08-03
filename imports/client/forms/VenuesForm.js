@@ -84,7 +84,7 @@ class VenuesFormComponent extends Component {
   //   }
   // }
   static getDerivedStateFromProps(props, state) {
-    if (props.venues && state.selected !== props.venues[0]._id) {
+    if (props.venues.length > 0 && state.selected !== props.venues[0]._id) {
       return {selected: props.venues[0]._id}
     } 
     return null
