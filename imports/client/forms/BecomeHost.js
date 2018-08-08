@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withTracker } from 'meteor/react-meteor-data';
 
+import Button from '@material-ui/core/Button';
 import AddVenueForm from './AddVenueForm';
 import AddEventModal from './AddEventModal';
 
@@ -28,7 +29,7 @@ class BecomeHostComponent extends Component {
           </div>
         ) : (
             <div className='host-button'>
-              <button className="btn btn-info btn-lg" onClick={loginAlert}>Become a Host</button>
+              <Button className="btn btn-info btn-lg" onClick={loginAlert}>Become a Host</Button>
             </div>
           )}
       </div>

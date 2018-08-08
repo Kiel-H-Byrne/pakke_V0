@@ -36,12 +36,14 @@ class EventListComponent extends Component {
 
 
 export default EventList = withTracker(() => {
-  let eventsSub = Meteor.subscribe('events_current');
+  let eventsSub = Meteor.subscribe('events_current') && Meteor.subscribe('events_public');
 
   return {
     ready: eventsSub.ready(),
     events: Events.find({
-      "featured": false
+      $or: [
+      {"featured": false},
+      {"isPrivate": false}]
     }, {
       sort: { date: 1 }
     }).fetch()

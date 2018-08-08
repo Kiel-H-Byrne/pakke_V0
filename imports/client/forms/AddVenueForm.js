@@ -44,7 +44,7 @@ class AddVenueForm extends Component {
     const { classes } = this.props;
 
     const model = Schema.Venue.clean({});
-    console.log(model);
+    // console.log(model);
     //ALLOWS FOR DEFAULT VALUES TO GET PULLED INTO FORM VALUES FOR VALIDATION/SUBMISSION. 
     //WITHOUT THIS, AUTOVALUES/DEFAULTVALUES ARE EMPTY WHEN FORM IS SUBMITTED!!!
     return (

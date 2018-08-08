@@ -84,9 +84,11 @@ class VenuesFormComponent extends Component {
   //   }
   // }
   static getDerivedStateFromProps(props, state) {
-    if (props.venues && props.venues[0] && state.selected !== props.venues[0]._id) {
+    // console.log(props)
+    if (props.venues && props.venues.length) {
+      if (state.selected !== props.venues[0]._id) {
       return {selected: props.venues[0]._id}
-    } 
+    } }
     return null
   }
   

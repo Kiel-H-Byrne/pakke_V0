@@ -297,17 +297,18 @@ const eventPurchasedTemplate = (user,event) => {
                   <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <p>Hi there ${userName}!</p>
-                        <p>Thanks for registering for "<em>${event.byline}</em>". We are excited to explore this unique experience with you. </p>
-                        <p> Please revisit the Event Details page for more information. </p>
+                        <p>Hi there ${user.username}!</p>
+                        <p>Thanks for registering for "<em>${event.byline}</em>". We are excited to explore this unique experience with you.</p>
+Looking forward to seeing you. Please revisit the Event Details page for more information.</p>             
+                        </p>
                         <table border="0" cellpadding="0" cellspacing="0" >
                           <tbody>
                             <tr>
-                              <td align="">
-                                <table border="0" cellpadding="0" cellspacing="0" >
-                                  <tbody >
+                              <td align="left">
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                  <tbody>
                                     <tr>
-                                      <td > <a href="https://www.pakke.us/event/${event._id}" target="_blank" class="btn btn-primary">View Event Details</a> </td>
+                                      <td> <a href="https://www.pakke.us/event/${event._id}" target="_blank">View Event Details</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -315,7 +316,7 @@ const eventPurchasedTemplate = (user,event) => {
                             </tr>
                           </tbody>
                         </table>
-                  <br />
+                        <br />
                         <p>Vew more events at <a href="https://www.pakke.us/event/${event._id}" target="_blank" >PAKKE.us.</a></p>
                         <p>See you soon!.</p>
                         <p><strong>Gracias!</strong><br/>Amy, Emmett, Kiel and Zach</p>

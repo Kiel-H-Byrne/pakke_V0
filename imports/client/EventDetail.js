@@ -65,7 +65,7 @@ class EventDetailsComponent extends Component {
       if (nextProps.event.venueId) {
         // venue = eventHost.profile.venues.filter((v) => (v.venueId === nextProps.event.venueId))
         venue = Venues.find({ events: { $in: [nextProps.event._id] } }).fetch();
-        console.log(venue)
+        // console.log(venue)
       }
       return {
         eventHost: eventHost,
@@ -106,6 +106,7 @@ class EventDetailsComponent extends Component {
     const isExpired = (this.props.event.date - Date.now() < 1)
     
     return (
+
       <div>
         <Helmet>
           <title>PAKKE Event: {this.props.event.byline}</title>
@@ -120,7 +121,6 @@ class EventDetailsComponent extends Component {
           <meta property="og:image:alt" content={this.props.event.byline} />
           <meta property="og:url" content={`https://www.pakke.us/event/${this.props.event._id}`} />
           <meta property="og:description" content={this.props.event.description}/>
-
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={this.props.event.byline} />
           <meta name="twitter:description" content={this.props.event.description} />
