@@ -57,9 +57,10 @@ const apiCall = function (apiUrl, callback) {
 };
 
 Meteor.methods({
-  s3Upload: function(module, fileName, fileType, dataurl) {
+  s3Upload: function(filePath, fileType, dataurl) {
     
-    let path = `api/${module}/${fileName}`
+    // let path = `api/${module}/${fileName}`
+    const path = filePath
     console.log("UPLOADING IMAGE:")
     const s3Conf = Meteor.settings.public.keys.s3;
     const s3 = new S3({
@@ -81,7 +82,6 @@ Meteor.methods({
             console.error(error);
           } else {
             console.log("... SUCCESS")
-            return `https://s3.amazonaws.com/${s3Conf.bucket}/${path}`
           }
     });
     return 

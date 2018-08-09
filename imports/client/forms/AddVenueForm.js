@@ -5,13 +5,14 @@ import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 import AutoField  from 'uniforms-material/AutoField';
-import HiddenField from 'uniforms-material/HiddenField'; 
+import HiddenField from 'uniforms-material/HiddenField';
 import LongTextField from 'uniforms-material/LongTextField'; // Choose your theme package.
 import InputLabel from '@material-ui/core/InputLabel';
 
 import { BarLoader } from 'react-spinners';
 import TinyInput from './TinyInput.js'
 import ImagesUpload from './ImagesUpload.js'; 
+import FileUpload from './FileUpload.js';
 
 import '../../startup/collections/schemas';
 
@@ -58,14 +59,13 @@ class AddVenueForm extends Component {
       onSubmitFailure={this.handleFailure} 
       >
       <HiddenField name="hostId" />
-        <AutoField name="nickname" margin="dense" />
+        <AutoField name="nickname" margin="dense"/>
         <LongTextField name="description"/>
           <AutoField name="ownedStatus" margin="dense" />
           <AutoField name="venueType" margin="dense" />
           <AutoField name="capacity" margin="dense" />
           <AutoField name="address" margin="dense" />
-          
-          <ImagesUpload name="image" />
+          <FileUpload name="image" module="venues" />
                 
         <SubmitField>Submit</SubmitField>
         <ErrorsField />

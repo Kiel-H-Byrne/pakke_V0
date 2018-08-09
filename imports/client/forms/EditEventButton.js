@@ -14,7 +14,7 @@ import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 import InputLabel from '@material-ui/core/InputLabel';
 
-import EventImagesUpload from './EventImagesUpload.js'; 
+import FileUpload from './FileUpload.js';
 import VenuesForm from './VenuesForm';
 import TinyInput from './TinyInput.js'
 
@@ -103,7 +103,7 @@ const styles = theme => ({
             <AutoField name="price" margin="dense" />
             <AutoField name="contact" margin="dense" />
             <VenuesForm />       
-            <EventImagesUpload name="image" fileUrl={model.image} />
+            <FileUpload name="image" module="events"/>
             <HiddenField name="checkedPolicy" value="true" margin="dense" />
 
             <SubmitField value="Submit" />

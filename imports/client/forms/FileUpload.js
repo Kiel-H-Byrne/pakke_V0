@@ -1,12 +1,13 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { _ } from 'underscore';
-import axios from 'axios';
 import S3 from 'aws-sdk/clients/s3';
-import ReactS3Uploader from 'react-s3-uploader';
 
+
+import HiddenField from 'uniforms-material/HiddenField';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
@@ -21,7 +22,7 @@ import Button from '@material-ui/core/Button';
 
 import { BarLoader } from 'react-spinners';
 // import VenueImages from '/imports/startup/collections/VenueImages.js';
-import IndividualFile from '/imports/client/forms/FileDetails.js';
+import FileDetails from '/imports/client/forms/FileDetails.js';
 
 
 export default class FileUpload extends Component {
@@ -84,7 +85,8 @@ export default class FileUpload extends Component {
     //SEND TO S3
     event.preventDefault();
     const file = event.target.files[0];
-    this.setState({selectedFile: file});
+    this.setState({'selectedFile': file});
+    console.log(file);
     let reader = new FileReader();
     reader.onload = evt => {
       //result is the DataURL (base64 string)
@@ -92,7 +94,13 @@ export default class FileUpload extends Component {
       // console.log(evt.target.result)
       let dataurl = evt.target.result;
       this.setState({'fileData': dataurl});
-      // Meteor.call('s3Upload', "events", file.name, file.type, dataurl);
+      //upload to s3 and get url for the form's value
+      // const s3path = `https://s3.amazonaws.com/${Meteor.settings.public.keys.s3.bucket}/api/${this.props.module}/${Random.id(6)}${file.name}`
+      const key = `${Meteor.userId()}/${this.props.module}/${Random.id(6)}${file.name}`
+      const s3path = `https://s3.amazonaws.com/${Meteor.settings.public.keys.s3.bucket}/${key}`
+      
+      this.setState({'s3path': encodeURI(s3path)})
+      Meteor.call('s3Upload', key, file.type, dataurl);
     }
     // reader.readAsBinaryString(file);
     reader.readAsDataURL(file)
@@ -120,16 +128,18 @@ export default class FileUpload extends Component {
     }
   } 
   preview = () => {
-    if (this.state.selectedFile) {
+    if (this.state.fileData) {
+      const datauri  = this.state.fileData
       const aFile = this.state.selectedFile;
       const aFileData = this.state.fileData;
       return (
-        <IndividualFile
+        <FileDetails
         fileName={aFile.name}
-        fileUrl={aFileData}
+        fileUrl={datauri}
         fileSize={aFile.size}
         fileExt={aFile.extension}
-        /> )
+        /> 
+        )
         }
     }
 
@@ -182,36 +192,11 @@ export default class FileUpload extends Component {
       //     />
       //   </div>
       // })
-
-
-
       return (
       <Grid container direction="column">
         <Grid item xs={12}>
-            <input type="file" id="fileinput" size="large" color="secondary"  disabled={this.state.inProgress} ref="fileinput" onChange={this.putIt} accept="image/*"/>
-            {/*
-            <Button onClick={this.uploadHandler}>Upload!</Button> 
-            */}
-            {/*
-            <ReactS3Uploader
-            getSignedUrl={this.generateSignedUrl}
-            accept="image/*"
-            // preprocess={this.onUploadStart}
-            // onSignedUrl={this.onSignedUrl}
-            // onProgress={this.showProgress}
-            // onError={this.onUploadError}
-            // onFinish={this.onUploadFinish}
-            // signingUrlHeaders={{ additional: headers }}
-            // signingUrlQueryParams={{ additional: query-params }}
-            // signingUrlWithCredentials={ true }      // in case when need to pass authentication credentials via CORS
-            uploadRequestHeaders={{ 'x-amz-acl': 'public-read' }}  // this is the default
-            contentDisposition="auto"
-            scrubFilename={(filename) => filename.replace(/[^\w\d_\-.]+/ig, '')}
-            // server="http://cross-origin-server.com"
-            // inputRef={cmp => this.uploadInput = cmp}
-            autoUpload={true}
-          />
-*/}
+          <HiddenField name={this.props.name} value={this.state.s3path ? this.state.s3path : ''} />
+          <input type="file" id="fileinput" size="large" color="secondary"  disabled={this.state.inProgress} ref="fileinput" onChange={this.putIt} accept="image/*"/>
         </Grid>
 
         <Grid item xs={12} className="">

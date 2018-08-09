@@ -13,7 +13,6 @@ import EditAvatarButton from '../header/EditAvatarButton.js'
 import VenuesForm from '../forms/VenuesForm';
 
 import TinyInput from '../forms/TinyInput.js'
-import AxiosUpload from './axiosUpload.js'
 
 class PageTest extends Component {
   constructor(props) {

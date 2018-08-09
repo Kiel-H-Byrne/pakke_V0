@@ -16,8 +16,7 @@ import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
 
-import UploadField from './UploadField.js';
-import EventImagesUpload from './EventImagesUpload.js'; 
+import FileUpload from './FileUpload.js';
 import VenuesForm from './VenuesForm';
 import AddVenueForm from './AddVenueForm.js'
 import TinyInput from './TinyInput.js'
@@ -83,8 +82,13 @@ class AddEventForm extends Component {
             onSubmitFailure={this.handleFailure} 
             className="tinyForm"
             id="addeventForm"
-            >
+            >   
+                <h3>Step 1. - Locate It</h3>
+                <p>Add a Place for your PAKKE, and use it later!</p>
                 <VenuesForm form="addeventForm"/>
+                <hr width="66%"/>
+                <h3>Step 2. - Describe It</h3>
+                <p>Let guests know what this experience is about!</p>
                 <AutoField name="byline" />
                 <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
                 <TinyInput name="description"/>
@@ -92,6 +96,8 @@ class AddEventForm extends Component {
                 <AutoField name="duration"  />
                 <AutoField name="size" />
                 <AutoField name="price" />
+                <hr width="66%"/>
+
                 <AutoField name="isPrivate" />
                 <AutoField name="contact" />
                 
@@ -101,7 +107,8 @@ class AddEventForm extends Component {
                     label="Contact Number"
 
                 /> */}
-                <EventImagesUpload name="image" />
+                <p>Upload a picture to use for the cover!</p>
+                <FileUpload name="image" module="events"/>
                 <AutoField name="checkedPolicy" />
                 <Typography 
                 component={Link}

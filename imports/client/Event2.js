@@ -131,6 +131,7 @@ export default class Event extends Component {
 
                             <CardContent>
                                 <Typography gutterBottom variant="headline" component="h2">{this.props.event.byline}</Typography>
+                                <Typography gutterBottom variant="caption" noWrap={true} dangerouslySetInnerHTML={{__html: this.props.event.description}} />
                                 
                                 {/*
                                 <Typography variant="headline" component="h3">{this.props.event.eventAddress.state}, {this.props.event.eventAddress.zip} </Typography>

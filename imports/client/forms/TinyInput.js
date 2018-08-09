@@ -27,13 +27,21 @@ class TinyInput extends Component {
           apiKey={Meteor.settings.public.keys.tinymce.key}
           init={{
             selector: "#tiny-description",
-            plugins: 'link, lists, textpattern, emoticons, paste',
-            toolbar: 'undo redo paste | styleselect fontselect bold italic | bullist numlist | link emoticons  ',
+            plugins: 'link, lists, textpattern, emoticons, paste, image',
+            toolbar: 'undo redo paste | styleselect fontselect bold italic | bullist numlist | link image emoticons  ',
             fontsize_formats: "10pt 12pt 14pt 18pt",
             resize:false,
             menubar: false,
             branding: false,
-            id: "tiny-description"
+            id: "tiny-description",
+            images_upload_handler:  function (blobInfo, success, failure) {
+              console.log(blobInfo)
+              if (failure) {
+                console.log(failure())
+              } else {
+                console.log(blobInfo)
+              }
+            }
           }}
           onEditorChange={this.handleEditorChange}
           value={this.state.content}
