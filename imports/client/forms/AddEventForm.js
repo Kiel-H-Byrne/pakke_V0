@@ -12,16 +12,19 @@ import SubmitField from 'uniforms-material/SubmitField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 import HiddenField from 'uniforms-material/HiddenField'; 
 import LongTextField from 'uniforms-material/LongTextField'; // Choose your theme package.
+
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
 
+import '../../startup/collections/schemas';
+import eventCreatedAdminTemplate from '../email/eventCreatedAdminTemplate';
 import FileUpload from './FileUpload.js';
 import VenuesForm from './VenuesForm';
 import AddVenueForm from './AddVenueForm.js'
 import TinyInput from './TinyInput.js'
-import eventCreatedAdminTemplate from '../email/eventCreatedAdminTemplate';
-import '../../startup/collections/schemas';
+
 
 // This will render an automatic, validated form, with labelled fields, inline
 // validation and a submit button. If model will be present, form will be filled
@@ -74,53 +77,62 @@ class AddEventForm extends Component {
         // console.log(model)
     
         return (
-            <AutoForm  
-            schema={Schema.Event} 
-            model={model} 
-            onSubmit={this.handleSubmit} 
-            onSubmitSuccess={this.handleSuccess} 
-            onSubmitFailure={this.handleFailure} 
-            className="tinyForm"
-            id="addeventForm"
-            >   
-                <h3>Step 1. - Locate It</h3>
-                <p>Add a Place for your PAKKE, and use it later!</p>
-                <VenuesForm form="addeventForm"/>
-                <hr width="66%"/>
-                <h3>Step 2. - Describe It</h3>
-                <p>Let guests know what this experience is about!</p>
-                <AutoField name="byline" />
-                <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
-                <TinyInput name="description"/>
-                <DateField name="date"  />
-                <AutoField name="duration"  />
-                <AutoField name="size" />
-                <AutoField name="price" />
-                <hr width="66%"/>
+            <Grid container alignItems="center" direction="column" >
+                <Grid item >
+                    <AutoForm  
+                    schema={Schema.Event} 
+                    model={model} 
+                    onSubmit={this.handleSubmit} 
+                    onSubmitSuccess={this.handleSuccess} 
+                    onSubmitFailure={this.handleFailure} 
+                    className="tinyForm"
+                    id="addeventForm"
+                    >   
+                        <div style="{backgroundColor:rgba(240,240,240,.4)"}>
+                        <Typography variant="display1" align="center">Step 1. - Locate It</Typography>
+                        <VenuesForm form="addeventForm"/>
+                        </div>
+                        <hr width="66%"/>
+                        <div style="{backgroundColor:rgba(240,210,143,.4)"}>
+                        <Typography variant="display1" align="center">Step 2. - Describe It</Typography>
+                        <Typography variant="subheading" align="center">Let guests know what this experience is about!</Typography>
+                        <AutoField name="byline" />
+                        <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
+                        <TinyInput name="description"/>
+                        <DateField name="date"  />
+                        <AutoField name="duration"  />
+                        <AutoField name="size" />
+                        <AutoField name="price" />
+                        <InputLabel shrunk={true}>Upload a picture to use for the cover!</InputLabel>
+                        <FileUpload name="image" module="events"/>
+                        </div>
+                        <hr width="66%"/>
+                        <div style="{backgroundColor:rgba(150,110,140,0.4)"}>
+                        <Typography variant="display1" align="center">Step 3. - Create It</Typography>
+                        <AutoField name="isPrivate" />
+                        <AutoField name="contact" />
+                        
+                        {/* <MaskedInput 
+                            mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                            name="contact"
+                            label="Contact Number"
 
-                <AutoField name="isPrivate" />
-                <AutoField name="contact" />
-                
-                {/* <MaskedInput 
-                    mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-                    name="contact"
-                    label="Contact Number"
-
-                /> */}
-                <p>Upload a picture to use for the cover!</p>
-                <FileUpload name="image" module="events"/>
-                <AutoField name="checkedPolicy" />
-                <Typography 
-                component={Link}
-                to="/terms"
-                variant="caption"
-                align="right"
-                >Peruse the PAKKE Privacy Policy
-                </Typography>
-                <HiddenField name="hostId" />                
-                <SubmitField>Submit</SubmitField>
-                <ErrorsField />
-            </AutoForm>
+                        /> */}
+                        <AutoField name="checkedPolicy" />
+                        <Typography 
+                        component={Link}
+                        to="/terms"
+                        variant="caption"
+                        align="right"
+                        >Peruse the PAKKE Privacy Policy
+                        </Typography>
+                        <HiddenField name="hostId" />                
+                        </div>
+                        <SubmitField>Submit</SubmitField>
+                        <ErrorsField />
+                    </AutoForm>
+                </Grid>
+            </Grid>
         );
     }
 }

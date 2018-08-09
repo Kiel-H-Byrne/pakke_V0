@@ -15,6 +15,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -112,9 +113,9 @@ class VenuesFormComponent extends Component {
             <>
       <AutoField name="venueId" value={this.state.selected} type="hidden" style={styles.hidden} label={false}/>
     	<div className="venuesList" >
-        <Typography align="center" variant="display1">Your Places:</Typography>
         { (this.props.venues && this.props.venues.length) ? (
           <div style={styles.flexRow}>
+              <Typography variant="subheading" align="center">Select a Place for your PAKKE. </Typography>
     		      {this.props.venues.map((venue) => {
                 return (
                   <Card style={styles.card} key={venue._id}>
@@ -146,7 +147,7 @@ class VenuesFormComponent extends Component {
           </div>
           ) : (
           <div>
-            <Typography variant="title">Add A Place:</Typography>
+            <Typography variant="subheading" align="center">Add a new place and use it later!</Typography>
             <AddVenueModal />
           </div>
           )

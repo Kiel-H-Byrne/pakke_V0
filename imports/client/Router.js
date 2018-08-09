@@ -14,11 +14,16 @@ import EventDetails from './EventDetail';
 import PageProfile from './PageProfile';
 import PageError from './PageError';
 import PageTerms from './PageTerms';
+import PageEventMap from './PageEventMap';
+
 import BecomeHost from './forms/BecomeHost';
 import BecomeTalent from './forms/BecomeTalent';
-import PageEventMap from './PageEventMap';
-import NomadicoDetails from './events/Nomadico';
-import ZarahnaDetails from './events/Zarahna'
+import AddEventForm from './forms/AddEventForm.js'
+import AddTalentForm from './forms/AddTalentForm.js'
+import AddVenueForm from './forms/AddVenueForm.js'
+
+
+
 
 // import PageEventMap from './pageEventMap/PageEventMap';
 // import PageSignUp from './PageSignUp';
@@ -33,6 +38,7 @@ import PageTest from './old-test/PageTest'
 class Router extends Component {
     render() {
         return (
+            <>
         <Switch>
             <Route exact path='/' component={PageHome} />
             <Route path='/howitworks' component={HowItWorks} />
@@ -44,20 +50,13 @@ class Router extends Component {
             <Route path='/host' component={BecomeHost} />
             <Route path='/talent' component={BecomeTalent} />
             <Route path='/terms' component={PageTerms} />
-            
-            { Meteor.isDevelopment ? (
-                <>
-                <Route path='/test' component={PageTest} />
-                <Route path='/admin' component={Accounts.ui.LoginForm} />
-                </>
-            ) : ('')
-            }
-            <Route component={PageError} />
-
-            {/* <Route path='/login' component={PageLogin} /> */}
-            {/* <Route path='/signup' comFponent={PageSignUp} /> */}
-
+            <Route path='/addevent' component={AddEventForm} />
+            <Route path='/addvenue' component={AddVenueForm} />
+            <Route path='/addtalent' component={AddTalentForm} />
+            <Route path='/test' component={PageTest} />
+            <Route component={PageError} />  
         </Switch>
+            </>
 )
 }};
 

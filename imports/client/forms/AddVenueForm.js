@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import { BarLoader } from 'react-spinners';
+
 import { withStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import Grid from '@material-ui/core/Grid';
+
 import AutoForm    from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
@@ -7,14 +12,11 @@ import ErrorsField from 'uniforms-material/ErrorsField';
 import AutoField  from 'uniforms-material/AutoField';
 import HiddenField from 'uniforms-material/HiddenField';
 import LongTextField from 'uniforms-material/LongTextField'; // Choose your theme package.
-import InputLabel from '@material-ui/core/InputLabel';
 
-import { BarLoader } from 'react-spinners';
+import '../../startup/collections/schemas';
 import TinyInput from './TinyInput.js'
 import ImagesUpload from './ImagesUpload.js'; 
 import FileUpload from './FileUpload.js';
-
-import '../../startup/collections/schemas';
 
 const styles = theme => ({
 
@@ -51,25 +53,29 @@ class AddVenueForm extends Component {
     return (
         // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}
         // onSubmitFailure={() => console.log('Promise rejected!')}/>
-      <AutoForm  
-      schema={Schema.Venue} 
-      onSubmit={this.handleSubmit} 
-      model={model}
-      onSubmitSuccess={this.handleSuccess} 
-      onSubmitFailure={this.handleFailure} 
-      >
-      <HiddenField name="hostId" />
-        <AutoField name="nickname" margin="dense"/>
-        <LongTextField name="description"/>
-          <AutoField name="ownedStatus" margin="dense" />
-          <AutoField name="venueType" margin="dense" />
-          <AutoField name="capacity" margin="dense" />
-          <AutoField name="address" margin="dense" />
-          <FileUpload name="image" module="venues" />
-                
-        <SubmitField>Submit</SubmitField>
-        <ErrorsField />
-      </AutoForm>
+      <Grid container alignItems="center" direction="column" >
+        <Grid item >
+          <AutoForm  
+          schema={Schema.Venue} 
+          onSubmit={this.handleSubmit} 
+          model={model}
+          onSubmitSuccess={this.handleSuccess} 
+          onSubmitFailure={this.handleFailure} 
+          >
+          <HiddenField name="hostId" />
+            <AutoField name="nickname" margin="dense"/>
+            <LongTextField name="description"/>
+              <AutoField name="ownedStatus" margin="dense" />
+              <AutoField name="venueType" margin="dense" />
+              <AutoField name="capacity" margin="dense" />
+              <AutoField name="address" margin="dense" />
+              <FileUpload name="image" module="venues" />
+                    
+            <SubmitField>Submit</SubmitField>
+            <ErrorsField />
+          </AutoForm>
+        </Grid>
+      </Grid>
     );
 
   }
