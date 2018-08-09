@@ -88,12 +88,12 @@ class AddEventForm extends Component {
                     className="tinyForm"
                     id="addeventForm"
                     >   
-                        <div style="{backgroundColor:rgba(240,240,240,.4)"}>
+                        <div style={{backgroundColor: 'rgba(240,240,240,.4)'}}>
                         <Typography variant="display1" align="center">Step 1. - Locate It</Typography>
                         <VenuesForm form="addeventForm"/>
                         </div>
-                        <hr width="66%"/>
-                        <div style="{backgroundColor:rgba(240,210,143,.4)"}>
+                        <hr width="80%"/>
+                        <div style={{backgroundColor: 'rgba(240,210,143,.4)'}}>
                         <Typography variant="display1" align="center">Step 2. - Describe It</Typography>
                         <Typography variant="subheading" align="center">Let guests know what this experience is about!</Typography>
                         <AutoField name="byline" />
@@ -103,11 +103,11 @@ class AddEventForm extends Component {
                         <AutoField name="duration"  />
                         <AutoField name="size" />
                         <AutoField name="price" />
-                        <InputLabel shrunk={true}>Upload a picture to use for the cover!</InputLabel>
+                        <InputLabel shrink={true}>Upload a picture to use for the cover!</InputLabel>
                         <FileUpload name="image" module="events"/>
                         </div>
-                        <hr width="66%"/>
-                        <div style="{backgroundColor:rgba(150,110,140,0.4)"}>
+                        <hr width="80%"/>
+                        <div style={{backgroundColor: 'rgba(150,110,140,0.4)'}}>
                         <Typography variant="display1" align="center">Step 3. - Create It</Typography>
                         <AutoField name="isPrivate" />
                         <AutoField name="contact" />
