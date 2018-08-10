@@ -40,69 +40,33 @@ export default class FileUpload extends Component {
     this.putIt = this.putIt.bind(this);
   }
 
-  generateSignedUrl = event => {
-    // console.log(event);
-    const file = event.currentTarget.files[0];
-    this.setState({selectedFile: file});
-    const s3Conf = Meteor.settings.public.keys.s3;
-  
-    const s3 = new S3({
-      accessKeyId: s3Conf.key,
-      secretAccessKey: s3Conf.secret
-    });
-
-    // let path = `avatars/${fileRef.meta.userId}/${fileRef._id}.${fileRef.extension}`;
-    // let path = `${module}/${fileRef._id}.${fileRef.extension}`;
-    let path = `api/uploads/${file.name}`
-
-    let params = {
-      ServerSideEncryption: 'AES256', // Optional
-      // StorageClass: 'STANDARD',
-      Bucket: s3Conf.bucket,
-      Key: path,
-      Expires: 3600,
-      ACL: 'bucket-owner-full-control',
-      // ACL: 'public-read',
-      ContentType: file.type,
-    }
-
-    // console.log(params)
-    s3.getSignedUrl('putObject', params, (err, url) => {
-      if (err) {
-        console.log('Error getting presigned', err)
-      } else {
-        console.log('The URL is', url);
-        this.setState({endPoint: url})
-        // return url;
-      }
-    });
-  }
-
   putIt = event => {
-    //GET INPUT FILE
-    //CONVERT TO BASE64
-    //CONVERT TO BUFFER
-    //SEND TO S3
     event.preventDefault();
+    //GET INPUT FILE
     const file = event.target.files[0];
     this.setState({'selectedFile': file});
-    console.log(file);
+    // console.log(file);
+    
+    //USE FILEREADER TO GET RAW IMG SRC FOR PREVIEW
     let reader = new FileReader();
     reader.onload = evt => {
-      //result is the DataURL (base64 string)
-      //split the string into file name and raw string: 
       // console.log(evt.target.result)
+      //result is the DataURL (base64 string)
       let dataurl = evt.target.result;
+      //SET TO STATE FOR USE AS PREVIEW IMAGE SOURCE
       this.setState({'fileData': dataurl});
-      //upload to s3 and get url for the form's value
+      //upload to s3 and get url for the form's value;
       // const s3path = `https://s3.amazonaws.com/${Meteor.settings.public.keys.s3.bucket}/api/${this.props.module}/${Random.id(6)}${file.name}`
       const key = `${Meteor.userId()}/${this.props.module}/${Random.id(6)}${file.name}`
       const s3path = `https://s3.amazonaws.com/${Meteor.settings.public.keys.s3.bucket}/${key}`
-      
+      //SET FINAL IMG URL TO STATE TO USE IN FORM HIDDEN FIELD
       this.setState({'s3path': encodeURI(s3path)})
+      //UPLOAD TO S3
       Meteor.call('s3Upload', key, file.type, dataurl);
     }
-    // reader.readAsBinaryString(file);
+    
+
+    //CALL FILEREADER EVENT
     reader.readAsDataURL(file)
 
   }
@@ -127,6 +91,7 @@ export default class FileUpload extends Component {
       </div>
     }
   } 
+
   preview = () => {
     if (this.state.fileData) {
       const datauri  = this.state.fileData
@@ -138,60 +103,25 @@ export default class FileUpload extends Component {
         fileUrl={datauri}
         fileSize={aFile.size}
         fileExt={aFile.extension}
+        s3path={this.state.s3path}
+        clearFile={() => this.setState({fileData: ''})}
         /> 
         )
-        }
+      }
     }
 
   render() {
     if (this.props.loading) {
-
       return (
-          <BarLoader 
-              loading={this.props.loading} 
-              color='#2964ff'
-              width={-1}
-              height={10}
-            />
+        <BarLoader 
+            loading={this.props.loading} 
+            color='#2964ff'
+            width={-1}
+            height={10}
+          />
       )
     }
-     
-      // let preview = () => {   
-       
-      //  let preview = document.querySelector('#prevImg');
-      //  const file = this.state.selectedFile
-      //  const reader = new FileReader();
-        
-      //  reader.addEventListener("load", () => {
-      //    preview.src=reader.result;
-      //  }, false)
-        
-      //  if (file) {
-      //     console.log("got file")
-      //    reader.readAsDataURL(file)
-      //    return <img id="prevImg" src="" alt=""/>
-      //   }
 
-      // }
-
-      // Run through each file that the user has stored
-      // (make sure the subscription only sends files owned by this user)
-      
-      // let preview = fileCursors.map((aFile, key) => {
-      //   // console.log('A file: ', aFile)
-      //   let link = Avatars.findOne({_id: aFile._id}).link();  //The "view/download" link
-      //   // console.log(link);
-      //   // Send out components that show details of each file
-      //   return <div key={'file' + key}>
-      //     <IndividualFile
-      //       fileName={aFile.name}
-      //       fileUrl={link}
-      //       fileId={aFile._id}
-      //       fileSize={aFile.size}
-      //       fileExt={aFile.extension}
-      //     />
-      //   </div>
-      // })
       return (
       <Grid container direction="column">
         <Grid item xs={12}>

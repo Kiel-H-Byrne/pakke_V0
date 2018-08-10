@@ -58,33 +58,54 @@ const apiCall = function (apiUrl, callback) {
 
 Meteor.methods({
   s3Upload: function(filePath, fileType, dataurl) {
-    
-    // let path = `api/${module}/${fileName}`
-    const path = filePath
-    console.log("UPLOADING IMAGE:")
+    console.log("UPLOADING IMAGE...")
     const s3Conf = Meteor.settings.public.keys.s3;
     const s3 = new S3({
       accessKeyId: s3Conf.key,
       secretAccessKey: s3Conf.secret
     });
+    //CONVERT RAW IMAGE 64STRING TO BUFFER 
     const buffer = Buffer.from(dataurl.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+    const params = {
+      ServerSideEncryption: 'AES256',
+      StorageClass: 'STANDARD',
+      Bucket: s3Conf.bucket,
+      Key: filePath,
+      Body: buffer,
+      ContentType: fileType,
+      ACL: "public-read"
+    };
 
-    s3.putObject({
-          ServerSideEncryption: 'AES256', // Optional
-          StorageClass: 'STANDARD',
-          Bucket: s3Conf.bucket,
-          Key: path,
-          Body: buffer,
-          ContentType: fileType,
-          ACL: "public-read"
-    }, (error) => {
-          if (error) {
-            console.error(error);
-          } else {
-            console.log("... SUCCESS")
-          }
+    s3.putObject(params, (err, data) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log("...SUCCESS")
+        console.log(data);
+      }
     });
     return 
+  },
+  s3Remove: function(filePath) {
+    console.log("DELETING IMAGE...")
+    const s3Conf = Meteor.settings.public.keys.s3;
+    const s3 = new S3({
+      accessKeyId: s3Conf.key,
+      secretAccessKey: s3Conf.secret
+    });
+    const params = {
+      Bucket: s3Conf.bucket,
+      Key: filePath
+    };
+
+    s3.deleteObject(params, (err, data) => {
+      if (err) {
+        console.log(err, err)
+      } else {
+        console.log("...SUCCESS")
+        console.log(data);
+      }
+    });
   },
   addRole: function (id, role) {
     // check(id, Meteor.Collection.ObjectID);

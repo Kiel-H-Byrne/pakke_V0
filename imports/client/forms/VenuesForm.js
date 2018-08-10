@@ -110,50 +110,52 @@ class VenuesFormComponent extends Component {
     }
 
   	return (
-            <>
-      <AutoField name="venueId" value={this.state.selected} type="hidden" style={styles.hidden} label={false}/>
-    	<div className="venuesList" >
-        { (this.props.venues && this.props.venues.length) ? (
-          <div style={styles.flexRow}>
+      <React.Fragment>
+        <AutoField name="venueId" value={this.state.selected} type="hidden" style={styles.hidden} label={false}/>
+      	<div className="venuesList" >
+          { (this.props.venues && this.props.venues.length) ? (
+            <React.Fragment>
               <Typography variant="subheading" align="center">Select a Place for your PAKKE. </Typography>
-    		      {this.props.venues.map((venue) => {
-                return (
-                  <Card style={styles.card} key={venue._id}>
-                    <CardMedia style={styles.media} image={venue.image ? venue.image : `/img/holders/holder_venue_200.png` }>
-                      {/* <EditVenueButton /> */}
-                    </CardMedia> 
-                    <CardContent style={styles.content}>
-                      <Typography gutterBottom variant="subheading">
-                        {venue.nickname}
-                      </Typography>
-                      <Typography component="p" variant="caption">{venue.address.street}, {venue.address.zip}</Typography>
-                      <Radio 
-                      style={styles.radio}
-                      checked={this.state.selected === venue._id} 
-                      onChange={this.handleChange}
-                      value={venue._id}
-                      name="venueId"
-                      id={`vri_${venue._id}`}
-                      form=""
-                      aria-label={venue.nickname}
-                      />
-                    </CardContent>
-                  </Card>
-                  )
+              <div style={styles.flexRow}>
+        		      {this.props.venues.map((venue) => {
+                    return (
+                      <Card style={styles.card} key={venue._id}>
+                        <CardMedia style={styles.media} image={venue.image ? venue.image : `/img/holders/holder_venue_200.png` }>
+                          {/* <EditVenueButton /> */}
+                        </CardMedia> 
+                        <CardContent style={styles.content}>
+                          <Typography gutterBottom variant="subheading">
+                            {venue.nickname}
+                          </Typography>
+                          <Typography component="p" variant="caption">{venue.address.street}, {venue.address.zip}</Typography>
+                          <Typography component="p" variant="caption">{venue.type}: holds {venue.capacity}</Typography>
+                          <Radio 
+                          style={styles.radio}
+                          checked={this.state.selected === venue._id} 
+                          onChange={this.handleChange}
+                          value={venue._id}
+                          name="venueId"
+                          id={`vri_${venue._id}`}
+                          aria-label={venue.nickname}
+                          />
+                        </CardContent>
+                      </Card>
+                      )
+                    }
+                  )          
                 }
-              )          
-            }
-            <AddVenueModal />
-          </div>
-          ) : (
-          <div>
-            <Typography variant="subheading" align="center">Add a new place and use it later!</Typography>
-            <AddVenueModal />
-          </div>
-          )
-        }
-      </div>
-      </>
+                <AddVenueModal />
+              </div>
+            </React.Fragment>
+            ) : (
+            <div>
+              <Typography variant="subheading" align="center">Add a new place and use it later!</Typography>
+              <AddVenueModal />
+            </div>
+            )
+          }
+        </div>
+      </React.Fragment>
     )
   }
 }

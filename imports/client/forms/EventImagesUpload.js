@@ -145,7 +145,7 @@ class EventImagesUploadComponent extends Component {
     })
 
     return (
-      <>
+      <React.Fragment>
         <HiddenField
         id="eventImageInputUrl"  
         name={this.props.name}
@@ -163,7 +163,7 @@ class EventImagesUploadComponent extends Component {
               <img src={this.state.fileUrl} width="300px" />
           </Grid>
         </Grid>
-      </>
+      </React.Fragment>
     )
   }
 }

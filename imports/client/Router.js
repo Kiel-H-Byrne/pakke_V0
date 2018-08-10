@@ -38,7 +38,7 @@ import PageTest from './old-test/PageTest'
 class Router extends Component {
     render() {
         return (
-            <>
+            <React.Fragment>
         <Switch>
             <Route exact path='/' component={PageHome} />
             <Route path='/howitworks' component={HowItWorks} />
@@ -56,7 +56,7 @@ class Router extends Component {
             <Route path='/test' component={PageTest} />
             <Route component={PageError} />  
         </Switch>
-            </>
+            </React.Fragment>
 )
 }};
 

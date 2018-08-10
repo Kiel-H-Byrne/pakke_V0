@@ -124,7 +124,7 @@ Schema.Venue = new SimpleSchema({
     unique: true,
     label: "Where is this place?"
   },
-  venueType: { 
+  type: { 
     type: String,
     label: 'Type:',
     allowedValues: ["Retail Space", "Apartment", "Condo", "Town Home", "Detached Home", "Office", "Other"],

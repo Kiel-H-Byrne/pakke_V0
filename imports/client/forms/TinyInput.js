@@ -18,7 +18,7 @@ class TinyInput extends Component {
   
   render() {
     return (
-      <>
+      <React.Fragment>
         <HiddenField
         id="tiny-description"  
         name={this.props.name} style={{height: 164}}
@@ -46,7 +46,7 @@ class TinyInput extends Component {
           onEditorChange={this.handleEditorChange}
           value={this.state.content}
         />
-      </>
+      </React.Fragment>
     )
   }
 };

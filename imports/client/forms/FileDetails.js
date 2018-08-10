@@ -35,14 +35,11 @@ class FileDetails extends Component {
     fileExt: PropTypes.string
   }
 
-  replaceFile() {
+  replaceFile = () => {
     let conf = confirm('Are you sure you want to delete the file?') || false;
     if (conf == true) {
-      this.setState('selectedFile' : null )
-      // Meteor.call('removeFile', this.props.fileId, function (err, res) {
-      //   if (err)
-      //     console.log(err);
-      // })
+      this.props.clearFile()
+      Meteor.call('s3Remove', this.props.s3path)
     }
   }
 

@@ -89,7 +89,7 @@ const styles = theme => ({
             <AutoField name="nickname" margin="dense" />
               <LongTextField name="description" />
                 <AutoField name="ownedStatus" margin="dense" />
-                <AutoField name="venueType" margin="dense" />
+                <AutoField name="type" margin="dense" />
                 <AutoField name="capacity" margin="dense" />
                 
                 <ImagesUpload name="image" />

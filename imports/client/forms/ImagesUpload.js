@@ -146,7 +146,7 @@ class ImagesUploadComponent extends Component {
       })
 
       return (
-              <>
+              <React.Fragment>
         <HiddenField
         id="ImageInputUrl"  
         name={this.props.name}
@@ -165,7 +165,7 @@ class ImagesUploadComponent extends Component {
             {preview}
         </Grid>
       </Grid>
-      </>
+      </React.Fragment>
   )}
 }
 

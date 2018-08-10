@@ -66,11 +66,13 @@ export default class Event extends Component {
           eventHost: eventHost,
           isHost: false,
           soldOut: false,
-          isConfirmed: false
+          isConfirmed: false,
+          isAdmin: false
         }
 
         let eventAddress;
         if (Meteor.userId() == this.props.event.hostId) { this.state.isHost = true }
+        if (Roles.userIsInRole(Meteor.userId(), ["admin"])) { this.state.isAdmin = true }
         if (this.props.event.confirmedList.includes(Meteor.userId())) { this.state.isConfirmed = true }
 
         if (this.props.event && this.props.event.venueId) {
@@ -113,8 +115,6 @@ export default class Event extends Component {
                 default: return "th";
             }
         };
-        
-
         return (
             <Grid item>
                     <Card style={styles.card}>
@@ -142,7 +142,7 @@ export default class Event extends Component {
                             </CardContent>
                         </Link>
                         <CardActions style={styles.actions}>
-                        {this.state.isHost ? ( <EditEventButton event={this.props.event} />) : this.state.soldOut ? (
+                        {this.state.isHost || this.state.isAdmin ? ( <EditEventButton event={this.props.event} />) : this.state.soldOut ? (
                           <Button size="large" disabled >Sold Out</Button>
                         ) : this.state.isConfirmed ? (
                           <Button component={Link} to={`/event/${this.props.event._id}`}>View Details</Button>  

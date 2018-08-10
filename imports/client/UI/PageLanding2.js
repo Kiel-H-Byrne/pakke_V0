@@ -56,7 +56,7 @@ class PageLanding2 extends Component {
     const { classes } = this.props;
 
     return (
-            <>
+            <React.Fragment>
       <Helmet>
         <title>PAKKE.US </title>
         <meta name="description" content="Discover | Connect | Experience"/>
@@ -112,7 +112,7 @@ class PageLanding2 extends Component {
             )}
           </div>
       </ParallaxProvider>
-      </>
+      </React.Fragment>
     );
 
   }

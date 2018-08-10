@@ -41,7 +41,7 @@ class AddVenueModalComponent extends Component {
     const { classes } = this.props;
 
     return (
-            <>
+            <React.Fragment>
       <Button variant="fab" onClick={this.handleOpen} size="medium" className={classes.button}> + </Button>
       <Modal 
         aria-labelledby="Add Venue Form"
@@ -54,7 +54,7 @@ class AddVenueModalComponent extends Component {
         <AddVenueForm handleClose={this.handleClose}/>
       </div>
     </Modal>
-    </>
+    </React.Fragment>
     );
   }
 }
