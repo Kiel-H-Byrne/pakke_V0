@@ -40,7 +40,9 @@ class AddEventForm extends Component {
     handleSubmit = doc => {
         // console.log(doc)
         Meteor.call('addEvent', doc);
-        this.props.handleClose();
+        // this.props.handleClose();
+        //REDIRECT TO PROFILE/HOSTING PAGE (OR EVENTS PAGE)
+        //ADD URL TO /PROFILE TO CATCH WHICH TAB I WANT TO NAVIGATE TO
 
 
         const adminEmailProps = [
