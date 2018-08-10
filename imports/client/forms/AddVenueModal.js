@@ -43,7 +43,7 @@ class AddVenueModalComponent extends Component {
 
     return (
             <React.Fragment>
-      <Button variant="fab" onClick={this.handleOpen} size="medium" className={classes.button}> <AddLocationIcon /> </Button>
+      <Button variant="fab" onClick={this.handleOpen} className={classes.button}> <AddLocationIcon /> </Button>
       <Modal 
         aria-labelledby="Add Venue Form"
         aria-describedby="Add a new venue from which to host an experience."

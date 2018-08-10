@@ -9,7 +9,9 @@ const styles = {
   editIcon: {
     color: 'white',
     position: 'relative',
-    top: -3
+    bottom: '1.5rem',
+    marginLeft: 3,
+    background: "linear-gradient(rgba(255,255,255,.1), rgba(0,0,0,.6))"
   },
   hiddenInput: {
     display: 'inherit'
@@ -60,13 +62,19 @@ class EditAvatarButton extends Component {
       //SET FINAL IMG URL TO STATE TO USE IN FORM HIDDEN FIELD
       this.setState({'s3path': encodeURI(s3path)})
       //UPLOAD TO S3
-      Meteor.call('s3Upload', key, file.type, dataurl);
-      Meteor.users.update(
+      Meteor.call('s3Upload', key, file.type, dataurl, (err,result) => {
+        if(err) {
+          console.log(err)
+        } else {
+          Meteor.users.update(
           {_id: Meteor.userId()}, 
           {$set: {
             "profile.avatar": s3path
           }
         });
+        }
+      });
+      
     }
     //CALL FILEREADER EVENT
     reader.readAsDataURL(file)
@@ -74,10 +82,10 @@ class EditAvatarButton extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <input type="file" id="avatar_input" hidden ref="avatar_input" onChange={this.uploadIt} style={{display:'none'}}/>
-        <Button variant="fab" size="small" onClick={this.handleClick} style={{backgroundColor: "rgba(0,0,0,.6)"}}><EditIcon style={styles.editIcon} /></Button>
-      </div>
+        <Button variant="fab" mini onClick={this.handleClick} style={styles.editIcon}><EditIcon style={{color:'none'}} /></Button>
+      </React.Fragment>
     );
   }
 }

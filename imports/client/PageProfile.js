@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
+import { withStyles } from '@material-ui/core/styles';
 import { BarLoader } from 'react-spinners';
 import Redirect from 'react-router';
 
@@ -83,7 +84,6 @@ class PageProfileComponent extends Component {
   }
 
   handleClick = (e) => {
-
     let x = document.getElementById("profileForm");
     if (x.style.display === "none") {
         x.style.display = "block";
@@ -102,6 +102,7 @@ class PageProfileComponent extends Component {
 
   render() {
     const { value } = this.state;
+    // const { theme } = this.props;
 
     if (this.props.loading) {
       return (
@@ -131,15 +132,18 @@ class PageProfileComponent extends Component {
       <Grid container
       direction="column"
       justify="center"
-      style={{marginTop: "1rem"}}>
+      style={{margin:"1rem 0"}}>
         <Grid item xs={12} container spacing={24} alignItems="center" justify="space-evenly">
           <Grid item>
             <Card style={styles.card}>
-              <EditAvatarButton />
               {thisProfile.avatar ? (
-                <CardMedia style={styles.avatar} image={thisProfile.avatar}  />
+                <CardMedia style={styles.avatar} image={thisProfile.avatar} > 
+                  <EditAvatarButton />
+                </CardMedia>
               ) : (
-                <CardMedia style={styles.avatar} image='/missing_profile.png' />
+                <CardMedia style={styles.avatar} image='/missing_profile.png' > 
+                  <EditAvatarButton />
+                </CardMedia>
               )}
               <CardContent className='profile-head-text'>
                 {(thisProfile.name) ? (
@@ -187,7 +191,7 @@ class PageProfileComponent extends Component {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Tabs value={value} onChange={this.handleChange} fullWidth centered indicatorColor="primary" textColor="secondary" >
+          <Tabs value={value} onChange={this.handleChange} fullWidth centered indicatorColor="secondary" textColor="secondary" style={{backgroundColor: '#fafafa'}} >
             <Tab label="Guest" />
             <Tab label="Host" />
             <Tab label="Talent" />
@@ -214,4 +218,4 @@ export default PageProfile = withTracker(() => {
     loading,
     thisUser
   };
-})(PageProfileComponent);
+})(withStyles(styles)(PageProfileComponent));

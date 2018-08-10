@@ -57,7 +57,7 @@ const apiCall = function (apiUrl, callback) {
 };
 
 Meteor.methods({
-  s3Upload: function(filePath, fileType, dataurl) {
+  s3Upload: async function(filePath, fileType, dataurl) {
     console.log("UPLOADING IMAGE...")
     const s3Conf = Meteor.settings.public.keys.s3;
     const s3 = new S3({
@@ -76,15 +76,16 @@ Meteor.methods({
       ACL: "public-read"
     };
 
-    s3.putObject(params, (err, data) => {
+    await s3.putObject(params, (err, data) => {
       if (err) {
+        return err
         // console.error(err);
       } else {
         console.log("...SUCCESS")
+        return true
         // console.log(data);      
       }
     });
-    return 
   },
   s3Remove: function(filePath,versionId) {
     console.log("DELETING IMAGE...")

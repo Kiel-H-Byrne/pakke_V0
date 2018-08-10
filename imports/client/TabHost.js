@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
+import { BarLoader } from 'react-spinners';
+
+import Button from '@material-ui/core/Button';
 
 import AddVenueForm from './forms/AddVenueForm';
 import AddEventForm from './forms/AddEventForm';
@@ -14,11 +17,16 @@ class TabHostComponent extends Component {
     const isHost = Roles.userIsInRole(Meteor.userId(), ["host"]);
 
     if (!this.props.ready) {
-      return <div>Loading</div>;
+      return <BarLoader 
+              loading={this.props.loading} 
+              color='#2964ff'
+              width={-1}
+              height={10}
+            />;
     }
 
     return (
-      <div className='host-block'>
+      <div className='host-block' style={{margin: '1rem 0'}}>
         {!isHost ? (
             <h3>You are not currently Hosting.</h3>
           ) : (
@@ -32,7 +40,7 @@ class TabHostComponent extends Component {
           </div>
           )
         }
-      <AddEventModal user={this.props.user}/>
+      <Button component={Link} to="/addevent">Create A New Experience:</Button> 
       </div>
     )
   }
