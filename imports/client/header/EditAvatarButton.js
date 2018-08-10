@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
 import React, { Component } from 'react';
+import { Random } from 'meteor/random';
 
+import Button from '@material-ui/core/Button'
 import EditIcon from '@material-ui/icons/Edit'
 
 const styles = {
@@ -14,107 +15,71 @@ const styles = {
     display: 'inherit'
   } 
 }
-class EditAvatarButtonComponent extends Component {
+class EditAvatarButton extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      uploading: [],
-      progress: 0,
-      inProgress: false,
-      file: {},
-      fileUrl: ''
+      uploading: false,
+      selectedFile: {},
+      fileData: null
     };
 
     this.uploadIt = this.uploadIt.bind(this);
     this.handleClick = this.handleClick.bind(this);
-
-
   }
 
-  handleClick = () => {
+  handleClick = (e) => {
+    e.preventDefault()
     //dispatchEvent click to #avatar_input
-    let event = new MouseEvent("click");
+    const event = new MouseEvent("click");
     avatar_input.dispatchEvent(event)
   }
 
-  uploadIt(e) {
-    e.preventDefault();
-
-    let self = this;
-
-    if (e.currentTarget.files && e.currentTarget.files[0]) {
-      // We upload only one file, in case
-      // there was multiple files selected
-      let file = e.currentTarget.files[0];
-
-      let uploadInstance = Avatars.insert({
-        file: file,
-        meta: {
-          userId: Meteor.userId() // Optional, used to check on server for file tampering
-        },
-        streams: 'dynamic',
-        chunkSize: 'dynamic',
-        onStart: () =>  {
-          // console.log('Starting');
-        },
-        onUploaded: (error, fileRef) => {
-          console.log('uploaded: ', fileRef);
-          // Remove the filename from the upload box
-          // self.refs['avatar_input'].value = '';
-          
-          let filePath = `avatars/${fileRef.meta.userId}_${fileRef._id}.${fileRef.extension}`;
-          let url = `https://s3.us-east-2.amazonaws.com/pakke-images/${filePath}`
-          // Reset our state for the next file
-          self.setState({
-            file: fileRef,
-            uploading: [],
-            progress: 0,
-            inProgress: false,
-            fileUrl: url
-          });
-        },
-        onError: (error, fileData) => {
-          console.warn('Error during upload: ' + error)
-        },
-        onProgress: (progress, fileData) => {
-          console.log(`Upload Percentage: ${progress}%`)
-          // Update our progress bar
-          self.setState({
-            progress: progress
-          });
-        }
-      }, false );
-
-      uploadInstance.start()
-      
-      self.setState({
-        uploading: uploadInstance, // Keep track of this instance to use below
-        inProgress: true // Show the progress bar now
-      });
+  uploadIt = event => {
+    event.preventDefault();
+    this.setState({'uploading': true});
+    //GET INPUT FILE
+    const file = event.target.files[0];
+    this.setState({'selectedFile': file});
+    // console.log(file);
+    
+    //USE FILEREADER TO GET RAW IMG SRC FOR PREVIEW
+    let reader = new FileReader();
+    reader.onload = evt => {
+      // console.log(evt.target.result)
+      //result is the DataURL (base64 string)
+      let dataurl = evt.target.result;
+      //SET TO STATE FOR USE AS PREVIEW IMAGE SOURCE
+      this.setState({'uploading': false});
+      this.setState({'fileData': dataurl});
+      //upload to s3 and get url for the form's value;
+      // const s3path = `https://s3.amazonaws.com/${Meteor.settings.public.keys.s3.bucket}/api/${this.props.module}/${Random.id(6)}${file.name}`
+      const key = `${Meteor.userId()}/avatars/${Random.id(6)}${file.name}`
+      const s3path = `https://s3.amazonaws.com/${Meteor.settings.public.keys.s3.bucket}/${key}`
+      //SET FINAL IMG URL TO STATE TO USE IN FORM HIDDEN FIELD
+      this.setState({'s3path': encodeURI(s3path)})
+      //UPLOAD TO S3
+      Meteor.call('s3Upload', key, file.type, dataurl);
+      Meteor.users.update(
+          {_id: Meteor.userId()}, 
+          {$set: {
+            "profile.avatar": s3path
+          }
+        });
     }
+    //CALL FILEREADER EVENT
+    reader.readAsDataURL(file)
   }
+
   render() {
     return (
       <div>
-      <input type="file" id="avatar_input" hidden ref="avatar_input" onChange={this.uploadIt} style={{display:'none'}}/>
-      <EditIcon onClick={this.handleClick}/>
+        <input type="file" id="avatar_input" hidden ref="avatar_input" onChange={this.uploadIt} style={{display:'none'}}/>
+        <Button variant="fab" size="small" onClick={this.handleClick} style={{backgroundColor: "rgba(0,0,0,.6)"}}><EditIcon style={styles.editIcon} /></Button>
       </div>
     );
   }
 }
 
-
-export default EditAvatarButton = withTracker( ( props ) => {
-  const filesHandle = Meteor.subscribe('curent_user');
-  const loading = !filesHandle.ready();
-  const user = Meteor.user();
-  const files = Avatars.find({
-    'meta.userid': Meteor.userId()
-  }, {sort: {name: 1}}).fetch();
-
-  return {
-    loading,
-    files,
-  };
-})(EditAvatarButtonComponent);
+export default EditAvatarButton

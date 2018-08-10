@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -37,7 +38,9 @@ const styles = {
     display: 'none',
     maxWidth:'960px',
     minWidth: '420px',
-    transition: 'visibility 0s, opacity 0.5s linear'
+    transition: 'visibility 0s, opacity 0.5s linear',
+    padding: '1rem',
+    fontSize: '.8rem'
   },
   avatar: {
     height: 0,
@@ -45,7 +48,6 @@ const styles = {
   },
   card: {
     width: 250,
-    margin: '1rem'
     // display: 'flex',
   }
 }
@@ -80,7 +82,7 @@ class PageProfileComponent extends Component {
     this.setState({value})
   }
 
-  handleClick(e) {
+  handleClick = (e) => {
 
     let x = document.getElementById("profileForm");
     if (x.style.display === "none") {
@@ -93,9 +95,9 @@ class PageProfileComponent extends Component {
 
   }
 
-  handleSuccess() {
+  handleSuccess = () => {
     Bert.alert("Your Profile Was Updated!", "success");
-    $('#profileModal').modal('toggle');
+    this.handleClick();
   }
 
   render() {
@@ -118,82 +120,88 @@ class PageProfileComponent extends Component {
       return (<PageError />)
     }
 
-    let talentModel = Schema.Talent.clean({})
-    let interestsModel = Schema.Interests.clean({})
-    let venueModel = Schema.Venue.clean({})
+    // let talentModel = Schema.Talent.clean({})
+    // let interestsModel = Schema.Interests.clean({})
+    // let venueModel = Schema.Venue.clean({})
     const thisProfile = this.props.thisUser.profile;
 
     const model = Schema.Profile.clean(thisProfile)
 
-    // console.log(Schema.Profile.clean({'talents.$.talent': talentModel, 
-    //                                  'interests': interestsModel, 
-    //                                  'venues.$.venue': venueModel, 
-    //                                  ...thisProfile
-    //                                }));
-    // const omitFields = ["talentId", "venue.$.venueId"];
-
-      return (
-        <Grid container
-        direction="column"
-        justify="center">
-          <Grid item xs={12}>
+    return (
+      <Grid container
+      direction="column"
+      justify="center"
+      style={{marginTop: "1rem"}}>
+        <Grid item xs={12} container spacing={24} alignItems="center" justify="space-evenly">
+          <Grid item>
             <Card style={styles.card}>
-                {/*
-                <EditAvatarButton />
-                */}
-                {this.props.thisUser.profile.avatar ? (
-                  <CardMedia style={styles.avatar} image={this.props.thisUser.profile.avatar}  />
-                ) : (
-                    <CardMedia style={styles.avatar} image='/missing_profile.png' />
-                  )}
+              <EditAvatarButton />
+              {thisProfile.avatar ? (
+                <CardMedia style={styles.avatar} image={thisProfile.avatar}  />
+              ) : (
+                <CardMedia style={styles.avatar} image='/missing_profile.png' />
+              )}
               <CardContent className='profile-head-text'>
-                  {(this.props.thisUser.profile.name) ? (
-                    <Typography variant="title" align="center">I'm {this.props.thisUser.profile.name}</Typography>
-                  ) : (
-                      <h4> I'm a new user </h4>
-                    )
-                  }
-                  <Button onClick={this.handleClick}>Edit Profile</Button>
+                {(thisProfile.name) ? (
+                  <Typography variant="subheading" align="center">I'm {thisProfile.name}!</Typography>
+                ) : (
+                    <h4> I'm new here! </h4>
+                  )
+                }
+                {thisProfile.birthDate ? (
+                  <Typography variant="caption" align="center">Birthday: {thisProfile.birthDate.toDateString().substring(0, (thisProfile.birthDate.toDateString()).length - 5)}</Typography>
+                  ) : ''}
+                {thisProfile.social && thisProfile.social.facebook ? (
+                  <Typography variant="caption" >FB: <a target="_blank" href={`https://www.facebook.com/${thisProfile.social.facebook}`}>@{thisProfile.social.facebook}</a></Typography>
+                  ) : ''}
+                {thisProfile.social && thisProfile.social.instagram ? (
+                  <Typography variant="caption" >IG: <a target="_blank" href={`https://www.instagram.com/${thisProfile.social.instagram}`}>@{thisProfile.social.instagram}</a></Typography>
+                  ) : ''}
+                {thisProfile.bio ? ( 
+                  <Typography variant="caption" align="left" dangerouslySetInnerHTML={{__html: thisProfile.bio}} />
+                  ) : ''}
+                <Button onClick={this.handleClick} size="small" variant="contained">Edit Profile</Button>
               </CardContent>
             </Card>
-                              <div id="profileForm" role="dialog" style={styles.profileForm}>
-                    <h3>Profile</h3>
-                    <AutoForm
-                      schema={Schema.Profile}
-                      model={model}
-                      onSubmit={this.handleSubmit}
-                      onSubmitSuccess={this.handleSuccess}
-                      onSubmitFailure={this.handleFailure} 
-                      className="tinyForm"
-                      >
-
-                      <AutoField name="name" />
-                      <AutoField name="birthDate" />
-                      <AutoField name="social" />
-                      <InputLabel>Describe Yourself!</InputLabel>
-                      <TinyInput name="bio" />
-                      <SubmitField value="Submit" />
-                      <ErrorsField />
-                    </AutoForm>
-                  </div>
           </Grid>
-          
-          <Grid item xs={12}>
-            <Tabs value={value} onChange={this.handleChange} fullWidth centered>
-              <Tab label="Guest" />
-              <Tab label="Host" />
-              <Tab label="Talent" />
-            </Tabs>
-          </Grid>
-          <Grid item xs={12}>
-            {value === 0 && <TabGuest user={this.props.thisUser} />}
-            {value === 1 && <TabHost user={this.props.thisUser}  />}
-            {value === 2 && <TabTalent user={this.props.thisUser}  />}
+          <Grid item >
+            <Paper id="profileForm" role="dialog" style={styles.profileForm}>
+              <Typography variant="title">Profile</Typography>
+              <AutoForm
+              schema={Schema.Profile}
+              model={model}
+              onSubmit={this.handleSubmit}
+              onSubmitSuccess={this.handleSuccess}
+              onSubmitFailure={this.handleFailure} 
+              className="tinyForm"
+              >
+                <AutoField name="name" />
+                <AutoField name="birthDate" />
+                <AutoField name="social" />
+                <InputLabel>Describe Yourself!</InputLabel>
+                <TinyInput name="bio" content = {model.bio} />
+                <SubmitField value="Submit" style={{position: 'relative', right: 0}} />
+                <ErrorsField />
+              </AutoForm>
+            </Paper>
           </Grid>
         </Grid>
-      )
-    } 
-  }
+        <Grid item xs={12}>
+          <Tabs value={value} onChange={this.handleChange} fullWidth centered indicatorColor="primary" textColor="secondary" >
+            <Tab label="Guest" />
+            <Tab label="Host" />
+            <Tab label="Talent" />
+          </Tabs>
+        </Grid>
+        <Grid item xs={12}>
+          {value === 0 && <TabGuest user={this.props.thisUser} />}
+          {value === 1 && <TabHost user={this.props.thisUser}  />}
+          {value === 2 && <TabTalent user={this.props.thisUser}  />}
+        </Grid>
+      </Grid>
+    )
+  } 
+}
 
 
 export default PageProfile = withTracker(() => {

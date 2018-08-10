@@ -13,7 +13,7 @@ import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 
-import VenuesImagesUpload from './EventImagesUpload.js'; 
+import FileUpload from './FileUpload.js';
 
 
 const styles = theme => ({
@@ -91,9 +91,7 @@ const styles = theme => ({
                 <AutoField name="ownedStatus" margin="dense" />
                 <AutoField name="type" margin="dense" />
                 <AutoField name="capacity" margin="dense" />
-                
-                <ImagesUpload name="image" />
-                      
+                <FileUpload name="image" module="venues" value={model.image} />
               <SubmitField>Submit</SubmitField>
               <ErrorsField />
             </AutoForm>

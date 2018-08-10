@@ -9,6 +9,7 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 import muiTheme from '../UI/muiTheme';
 import WhatIsPAKKEEvent from '../UI/WhatIsPAKKEEvent';
@@ -103,7 +104,9 @@ class PageLanding2 extends Component {
             </Grid>
             {thisUser ? (
               <div className='host-button'>
-                <AddEventModal user={thisUser}/>
+                {/* <AddEventModal user={thisUser}/> */}
+                <Button component={Link} to="/addevent">Create your Experience:</Button> 
+
               </div>
             ) : (
               <div className='host-button'>

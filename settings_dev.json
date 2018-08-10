@@ -39,7 +39,8 @@
       },
       "zohoCRM": {
         "client_id": "1000.9BQEF6BWR67P55799YLS6S3R4Z17KH",
-        "client_secret": "7b42f461f405f855827474e74cc578acfcf6d08ff5"
+        "client_secret": "7b42f461f405f855827474e74cc578acfcf6d08ff5",
+        "oAuth": "a36f425d4f34e23ffd1c26bcb7e09426"
       }
     }
   },

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import analytics from '/lib/analytics/analytics.min.js';
 
 class PageError extends Component {
   render() {
@@ -15,7 +16,10 @@ class PageError extends Component {
       }
 
     };
-
+    analytics.page({
+      name: "404Page"
+    })
+    
     return (
       <div className="container-fluid text-center" style={styles.container} >
         <h1>I Can't Find That Page...</h1>

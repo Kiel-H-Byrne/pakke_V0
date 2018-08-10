@@ -12,8 +12,6 @@ import EditAvatarButton from '../header/EditAvatarButton.js'
 // import UserFiles from '../../startup/collections/files';
 import VenuesForm from '../forms/VenuesForm';
 
-import TinyInput from '../forms/TinyInput.js'
-
 class PageTest extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +37,7 @@ class PageTest extends Component {
     <div>
     <p></p>
     <hr/>
-    <FileUpload />
+    <FileUpload name module value />
 
       </div>
     )

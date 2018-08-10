@@ -1,5 +1,7 @@
 import React from 'react';
 import { CardElement, injectStripe, PaymentRequestButtonElement } from 'react-stripe-elements';
+import analytics from '/lib/analytics/analytics.min.js';
+
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';

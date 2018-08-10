@@ -103,7 +103,7 @@ const styles = theme => ({
             <AutoField name="price" margin="dense" />
             <AutoField name="contact" margin="dense" />
             <VenuesForm />       
-            <FileUpload name="image" module="events"/>
+            <FileUpload name="image" module="events" value={model.image}/>
             <HiddenField name="checkedPolicy" value="true" margin="dense" />
 
             <SubmitField value="Submit" />

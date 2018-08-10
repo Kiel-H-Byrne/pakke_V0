@@ -37,27 +37,27 @@ import PageTest from './old-test/PageTest'
 
 class Router extends Component {
     render() {
-        return (
-            <React.Fragment>
-        <Switch>
-            <Route exact path='/' component={PageHome} />
-            <Route path='/howitworks' component={HowItWorks} />
-            <Route path='/landing' component={PageLanding2} />
-            <Route path='/about' component={PageAboutPAKKE} />
-            <Route path='/events' component={PageEventMap} />            
-            <Route path='/event/:id' component={EventDetails} />
-            <Route path='/profile' component={PageProfile} />
-            <Route path='/host' component={BecomeHost} />
-            <Route path='/talent' component={BecomeTalent} />
-            <Route path='/terms' component={PageTerms} />
-            <Route path='/addevent' component={AddEventForm} />
-            <Route path='/addvenue' component={AddVenueForm} />
-            <Route path='/addtalent' component={AddTalentForm} />
-            <Route path='/test' component={PageTest} />
-            <Route component={PageError} />  
-        </Switch>
-            </React.Fragment>
-)
+      return (
+        <React.Fragment>
+          <Switch>
+              <Route exact path='/' component={PageHome} />
+              <Route name="HowItWorks" path='/howitworks' component={HowItWorks} />
+              <Route name="LandingPage" path='/landing' component={PageLanding2} />
+              <Route name="AboutPAKKE" path='/about' component={PageAboutPAKKE} />
+              <Route name="EventsMap" path='/events' component={PageEventMap} />            
+              <Route name="EventDetails" path='/event/:id' component={EventDetails} />
+              <Route name="ProfilePage" path='/profile' component={PageProfile} />
+              <Route name="BecomeHost" path='/host' component={BecomeHost} />
+              <Route name="BecomeTalent" path='/talent' component={BecomeTalent} />
+              <Route name="Terms" path='/terms' component={PageTerms} />
+              <Route name="AddEvent" path='/addevent' component={AddEventForm} />
+              <Route name="AddVenue" path='/addvenue' component={AddVenueForm} />
+              <Route name="AddTalent" path='/addtalent' component={AddTalentForm} />
+              <Route name="TestPage" path='/test17' component={PageTest} />
+              <Route name="404Page" component={PageError} />  
+          </Switch>
+        </React.Fragment>
+  )
 }};
 
 export default Router;

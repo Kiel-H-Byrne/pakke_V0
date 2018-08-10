@@ -78,15 +78,15 @@ Meteor.methods({
 
     s3.putObject(params, (err, data) => {
       if (err) {
-        console.error(err);
+        // console.error(err);
       } else {
         console.log("...SUCCESS")
-        console.log(data);
+        // console.log(data);      
       }
     });
     return 
   },
-  s3Remove: function(filePath) {
+  s3Remove: function(filePath,versionId) {
     console.log("DELETING IMAGE...")
     const s3Conf = Meteor.settings.public.keys.s3;
     const s3 = new S3({
@@ -100,10 +100,10 @@ Meteor.methods({
 
     s3.deleteObject(params, (err, data) => {
       if (err) {
-        console.log(err, err)
+        // console.log(err, err)
       } else {
         console.log("...SUCCESS")
-        console.log(data);
+        // console.log(data);
       }
     });
   },

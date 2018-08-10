@@ -18,7 +18,7 @@ import Radio from '@material-ui/core/Radio';
 import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
-
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto'
 
 import { BarLoader } from 'react-spinners';
 // import VenueImages from '/imports/startup/collections/VenueImages.js';
@@ -30,11 +30,8 @@ export default class FileUpload extends Component {
     super(props);
     this.state = {
       uploading: false,
-      progress: 0,
-      inProgress: false,
-      selectedFile: null,
-      fileData: null,
-      endPoint: ''
+      selectedFile: {},
+      fileData: null
     };
 
     this.putIt = this.putIt.bind(this);
@@ -42,6 +39,7 @@ export default class FileUpload extends Component {
 
   putIt = event => {
     event.preventDefault();
+    this.setState({'uploading': true});
     //GET INPUT FILE
     const file = event.target.files[0];
     this.setState({'selectedFile': file});
@@ -54,6 +52,7 @@ export default class FileUpload extends Component {
       //result is the DataURL (base64 string)
       let dataurl = evt.target.result;
       //SET TO STATE FOR USE AS PREVIEW IMAGE SOURCE
+      this.setState({'uploading': false});
       this.setState({'fileData': dataurl});
       //upload to s3 and get url for the form's value;
       // const s3path = `https://s3.amazonaws.com/${Meteor.settings.public.keys.s3.bucket}/api/${this.props.module}/${Random.id(6)}${file.name}`
@@ -64,11 +63,15 @@ export default class FileUpload extends Component {
       //UPLOAD TO S3
       Meteor.call('s3Upload', key, file.type, dataurl);
     }
-    
-
     //CALL FILEREADER EVENT
     reader.readAsDataURL(file)
+  }
 
+  handleClick = (evt) => {
+    //dispatchEvent click to #avatar_input
+    evt.preventDefault();
+    const event = new MouseEvent("click");
+    file_input.dispatchEvent(event)
   }
   // This is our progress bar, bootstrap styled
   // Remove this function if not needed
@@ -76,19 +79,12 @@ export default class FileUpload extends Component {
     // console.log('**********************************', this.state.uploading);
 
     if (this.state.uploading) {
-      return <div>
-        {this.state.selectedFile.name}
-
-        <div className="progress progress-bar-default">
-          <div style={{width: this.state.progress + '%', 'backgroundColor':'#2964ff' }} aria-valuemax="100"
-             aria-valuemin="0"
-             aria-valuenow={this.state.progress || 0} role="progressbar"
-             className="progress-bar">
-            <span className="sr-only">{this.state.progress}% Complete (success)</span>
-            <span>{this.state.progress}%</span>
-          </div>
-        </div>
-      </div>
+      return <BarLoader 
+            loading={this.state.uploading} 
+            color='#2964ff'
+            width={-1}
+            height={10}
+          />
     }
   } 
 
@@ -125,8 +121,9 @@ export default class FileUpload extends Component {
       return (
       <Grid container direction="column">
         <Grid item xs={12}>
-          <HiddenField name={this.props.name} value={this.state.s3path ? this.state.s3path : ''} />
-          <input type="file" id="fileinput" size="large" color="secondary"  disabled={this.state.inProgress} ref="fileinput" onChange={this.putIt} accept="image/*"/>
+          <HiddenField name={this.props.name} value={this.state.s3path ? this.state.s3path : this.props.value} />
+          <input type="file" id="file_input" hidden ref="file_input" onChange={this.putIt} accept="image/*"/>
+          <Button variant="fab" onClick={this.handleClick}><AddAPhotoIcon/></Button>
         </Grid>
 
         <Grid item xs={12} className="">
