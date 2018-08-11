@@ -44,7 +44,7 @@ const styles = theme => ({
 		this.handleClose = this.handleClose.bind(this)
 	}
 	handleSubmit = (doc) => {
-    console.log(doc)
+    // console.log(doc)
     Meteor.call('editEvent', this.props.event._id, doc);
   }; 
 
@@ -63,14 +63,12 @@ const styles = theme => ({
     this.setState({ open: false });
   }
   cancelEvent = () => {
-    let conf = confirm('Are you sure you want to delete this event?') || false;
-    if (conf == true) {
+    if (confirm('Are you sure you want to delete this event?')) {
       Meteor.call('cancelEvent', this.props.event, (err, res) => {
         //IF NO CONFIRMED GUESTS (PAID) THEN OK TO DELETE, OR IF NOT PAST
       })
     }
   }
-
 
 	render() {
 		

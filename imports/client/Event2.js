@@ -30,7 +30,7 @@ const styles = {
             date: {
                 background: 'rgba(255,255,255,.9)',
                 width: '5rem',
-                height: '5rem',
+                // height: '5rem',
                 padding: "0.5rem",
                 // border: '1px solid black',
                 alignItems: 'center',
@@ -104,6 +104,7 @@ export default class Event extends Component {
                 // if (remainingTickets === 0) {this.setState({soldOut: true})}
         
         const one_day=1000*60*60*24;
+        const isExpired = (((this.props.event.date.getTime() - Date.now())/one_day) <= -1) //DATE IS YESTERDAY
         const isTBD = (((this.props.event.date.getTime() - Date.now())/one_day) > 364)
 
         const dateArr = this.props.event.date.toDateString().split(' ');
@@ -127,7 +128,9 @@ export default class Event extends Component {
                                 <CardContent style={{padding: "7px"}}>
                                     <Card style={styles.date}>
                                     { isTBD ? (
-                                        <Typography style={styles.typo} align={'center'} variant='title' color={'secondary'}>TBD</Typography>
+                                        <React.Fragment>
+                                        <Typography align={'center'} variant='headline' color={'secondary'}>TBD</Typography>
+                                        </React.Fragment>
                                         ) : (
                                         <React.Fragment>
                                         <Typography style={styles.typo} align={'center'} variant='title' color={'secondary'}> {eventDate.month}</Typography>
@@ -153,13 +156,12 @@ export default class Event extends Component {
                             </CardContent>
                         </Link>
                         <CardActions style={styles.actions}>
-                        {this.state.isHost || this.state.isAdmin ? ( <EditEventButton event={this.props.event} />) : this.state.soldOut ? (
-                          <Button size="large" disabled >Sold Out</Button>
-                        ) : this.state.isConfirmed ? (
-                          <Button component={Link} to={`/event/${this.props.event._id}`}>View Details</Button>  
-                        ) : (
-                          <Button component={Link} to={`/event/${this.props.event._id}`}>Buy Ticket</Button>
-                        )}
+                        {   
+                            this.state.isHost || this.state.isAdmin ? ( <EditEventButton event={this.props.event} /> ) : 
+                            this.state.soldOut || isExpired ? ( <Button size="large" disabled >Sold Out</Button> ) : 
+                            this.state.isConfirmed ? ( <Button component={Link} to={`/event/${this.props.event._id}`}>View Details</Button> ) : 
+                            ( <Button component={Link} to={`/event/${this.props.event._id}`}>Buy Ticket</Button> )
+                        }
                         
                             {/*<img src="ImageLogoBlack.png" style={styles.logo} /> */}
                         </CardActions>

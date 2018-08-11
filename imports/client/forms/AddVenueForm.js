@@ -69,6 +69,7 @@ class AddVenueForm extends Component {
               <AutoField name="type" margin="dense" />
               <AutoField name="capacity" margin="dense" />
               <AutoField name="address" margin="dense" />
+              <InputLabel>Upload a picture to use for the preview!</InputLabel>
               <FileUpload name="image" module="venues" />
                     
             <SubmitField>Submit</SubmitField>

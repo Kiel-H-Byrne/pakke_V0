@@ -43,7 +43,7 @@ const styles = theme => ({
 
 class ControlledExpansionPanels extends React.Component {
   state = {
-    expanded: null,
+    expanded: 'panel1',
   };
 
   handleExpand = panel => (event, expanded) => {
@@ -85,7 +85,7 @@ class ControlledExpansionPanels extends React.Component {
             </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-          <Grid direction="column">
+          <Grid container direction="column">
               <Typography variant="display1" align="center">Step 2. - Describe It</Typography>
               <Typography variant="subheading" align="center">Let guests know what this experience is about!</Typography>
               <AutoField name="byline" />
@@ -109,7 +109,7 @@ class ControlledExpansionPanels extends React.Component {
             </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-          <Grid direction="column">
+          <Grid container direction="column">
             <AutoField name="isPrivate" />
             <AutoField name="contact" />
             

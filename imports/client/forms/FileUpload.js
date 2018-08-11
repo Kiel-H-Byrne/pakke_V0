@@ -71,7 +71,9 @@ export default class FileUpload extends Component {
     //dispatchEvent click to #avatar_input
     evt.preventDefault();
     const event = new MouseEvent("click");
-    file_input.dispatchEvent(event)
+    const elem=document.getElementById(`file_input_${this.props.module}`)  
+    console.log(elem)
+    elem.dispatchEvent(event)
   }
   // This is our progress bar, bootstrap styled
   // Remove this function if not needed
@@ -122,7 +124,7 @@ export default class FileUpload extends Component {
       <Grid container direction="column">
         <Grid item xs={12}>
           <HiddenField name={this.props.name} value={this.state.s3path ? this.state.s3path : this.props.value} />
-          <input type="file" id="file_input" hidden ref="file_input" onChange={this.putIt} accept="image/*"/>
+          <input type="file" id={`file_input_${this.props.module}`} hidden ref="file_input" onChange={this.putIt} accept="image/*"/>
           <Button variant="fab" onClick={this.handleClick}><AddAPhotoIcon/></Button>
         </Grid>
 

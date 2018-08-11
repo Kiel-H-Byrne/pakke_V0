@@ -3,9 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import AddLocationIcon from '@material-ui/icons/AddLocation'
@@ -25,22 +22,8 @@ const styles = theme => ({
     maxHeight: '90vh',
     top: '50%',
     left: '50%',
-    transform: `translate(-50%, -50%)`
-  },
-  card: {
-    maxWidth: 120,
-    minWidth: 100,
-    margin: '1rem',
-    border: "1px dashed #226199",
-    float: "left"
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  content: {
-    padding: 2,
-  },
+    transform: `translate(-50%, -50%)`,
+  }
 });
 
 class AddVenueModalComponent extends Component {
@@ -60,16 +43,7 @@ class AddVenueModalComponent extends Component {
 
     return (
             <React.Fragment>
-      {/* <Button variant="fab" onClick={this.handleOpen} className={classes.button}> <AddLocationIcon /> </Button> */}
-      <Card className={classes.card} elevation={0} onClick={this.handleOpen}>
-        <CardMedia className={classes.media} image="/img/holders/holder_venue_200.png" />
-        <CardContent className={classes.content}>
-          <Typography gutterBottom variant="subheading" align="center">
-            Add New Place
-          </Typography>
-          <Typography component="p" variant="caption" gutterBottom>Add your home, business, or office where you will host your next event!</Typography>
-        </CardContent>
-      </Card>
+      <Button variant="fab" onClick={this.handleOpen} className={classes.button}> <AddLocationIcon /> </Button>
       <Modal 
         aria-labelledby="Add Venue Form"
         aria-describedby="Add a new venue from which to host an experience."
