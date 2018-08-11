@@ -22,7 +22,6 @@ import '../../startup/collections/schemas';
 import eventCreatedAdminTemplate from '../email/eventCreatedAdminTemplate';
 import FileUpload from './FileUpload.js';
 import VenuesForm from './VenuesForm';
-import AddVenueForm from './AddVenueForm.js'
 import TinyInput from './TinyInput.js'
 
 

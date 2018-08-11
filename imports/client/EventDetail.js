@@ -102,16 +102,17 @@ class EventDetailsComponent extends Component {
     if (!this.props.event) {
       return <PageError />
     }
-    
-    const isExpired = (this.props.event.date - Date.now() < 1)
-    
-    return (
 
+    const one_day=1000*60*60*24;
+    const isExpired = (((this.props.event.date.getTime() - Date.now())/one_day) <= -1) //DATE IS YESTERDAY
+    const isTBD = (((this.props.event.date.getTime() - Date.now())/one_day) > 364) //DATE IS A YEAR AHEAD 
+
+    return (
       <div>
         <Helmet>
           <title>PAKKE Event: {this.props.event.byline}</title>
           <meta name="description" content={this.props.event.description}/>
-          <meta name="keywords" content={`Night Life, Nightlife, Night Out, Social Events, Parties in DC, Events in DC, ${this.props.event.description}`}/>
+          <meta name="keywords" content={`${this.props.event.description}`}/>
           <meta property="og:title" content={this.props.event.byline} />
           <meta property="og:image" content={this.props.event.image} />
           <meta property="og:image:secure_url" content={this.props.event.image} />

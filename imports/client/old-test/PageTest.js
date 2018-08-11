@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import FileUpload from '../forms/FileUpload.js';
 import EditAvatarButton from '../header/EditAvatarButton.js'
 // import UserFiles from '../../startup/collections/files';
-import VenuesForm from '../forms/VenuesForm';
+import AddEventForm from '../forms/AddEventForm2';
 
 class PageTest extends Component {
   constructor(props) {
@@ -36,8 +36,8 @@ class PageTest extends Component {
     
     <div>
     <p></p>
-    <hr/>
-    <FileUpload name module value />
+    <hr style={{width:"80%"}}/>
+    <AddEventForm />
 
       </div>
     )

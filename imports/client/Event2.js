@@ -102,8 +102,12 @@ export default class Event extends Component {
 
         let remainingTickets = this.props.event.size - confirmedCount;
                 // if (remainingTickets === 0) {this.setState({soldOut: true})}
-        const dateArr = this.props.event.date.toDateString().split(' ');
+        
+        const one_day=1000*60*60*24;
+        const isTBD = (((this.props.event.date.getTime() - Date.now())/one_day) > 364)
 
+        const dateArr = this.props.event.date.toDateString().split(' ');
+        
         const eventDate = _.object(["day","month","date","year"], dateArr)
         
         const nth = function(d) {
@@ -122,9 +126,16 @@ export default class Event extends Component {
                             <CardMedia style={styles.image} image={this.props.event.image ? this.props.event.image : "" }>
                                 <CardContent style={{padding: "7px"}}>
                                     <Card style={styles.date}>
+                                    { isTBD ? (
+                                        <Typography style={styles.typo} align={'center'} variant='title' color={'secondary'}>TBD</Typography>
+                                        ) : (
+                                        <React.Fragment>
                                         <Typography style={styles.typo} align={'center'} variant='title' color={'secondary'}> {eventDate.month}</Typography>
                                         <Typography align={'center'} variant='title'>{ eventDate.date}<span style={styles.ordinal}> {nth(eventDate.date) }</span></Typography>
                                         <Typography align={'center'} variant='title' color={'secondary'}>{eventDate.day}</Typography>
+                                        </React.Fragment>
+                                        )
+                                    }
                                     </Card>
                                 </CardContent>
                             </CardMedia>

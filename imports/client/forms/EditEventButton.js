@@ -63,8 +63,14 @@ const styles = theme => ({
     this.setState({ open: false });
   }
   cancelEvent = () => {
-    Meteor.call('cancelEvent', this.props.event)
+    let conf = confirm('Are you sure you want to delete this event?') || false;
+    if (conf == true) {
+      Meteor.call('cancelEvent', this.props.event, (err, res) => {
+        //IF NO CONFIRMED GUESTS (PAID) THEN OK TO DELETE, OR IF NOT PAST
+      })
+    }
   }
+
 
 	render() {
 		

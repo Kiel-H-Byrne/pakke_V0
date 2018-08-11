@@ -25,7 +25,7 @@ class BecomeHostComponent extends Component {
         </div>
         {this.props.thisUser ? (
           <div className='host-button'>
-            <AddEventModal user={this.props.thisUser}/>
+            <Button component={Link} to="/addevent">Create A New Experience:</Button> 
           </div>
         ) : (
             <div className='host-button'>
