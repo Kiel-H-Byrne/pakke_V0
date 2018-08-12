@@ -31,14 +31,24 @@ class PageTest extends Component {
   
 
   render() {
-    
+    if (GoogleMaps.loaded()) {
+      completeAddress = new google.maps.places.Autocomplete(
+          /** @type {!HTMLInputElement} */
+          document.getElementById('formatted_address'),{
+            types: ['address'],
+            componentRestrictions: {country:'US'}
+          }
+        );
+    }
+
     return (
     
     <div>
     <p></p>
     <hr style={{width:"80%"}}/>
     <AddEventForm />
-
+    <input id="formatted_address" type="text" />
+    
       </div>
     )
   }

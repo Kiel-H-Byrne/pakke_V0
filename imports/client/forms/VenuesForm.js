@@ -71,7 +71,7 @@ class VenuesFormComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: ""
+      selected: props.value || ""
     }
   }
   

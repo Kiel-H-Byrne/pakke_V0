@@ -48,7 +48,6 @@ export default class EventInterestForm extends Component {
         // Meteor.call('inviteGuests', eventId, emailArray)
         //BO INVITE MULTIPLE PEPLE AT ONCE.
 
-        $('#eventInterestsModal').modal('toggle');
         Meteor.call('sendEmail', userEmail, ...userEmailProps);
         Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
         analytics.track("Applied to event", {

@@ -44,7 +44,7 @@ const styles = theme => ({
 		this.handleClose = this.handleClose.bind(this)
 	}
 	handleSubmit = (doc) => {
-    // console.log(doc)
+    console.log(doc)
     Meteor.call('editEvent', this.props.event._id, doc);
   }; 
 
@@ -73,7 +73,7 @@ const styles = theme => ({
 	render() {
 		
 		const { classes } = this.props;
-    const model = Schema.Event.clean(this.props.event);
+    const model = this.props.event;
     const omitFields = ["submitted", "venue", "hostId", "categories", "appliedList", "invitedList", "confirmedList", "entertainers", "partner", "featured"];
 
 		return (
@@ -100,15 +100,18 @@ const styles = theme => ({
   	      >
             <AutoField name="byline" />
             <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
-            <TinyInput name="description" content = {model.description} />
+            <TinyInput name="description" content={model.description} />
             <AutoField name="date" />
             <AutoField name="duration" margin="dense" />
             <AutoField name="size" margin="dense" />
             <AutoField name="price" margin="dense" />
             <AutoField name="contact" margin="dense" />
-            <VenuesForm />       
+            <VenuesForm value={model.venuId} />       
             <FileUpload name="image" module="events" value={model.image}/>
+            <AutoField name="isPrivate" />
+
             <HiddenField name="checkedPolicy" value="true" margin="dense" />
+            <HiddenField name="hostId" />
 
             <SubmitField value="Submit" />
             <Button style={{backgroundColor: "transparent", color: "red", marginLeft: '1rem'}} variant="outlined" onClick={this.cancelEvent}>Cancel Event </Button>

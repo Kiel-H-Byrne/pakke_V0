@@ -104,8 +104,10 @@ class EventDetailsComponent extends Component {
     }
 
     const one_day=1000*60*60*24;
-    const isExpired = (((this.props.event.date.getTime() - Date.now())/one_day) <= -1) //DATE IS YESTERDAY
-    const isTBD = (((this.props.event.date.getTime() - Date.now())/one_day) > 364) //DATE IS A YEAR AHEAD 
+    const realEventDate = new Date((this.props.event.date * 1) + ((new Date().getTimezoneOffset())*60*1000))
+    // const isExpired = (((realEventDate.getTime() - Date.now())/one_day) <= -1) //EVENT DATE IS YESTERDAY (ALLOW TO BUY UP TO DAY AFTER)
+    const isExpired = (realEventDate.getTime() < Date.now()) //EVENT DATE & Time is a milLisecond BEFORE CURRENT TIME (ALLOW TO BUY UP TO EVENT TIME)
+    const isTBD = (((realEventDate.getTime() - Date.now())/one_day) > 364) //DATE IS A YEAR AHEAD 
 
     return (
       <div>
@@ -166,7 +168,7 @@ class EventDetailsComponent extends Component {
                     <TableBody className={classes.table}>
                       <TableRow>
                         <TableCell className={classes.cell}><h5>WHEN:</h5> </TableCell>
-                        <TableCell numeric={true} className={classes.cell}>{this.props.event.date.toDateString().substring(0, (this.props.event.date.toDateString()).length - 5)}</TableCell>
+                        <TableCell numeric={true} className={classes.cell}>{realEventDate.toDateString().substring(0, (realEventDate.toDateString()).length - 5)}</TableCell>
                       </TableRow>
                       <TableRow>
                         <TableCell className={classes.cell}><h5>PRICE:</h5> </TableCell>

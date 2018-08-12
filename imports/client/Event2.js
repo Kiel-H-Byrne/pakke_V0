@@ -104,10 +104,12 @@ export default class Event extends Component {
                 // if (remainingTickets === 0) {this.setState({soldOut: true})}
         
         const one_day=1000*60*60*24;
-        const isExpired = (((this.props.event.date.getTime() - Date.now())/one_day) <= -1) //DATE IS YESTERDAY
-        const isTBD = (((this.props.event.date.getTime() - Date.now())/one_day) > 364)
+        const realEventDate = new Date((this.props.event.date * 1) + ((new Date().getTimezoneOffset())*60*1000))
+        const isExpired = (realEventDate.getTime() < Date.now())
+        // const isExpired = (((realEventDate.getTime() - Date.now())/one_day) <= -1) //DATE IS YESTERDAY
+        const isTBD = (((realEventDate.getTime() - Date.now())/one_day) > 364)
 
-        const dateArr = this.props.event.date.toDateString().split(' ');
+        const dateArr = realEventDate.toDateString().split(' ');
         
         const eventDate = _.object(["day","month","date","year"], dateArr)
         
@@ -120,6 +122,7 @@ export default class Event extends Component {
                 default: return "th";
             }
         };
+        
         return (
             <Grid item>
                     <Card style={styles.card}>
@@ -145,7 +148,7 @@ export default class Event extends Component {
 
                             <CardContent>
                                 <Typography gutterBottom variant="headline" component="h2">{this.props.event.byline}</Typography>
-                                <Typography gutterBottom variant="caption" noWrap={true} dangerouslySetInnerHTML={{__html: this.props.event.description}} />
+                                <Typography gutterBottom variant="caption" dangerouslySetInnerHTML={{__html: this.props.event.description.substring(0, 100)+'...'}} />
                                 
                                 {/*
                                 <Typography variant="headline" component="h3">{this.props.event.eventAddress.state}, {this.props.event.eventAddress.zip} </Typography>

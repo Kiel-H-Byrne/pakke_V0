@@ -65,7 +65,7 @@ const styles = theme => ({
   render() {
     
     const { classes } = this.props;
-    const model = Schema.Venue.clean(this.props.event);
+    const model = this.props.venue;
 
     return (
       <div>

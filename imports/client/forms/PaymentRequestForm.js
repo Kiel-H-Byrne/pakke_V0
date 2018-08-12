@@ -12,20 +12,21 @@ class PaymentRequestForm extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCharge = this.handleCharge.bind(this);
     // For full documentation of the available paymentRequest options, see:
     // https://stripe.com/docs/stripe.js#the-payment-request-object
-    const stripeTokenHandler = function(token) {
-      // Insert the token ID into the form so it gets submitted to the server
-      let form = document.getElementById('payment-form');
-      let hiddenInput = document.createElement('input');
-      hiddenInput.setAttribute('type', 'hidden');
-      hiddenInput.setAttribute('name', 'stripeToken');
-      hiddenInput.setAttribute('value', token.id);
-      form.appendChild(hiddenInput);
-      // Submit the form
-      //add user phone and real name if not already there.
-      form.submit();
-    }
+    // const stripeTokenHandler = function(token) {
+    //   // Insert the token ID into the form so it gets submitted to the server
+    //   let form = document.getElementById('payment-form');
+    //   let hiddenInput = document.createElement('input');
+    //   hiddenInput.setAttribute('type', 'hidden');
+    //   hiddenInput.setAttribute('name', 'stripeToken');
+    //   hiddenInput.setAttribute('value', token.id);
+    //   form.appendChild(hiddenInput);
+    //   // Submit the form
+    //   //add user phone and real name if not already there.
+    //   form.submit();
+    // }
 
     const paymentRequest = props.stripe.paymentRequest({
       country: 'US',
@@ -39,63 +40,56 @@ class PaymentRequestForm extends React.Component {
     });
 
     paymentRequest.on('token', ({complete, token, ...data}) => {
-      // console.log('Received Stripe token: ', token);
-      // console.log('Received customer information: ', data);
-      stripeTokenHandler(token);
-      complete('success');
+      console.log('Received Stripe token: ', token);
+      console.log('Received customer information: ', data);
+      this.handleCharge(token, (err,res) => {
+        console.log(err,res)
+        if (err) {
+          complete('fail')
+        } else {
+          complete('success');
+        }
+      })
     });
     //PaymentRequestButtonElement NOT WORKING (just times out), SO COMMENTED OUT 
     // Timed out waiting for a PaymentResponse.complete() call.
     //SETS VARIABLE TO TRUE IF IT CAN, (I DON'T WANT IT TO)
-    // paymentRequest.canMakePayment().then(result => {
-    //   console.log(result)
-    //   this.setState({canMakePayment: !!result});
-    // });
+    paymentRequest.canMakePayment().then(result => {
+      // console.log(result)
+      this.setState({canMakePayment: !!result});
+    });
     
     this.state = {
       canMakePayment: false,
       paymentRequest,
     };
   }
-
-  handleSubmit(e) {
-    // console.log('submitting...');
-    e.preventDefault();
-    // Within the context of `Elements`, this call to createToken knows which Element to
-    // tokenize, since there's only one in this group.
-    const user = this.props.user;
-    const event = this.props.event
-    const handleClose = this.props.handleClose
-    // console.log(user)
-    const userEmail = user.emails[0].address;
-    const userEmailProps = [
-      "noreply@pakke.us",
-      "Ticket Purchase Confirmation",
-      eventPurchasedTemplate(user,this.props.event)
-    ];
-    
-    const adminEmailProps = [
-      "noreply@pakke.us",
-      "EVENTS: Ticket Purchase",
-      eventPurchasedAdminTemplate(user,this.props.event)
-    ];
-
-
-    this.props.stripe.createToken({'name': this.props.user.profile.name}).then(({error, token}) => {
-      if (error) {
-        Bert.alert(error.message, "danger", "growl-top-right");
-      } else {
-        
-        
-        // console.log('Payment Received token:', token);
-       Meteor.call('createCharge', userEmail, this.props.event.price, this.props.event.byline, token, (error, result) => {
+  
+  async handleCharge(token) {
+      const user = this.props.user;
+      const event = this.props.event
+      const handleClose = this.props.handleClose
+      // console.log(user)
+      const userEmail = user.emails[0].address;
+      const userEmailProps = [
+        "noreply@pakke.us",
+        "Ticket Purchase Confirmation",
+        eventPurchasedTemplate(user, event)
+      ];
+      
+      const adminEmailProps = [
+        "noreply@pakke.us",
+        "EVENTS: Ticket Purchase",
+        eventPurchasedAdminTemplate(user, event)
+      ];
+      try {
+      const response = await Meteor.call('createCharge', userEmail, event.price, event.byline, token, (error, result) => {
           if (error) {
             Bert.alert(error.reason, "danger");
+            return error;
           } else {
-            result ? console.log(result) : null
+            // result ? console.log(result) : null
             handleClose();
-            // $('.modal-backdrop').removeClass('in').addClass('hide');
-            console.log(this)
             Bert.alert("You're in! Check your inbox for more info!", "success");
             if (Meteor.isProduction) {
               Meteor.call('amConfirmed', event._id);
@@ -124,11 +118,27 @@ class PaymentRequestForm extends React.Component {
                 ]
               });
             } else {
-              console.log('emails sent')
+              // console.log(token);
+              console.log('emails wouldve been sent if not for development')
             }
           }
-        })      
-        
+          return result
+        });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  handleSubmit = e => {
+    // console.log('submitting...');
+    e.preventDefault();
+    // Within the context of `Elements`, this call to createToken knows which Element to
+    // tokenize, since there's only one in this group.
+    this.props.stripe.createToken({'name': this.props.user.profile.name}).then(({error, token}) => {
+      if (error) {
+        Bert.alert(error.message, "danger", "growl-top-right");
+      } else {
+      this.handleCharge(token)
         //find class '.modal in' and change to '.modal hide'
         //amex 3796 330728 93002 6/20 9534 20031
         //testcard 
@@ -136,7 +146,6 @@ class PaymentRequestForm extends React.Component {
     }); 
   }; 
   
-
   render() {
     // console.log(this.state)
     return this.state.canMakePayment ? (
