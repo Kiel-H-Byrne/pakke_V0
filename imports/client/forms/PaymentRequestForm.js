@@ -42,14 +42,16 @@ class PaymentRequestForm extends React.Component {
     paymentRequest.on('token', ({complete, token, ...data}) => {
       // console.log('Received Stripe token: ', token);
       // console.log('Received customer information: ', data);
-      this.handleCharge(token, (err,res) => {
-        console.log(err,res)
-        if (err) {
-          complete('fail')
-        } else {
-          complete('success');
-        }
-      })
+      // this.handleCharge(token, (err,res) => {
+      //   console.log(err,res)
+      //   if (err) {
+      //     complete('fail')
+      //   } else {
+      //     complete('success');
+      //   }
+      // });
+      this.handleCharge(token);
+      complete('success');
     });
     //PaymentRequestButtonElement NOT WORKING (just times out), SO COMMENTED OUT 
     // Timed out waiting for a PaymentResponse.complete() call.
