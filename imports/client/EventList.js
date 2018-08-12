@@ -41,10 +41,13 @@ export default EventList = withTracker(() => {
   return {
     ready: eventsSub.ready(),
     events: Events.find({
+      date: {
+          $gte: new Date() 
+        },
       $or: [
-      {"featured": false},
-      {"isPrivate": false}]
-    }, {
+        {"featured": false},
+        {"isPrivate": false}]
+      }, {
       sort: { date: 1 }
     }).fetch()
   }
