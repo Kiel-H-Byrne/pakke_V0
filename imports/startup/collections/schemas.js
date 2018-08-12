@@ -587,10 +587,6 @@ Schema.Event = new SimpleSchema({
     type: Date,
     label: "When is this experience?"
   },
-  utcOffset: {
-    type: Number,
-    autoValue: () => new Date().getTimezoneOffset()
-  },
   duration: {
     type: Number,
     label: "How long will this last? (in hours)",

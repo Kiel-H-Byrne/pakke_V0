@@ -40,8 +40,8 @@ class PaymentRequestForm extends React.Component {
     });
 
     paymentRequest.on('token', ({complete, token, ...data}) => {
-      console.log('Received Stripe token: ', token);
-      console.log('Received customer information: ', data);
+      // console.log('Received Stripe token: ', token);
+      // console.log('Received customer information: ', data);
       this.handleCharge(token, (err,res) => {
         console.log(err,res)
         if (err) {
@@ -86,7 +86,7 @@ class PaymentRequestForm extends React.Component {
       const response = await Meteor.call('createCharge', userEmail, event.price, event.byline, token, (error, result) => {
           if (error) {
             Bert.alert(error.reason, "danger");
-            return error;
+            throw Meteor.Error('failed',error.reason)
           } else {
             // result ? console.log(result) : null
             handleClose();
