@@ -105,8 +105,10 @@ const styles = theme => ({
             <AutoField name="duration" margin="dense" />
             <AutoField name="size" margin="dense" />
             <AutoField name="price" margin="dense" />
+
             <AutoField name="contact" margin="dense" />
-            <VenuesForm value={model.venuId} />       
+            <VenuesForm value={model.venueId} />  
+            <InputLabel>Upload a picture to use for the cover!</InputLabel>     
             <FileUpload name="image" module="events" value={model.image}/>
             <AutoField name="isPrivate" />
 

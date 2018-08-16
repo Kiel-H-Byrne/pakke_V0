@@ -21,6 +21,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import Venues from '/imports/startup/collections/venues';
 import AddVenueModal from './AddVenueModal.js'
@@ -28,7 +30,7 @@ import EditVenueButton from './EditVenueButton.js';
 
 const styles = {
     card: {
-        maxWidth: 120,
+        // maxWidth: 120,
         minWidth: 100,
         margin: '1rem',
     },
@@ -46,7 +48,7 @@ const styles = {
         paddingTop: '56.25%', // 16:9
     },
     actions: {
-      padding: 2,
+      // padding: 2,
       // justifyContent: 'space-between',
     },
     flexRow: {
@@ -62,37 +64,40 @@ const styles = {
       display: 'none'
     },
     radio: {
-      width: '100%',
+      // width: '100%',
       height: '1rem',
-      paddingBottom: '.5rem'
+      // paddingBottom: '.5rem'
     }
 };
 class VenuesFormComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: props.value || ""
+      selected: props.venueId || ""
     }
   }
   
-  // componentDidMount = () => {
-  //   console.log(this.props)
-  //   if (this.props.venues) {
-  //     console.log(this.props.venues)
-  //     this.setState({selected: this.props.venues[0]._id})
+  // shouldComponentUpdate = (nextProps, nextState) => {
+  //   if (this.state.selected == nextState.selected) {
+  //     return false 
   //   } else {
-  //     console.log("nope")
+  //     return true
   //   }
   // }
-  static getDerivedStateFromProps(props, state) {
-    // console.log(props)
-    if (props.venues && props.venues.length) {
-      if (state.selected !== props.venues[0]._id) {
-      return {selected: props.venues[0]._id}
-    } }
-    return null
-  }
   
+  // componentDidMount = () => {
+  //   if (this.props.venues && this.props.venues.length) {
+  //     if (this.state.selected !== this.props.venues[0]._id) {
+  //       return {selected: this.props.venues[0]._id}
+  //     } else console.log(this.state.selected) 
+  //   } else console.log("not yet")
+  // }
+  
+  // static getDerivedStateFromProps(props, state) {
+  //   if (props.initValue !== state.selected) {return null}
+  //     else {return {selected: props.initValue}}
+  // }
+
   handleChange = event => {
     this.setState({ selected: event.target.value });
   }
@@ -132,6 +137,15 @@ class VenuesFormComponent extends Component {
   handleFailure() {
     Bert.alert("Sorry, Something Went Wrong", "danger", "growl-top-right");
   };
+  
+  deleteVenue = venue => {
+    if (confirm('Are you sure you want to delete this venue?')) {
+      Meteor.call('deleteVenue', venue, (err, res) => {
+        //IF NO CONFIRMED GUESTS (PAID) THEN OK TO DELETE, OR IF NOT PAST
+      })
+    }
+  }
+
   render() {
     if (this.props.loading) {
       return (
@@ -165,6 +179,8 @@ class VenuesFormComponent extends Component {
                           </Typography>
                           <Typography component="p" variant="caption" gutterBottom>{venue.address.street}, {venue.address.zip}</Typography>
                           <Typography component="p" variant="caption" gutterBottom>{venue.type}: Holds {venue.capacity}</Typography>
+                        </CardContent>
+                        <CardActions disableActionSpacing>
                           <Radio 
                           style={styles.radio}
                           checked={this.state.selected === venue._id} 
@@ -174,7 +190,10 @@ class VenuesFormComponent extends Component {
                           id={`vri_${venue._id}`}
                           aria-label={venue.nickname}
                           />
-                        </CardContent>
+                          <Button variant="fab" mini onClick={() => this.deleteVenue(venue)}>
+                            <DeleteForeverIcon />
+                          </Button>
+                        </CardActions>
                       </Card>
                       )
                     }
@@ -184,10 +203,13 @@ class VenuesFormComponent extends Component {
               </div>
             </React.Fragment>
             ) : (
-            <div>
-              <Typography variant="subheading" align="center">Add a new place and use it later!</Typography>
+            <React.Fragment>
+            <Typography variant="subheading" align="center">Add a new place and use it later!</Typography>
+            <div style={styles.flexRow}>
+              
               <AddVenueModal />
             </div>
+            </React.Fragment>
             )
           }
         </div>
@@ -200,11 +222,15 @@ export default VenuesForm = withTracker((props) => {
   let handle = Meteor.subscribe('my_venues');
   let loading = !handle.ready();
   if (!loading) {
+    const venues = Venues.find({ hostId: Meteor.userId() }).fetch();
+    // let initValue;
+    // if (venues && venues.length) {
+    //   initValue = venues[0]._id
+    // }
     return {
-      venues: Venues.find({ hostId: Meteor.userId() }).fetch()
+      venues: venues,
+      // initValue: initValue
     } 
   }
   return { loading }
 })(VenuesFormComponent);
-
-

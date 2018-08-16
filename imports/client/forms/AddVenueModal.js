@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -31,7 +34,7 @@ const styles = theme => ({
     maxWidth: 120,
     minWidth: 100,
     margin: '1rem',
-    border: "1px dashed #226199",
+    // border: "1px dashed #226199",
     float: "left"
   },
   media: {
@@ -59,9 +62,9 @@ class AddVenueModalComponent extends Component {
     const { classes } = this.props;
 
     return (
-            <React.Fragment>
+        <ButtonBase focusRipple className={classes.card} >
       {/* <Button variant="fab" onClick={this.handleOpen} className={classes.button}> <AddLocationIcon /> </Button> */}
-      <Card className={classes.card} elevation={0} onClick={this.handleOpen}>
+      <Card elevation={2} onClick={this.handleOpen} >
         <CardMedia className={classes.media} image="/img/holders/holder_venue_200.png" />
         <CardContent className={classes.content}>
           <Typography gutterBottom variant="subheading" align="center">
@@ -81,7 +84,7 @@ class AddVenueModalComponent extends Component {
         <AddVenueForm handleClose={this.handleClose}/>
       </div>
     </Modal>
-    </React.Fragment>
+    </ButtonBase>
     );
   }
 }

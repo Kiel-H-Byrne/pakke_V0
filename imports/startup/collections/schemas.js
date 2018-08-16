@@ -7,15 +7,6 @@ import uniforms from 'uniforms';
 import filterDOMProps from 'uniforms/filterDOMProps';
 import { Editor } from '@tinymce/tinymce-react';
 
-import EventImages from './eventImages'
-
-if (Meteor.isClient) {
-import AvatarUpload from '/imports/client/forms/AvatarUpload.js';
-import EventImagesUpload from '/imports/client/forms/EventImagesUpload.js';
-import UploadField from '/imports/client/forms/UploadField.js';
-import VenuesForm from '/imports/client/forms/VenuesForm.js';
-}
-
 Schema = {};
 
 
@@ -449,15 +440,6 @@ Schema.Profile = new SimpleSchema({
     type: Schema.Interests,
     optional: true,
   },
-  // venues: {
-  //   type: Array,
-  //   label: 'Your Venues:',
-  //   optional: true,
-  //   defaultValue: []
-  // },
-  // "venues.$": {
-  //   type: Schema.Venue
-  // },
   talents: {
     type: Array,
     label: 'Add A New Talent!',
@@ -657,24 +639,8 @@ Schema.Event = new SimpleSchema({
     type: Schema.Address,
     optional: true,
   },
-  // venue: {
-  //   type: Object,
-  //   label: "Where will this take place?",
-  //   blackbox: true,
-  //   optional: true,
-  //   uniforms: (Meteor.isClient ? VenuesForm : null),
-  //   //SOMEHOW SHOW RADIO BOXES WITH NAMES OF VENUES FROM HOSTS VENUEARRAY
-  // },
   venueId: {
-    type: String,
-    // defaultValue: function() {
-    //   const venues = Venues.find({ hostId: Meteor.userId() }).fetch();
-    //   console.log(venues)
-    //   if (venues[0]) {
-    //     return venues[0]
-    //   }
-    //   return null
-    // }
+    type: String
   },
   contact: {
     type: String,
@@ -723,7 +689,7 @@ Schema.Event = new SimpleSchema({
     type: Boolean,
     optional: true,
     defaultValue: false,
-    label: 'Private Party? (Will not be listed & guests must apply first)'
+    label: 'Private Party? (Will not be listed & guests must apply)'
   },
   featured: {
     type: Boolean, 

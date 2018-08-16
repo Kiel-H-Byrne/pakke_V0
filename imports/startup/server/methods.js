@@ -87,7 +87,7 @@ Meteor.methods({
       }
     });
   },
-  s3Remove: function(filePath,versionId) {
+  s3Remove: async function(filePath,versionId) {
     console.log("DELETING IMAGE...")
     const s3Conf = Meteor.settings.public.keys.s3;
     const s3 = new S3({
@@ -99,14 +99,21 @@ Meteor.methods({
       Key: filePath
     };
 
-    s3.deleteObject(params, (err, data) => {
-      if (err) {
-        // console.log(err, err)
-      } else {
-        console.log("...SUCCESS")
-        // console.log(data);
-      }
-    });
+    // await s3.deleteObject(params, (err, data) => {
+    //   if (err) {
+    //     // console.log(err, err)
+    //   } else {
+    //     console.log("...SUCCESS")
+    //     // console.log(data);
+    //   }
+    // });
+
+    await s3.deleteObject(params).promise().then( data => {
+      console.log(data)
+    }).catch( err => {
+      console.log("FAILED: ", err.message)
+      // throw new Meteor.Error(err.code, err.message)
+    })
   },
   addRole: function (id, role) {
     // check(id, Meteor.Collection.ObjectID);
@@ -192,6 +199,13 @@ Meteor.methods({
     //makre sure old object is added to new object, update rewrites fields.
     if (this.userId === event.hostId) {
       Events.remove({_id: event._id})
+    } else {
+      console.log("Unauthorized attempt.")
+    }
+  },
+  deleteVenue: function(venue) {
+    if (this.userId === venue.hostId) {
+      Venues.remove({_id: venue._id})
     } else {
       console.log("Unauthorized attempt.")
     }

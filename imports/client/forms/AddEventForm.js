@@ -109,7 +109,7 @@ class AddEventForm extends Component {
                         </div>
                         
                         <div >
-                        <Typography variant="display1" align="center">Step 3. - Create It</Typography>
+                        <Typography variant="display1" align="center">Step 3. - Publish It</Typography>
                         <AutoField name="isPrivate" />
                         <AutoField name="contact" />
                         
