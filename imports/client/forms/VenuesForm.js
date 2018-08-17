@@ -48,8 +48,8 @@ const styles = {
         paddingTop: '56.25%', // 16:9
     },
     actions: {
-      // padding: 2,
-      // justifyContent: 'space-between',
+      display:'flex', 
+      justifyContent: 'space-around',
     },
     flexRow: {
       display:'flex', 
@@ -60,13 +60,15 @@ const styles = {
     logo: {
         maxWidth: 75,
     },
-    hidden: {
-      display: 'none'
-    },
     radio: {
       // width: '100%',
-      height: '1rem',
+      height: '0.8rem',
       // paddingBottom: '.5rem'
+    },
+    button: {
+      width: '36px',
+      height: '36px',
+      borderRadius: '50%',
     }
 };
 class VenuesFormComponent extends Component {
@@ -145,6 +147,9 @@ class VenuesFormComponent extends Component {
       })
     }
   }
+  defaultChecked = (_id) => {
+    this.state.selected ? (this.state.selected === _id) : (this.initValue === _id)
+  }
 
   render() {
     if (this.props.loading) {
@@ -180,17 +185,17 @@ class VenuesFormComponent extends Component {
                           <Typography component="p" variant="caption" gutterBottom>{venue.address.street}, {venue.address.zip}</Typography>
                           <Typography component="p" variant="caption" gutterBottom>{venue.type}: Holds {venue.capacity}</Typography>
                         </CardContent>
-                        <CardActions disableActionSpacing>
+                        <CardActions >
                           <Radio 
                           style={styles.radio}
                           checked={this.state.selected === venue._id} 
                           onChange={this.handleChange}
                           value={venue._id}
-                          name="venueId"
+                          name="venueRadio"
                           id={`vri_${venue._id}`}
                           aria-label={venue.nickname}
                           />
-                          <Button variant="fab" mini onClick={() => this.deleteVenue(venue)}>
+                          <Button variant="outlined" onClick={() => this.deleteVenue(venue)} style={styles.button}>
                             <DeleteForeverIcon />
                           </Button>
                         </CardActions>
@@ -206,7 +211,6 @@ class VenuesFormComponent extends Component {
             <React.Fragment>
             <Typography variant="subheading" align="center">Add a new place and use it later!</Typography>
             <div style={styles.flexRow}>
-              
               <AddVenueModal />
             </div>
             </React.Fragment>
@@ -223,13 +227,13 @@ export default VenuesForm = withTracker((props) => {
   let loading = !handle.ready();
   if (!loading) {
     const venues = Venues.find({ hostId: Meteor.userId() }).fetch();
-    // let initValue;
-    // if (venues && venues.length) {
-    //   initValue = venues[0]._id
-    // }
+    let initValue;
+    if (venues && venues.length) {
+      initValue = venues[0]._id
+    }
     return {
       venues: venues,
-      // initValue: initValue
+      initValue: initValue
     } 
   }
   return { loading }

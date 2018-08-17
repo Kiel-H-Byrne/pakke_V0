@@ -64,7 +64,7 @@ class AddVenueModalComponent extends Component {
     return (
         <ButtonBase focusRipple className={classes.card} >
       {/* <Button variant="fab" onClick={this.handleOpen} className={classes.button}> <AddLocationIcon /> </Button> */}
-      <Card elevation={2} onClick={this.handleOpen} >
+      <Card elevation={5} onClick={this.handleOpen} >
         <CardMedia className={classes.media} image="/img/holders/holder_venue_200.png" />
         <CardContent className={classes.content}>
           <Typography gutterBottom variant="subheading" align="center">

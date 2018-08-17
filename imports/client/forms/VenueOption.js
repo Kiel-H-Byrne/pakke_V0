@@ -22,7 +22,7 @@ export default class VenueOption extends Component {
           value={this.props.venue._id} 
           control={ <Radio/>}
           label={this.props.venue.nickname}
-          name="venueId"
+          name="venueRadio"
           onChange = {this.handleChange}
           />
       </div>

@@ -21,10 +21,11 @@ class EventListComponent extends Component {
           if (!this.props.ready) {
             return (
                 <GridLoader 
+                key={event._id}
                 loading={!this.props.ready} 
                 color='#2964ff'
                 size={20}
-                margin='2px' />
+                margin='1rem' />
                 )
           } else {
             return <Event key={event._id} event={event} />

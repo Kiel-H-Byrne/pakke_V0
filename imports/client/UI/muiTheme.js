@@ -22,6 +22,10 @@ const muiTheme = createMuiTheme({
         },
         focusVisible: {
           backgroundColor: '#266199'
+        },
+        outlined: {
+          backgroundColor: 'inherit',
+          color: 'red'
         }
       },
       MuiFormControl: {
