@@ -160,7 +160,7 @@ class VenuesFormComponent extends Component {
 
   	return (
       <React.Fragment>
-        <AutoField name="venueId" value={this.state.selected} type="hidden" style={styles.hidden} label={false}/>
+        <HiddenField name="venueId" value={this.state.selected}/>
       	<div className="venuesList" >
           { (this.props.venues && this.props.venues.length) ? (
             <React.Fragment>
