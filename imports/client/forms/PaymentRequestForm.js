@@ -92,9 +92,10 @@ class PaymentRequestForm extends React.Component {
           } else {
             // result ? console.log(result) : null
             handleClose();
-            Bert.alert("You're in! Check your inbox for more info!", "success");
+            Bert.alert(`Yay! Check your inbox [${userEmail}] for more info!`, "success");
+            Meteor.call('amConfirmed', event._id);
             if (Meteor.isProduction) {
-              Meteor.call('amConfirmed', event._id);
+              
               Meteor.call('sendEmail', userEmail, ...userEmailProps);
               Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
 

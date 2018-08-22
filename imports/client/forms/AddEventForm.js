@@ -65,8 +65,10 @@ class AddEventForm extends Component {
         }
     }; 
 
-    handleSuccess(){
+    handleSuccess = () => {
         Bert.alert("Your Event Was Posted!", "success");
+        window.location.href="https://www.pakke.us/?eventAdded"
+        //redirect; to home
     };
 
     handleFailure() {

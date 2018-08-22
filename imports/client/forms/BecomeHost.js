@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withTracker } from 'meteor/react-meteor-data';
+import { Link } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import AddVenueForm from './AddVenueForm';
