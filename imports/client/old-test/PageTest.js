@@ -4,8 +4,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Editor } from '@tinymce/tinymce-react';
 import S3 from 'aws-sdk/clients/s3';
+import { Rifm } from 'rifm';
+import MaskedInput from 'react-text-mask'
 
 import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
 
 import FileUpload from '../forms/FileUpload.js';
 import EditAvatarButton from '../header/EditAvatarButton.js'
@@ -31,6 +34,11 @@ class PageTest extends Component {
   
 
   render() {
+    const numberFormat = (str: string) => {
+      const r = parseInt(str.replace(/[^\d]+/gi, ''), 10);
+      return r ? r.toLocaleString('en') : '';
+    }
+
     if (GoogleMaps.loaded()) {
       completeAddress = new google.maps.places.Autocomplete(
           /** @type {!HTMLInputElement} */
@@ -47,8 +55,19 @@ class PageTest extends Component {
     <p></p>
     <hr style={{width:"80%"}}/>
     <AddEventForm />
-    <input id="formatted_address" type="text" />
-    
+    <Input
+    size="15"
+    inputComponent={() => <MaskedInput
+      mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+      placeholder="Enter a phone number"
+      placeholderChar={`\u2000`}
+      keepCharPositions={true}
+      showMask={true}
+      size={15}
+      id="my-input-id"
+      style={{border:'none'}}
+     />} />
+
       </div>
     )
   }

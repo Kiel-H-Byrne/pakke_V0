@@ -22,7 +22,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import EditIcon from '@material-ui/icons/Edit';
 
 import Venues from '/imports/startup/collections/venues';
 import AddVenueModal from './AddVenueModal.js'
@@ -195,9 +195,7 @@ class VenuesFormComponent extends Component {
                           id={`vri_${venue._id}`}
                           aria-label={venue.nickname}
                           />
-                          <Button variant="outlined" onClick={() => this.deleteVenue(venue)} style={styles.button}>
-                            <DeleteForeverIcon />
-                          </Button>
+                          <EditVenueButton venue={venue}/>
                         </CardActions>
                       </Card>
                       )

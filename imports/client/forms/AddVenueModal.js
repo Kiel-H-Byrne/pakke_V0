@@ -30,12 +30,15 @@ const styles = theme => ({
     left: '50%',
     transform: `translate(-50%, -50%)`
   },
-  card: {
+  button: {
     maxWidth: 120,
     minWidth: 100,
     margin: '1rem',
     // border: "1px dashed #226199",
-    float: "left"
+    float: "left",
+  },
+  card: {
+    backgroundColor: '#edf2f6'
   },
   media: {
     height: 0,
@@ -62,9 +65,9 @@ class AddVenueModalComponent extends Component {
     const { classes } = this.props;
 
     return (
-        <ButtonBase focusRipple className={classes.card} >
+        <ButtonBase focusRipple className={classes.button} >
       {/* <Button variant="fab" onClick={this.handleOpen} className={classes.button}> <AddLocationIcon /> </Button> */}
-      <Card elevation={5} onClick={this.handleOpen} >
+      <Card elevation={5} onClick={this.handleOpen} className={classes.card}  >
         <CardMedia className={classes.media} image="/img/holders/holder_venue_200.png" />
         <CardContent className={classes.content}>
           <Typography gutterBottom variant="subheading" align="center">

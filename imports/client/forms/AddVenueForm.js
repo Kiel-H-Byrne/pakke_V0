@@ -11,7 +11,7 @@ import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 import AutoField  from 'uniforms-material/AutoField';
 import HiddenField from 'uniforms-material/HiddenField';
-import LongTextField from 'uniforms-material/LongTextField'; // Choose your theme package.
+import LongTextField from 'uniforms-material/LongTextField';
 
 import '../../startup/collections/schemas';
 import TinyInput from './TinyInput.js'

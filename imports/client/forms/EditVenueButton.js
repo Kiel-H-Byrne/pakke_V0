@@ -12,6 +12,8 @@ import AutoForm    from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
+import LongTextField from 'uniforms-material/LongTextField'; 
+
 
 import FileUpload from './FileUpload.js';
 
@@ -71,8 +73,8 @@ const styles = theme => ({
       <div>
         <EditIcon onClick={this.handleOpen}/>
       <Modal 
-        aria-labelledby="Edit Event"
-        aria-describedby="Edit your event"
+        aria-labelledby="Edit Venue"
+        aria-describedby="Edit your Venue"
         open={this.state.open}
         onClose={this.handleClose}
 

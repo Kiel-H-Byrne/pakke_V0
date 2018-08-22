@@ -105,6 +105,9 @@ export default class FileUpload extends Component {
         clearFile={() => this.setState({fileData: ''})}
         /> 
         )
+      } else if (this.props.value) {
+        return (
+          <img src={this.props.value}/>)
       }
     }
 
