@@ -68,6 +68,9 @@ class AddEventForm extends Component {
     handleSuccess = () => {
         Bert.alert("Your Event Was Posted!", "success");
         window.location.href="https://www.pakke.us/?eventAdded"
+        console.log(this.props)
+        // this.props.history.push('/?eventAdded');
+
         //redirect; to home
     };
 

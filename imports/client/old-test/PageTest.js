@@ -67,6 +67,8 @@ class PageTest extends Component {
       id="my-input-id"
       style={{border:'none'}}
      />} />
+  
+    <input id="formatted_address" type="address"/>
 
       </div>
     )
