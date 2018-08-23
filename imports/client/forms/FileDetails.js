@@ -49,16 +49,7 @@ class FileDetails extends Component {
     <div>
       <Card className={classes.card}>
         {this.props.fileExt == "svg" || "jpeg" || "jpg" || "png" || "gif" ? (
-          <div>
           <img src={this.props.fileUrl} className={classes.media} title={this.props.fileName} alt="Image Upload" />
-        {/*
-          <CardMedia 
-          className={classes.media}
-          src={this.props.fileUrl}
-          title={this.props.fileName}
-          />
-          */}
-          </div>                              
         ) : (
           <CardMedia
           className={classes.media}
@@ -68,18 +59,9 @@ class FileDetails extends Component {
           title={this.props.fileName}
         />
         )}
-        
-        <CardContent>
-          <Typography gutterBottom variant="subheading">
-            {this.props.fileName}
-          </Typography>
-          <Typography component="p">
-          Size: {this.props.fileSize}kb
-          </Typography>
-        </CardContent>
         <CardActions>
-          <Button onClick={this.replaceFile} >
-            Replace
+          <Button size="small" onClick={this.replaceFile} >
+            Change Image
           </Button>
         </CardActions>
       </Card>

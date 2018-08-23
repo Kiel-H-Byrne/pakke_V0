@@ -107,7 +107,7 @@ export default class FileUpload extends Component {
         )
       } else if (this.props.value) {
         return (
-          <img src={this.props.value}/>)
+          <img width="120px" src={this.props.value}/>)
       }
     }
 
@@ -127,8 +127,8 @@ export default class FileUpload extends Component {
       <Grid container direction="column">
         <Grid item xs={12}>
           <HiddenField name={this.props.name} value={this.state.s3path ? this.state.s3path : this.props.value} />
-          <input type="file" id={`file_input_${this.props.module}`} hidden ref="file_input" onChange={this.putIt} accept="image/*"/>
-          <Button variant="fab" onClick={this.handleClick}><AddAPhotoIcon/></Button>
+          <input type="file" id={`file_input_${this.props.module}`} hidden ref={`file_input_${this.props.module}`} onChange={this.putIt} accept="image/*"/>
+          <Button variant="fab" mini onClick={this.handleClick}><AddAPhotoIcon/></Button>
         </Grid>
 
         <Grid item xs={12} className="">

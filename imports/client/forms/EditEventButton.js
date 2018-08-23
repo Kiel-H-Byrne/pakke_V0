@@ -78,7 +78,7 @@ const styles = theme => ({
 
 		return (
 			<div>
-	    <Button variant="fab" mini={true} aria-label="edit" className={classes.button} onClick={this.handleOpen}> 
+	    <Button variant="fab" mini aria-label="edit" className={classes.button} onClick={this.handleOpen}> 
 				<EditIcon />
 			</Button>
 			<Modal 
@@ -116,7 +116,7 @@ const styles = theme => ({
             <HiddenField name="hostId" />
 
             <SubmitField value="Submit" />
-            <Button style={{backgroundColor: "transparent", color: "red", marginLeft: '1rem'}} variant="outlined" onClick={this.cancelEvent}>Cancel Event </Button>
+            <Button style={{backgroundColor: "transparent", color: "red", marginLeft: '1rem'}} size="small" variant="outlined" onClick={this.cancelEvent}>Cancel Event </Button>
             <ErrorsField />
   	      </AutoForm>
         </div>

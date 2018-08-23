@@ -32,7 +32,9 @@ class TinyInput extends Component {
             fontsize_formats: "10pt 12pt 14pt 18pt",
             resize:false,
             menubar: false,
+            contextmenu: false,  
             branding: false,
+            browser_spellcheck: true,
             id: "tiny-description",
             images_upload_handler:  function (blobInfo, success, failure) {
               console.log(blobInfo)

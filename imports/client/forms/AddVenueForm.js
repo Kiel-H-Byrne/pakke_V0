@@ -17,6 +17,7 @@ import '../../startup/collections/schemas';
 import TinyInput from './TinyInput.js'
 import ImagesUpload from './ImagesUpload.js'; 
 import FileUpload from './FileUpload.js';
+import AutoComplete from './AutoComplete.js';
 
 const styles = theme => ({
 
@@ -32,6 +33,7 @@ class AddVenueForm extends Component {
 
 
   handleSubmit(doc) {
+    console.log(doc)
       Meteor.call('addVenue', doc);
       this.props.handleClose();
   }; 
@@ -68,7 +70,7 @@ class AddVenueForm extends Component {
               <AutoField name="ownedStatus" margin="dense" />
               <AutoField name="type" margin="dense" />
               <AutoField name="capacity" margin="dense" />
-              <AutoField name="address" margin="dense" />
+              <AutoComplete module="venues"/>
               <InputLabel>Upload a picture to use for the preview!</InputLabel>
               <FileUpload name="image" module="venues" />
                     

@@ -22,46 +22,67 @@ MessageBox.defaults({
 });
 
 Schema.Address = new SimpleSchema({
-   // address: {
-  //   type: String,
-  //   optional: true,
-  //   // custom: function() {
-  //   //   //if street has no value and isSet(), and this has no value, throw error 
-  //   //   const hasStreet = this.field('street').isSet ;
-  //   //   if (!hasStreet) {
-  //   //     console.log('no street');
-  //   //     // inserts
-  //   //     if (!this.operator) {
-  //   //       if (!this.isSet || this.value === null || this.value === "") return "required";
-  //   //     }
+   formattedAddress: {
+    type: String,
+    optional: true,
+    unique: true,
+    custom: function() {
+      //if street has no value and isSet(), and this has no value, throw error 
+      console.log(this)
+      const hasStreet = this.field('street').isSet ;
+      if (!hasStreet) {
+        // inserts
+        if (!this.operator) {
+          console.log("validating", this)
+          if (!this.isSet || this.value === null || this.value === "") return "required";
+        }
 
-  //   //     // updates
-  //   //     else if (this.isSet) {
-  //   //       console.log('street is set');
-  //   //       if (this.operator === "$set" && this.value === null || this.value === "") return "required";
-  //   //       if (this.operator === "$unset") return "required";
-  //   //       if (this.operator === "$rename") return "required";
-  //   //     }
-  //   //   } else {
-  //   //     console.log('or else what??');
-  //   //     let addressString =  `${this.field('street').value} ${this.field('city').value}, ${this.field('state').value} ${this.field('zip').value}`;
+        // updates
+        else if (this.isSet) {
+          if (this.operator === "$set" && this.value === null || this.value === "") return "required";
+          if (this.operator === "$unset") return "required";
+          if (this.operator === "$rename") return "required";
+        }
+      } else {
+        let addressString =  `${this.field('street').value} ${this.field('city').value}, ${this.field('state').value} ${this.field('zip').value}`;
         
-  //   //     // let el = $('input[name="address")')[0];
-  //   //     this.value = addressString;
-  //   //     return {$set: addressString};
-  //   //   }
-  //   //   return;
-  //   // },
-  //   autoValue: function() {
-  //     if ( (this.isInsert || this.isUpdate) && this.field('street').isSet) {
-  //       let addressString =  `${this.field('street').value} ${this.field('city').value}, ${this.field('state').value} ${this.field('zip').value}`;
-  //       return addressString;
-  //     }
-  //   }
-  // },
+        // let el = $('input[name="address")')[0];
+        this.value = addressString;
+        return {$set: addressString};
+      }
+      return;
+    },
+    // autoValue: function() {
+    //   if ( (this.isInsert || this.isUpdate) && this.field('street').isSet) {
+    //     let addressString =  `${this.field('street').value} ${this.field('city').value}, ${this.field('state').value} ${this.field('zip').value}`;
+    //     return addressString;
+    //   }
+    // }
+  },
   street: {
     type: String,
     max: 100,
+    optional: true,
+    unique: true,
+    custom: function() {
+      console.log(this)
+      //if street has no value and isSet(), and this has no value, throw error 
+      let hasAddress = this.field('address').value;
+      // console.log(this.field('address'));
+      if (!hasAddress) {
+        // inserts
+        if (!this.operator) {
+          if (!this.isSet || this.value === null || this.value === "") return "required";
+        }
+        // updates
+        else if (this.isSet) {
+          console.log(this.value)
+          if (this.operator === "$set" && this.value === null || this.value === "") return "required";
+          if (this.operator === "$unset") return "required";
+          if (this.operator === "$rename") return "required";
+        }
+      }
+    }
   },
   place: {
     type: String,
@@ -73,13 +94,16 @@ Schema.Address = new SimpleSchema({
   city: {
     type: String,
     max: 50,
+    optional: true
     // defaultValue: 'District of Columbia'
   },
   state: {
     type: String,
     allowedValues: ["DC","MD","VA"],
+    optional: true   
     // allowedValues: ["AL","AK","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
     // defaultValue: 'DC'
+
   },
   zip: {
     type: String,
@@ -113,6 +137,7 @@ Schema.Venue = new SimpleSchema({
   address: {
     type: Schema.Address,
     unique: true,
+    optional: true
     label: "Where is this place?"
   },
   type: { 

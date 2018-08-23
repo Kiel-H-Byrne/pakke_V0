@@ -47,3 +47,6 @@ analytics.track('Events: Purchased Ticket', {
   others: 'others...'
 });
 
+
+
+db.runCommand('mongoexport -h ds025583.mlab.com:25583 -d pakkedb -c users -u kiel -p Vivitr0n -o users.csv --csv -f' )

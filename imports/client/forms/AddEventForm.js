@@ -116,14 +116,19 @@ class AddEventForm extends Component {
                         <div >
                         <Typography variant="display1" align="center">Step 3. - Publish It</Typography>
                         <AutoField name="isPrivate" />
-                        <AutoField name="contact" />
+                        <Input
+                        size="15"
+                        inputComponent={() => <MaskedInput
+                          mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                          placeholder="Enter a phone number"
+                          placeholderChar={`\u2000`}
+                          keepCharPositions={true}
+                          showMask={true}
+                          size={15}
+                          id="my-input-id"
+                          style={{border:'none'}}
+                         />} />
                         
-                        {/* <MaskedInput 
-                            mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-                            name="contact"
-                            label="Contact Number"
-
-                        /> */}
                         <AutoField name="checkedPolicy" />
                         <Typography 
                         component={Link}

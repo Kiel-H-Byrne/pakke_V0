@@ -140,13 +140,6 @@ class VenuesFormComponent extends Component {
     Bert.alert("Sorry, Something Went Wrong", "danger", "growl-top-right");
   };
   
-  deleteVenue = venue => {
-    if (confirm('Are you sure you want to delete this venue?')) {
-      Meteor.call('deleteVenue', venue, (err, res) => {
-        //IF NO CONFIRMED GUESTS (PAID) THEN OK TO DELETE, OR IF NOT PAST
-      })
-    }
-  }
   defaultChecked = (_id) => {
     this.state.selected ? (this.state.selected === _id) : (this.initValue === _id)
   }
