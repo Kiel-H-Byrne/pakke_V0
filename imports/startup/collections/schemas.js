@@ -137,7 +137,7 @@ Schema.Venue = new SimpleSchema({
   address: {
     type: Schema.Address,
     unique: true,
-    optional: true
+    optional: true,
     label: "Where is this place?"
   },
   type: { 
