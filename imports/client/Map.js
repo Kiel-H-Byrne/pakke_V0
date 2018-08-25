@@ -12,8 +12,9 @@ import Venues from '../startup/collections/venues';
 
 
 class MyMap extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    console.log(props)
+    super(props);
     this.handleOnReady = this.handleOnReady.bind(this);
   }
 

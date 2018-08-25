@@ -99,7 +99,7 @@ const styles = theme => ({
                 <AutoField name="ownedStatus" margin="dense" />
                 <AutoField name="type" margin="dense" />
                 <AutoField name="capacity" margin="dense"/>
-                <AutoField name="address" margin="dense" />
+                <AutoField name="address" margin="dense" disabled />
                 <FileUpload name="image" module="venues" value={model.image} />
               <SubmitField>Submit</SubmitField>
               <Button style={{backgroundColor: "transparent", color: "red", marginLeft: '1rem'}} size="small" variant="outlined" onClick={() => this.deleteVenue(this.props.venue)}>Remove Venue</Button>
