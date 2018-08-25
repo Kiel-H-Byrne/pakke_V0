@@ -46,7 +46,6 @@ class PageTest extends Component {
     <p></p>
     <hr style={{width:"80%"}}/>
     <AddEventForm />
-    <DateTime />
       </div>
     )
   }

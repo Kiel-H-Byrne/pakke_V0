@@ -24,6 +24,7 @@ import eventCreatedAdminTemplate from '../email/eventCreatedAdminTemplate';
 import FileUpload from './FileUpload.js';
 import VenuesForm from './VenuesForm';
 import TinyInput from './TinyInput.js'
+import DateTime from '../DateTime.js'
 
 
 // This will render an automatic, validated form, with labelled fields, inline
@@ -67,12 +68,10 @@ class AddEventForm extends Component {
     }; 
 
     handleSuccess = () => {
-        Bert.alert("Your Event Was Posted!", "success");
-        window.location.href="https://www.pakke.us/?eventAdded"
-        console.log(this.props)
-        // this.props.history.push('/?eventAdded');
-
         //redirect; to home
+        window.location.href="https://www.pakke.us/?eventAdded"
+        Bert.alert("Your Event Was Posted!", "success");
+        // this.props.history.push('/?eventAdded');
     };
 
     handleFailure() {
@@ -104,9 +103,11 @@ class AddEventForm extends Component {
                         <Typography variant="display1" align="center">Step 2. - Describe It</Typography>
                         <Typography variant="subheading" align="center">Let guests know what this experience is about!</Typography>
                         <AutoField name="byline" />
+                        <InputLabel htmlFor="event-date" shrink={true}>When is it...</InputLabel>
+                        {/*<AutoField name="date" id="event-date" component={() => <DateTime /> } /><br />*/}
+                        <AutoField name="date" />
                         <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
-                        <TinyInput name="description"/>
-                        <DateField name="date"  />
+                        <TinyInput name="description" id="event-description"/>
                         <AutoField name="duration"  />
                         <AutoField name="size" />
                         <AutoField name="price" />

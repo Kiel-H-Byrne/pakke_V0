@@ -25,6 +25,7 @@ import eventCreatedAdminTemplate from '../email/eventCreatedAdminTemplate';
 import FileUpload from './FileUpload.js';
 import VenuesForm from './VenuesForm';
 import TinyInput from './TinyInput.js'
+import DateTime from '../DateTime.js'
 
 const styles = theme => ({
   root: {
@@ -91,7 +92,7 @@ class ControlledExpansionPanels extends React.Component {
               <AutoField name="byline" />
               <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
               <TinyInput name="description"/>
-              <DateField name="date"  />
+              <AutoField name="date" component={() => <DateTime /> } />
               <AutoField name="duration"  />
               <AutoField name="size" />
               <AutoField name="price" />

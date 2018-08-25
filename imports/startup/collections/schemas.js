@@ -27,8 +27,8 @@ Schema.Address = new SimpleSchema({
     // unique: true,
   },
   location: Object,
-  'location.lat': String,
-  'location.lng': String
+  'location.lat': Number,
+  'location.lng': Number
 })
 
 

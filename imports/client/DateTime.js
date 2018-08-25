@@ -22,6 +22,7 @@ export default class DateTime extends React.Component {
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <DateTimePicker
           value={selectedDate}
+          name="date"
           openTo="date"
           disablePast={true}
           onChange={this.handleDateChange}

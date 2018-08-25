@@ -1,5 +1,7 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
+
+
 const muiTheme = createMuiTheme({
     overrides: {
       MuiPickersToolbar: {
@@ -9,9 +11,23 @@ const muiTheme = createMuiTheme({
       },
       MuiPickersCalendarHeader: {
         switchHeader: {
-          backgroundColor: "#768fee",
-          color: 'black',
+          // backgroundColor: "#768fee",
+          // color: 'black',
         },
+      },
+      MuiPickersClock: {
+        container: {},
+        clock: {backgroundColor: "#768fff"},
+        pin: {}
+      },
+      MuiPickersClockPointer: {
+        pointer: {},
+        thumb: {}
+      },
+      MuiPickersDateTimePickerTabs: {
+        tabs: {
+          color: '#000000'
+        }
       },
       MuiPickersDay: {
         day: {

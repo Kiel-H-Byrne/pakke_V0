@@ -8,6 +8,7 @@ import { BarLoader } from 'react-spinners';
 import GoogleMapContainer from './MapGoogle';
 
 import Events from '../startup/collections/events';
+import Venues from '../startup/collections/venues';
 
 
 class MyMap extends Component {
@@ -116,30 +117,48 @@ class MyMap extends Component {
 
         Events.find().observeChanges({
           added: function(id,doc) {
-            // console.log(doc);
-
-            let addressString = `${doc.eventAddress.street} ${doc.eventAddress.city} ${doc.eventAddress.state} ${doc.eventAddress.zip}`;
-
-            GEO.geocode(
-              { address: addressString },
-              (res,err) => {
-                // console.log(res,err);
-                const latLngObj = res[0].geometry.location;
-
-                let marker = new google.maps.Marker({
-                  animation: google.maps.Animation.DROP,
-                  position: latLngObj,
-                  map: map.instance,
-                  icon: eventImage,
-                  id: id,
-                });
+            if (doc.venueId) {
+              Meteor.subscribe('venue', doc.venueId, () => {
+                // get the lat/long of the venueId. 
+                const thisVenue = Venues.find({_id: doc.venueId}).fetch()[0];
+                if (thisVenue) {
+                  let marker = new google.maps.Marker({
+                    animation: google.maps.Animation.DROP,
+                    position: thisVenue.location,
+                    map: map.instance,
+                    icon: eventImage,
+                    id: id,
+                  });
                 
-                markers[id] = marker;
-                    
-              });
-            
+                  markers[id] = marker;  
+                }
+                
+              })
+              
+            } else {
+              //old style, 
+
+              // let addressString = `${doc.eventAddress.street} ${doc.eventAddress.city} ${doc.eventAddress.state} ${doc.eventAddress.zip}`;
+              // GEO.geocode(
+              //   { address: addressString },
+              //   (res,err) => {
+              //     // console.log(res,err);
+              //     const latLngObj = res[0].geometry.location;
+
+              //     let marker = new google.maps.Marker({
+              //       animation: google.maps.Animation.DROP,
+              //       position: latLngObj,
+              //       map: map.instance,
+              //       icon: eventImage,
+              //       id: id,
+              //     });
+                  
+              //     markers[id] = marker;
+              // });
+            }           
           },
           changed: function(newDocument, oldDocument) {
+            console.log(newDocument, oldDocument)
             markers[newDocument._id].setPosition({
               lat: newDocument.lat,
               lng: newDocument.lng,
@@ -156,7 +175,9 @@ class MyMap extends Component {
       });
     });
   }
-
+  componentDidMount() {
+        Meteor.subscribe('venue', )
+    }
   componentWillUnmount() {
     this.computation.stop();
   }

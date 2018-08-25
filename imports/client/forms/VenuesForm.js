@@ -30,7 +30,7 @@ import EditVenueButton from './EditVenueButton.js';
 
 const styles = {
     card: {
-        // maxWidth: 120,
+        maxWidth: 140,
         minWidth: 100,
         margin: '1rem',
     },

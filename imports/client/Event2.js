@@ -92,6 +92,7 @@ export default class Event extends Component {
     }
     componentDidMount() {
         Meteor.subscribe('event_venue', this.props.event._id)
+        Meteor.subscribe('venue', this.props.event.venueId)
     }
     render() {
         let confirmedCount = 0;
