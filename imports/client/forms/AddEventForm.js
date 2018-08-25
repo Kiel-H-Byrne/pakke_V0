@@ -14,6 +14,7 @@ import HiddenField from 'uniforms-material/HiddenField';
 import LongTextField from 'uniforms-material/LongTextField'; // Choose your theme package.
 
 import Grid from '@material-ui/core/Grid';
+import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
@@ -35,7 +36,7 @@ import TinyInput from './TinyInput.js'
 
 
 class AddEventForm extends Component {
-    
+    state = {mask: ''}
     handleSubmit = doc => {
         // console.log(doc)
         Meteor.call('addEvent', doc);
@@ -83,7 +84,7 @@ class AddEventForm extends Component {
         // console.log(model)
     
         return (
-            <Grid container alignItems="center" direction="column" style={{margin: "1rem"}}>
+            <Grid container alignItems="center" direction="column" style={{width:"inherit", margin: ".5rem"}}>
                 <Grid item >
                     <AutoForm  
                     schema={Schema.Event} 
@@ -115,20 +116,41 @@ class AddEventForm extends Component {
                         
                         <div >
                         <Typography variant="display1" align="center">Step 3. - Publish It</Typography>
-                        <AutoField name="isPrivate" />
+                        {/*
+                        <InputLabel>Contact Number:</InputLabel>
                         <Input
-                        size="15"
-                        inputComponent={() => <MaskedInput
-                          mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-                          placeholder="Enter a phone number"
-                          placeholderChar={`\u2000`}
-                          keepCharPositions={true}
-                          showMask={true}
-                          size={15}
-                          id="my-input-id"
-                          style={{border:'none'}}
-                         />} />
+                          // size="15"
+                          name="contact"
+                          required={true}
+                          type="text"
+                          inputComponent={() => <MaskedInput
+                            mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                            placeholder="Enter a phone number"
+                            placeholderChar={`\u2000`}
+                            keepCharPositions={false}
+                            showMask={true}
+                            size={15}
+                            id="my-input-id"
+                            style={{border:'none'}}
+                           />} 
+                        />
                         
+                        <MaskedInput
+                            mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                            placeholder="Enter a phone number"
+                            placeholderChar={`\u2000`}
+                            keepCharPositions={false}
+                            showMask={true}
+                            size={15}
+                            id="my-input-id"
+                            type="tel"
+                            render={(ref, props) => (
+                              <AutoField name="contact" innerRef={ref} />
+                            )}
+                           />
+                        */}
+                        <AutoField name="contact" type="tel" />
+                        <AutoField name="isPrivate" />
                         <AutoField name="checkedPolicy" />
                         <Typography 
                         component={Link}

@@ -33,18 +33,18 @@ const styles = theme => ({
 })
 
  class EditEventButton extends Component {
-
- 
 	constructor(props) {
 		super(props)
 		this.state = {
 	    open: false,
+      hasGuests: false || !!props.event.confirmedList.length
 	  };
 		this.handleOpen = this.handleOpen.bind(this)
 		this.handleClose = this.handleClose.bind(this)
+    
 	}
 	handleSubmit = (doc) => {
-    console.log(doc)
+    // console.log(doc)
     Meteor.call('editEvent', this.props.event._id, doc);
   }; 
 
@@ -104,14 +104,12 @@ const styles = theme => ({
             <AutoField name="date" />
             <AutoField name="duration" margin="dense" />
             <AutoField name="size" margin="dense" />
-            <AutoField name="price" margin="dense" />
-
+            <AutoField name="price" margin="dense" disabled={this.state.hasGuests} />
             <AutoField name="contact" margin="dense" />
             <VenuesForm value={model.venueId} />  
             <InputLabel>Upload a picture to use for the cover!</InputLabel>     
             <FileUpload name="image" module="events" value={model.image}/>
             <AutoField name="isPrivate" />
-
             <HiddenField name="checkedPolicy" value="true" margin="dense" />
             <HiddenField name="hostId" />
 

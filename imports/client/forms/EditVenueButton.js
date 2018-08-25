@@ -42,7 +42,7 @@ const styles = theme => ({
     this.handleClose = this.handleClose.bind(this)
   }
   handleSubmit = (doc) => {
-    console.log(doc,this);
+    // console.log(doc);
     Meteor.call('editVenue', this.props.venue._id, doc);
     this.handleClose();
   }; 
@@ -75,11 +75,8 @@ const styles = theme => ({
     // console.log(model)
     return (
       <div>
-      <Button 
-      variant="fab"
-      mini
-      onClick={this.handleOpen}>
-        <EditIcon />
+        <Button variant="fab" mini onClick={this.handleOpen}>
+          <EditIcon />
         </Button>
       <Modal 
         aria-labelledby="Edit Venue"
@@ -101,7 +98,8 @@ const styles = theme => ({
               <LongTextField name="description" />
                 <AutoField name="ownedStatus" margin="dense" />
                 <AutoField name="type" margin="dense" />
-                <AutoField name="capacity" margin="dense" value={model.address} />
+                <AutoField name="capacity" margin="dense"/>
+                <AutoField name="address" margin="dense" />
                 <FileUpload name="image" module="venues" value={model.image} />
               <SubmitField>Submit</SubmitField>
               <Button style={{backgroundColor: "transparent", color: "red", marginLeft: '1rem'}} size="small" variant="outlined" onClick={() => this.deleteVenue(this.props.venue)}>Remove Venue</Button>

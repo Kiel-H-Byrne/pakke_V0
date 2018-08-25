@@ -2,6 +2,33 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 const muiTheme = createMuiTheme({
     overrides: {
+      MuiPickersToolbar: {
+        toolbar: {
+          backgroundColor: "#768fff",
+        },
+      },
+      MuiPickersCalendarHeader: {
+        switchHeader: {
+          backgroundColor: "#768fee",
+          color: 'black',
+        },
+      },
+      MuiPickersDay: {
+        day: {
+          color: "#768fff",
+        },
+        selected: {
+          backgroundColor: "#768fff",
+        },
+        current: {
+          color: "#768fff",
+        },
+      },
+      MuiPickersModal: {
+        dialogAction: {
+          color: "#768fff",
+        },
+      },
       MuiButton: {
         root: {
           backgroundColor: '#2964ff',

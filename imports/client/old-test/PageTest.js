@@ -14,7 +14,7 @@ import EditAvatarButton from '../header/EditAvatarButton.js'
 // import UserFiles from '../../startup/collections/files';
 import AddEventForm from '../forms/AddEventForm2';
 import AutoComplete from '../forms/AutoComplete';
-
+import DateTime from '../DateTime.js'
 
 class PageTest extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class PageTest extends Component {
     <p></p>
     <hr style={{width:"80%"}}/>
     <AddEventForm />
-    
+    <DateTime />
       </div>
     )
   }

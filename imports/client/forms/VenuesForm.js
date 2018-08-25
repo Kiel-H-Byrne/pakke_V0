@@ -75,7 +75,7 @@ class VenuesFormComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: props.venueId || ""
+      selected: props.value || ""
     }
   }
   
@@ -175,7 +175,7 @@ class VenuesFormComponent extends Component {
                           <Typography gutterBottom variant="subheading" align="center">
                             <em>"{venue.nickname}"</em>
                           </Typography>
-                          <Typography component="p" variant="caption" gutterBottom>{venue.address.street}, {venue.address.zip}</Typography>
+                          <Typography component="p" variant="caption" gutterBottom>{venue.address}</Typography>
                           <Typography component="p" variant="caption" gutterBottom>{venue.type}: Holds {venue.capacity}</Typography>
                         </CardContent>
                         <CardActions >
