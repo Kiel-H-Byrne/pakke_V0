@@ -78,7 +78,7 @@ export default class Event extends Component {
         if (this.props.event && this.props.event.venueId) {
             // console.log(eventHost.profile.venues)
             // let venue = eventHost.profile.venues.filter((v) => (v.venueId === this.props.event.venueId))
-            let venue = Venues.find({_id: this.props.event.venueId})
+            let venue = Venues.find({_id: this.props.event.venueId}).fetch()
             venue.length ? (eventAddress = venue[0].address) : ''
             // console.log(venue,eventAddress);
         }

@@ -39,13 +39,18 @@ class AddVenueForm extends Component {
 
 
   handleSubmit(doc) {
-    console.log(doc)
+    // console.log(doc)
       Meteor.call('addVenue', doc);
       this.props.handleClose();
+      analytics.track("Applied to event", {
+        label: "New Venue",
+        value: doc.address
+      })
   }; 
 
   handleSuccess() {
       Bert.alert("You have a new place!", "success");
+      
   };
 
   handleFailure() {
