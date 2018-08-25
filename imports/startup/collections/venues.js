@@ -6,7 +6,7 @@ const Venues = new Mongo.Collection('venues');
 
 if (Meteor.isServer) {
   // ALLOW FOR SORTING (?) 
-  Events._ensureIndex( { "address.zipcode": 1 } );
+  // Venues._ensureIndex( { "address.zipcode": 1 } );
 
   Meteor.publish('venues_all', function () {
     const cursor = Venues.find();
@@ -27,6 +27,13 @@ if (Meteor.isServer) {
       events: { $in: [eventId] }
     });
     // console.log("-= PUBLISHING: ["+ cursor.count() +"] Event Venue =-");
+    return cursor;
+  });
+
+  Meteor.publish('venue', function (id) {
+    let cursor = Venues.find({
+      _id: id
+    });
     return cursor;
   });
 }

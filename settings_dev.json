@@ -22,9 +22,9 @@
       },
       "stripe" : { "key": "pk_test_lFlobcmKBH2i1iwxLrF6ZxY2" },
       "s3": {
-        "key": "AKIAJFICQU6THFIJD3PQ",
-        "secret": "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",
-        "bucket": "pakke-images"
+        "key": "AKIAISRXY5TVTV2EZCBA",
+        "secret": "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",
+        "bucket": "pakke-uploads"
       },
       "tinymce": {
         "key": "y7yhejp7nih1ii5xyv0xweyo1j95aptehy95ltzrv6zars6a"
@@ -39,7 +39,8 @@
       },
       "zohoCRM": {
         "client_id": "1000.9BQEF6BWR67P55799YLS6S3R4Z17KH",
-        "client_secret": "7b42f461f405f855827474e74cc578acfcf6d08ff5"
+        "client_secret": "7b42f461f405f855827474e74cc578acfcf6d08ff5",
+        "oAuth": "a36f425d4f34e23ffd1c26bcb7e09426"
       }
     }
   },

@@ -1,12 +1,55 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
+
+
 const muiTheme = createMuiTheme({
     overrides: {
+      MuiPickersToolbar: {
+        toolbar: {
+          backgroundColor: "#768fff",
+        },
+      },
+      MuiPickersCalendarHeader: {
+        switchHeader: {
+          // backgroundColor: "#768fee",
+          // color: 'black',
+        },
+      },
+      MuiPickersClock: {
+        container: {},
+        clock: {backgroundColor: "#768fff"},
+        pin: {}
+      },
+      MuiPickersClockPointer: {
+        pointer: {},
+        thumb: {}
+      },
+      MuiPickersDateTimePickerTabs: {
+        tabs: {
+          color: '#000000'
+        }
+      },
+      MuiPickersDay: {
+        day: {
+          color: "#768fff",
+        },
+        selected: {
+          backgroundColor: "#768fff",
+        },
+        current: {
+          color: "#768fff",
+        },
+      },
+      MuiPickersModal: {
+        dialogAction: {
+          color: "#768fff",
+        },
+      },
       MuiButton: {
         root: {
           backgroundColor: '#2964ff',
           color: '#fff',
-          fontSize: '12px',
+          fontSize: '16px',
         },
         raised: {
           backgroundColor: '#2964ff',
@@ -22,6 +65,10 @@ const muiTheme = createMuiTheme({
         },
         focusVisible: {
           backgroundColor: '#266199'
+        },
+        outlined: {
+          backgroundColor: 'inherit',
+          color: 'red'
         }
       },
       MuiFormControl: {

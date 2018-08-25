@@ -63,6 +63,7 @@ class HeaderComponent extends Component {
                 // this.props.history.push('/')
             } else {
                 Bert.alert("We don't even KNOW you anymore!", "success");
+                // this.props.history.push('/?logout')
                 window.location.href="https://www.pakke.us/?logout"
             }
         })
@@ -103,7 +104,7 @@ class HeaderComponent extends Component {
             },
             avatar: {
                 margin: '.5rem .5rem',
-                height: '7rem',
+                height: '4rem',
                 borderRadius: '50%',
             },
             button: {
@@ -294,14 +295,10 @@ class HeaderComponent extends Component {
                                     >
                                             <MenuItem
                                             component={Accounts.ui.LoginForm}
-                                            >
-                                            </MenuItem>
+                                             />
                                         </Menu>
                                     </div>
-
                                 )}
-
-
                         </Toolbar>
                     </AppBar>
                 </div>

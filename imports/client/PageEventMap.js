@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+
+import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -9,30 +11,27 @@ import EventList from './EventList';
 import FeaturedEventList from './FeaturedEventList';
 import Map from './Map';
 
+const styles = (theme) => ({
+    cards: {
+        marginTop: theme.spacing.unit * 5,
+    },
+});
 
 class LandingPage extends Component {
 
     render() {
-
-        const styles = {
-            cards: {
-                marginTop: '2%',
-            },
-        };
-
         return (
-            // <div>
             <div className="landingMap">
+                <Grid container justify="center" alignItems="center" direction="column">
                     <Map />
-
-                <Grid container justify={'center'} style={{ marginTop: '3%' }}>
-                    <Paper align={'center'} style={{ width: 350 }}>
-                        <Typography style={{ margin: '3%' }} variant='display2'>Local Experiences</Typography>
+                    <Paper align={'center'} style={{ marginTop: '3%', width: '22rem' }}>
+                        <Typography style={{ margin: '3%' }} variant='display1'>Local Experiences</Typography>
                     </Paper>
                 </Grid>
-                <Grid container spacing={16} justify={'center'} style={styles.cards} >
+                <Grid container alignItems="baseline" style={styles.cards} wrap="nowrap" className="scroll-wrapper-x" >
                     <EventList />
                 </Grid>
+
 
 {/*
             <Grid container justify={'center'} style={{ marginTop: '10%' }}>
@@ -45,11 +44,10 @@ class LandingPage extends Component {
                 <FeaturedEventList />
             </Grid>
 */}
+</div>
 
-
-            </div>
         )
     }
 };
 
-export default LandingPage;
+export default withStyles(styles)(LandingPage);

@@ -21,13 +21,13 @@ class EventListComponent extends Component {
           if (!this.props.ready) {
             return (
                 <GridLoader 
+                key={event._id}
                 loading={!this.props.ready} 
                 color='#2964ff'
                 size={20}
-                margin='2px' />
+                margin='1rem' />
                 )
           } else {
-
             return <Event key={event._id} event={event} />
           }
         })
@@ -37,13 +37,18 @@ class EventListComponent extends Component {
 
 
 export default EventList = withTracker(() => {
-  let eventsSub = Meteor.subscribe('events_current');
+  let eventsSub = Meteor.subscribe('events_current') && Meteor.subscribe('events_public');
 
   return {
     ready: eventsSub.ready(),
     events: Events.find({
-      "featured": false
-    }, {
+      date: {
+          $gte: new Date() 
+        },
+      $or: [
+        {"featured": false},
+        {"isPrivate": false}]
+      }, {
       sort: { date: 1 }
     }).fetch()
   }

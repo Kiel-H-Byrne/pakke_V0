@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Email } from 'meteor/email';
-
+import fs from 'fs';
+import S3 from 'aws-sdk/clients/s3';
 import Zoho from 'zoho';
 
 import Events from '/imports/startup/collections/events';
@@ -56,6 +57,64 @@ const apiCall = function (apiUrl, callback) {
 };
 
 Meteor.methods({
+  s3Upload: async function(filePath, fileType, dataurl) {
+    console.log("UPLOADING IMAGE...")
+    const s3Conf = Meteor.settings.public.keys.s3;
+    const s3 = new S3({
+      accessKeyId: s3Conf.key,
+      secretAccessKey: s3Conf.secret
+    });
+    //CONVERT RAW IMAGE 64STRING TO BUFFER 
+    const buffer = Buffer.from(dataurl.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+    const params = {
+      ServerSideEncryption: 'AES256',
+      StorageClass: 'STANDARD',
+      Bucket: s3Conf.bucket,
+      Key: filePath,
+      Body: buffer,
+      ContentType: fileType,
+      ACL: "public-read"
+    };
+
+    await s3.putObject(params, (err, data) => {
+      if (err) {
+        return err
+        // console.error(err);
+      } else {
+        console.log("...SUCCESS")
+        return true
+        // console.log(data);      
+      }
+    });
+  },
+  s3Remove: async function(filePath,versionId) {
+    console.log("DELETING IMAGE...")
+    const s3Conf = Meteor.settings.public.keys.s3;
+    const s3 = new S3({
+      accessKeyId: s3Conf.key,
+      secretAccessKey: s3Conf.secret
+    });
+    const params = {
+      Bucket: s3Conf.bucket,
+      Key: filePath
+    };
+
+    // await s3.deleteObject(params, (err, data) => {
+    //   if (err) {
+    //     // console.log(err, err)
+    //   } else {
+    //     console.log("...SUCCESS")
+    //     // console.log(data);
+    //   }
+    // });
+
+    await s3.deleteObject(params).promise().then( data => {
+      console.log(data)
+    }).catch( err => {
+      console.log("FAILED: ", err.message)
+      // throw new Meteor.Error(err.code, err.message)
+    })
+  },
   addRole: function (id, role) {
     // check(id, Meteor.Collection.ObjectID);
     check(role, Array);
@@ -106,7 +165,11 @@ Meteor.methods({
   },
   addEvent: function(doc) {
     let newEventEmailTemplate = `
-      
+      <p>Need template:</p>
+      ${doc.byline} | ${doc.price} ≤br/>
+      HostId: ${doc.hostId} | Host Contact: ${doc.contact} <br/>
+      VeneuId: ${doc.venueId} <br/>
+
     `;
     if (! Roles.userIsInRole(this.userId, ["host"])) {
       Meteor.call('addRole', this.userId, ["host"]);
@@ -118,15 +181,9 @@ Meteor.methods({
 
       } else {
         console.log(`NEW EVENT: ${doc.byline}`);
-        analytics.track("New Event", {
-          label: doc.byline,
-          commerce: doc.price,
-          value: doc.price*doc.size,
-          host: doc.hostId,
-        })
 
         Email.send({
-          to: 'info@pakke.us', 
+          to: 'kiel@pakke.us', 
           from: 'noreply@pakke.us', 
           subject: 'EVENT ALERT: New Event Created', 
           html: newEventEmailTemplate 
@@ -140,6 +197,21 @@ Meteor.methods({
     Events.update({_id: id}, {
       $set: doc
     })
+  },
+  cancelEvent: function(event) {
+    //makre sure old object is added to new object, update rewrites fields.
+    if (this.userId === event.hostId) {
+      Events.remove({_id: event._id})
+    } else {
+      console.log("Unauthorized attempt.")
+    }
+  },
+  deleteVenue: function(venue) {
+    if (this.userId === venue.hostId) {
+      Venues.remove({_id: venue._id})
+    } else {
+      console.log("Unauthorized attempt.")
+    }
   },
   addInterests(doc) {
     const uid = this.userId; 
@@ -226,35 +298,53 @@ Meteor.methods({
       return res.data;
     });
   },
-  createCharge: function(email,amount, description, token) {
-    //makre sure old object is added to new object, update rewrites fields.
+  createCharge: async function(email,amount, description, token) {
     const stripe = require("stripe")(Meteor.settings.private.keys.stripe.key);
     description = `PAKKE EVENT: ${description}`;
     
     // console.log(token);
-    stripe.charges.create({
+    console.log("CREATING CHARGE: " + description)
+    await stripe.charges.create({
       amount: amount*100,
       currency: 'usd',
       description: description,
       source: token.id,
       receipt_email: email,
       capture: false
-    }, (err,charge) => {
-      if (err) {
-        console.log("err",err.message)
-        let error = err.message;
-        return
-      } else {
-        console.log('Payment Received: ' + description)
-        return charge;
-      }
-    })
+    // }, (err,charge) => {
+    //   if (err) {
+    //     console.log("err",err.message)
+    //     let error = err.message;
+    //     return false
+    //     throw new Meteor.Error(err.)
+    //   } else {
+    //     console.log('Payment Received: ' + description)
+    //     return charge;
+    //   }
+    // })
+    }).then(
+    result => {
+      // console.log(result)
+      // analytics.track("Ticket Purchase", {
+      //   label: description,
+      //   commerce: amount*100,
+      //   value: amount*100,
+      //   guest: email,
+      // })
+      console.log("SUCCESS")
+      return result
+    }).catch(
+    err => {
+      // console.log(err.code + ' - ' + err.message)
+      console.log("FAILED: ", err.message)
+      throw new Meteor.Error(err.code, err.message)
+    });
+
   },
   uploadFile: function(obj) {
     let upload =  Avatars.insert(obj, false);
     console.log(upload);
     return upload;
-
   },
   removeFile: function(fileId) {
     Uploads.remove(fileId);

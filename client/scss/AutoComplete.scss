@@ -1,0 +1,8 @@
+.pac-container {
+  // background-color: $clr-grey;
+  //needs to be in front of modal which is at z-index: 1300
+  z-index: 1315;
+  ::after {
+    // display: none;
+  }
+}

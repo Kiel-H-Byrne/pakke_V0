@@ -15,14 +15,14 @@ export default class VenueOption extends Component {
   	return (
 			<div>
         <div> img: {this.props.venue.image} </div>
-        <EditVenueButton />
+        <EditVenueButton venue={this.props.venue}/>
         <div> Name: {this.props.venue.nickname} </div>
         <div> Address: {this.props.venue.address.city}, {this.props.venue.address.zip} </div>
         <FormControlLabel 
           value={this.props.venue._id} 
           control={ <Radio/>}
           label={this.props.venue.nickname}
-          name="venueId"
+          name="venueRadio"
           onChange = {this.handleChange}
           />
       </div>

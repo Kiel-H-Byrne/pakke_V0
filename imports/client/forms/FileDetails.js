@@ -10,22 +10,21 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = {
   card: {
-    maxWidth: 345,
+    maxWidth: 145,
   },
   media: {
-    height: 240,
-    width: 320
+    minHeight: 100,
+    maxWidth: 145
   },
 };
 
-class IndividualFile extends Component {
+class FileDetails extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
     };
     
-    this.removeFile = this.removeFile.bind(this);
   }
 
   propTypes: {
@@ -36,28 +35,21 @@ class IndividualFile extends Component {
     fileExt: PropTypes.string
   }
 
-  removeFile() {
+  replaceFile = () => {
     let conf = confirm('Are you sure you want to delete the file?') || false;
     if (conf == true) {
-      Meteor.call('removeFile', this.props.fileId, function (err, res) {
-        if (err)
-          console.log(err);
-      })
+      this.props.clearFile()
+      Meteor.call('s3Remove', this.props.s3path)
     }
   }
 
   render() {
     const { classes } = this.props;
-
     return (
     <div>
       <Card className={classes.card}>
-        {this.props.fileExt == "jpg" || "png" || "gif" ? (
-          <CardMedia 
-          className={classes.media}
-          image={this.props.fileUrl}
-          title={this.props.fileName}
-          />                              
+        {this.props.fileExt == "svg" || "jpeg" || "jpg" || "png" || "gif" ? (
+          <img src={this.props.fileUrl} className={classes.media} title={this.props.fileName} alt="Image Upload" />
         ) : (
           <CardMedia
           className={classes.media}
@@ -67,18 +59,9 @@ class IndividualFile extends Component {
           title={this.props.fileName}
         />
         )}
-        
-        <CardContent>
-          <Typography gutterBottom variant="headline" component="h2">
-            {this.props.fileName}
-          </Typography>
-          <Typography component="p">
-          Size: {this.props.fileSize}
-          </Typography>
-        </CardContent>
         <CardActions>
-          <Button onClick={this.removeFile} >
-            Delete
+          <Button size="small" onClick={this.replaceFile} >
+            Change Image
           </Button>
         </CardActions>
       </Card>
@@ -87,8 +70,8 @@ class IndividualFile extends Component {
   }
 }
 
-IndividualFile.propTypes = {
+FileDetails.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(IndividualFile);
+export default withStyles(styles)(FileDetails);

@@ -13,6 +13,15 @@ Meteor.publish('currentUser', function () {
   });
 });
 
+Meteor.publish('publicUser', function (id) {
+  // console.log("-= PUBLISHING: USER DATA  =-");
+  return Meteor.users.find({_id: id}, {
+    fields: {
+      'profile': 1
+    }
+  });
+});
+
 Meteor.publish('eventHost', function (eventId) {
   // console.log("-= PUBLISHING: HOST USER DATA  =-");
   let event = Events.findOne(eventId);

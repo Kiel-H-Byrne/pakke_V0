@@ -7,13 +7,14 @@ import Button from '@material-ui/core/Button'
 import EditIcon from '@material-ui/icons/Edit'
 
 import AutoField  from 'uniforms-material/AutoField';
+import HiddenField  from 'uniforms-material/HiddenField';
 import AutoForm    from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 import InputLabel from '@material-ui/core/InputLabel';
 
-import EventImagesUpload from './EventImagesUpload.js'; 
+import FileUpload from './FileUpload.js';
 import VenuesForm from './VenuesForm';
 import TinyInput from './TinyInput.js'
 
@@ -32,18 +33,18 @@ const styles = theme => ({
 })
 
  class EditEventButton extends Component {
-
- 
 	constructor(props) {
 		super(props)
 		this.state = {
 	    open: false,
+      hasGuests: false || !!props.event.confirmedList.length
 	  };
 		this.handleOpen = this.handleOpen.bind(this)
 		this.handleClose = this.handleClose.bind(this)
+    
 	}
 	handleSubmit = (doc) => {
-    console.log(doc)
+    // console.log(doc)
     Meteor.call('editEvent', this.props.event._id, doc);
   }; 
 
@@ -51,6 +52,7 @@ const styles = theme => ({
       Bert.alert("Your Event Was Updated.", "success");
       this.handleClose();
   }
+
   handleFailure = () => {
       Bert.alert("Try that again...", "danger", "growl-top-right");
   }
@@ -60,16 +62,23 @@ const styles = theme => ({
   handleClose = () =>  {
     this.setState({ open: false });
   }
+  cancelEvent = () => {
+    if (confirm('Are you sure you want to delete this event?')) {
+      Meteor.call('cancelEvent', this.props.event, (err, res) => {
+        //IF NO CONFIRMED GUESTS (PAID) THEN OK TO DELETE, OR IF NOT PAST
+      })
+    }
+  }
 
 	render() {
 		
 		const { classes } = this.props;
-    const model = Schema.Event.clean(this.props.event);
+    const model = this.props.event;
     const omitFields = ["submitted", "venue", "hostId", "categories", "appliedList", "invitedList", "confirmedList", "entertainers", "partner", "featured"];
 
 		return (
 			<div>
-	    <Button variant="fab" mini={true} aria-label="edit" className={classes.button} onClick={this.handleOpen}> 
+	    <Button variant="fab" mini aria-label="edit" className={classes.button} onClick={this.handleOpen}> 
 				<EditIcon />
 			</Button>
 			<Modal 
@@ -89,17 +98,23 @@ const styles = theme => ({
   	      onSubmitFailure={this.handleFailure} 
           className="tinyForm"
   	      >
-            <AutoField name="byline" margin="dense"/>
-            <TinyInput name="description" content = {model.description}/>
-            <AutoField name="date" margin="dense" />
+            <AutoField name="byline" />
+            <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
+            <TinyInput name="description" content={model.description} />
+            <AutoField name="date" />
             <AutoField name="duration" margin="dense" />
             <AutoField name="size" margin="dense" />
-            <AutoField name="price" margin="dense" />
+            <AutoField name="price" margin="dense" disabled={this.state.hasGuests} />
             <AutoField name="contact" margin="dense" />
-            <VenuesForm />       
-            <EventImagesUpload name="image" fileUrl={model.image} />
-     
+            <VenuesForm value={model.venueId} />  
+            <InputLabel>Upload a picture to use for the cover!</InputLabel>     
+            <FileUpload name="image" module="events" value={model.image}/>
+            <AutoField name="isPrivate" />
+            <TinyInput name="purchasedEmail" content={model.purchasedEmail}/>
+            <HiddenField name="checkedPolicy" value="true" margin="dense" />
+            <HiddenField name="hostId" />
             <SubmitField value="Submit" />
+            <Button style={{backgroundColor: "transparent", color: "red", marginLeft: '1rem'}} size="small" variant="outlined" onClick={this.cancelEvent}>Cancel Event </Button>
             <ErrorsField />
   	      </AutoForm>
         </div>

@@ -9,6 +9,26 @@ if (!Meteor.settings.public.keys) {
     console.log("--------------= SETTINGS FAILED. (USE 'NPM RUN' INSTEAD OF 'METEOR' AT COMMAND LINE) =--------------");
 }
 
+ServiceConfiguration.configurations.upsert({
+  service: "facebook"
+},{
+  $set: {
+    loginStyle: "popup",
+    appId: Meteor.settings.public.keys.facebookOAuth.app_id,
+    secret: Meteor.settings.public.keys.facebookOAuth.app_secret
+  }
+});
+
+ServiceConfiguration.configurations.upsert({
+  service: "google"
+},{
+  $set: {
+    loginStyle: "popup",
+    clientId: Meteor.settings.public.keys.googleOAuth.client_id,
+    secret: Meteor.settings.public.keys.googleOAuth.client_secret
+  }
+});
+
 
 const SOUP = Meteor.users.findOne({username: 'PAKKE'});
 if (!SOUP) {
@@ -64,9 +84,12 @@ Accounts.onCreateUser(function(options, user) {
       myUser.username = fb.name;
     }
     myUser.emails = [{address: fb.email, verified: true}];
-    // myUser.profile.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=large`;
-    (fb.picture.data.is_silhouette == false) ? myUser.profile.avatar = fb.picture.data.url : myUser.profile.avatar = "/img/holders/default-avatar.jpg"
+    
+    // (fb.picture.data.is_silhouette == false) ? myUser.profile.avatar = fb.picture.data.url : myUser.profile.avatar = "/img/holders/default-avatar.jpg"
+    (fb.picture.data.is_silhouette == false) ? myUser.profile.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=large` : myUser.profile.avatar = "/img/holders/default-avatar.jpg"
+    
     myUser.profile.birthDate = new Date(fb.birthday) || null;
+
   }
   //CHECK & MERGE GOOGLE INFO
   if (user.services.google) {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { StripeProvider, Elements } from 'react-stripe-elements';
+import analytics from '/lib/analytics/analytics.min.js';
 
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -39,6 +40,15 @@ class EventPurchaseModalComponent extends Component {
   }
   handleOpen() {
     this.setState({ open: true });
+    analytics.track('Product Viewed', {
+      product_id: this.props.event._id,
+      name: this.props.event.byline,
+      price: this.props.event.price,
+      quantity: 1,
+      image_url: this.props.event.image,
+      currency: 'usd',
+      value: this.props.event.price - ((this.props.event.price*.029)+.30),
+    });
   };
   handleClose() {
     this.setState({ open: false });
