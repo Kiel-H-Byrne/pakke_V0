@@ -196,7 +196,13 @@ class EventDetailsComponent extends Component {
                       ) // OTHERWISE, LOGIN TO BUY A TICKET.
                     ) : <Button onClick={loginAlert} fullWidth={true} >Buy Ticket</Button> 
                   }
+                    <div class="fb-share-button" 
+                      data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
+                      data-layout="button_count"
+                      data-size="large" data-mobile-iframe="false">
+                    </div>
                   </div>
+                  
               )}
               </Grid>
             </Grid>

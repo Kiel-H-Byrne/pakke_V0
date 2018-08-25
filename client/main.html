@@ -51,13 +51,15 @@
 </head>
 
 <body>
+  <div id="fb-root"></div>
   <script type="text/javascript">
   //FACEBOOK SDK INIT & PAGEVIEW
     window.fbAsyncInit = function () {
       FB.init({
         appId: Meteor.settings.public.keys.facebookOAuth.app_id,
+        status: true,
         xfbml: true,
-        version: 'v2.12'
+        version: 'v2.7'
       });
 
       FB.AppEvents.logPageView();
@@ -68,7 +70,7 @@
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) { return; }
       js = d.createElement(s); js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.1&appId=168356840569104&autoLogAppEvents=1";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
     
