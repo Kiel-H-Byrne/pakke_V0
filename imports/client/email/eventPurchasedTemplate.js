@@ -299,8 +299,8 @@ const eventPurchasedTemplate = (user,event) => {
                       <td>
                         <p>Hi there ${user.username}!</p>
                         <p>Thanks for registering for "<em>${event.byline}</em>". We are excited to explore this unique experience with you.</p>
-Looking forward to seeing you. Please revisit the Event Details page for more information.</p>             
-                        </p>
+                        ${event.purchasedEmail}
+                        <p>Looking forward to seeing you. Please revisit the Event Details page for more information.</p>             
                         <table border="0" cellpadding="0" cellspacing="0" >
                           <tbody>
                             <tr>
@@ -318,8 +318,6 @@ Looking forward to seeing you. Please revisit the Event Details page for more in
                         </table>
                         <br />
                         <p>Vew more events at <a href="https://www.pakke.us/event/${event._id}" target="_blank" >PAKKE.us.</a></p>
-                        <p>See you soon!.</p>
-                        <p><strong>Gracias!</strong><br/>Amy, Emmett, Kiel and Zach</p>
                       </td>
                     </tr>
                   </table>

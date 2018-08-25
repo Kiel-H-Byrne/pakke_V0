@@ -20,22 +20,21 @@ class TinyInput extends Component {
     return (
       <React.Fragment>
         <HiddenField
-        id="tiny-description"  
+        id={`tiny-description_${this.props.name}`}  
         name={this.props.name} style={{height: 164}}
         value={this.state.content}/>
         <Editor
           apiKey={Meteor.settings.public.keys.tinymce.key}
           init={{
-            selector: "#tiny-description",
+            selector: `#tiny-description_${this.props.name}`,
             plugins: 'link, lists, textpattern, emoticons, paste, image',
             toolbar: 'undo redo paste | styleselect fontselect bold italic | bullist numlist | link image emoticons  ',
             fontsize_formats: "10pt 12pt 14pt 18pt",
-            resize:false,
+            resize: false,
             menubar: false,
             contextmenu: false,  
             branding: false,
             browser_spellcheck: true,
-            id: "tiny-description",
             images_upload_handler:  function (blobInfo, success, failure) {
               console.log(blobInfo)
               if (failure) {

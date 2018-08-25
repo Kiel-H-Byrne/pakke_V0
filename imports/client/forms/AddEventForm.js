@@ -59,7 +59,7 @@ class AddEventForm extends Component {
               "Event Owner": Meteor.user().username,
               "Subject": doc.byline ,
               "Start DateTime" : doc.date,
-              "End DateTime": doc.date + duration
+              "End DateTime": doc.date + doc.duration
             };
             Meteor.call('crmInsert', 'event', crmParams);
         } else {
