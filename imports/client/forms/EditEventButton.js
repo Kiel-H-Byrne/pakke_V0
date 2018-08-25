@@ -109,10 +109,10 @@ const styles = theme => ({
             <VenuesForm value={model.venueId} />  
             <InputLabel>Upload a picture to use for the cover!</InputLabel>     
             <FileUpload name="image" module="events" value={model.image}/>
-            <AutoField name="isPrivate" />
+            <TinyInput name="isPrivate" />
+            <AutoField name="purchasedEmail" content={model.purchasedEmail}/>
             <HiddenField name="checkedPolicy" value="true" margin="dense" />
             <HiddenField name="hostId" />
-
             <SubmitField value="Submit" />
             <Button style={{backgroundColor: "transparent", color: "red", marginLeft: '1rem'}} size="small" variant="outlined" onClick={this.cancelEvent}>Cancel Event </Button>
             <ErrorsField />
