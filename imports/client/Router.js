@@ -15,6 +15,7 @@ import PageTerms from './PageTerms';
 import PageEventMap from './PageEventMap';
 import UserProfile from './UserProfile';
 import UserEvents from './UserEvents';
+import Marketplace from './Marketplace.js';
 
 import BecomeHost from './forms/BecomeHost';
 import BecomeTalent from './forms/BecomeTalent';
@@ -55,6 +56,7 @@ class Router extends Component {
               <Route name="AddEvent" path='/addevent' component={AddEventForm} />
               <Route name="AddVenue" path='/addvenue' component={AddVenueForm} />
               <Route name="AddTalent" path='/addtalent' component={AddTalentForm} />
+              <Route name="Marketplace" path='/market' component={Marketplace} />
               
 
               <Route name="TestPage" path='/test17' component={PageTest} />
