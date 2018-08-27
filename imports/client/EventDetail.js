@@ -187,7 +187,9 @@ class EventDetailsComponent extends Component {
                       //USER HAS PURCHASD A TICKET: BELLS & WHISTLES
                       <React.Fragment>
                         <Button onClick={boughtAlert} disabled={true} fullWidth={true} variant="outlined" color="secondary">Purchased!</Button>
-                        <EventMap venueId={this.props.event.venueId} event={this.props.event} />
+                        <Paper>
+                          <EventMap venueId={this.props.event.venueId} event={this.props.event} />
+                        </Paper>
                       </React.Fragment>
 
                       ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
