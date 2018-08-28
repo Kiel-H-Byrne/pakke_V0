@@ -169,7 +169,7 @@ class VenuesFormComponent extends Component {
                     return (
                       <Card style={styles.card} key={venue._id}>
                         <CardMedia style={styles.media} image={venue.image ? venue.image : `/img/holders/holder_venue_200.png` }>
-                          <EditVenueButton venue={venue}/>
+                          
                         </CardMedia> 
                         <CardContent style={styles.content}>
                           <Typography gutterBottom variant="subheading" align="center">
@@ -188,7 +188,7 @@ class VenuesFormComponent extends Component {
                           id={`vri_${venue._id}`}
                           aria-label={venue.nickname}
                           />
-
+<EditVenueButton venue={venue}/>
                         </CardActions>
                       </Card>
                       )

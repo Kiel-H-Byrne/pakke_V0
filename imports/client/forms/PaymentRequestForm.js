@@ -155,14 +155,22 @@ class PaymentRequestForm extends React.Component {
       <PaymentRequestButtonElement
         paymentRequest={this.state.paymentRequest}
         className="PaymentRequestButton"
-        style={{
+        style={
+          this.props.event.price > 0 ? ({
           // For more details on how to style the Payment Request Button, see:
           // https://stripe.com/docs/elements/payment-request-button#styling-the-element
           paymentRequestButton: {
             theme: 'light',
             height: '64px'
           },
+        }) : ({
+          paymentRequestButton: {
+            theme: 'dark',
+            height: '64px',
+            type: 'donate'
         }}
+        )
+        }
       />
     ) : (
       <form id="payment-form" onSubmit={this.handleSubmit}>

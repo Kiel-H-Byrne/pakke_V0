@@ -671,7 +671,7 @@ Schema.Event = new SimpleSchema({
   price: {
     type: Number,
     label: "How much is the ticket price?",
-    min: 5,
+    min: 0,
     max: 500,
     uniforms: {
       step: 0.50

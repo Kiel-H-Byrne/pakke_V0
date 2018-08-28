@@ -12,6 +12,8 @@ import Button from '@material-ui/core/Button';
 
 import EditEventButton from '../forms/EditEventButton.js'
 import EditVenueButton from '../forms/EditVenueButton.js'
+import PageError from '../PageError';
+
 
 import Events from '../../startup/collections/events.js'
 import Venues from '../../startup/collections/venues.js'
@@ -19,7 +21,9 @@ import Venues from '../../startup/collections/venues.js'
 class AdminPanelComponent extends Component {
   constructor(props) {
     super(props);
+    this.state = {}
     this.sendGuestList = this.sendGuestList.bind(this)
+    if ( props.thisUser && Roles.userIsInRole(props.thisUser, ["admin"])) { this.state.isAdmin = true }
   }
 
   sendGuestList(id) {
@@ -36,11 +40,16 @@ class AdminPanelComponent extends Component {
 
 
   }
-
+  componentDidMount() {
+    // console.log(this)
+  }
   render() {
+    if (!Roles.userIsInRole(this.props.thisUser, ["admin"])) {
+      return (<PageError />)
+    }
+
     return (
       <div>
-        
         <section>
         <Typography variant="display2" align="center">Events</Typography>
         <Table>
@@ -59,7 +68,7 @@ class AdminPanelComponent extends Component {
           this.props.events.map((event) => {
             return (
               <TableRow key={event._id}>
-                <TableCell>"{event.byline}"</TableCell>
+                <TableCell><a href={`www.pakke.us/event/${event._id}`}>"{event.byline}"</a></TableCell>
                 <TableCell>{event.date.toDateString()}</TableCell>
                 <TableCell>{event._id}</TableCell>
                 <TableCell><EditEventButton event={event}/></TableCell>
@@ -128,6 +137,7 @@ export default AdminPanel = withTracker(() => {
     events: Events.find({}, {
       sort: { date: 1 }
     }).fetch(),
-    venues: Venues.find({}).fetch()
+    venues: Venues.find({}).fetch(),
+    thisUser: Meteor.userId()
   }
 })(AdminPanelComponent)
