@@ -114,6 +114,8 @@ class EventDetailsComponent extends Component {
       <div>
         <Helmet>
           <title>PAKKE Event: {this.props.event.byline}</title>
+          <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />  
+          <meta http-equiv="PRAGMA" content="NO-CACHE" /> 
           <meta name="description" content={this.props.event.description}/>
           <meta name="keywords" content={`${this.props.event.description}`}/>
           <meta property="og:title" content={this.props.event.byline} />
