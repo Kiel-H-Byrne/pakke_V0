@@ -21,11 +21,11 @@ class LandingPage extends Component {
 
     render() {
         return (
-            <div className="landingMap">
+            <React.Fragment>
                 <Grid container justify="center" alignItems="center" direction="column">
                     <Map />
-                    <Paper align={'center'} style={{ marginTop: '3%', width: '22rem' }}>
-                        <Typography style={{ margin: '3%' }} variant='display1'>Local Experiences</Typography>
+                    <Paper align={'center'} style={{ marginTop: '1rem', width: '22rem' }}>
+                        <Typography style={{ margin: '.5rem' }} variant='display1'>Local Experiences</Typography>
                     </Paper>
                 </Grid>
                 <Grid container alignItems="baseline" style={styles.cards} wrap="nowrap" className="scroll-wrapper-x" >
@@ -44,7 +44,7 @@ class LandingPage extends Component {
                 <FeaturedEventList />
             </Grid>
 */}
-</div>
+</React.Fragment>
 
         )
     }

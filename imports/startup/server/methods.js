@@ -164,12 +164,11 @@ Meteor.methods({
     })
   },
   addEvent: function(doc) {
-    let newEventEmailTemplate = `
+    const newEventEmailTemplate = `
       <p>Need template:</p>
       ${doc.byline} | ${doc.price} ≤br/>
       HostId: ${doc.hostId} | Host Contact: ${doc.contact} <br/>
       VeneuId: ${doc.venueId} <br/>
-
     `;
     if (! Roles.userIsInRole(this.userId, ["host"])) {
       Meteor.call('addRole', this.userId, ["host"]);

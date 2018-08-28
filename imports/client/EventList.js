@@ -45,7 +45,7 @@ export default EventList = withTracker(() => {
       date: {
           $gte: new Date() 
         },
-      $or: [
+      $and: [
         {"featured": false},
         {"isPrivate": false}]
       }, {

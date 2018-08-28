@@ -146,16 +146,19 @@ class EventDetailsComponent extends Component {
 
               <Grid item>
               {this.state.eventHost ? (
+                <React.Fragment>
                 <Paper elevation={0}>
                   <Typography variant="headline" align="center">Your Host:</Typography>
                   <img className='host-image' src={this.state.eventHost.profile.avatar} />
                   <Typography variant="title" align="center">{this.state.eventHost.profile.name}</Typography>
                 </Paper> 
-                ) : (
-                  <div >
-                  
-                </div> 
-                )
+                <div className="fb-share-button" 
+                      data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
+                      data-layout="button_count"
+                      data-size="large">
+                    </div>
+                    </React.Fragment>
+                ) : ( '' )
               }
               </Grid>
               <Grid item>
@@ -186,10 +189,16 @@ class EventDetailsComponent extends Component {
 
                       //USER HAS PURCHASD A TICKET: BELLS & WHISTLES
                       <React.Fragment>
-                        <Button onClick={boughtAlert} disabled={true} fullWidth={true} variant="outlined" color="secondary">Purchased!</Button>
+                       {/*
+                      <TableRow>
+                        <TableCell className={classes.cell}><h5>WHERE:</h5> </TableCell>
+                        <TableCell  numeric={true} className={classes.cell}>Nowhere</TableCell> 
+                      </TableRow>
+                    */}
                         <Paper>
                           <EventMap venueId={this.props.event.venueId} event={this.props.event} />
                         </Paper>
+                        <Button onClick={boughtAlert} disabled={true} fullWidth={true} variant="outlined" color="secondary">Purchased!</Button>
                       </React.Fragment>
 
                       ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
@@ -205,11 +214,7 @@ class EventDetailsComponent extends Component {
                       ) // OTHERWISE, LOGIN TO BUY A TICKET.
                     ) : <Button onClick={loginAlert} fullWidth={true} >Buy Ticket</Button> 
                   }
-                    <div className="fb-share-button" 
-                      data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
-                      data-layout="button_count"
-                      data-size="large" data-mobile-iframe="false">
-                    </div>
+                    
                   </div>
                   
               )}

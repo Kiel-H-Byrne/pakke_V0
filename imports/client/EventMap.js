@@ -9,6 +9,11 @@ import { BarLoader } from 'react-spinners';
 import GoogleMapContainer from './MapGoogle';
 import Venues from '/imports/startup/collections/venues';
 
+const styles = {
+  map: {
+    height: '140px'
+  }
+}
 
 class EventMap extends Component {
   constructor(props) {
@@ -97,6 +102,7 @@ class EventMap extends Component {
       <GoogleMapContainer
         onReady={this.handleOnReady}
         mapOptions={this.handleMapOptions}
+        style={styles.map}
       >
       <BarLoader 
         loading={!this.props.ready} 

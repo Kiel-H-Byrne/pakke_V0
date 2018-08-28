@@ -77,7 +77,15 @@ class AddEventForm extends Component {
     handleFailure() {
         Bert.alert("Sorry, Something Went Wrong", "danger", "growl-top-right");
     };
-    
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+          [name]: value
+        });
+    }
     render() {
         const model = Schema.Event.clean({});
         // console.log(model)

@@ -34,7 +34,7 @@ if (Meteor.isServer) {
 
   Meteor.publish('events_public', function () {
       const cursor = Events.find({
-        isPrivate: false
+        isPrivate: !!false
       },
       {
         sort: { date: 1 }
