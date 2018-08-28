@@ -9,6 +9,26 @@ if (!Meteor.settings.public.keys) {
     console.log("--------------= SETTINGS FAILED. (USE 'NPM RUN' INSTEAD OF 'METEOR' AT COMMAND LINE) =--------------");
 }
 
+ServiceConfiguration.configurations.upsert({
+  service: "facebook"
+},{
+  $set: {
+    loginStyle: "popup",
+    appId: Meteor.settings.public.keys.facebookOAuth.app_id,
+    secret: Meteor.settings.public.keys.facebookOAuth.app_secret
+  }
+});
+
+ServiceConfiguration.configurations.upsert({
+  service: "google"
+},{
+  $set: {
+    loginStyle: "popup",
+    clientId: Meteor.settings.public.keys.googleOAuth.client_id,
+    secret: Meteor.settings.public.keys.googleOAuth.client_secret
+  }
+});
+
 
 const SOUP = Meteor.users.findOne({username: 'PAKKE'});
 if (!SOUP) {

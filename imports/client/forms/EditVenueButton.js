@@ -12,8 +12,10 @@ import AutoForm    from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
+import LongTextField from 'uniforms-material/LongTextField'; 
 
-import VenuesImagesUpload from './EventImagesUpload.js'; 
+
+import FileUpload from './FileUpload.js';
 
 
 const styles = theme => ({
@@ -31,20 +33,17 @@ const styles = theme => ({
 })
 
  class EditVenueButtonComponent extends Component {
-
- 
   constructor(props) {
     super(props)
     this.state = {
       open: false,
     };
-    console.log(props)
     this.handleOpen = this.handleOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
   }
   handleSubmit = (doc) => {
-    console.log(doc,this);
-    // Meteor.call('editVenue', this.props.venue._id, doc);
+    // console.log(doc);
+    Meteor.call('editVenue', this.props.venue._id, doc);
     this.handleClose();
   }; 
 
@@ -62,17 +61,26 @@ const styles = theme => ({
     this.setState({ open: false });
   }
 
+  deleteVenue = venue => {
+    if (confirm('Are you sure you want to delete this venue?')) {
+      Meteor.call('deleteVenue', venue, (err, res) => {
+        //IF NO CONFIRMED GUESTS (PAID) THEN OK TO DELETE, OR IF NOT PAST
+      })
+    }
+  }
   render() {
     
     const { classes } = this.props;
-    const model = Schema.Venue.clean(this.props.event);
-
+    const model = this.props.venue;
+    // console.log(model)
     return (
       <div>
-        <EditIcon onClick={this.handleOpen}/>
+        <Button variant="fab" mini onClick={this.handleOpen}>
+          <EditIcon />
+        </Button>
       <Modal 
-        aria-labelledby="Edit Event"
-        aria-describedby="Edit your event"
+        aria-labelledby="Edit Venue"
+        aria-describedby="Edit your Venue"
         open={this.state.open}
         onClose={this.handleClose}
 
@@ -89,12 +97,12 @@ const styles = theme => ({
             <AutoField name="nickname" margin="dense" />
               <LongTextField name="description" />
                 <AutoField name="ownedStatus" margin="dense" />
-                <AutoField name="venueType" margin="dense" />
-                <AutoField name="capacity" margin="dense" />
-                
-                <ImagesUpload name="image" />
-                      
+                <AutoField name="type" margin="dense" />
+                <AutoField name="capacity" margin="dense"/>
+                <AutoField name="address" margin="dense" disabled />
+                <FileUpload name="image" module="venues" value={model.image} />
               <SubmitField>Submit</SubmitField>
+              <Button style={{backgroundColor: "transparent", color: "red", marginLeft: '1rem'}} size="small" variant="outlined" onClick={() => this.deleteVenue(this.props.venue)}>Remove Venue</Button>
               <ErrorsField />
             </AutoForm>
         </div>

@@ -3,7 +3,7 @@ const eventPurchasedTemplate = (user,event) => {
 
   const emailTitle = "PAKKE Event Confirmation";
   return renderedEmail = 
-    `
+    ` 
       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
       <html>
   <head>
@@ -131,14 +131,15 @@ const eventPurchasedTemplate = (user,event) => {
 
       a {
         color: #3498db;
-        text-decoration: underline; }
+        text-decoration: none; }
 
       /* -------------------------------------
           BUTTONS
       ------------------------------------- */
       .btn {
         box-sizing: border-box;
-        width: 100%; }
+        width: 20rem; 
+      }
         .btn > tbody > tr > td {
           padding-bottom: 15px; }
         .btn table {
@@ -159,14 +160,13 @@ const eventPurchasedTemplate = (user,event) => {
           font-weight: bold;
           margin: 0;
           padding: 12px 25px;
-          text-decoration: none;
           text-transform: capitalize; }
 
       .btn-primary table td {
-        background-color: #3498db; }
+        background-color: #ffffff; }
 
       .btn-primary a {
-        background-color: #3498db;
+        background-color: #226199;
         border-color: #3498db;
         color: #ffffff; }
 
@@ -288,7 +288,7 @@ const eventPurchasedTemplate = (user,event) => {
           <div class="content">
 
             <!-- START CENTERED WHITE CONTAINER -->
-            <span class="preheader">Thank you for Applying!</span>
+            <span class="preheader">Thank you for Purchasing!</span>
             <table class="main">
 
               <!-- START MAIN CONTENT AREA -->
@@ -297,32 +297,27 @@ const eventPurchasedTemplate = (user,event) => {
                   <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-
-
-<p>Hi there&nbsp;<em>${user.profile.name},</em><br /><br />
-
-Thanks for registering for PAKKE's "<em>Smells like DNA - a Pheromone Part</em>y". We are excited to explore this unique sensation and experience with you.</p>
-<div><strong>Address</strong>: Carl's beautiful home at&nbsp;<a href="https://maps.google.com/?q=2541+13th+St+NW&amp;entry=gmail&amp;source=g">2541 13th St NW</a></div>
-<div><strong>Time</strong>: Doors open at 7, ends around&nbsp;midnight</div>
-<div><strong>Date</strong>: Tonight, July 19th</div>
-<div>&nbsp;</div>
-<div><strong>What is a pheromone party?</strong>&nbsp;</div>
-<div>An art + science party with a live experiment - wear a tee shirt to bed in advance of the event to seal in your scent - bring it to the event for a double blind experiment + a party. Please note that the test smelling is anonymous and voluntary, and no forced matchmaking will take place.&nbsp;</div>
-<p><strong>Why would this be fun and intriguing?&nbsp;</strong></p>
-<ul>
-<li>Artists&nbsp;<a href="http://marioncolomer.com/" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://marioncolomer.com/&amp;source=gmail&amp;ust=1532059977069000&amp;usg=AFQjCNHFOcYCsGNQW8THzi-Do_WWCjy4-A">Marion Colomer</a>&nbsp;and&nbsp;<a href="https://noraavelleyralieberman.com/" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://noraavelleyralieberman.com/&amp;source=gmail&amp;ust=1532059977069000&amp;usg=AFQjCNFdZ1nqzm0Me_2KbyXr03PFRPoC_w">Nora Lieberman</a>&nbsp;are showing works inspired by scent and experience</li>
-<li>Poetry by our beloved&nbsp;<a href="https://peyman.live/" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://peyman.live/&amp;source=gmail&amp;ust=1532059977069000&amp;usg=AFQjCNHWfXeYy046-LN0da9l1kAWnAIHoA">Peyman</a>&nbsp;</li>
-<li>Science by Cici on the psychology of scent and memory</li>
-<li>Music by DJ KRYPTK</li>
-<li>Drinks + Eats - <a href="https://brightestyoungthings.com/articles/the-ideas-club-creative-cocktail-series-part-ii" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://brightestyoungthings.com/articles/the-ideas-club-creative-cocktail-series-part-ii&amp;source=gmail&amp;ust=1532059977069000&amp;usg=AFQjCNEHQf0GMD1yiNsRny6D2r7viEtN6Q">Ashley Schmidt</a>&nbsp;is serving an event cocktail with black lava salt (my brilliant collaborator&nbsp;on the&nbsp;<a href="https://brightestyoungthings.com/articles/the-ideas-club-creative-cocktail-series-part-ii" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://brightestyoungthings.com/articles/the-ideas-club-creative-cocktail-series-part-ii&amp;source=gmail&amp;ust=1532059977069000&amp;usg=AFQjCNEHQf0GMD1yiNsRny6D2r7viEtN6Q">BYT Women's History Month</a>&nbsp;drinks challenge), and our beloved Christian (who always packs the best drinks for bike camping) is sharing some of his unique recipes</li>
-<li>Kombucha - a special brew from&nbsp;<a href="https://owluma.com/" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://owluma.com/&amp;source=gmail&amp;ust=1532059977069000&amp;usg=AFQjCNHmlHRMNsh4TlWg-OQPMEjDXtX71g">Owluma's</a>&nbsp;Chris Williamson</li>
-<li>Rooftop sunset and chill - this place is awesome&nbsp;</li>
-</ul>
-<div>This will be a night dedicated to the art and science of our most enigmatic sense. The Nobel Prize was only very recently awarded in 2004 to scientists for making breakthroughs in mapping human's sense of smell. This stuff is nerdy and amazing and drives a sense of attraction that we are still trying to understand.&nbsp;</div>
-<div>&nbsp;</div>
-<div><strong>WTF is PAKKE?&nbsp;</strong></div>
-<div>PAKKE is a new platform for experiences/events/happenings. You can offer to host, perform at or create an event with us.&nbsp;<a href="https://www.pakke.us/" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://www.pakke.us/&amp;source=gmail&amp;ust=1532059977069000&amp;usg=AFQjCNEsQgBc2H282gXMOSWIR5r1sz1plw">Check out our site</a>. Proceeds from this event pay artists and help to support our new org.&nbsp;</div>
-
+                        <p>Hi there ${user.username}!</p>
+                        <p>Thanks for registering for "<em>${event.byline}</em>". We are excited to explore this unique experience with you.</p>
+                        ${event.purchasedEmail}
+                        <p>Looking forward to seeing you. Please revisit the Event Details page for more information.</p>             
+                        <table border="0" cellpadding="0" cellspacing="0" >
+                          <tbody>
+                            <tr>
+                              <td align="left">
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                  <tbody>
+                                    <tr>
+                                      <td> <a href="https://www.pakke.us/event/${event._id}" target="_blank">View Event Details</a> </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <br />
+                        <p>Vew more events at <a href="https://www.pakke.us/event/${event._id}" target="_blank" >PAKKE.us.</a></p>
                       </td>
                     </tr>
                   </table>
@@ -337,7 +332,7 @@ Thanks for registering for PAKKE's "<em>Smells like DNA - a Pheromone Part</em>y
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="content-block">
-                    <span class="apple-link">PAKKE.us, P.O. Box 420, District of Columbia 20012</span>
+                    <span class="apple-link">PAKKE.us, District of Columbia </span>
                   </td>
                 </tr>
                 <tr>

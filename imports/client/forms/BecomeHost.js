@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { withTracker } from 'meteor/react-meteor-data';
+import { Link } from 'react-router-dom';
 
+import Button from '@material-ui/core/Button';
 import AddVenueForm from './AddVenueForm';
 import AddEventModal from './AddEventModal';
 
@@ -24,11 +26,11 @@ class BecomeHostComponent extends Component {
         </div>
         {this.props.thisUser ? (
           <div className='host-button'>
-            <AddEventModal user={this.props.thisUser}/>
+            <Button component={Link} to="/addevent">Create A New Experience:</Button> 
           </div>
         ) : (
             <div className='host-button'>
-              <button className="btn btn-info btn-lg" onClick={loginAlert}>Become a Host</button>
+              <Button className="btn btn-info btn-lg" onClick={loginAlert}>Become a Host</Button>
             </div>
           )}
       </div>

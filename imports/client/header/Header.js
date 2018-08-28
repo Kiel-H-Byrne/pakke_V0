@@ -69,6 +69,6 @@ class Header extends Component {
 
 export default withTracker(() => {
     return {
-        currentUser: Meteor.user(),
+        currentUser: Meteor.users.findOne(Meteor.userId())
     };
 })(Header);

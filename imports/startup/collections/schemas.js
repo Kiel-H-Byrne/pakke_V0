@@ -2,99 +2,133 @@ import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import { Random } from 'meteor/random';
 import SimpleSchema from 'simpl-schema';
+import MessageBox from 'message-box';
 import uniforms from 'uniforms';
 import filterDOMProps from 'uniforms/filterDOMProps';
 import { Editor } from '@tinymce/tinymce-react';
-
-import Uploads from './uploads'
-import EventImages from './eventImages'
-
-if (Meteor.isClient) {
-import AvatarUpload from '/imports/client/forms/AvatarUpload.js';
-import EventImagesUpload from '/imports/client/forms/EventImagesUpload.js';
-import UploadField from '/imports/client/forms/UploadField.js';
-import VenuesForm from '/imports/client/forms/VenuesForm.js';
-}
 
 Schema = {};
 
 
 filterDOMProps.register('unique');
 
+MessageBox.defaults({
+  initialLanguage: 'en', // optional; default is 'en'
+  messages: {
+    en: {
+      mustRead: 'You must agree to our Terms & Conditions before creating an event.',
+    }
+  }
+});
 
 Schema.Address = new SimpleSchema({
-   // address: {
-  //   type: String,
-  //   optional: true,
-  //   // custom: function() {
-  //   //   //if street has no value and isSet(), and this has no value, throw error 
-  //   //   const hasStreet = this.field('street').isSet ;
-  //   //   if (!hasStreet) {
-  //   //     console.log('no street');
-  //   //     // inserts
-  //   //     if (!this.operator) {
-  //   //       if (!this.isSet || this.value === null || this.value === "") return "required";
-  //   //     }
+  formattedAddress: {
+    type: String,
+    // unique: true,
+  },
+  location: Object,
+  'location.lat': Number,
+  'location.lng': Number
+})
 
-  //   //     // updates
-  //   //     else if (this.isSet) {
-  //   //       console.log('street is set');
-  //   //       if (this.operator === "$set" && this.value === null || this.value === "") return "required";
-  //   //       if (this.operator === "$unset") return "required";
-  //   //       if (this.operator === "$rename") return "required";
-  //   //     }
-  //   //   } else {
-  //   //     console.log('or else what??');
-  //   //     let addressString =  `${this.field('street').value} ${this.field('city').value}, ${this.field('state').value} ${this.field('zip').value}`;
+
+// Schema.Address = new SimpleSchema({
+//    formattedAddress: {
+//     type: String,
+//     optional: true,
+//     unique: true,
+//     custom: function() {
+//       //if street has no value and isSet(), and this has no value, throw error 
+//       console.log(this)
+//       const hasStreet = this.field('street').isSet ;
+//       if (!hasStreet) {
+//         // inserts
+//         if (!this.operator) {
+//           console.log("validating", this)
+//           if (!this.isSet || this.value === null || this.value === "") return "required";
+//         }
+
+//         // updates
+//         else if (this.isSet) {
+//           if (this.operator === "$set" && this.value === null || this.value === "") return "required";
+//           if (this.operator === "$unset") return "required";
+//           if (this.operator === "$rename") return "required";
+//         }
+//       } else {
+//         let addressString =  `${this.field('street').value} ${this.field('city').value}, ${this.field('state').value} ${this.field('zip').value}`;
         
-  //   //     // let el = $('input[name="address")')[0];
-  //   //     this.value = addressString;
-  //   //     return {$set: addressString};
-  //   //   }
-  //   //   return;
-  //   // },
-  //   autoValue: function() {
-  //     if ( (this.isInsert || this.isUpdate) && this.field('street').isSet) {
-  //       let addressString =  `${this.field('street').value} ${this.field('city').value}, ${this.field('state').value} ${this.field('zip').value}`;
-  //       return addressString;
-  //     }
-  //   }
-  // },
-  street: {
-    type: String,
-    max: 100,
-  },
-  place: {
-    type: String,
-    max: 30,
-    label: 'Apt. #, Floor #, Suite #',
-    // allowedValues: ["APT", "FL", "STE"]
-    optional: true
-  },
-  city: {
-    type: String,
-    max: 50,
-    // defaultValue: 'District of Columbia'
-  },
-  state: {
-    type: String,
-    allowedValues: ["DC","MD","VA"],
-    // allowedValues: ["AL","AK","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
-    // defaultValue: 'DC'
-  },
-  zip: {
-    type: String,
-    regEx: SimpleSchema.RegEx.ZipCode,   
-    optional: true
-  },
-  // country: {
-  //   type: String,
-  //   min: 2,
-  //   max: 3,
-  //   optional: true,
-  //   defaultValue: 'US'
-  // }, 
-});
+//         // let el = $('input[name="address")')[0];
+//         this.value = addressString;
+//         return {$set: addressString};
+//       }
+//       return;
+//     },
+//     // autoValue: function() {
+//     //   if ( (this.isInsert || this.isUpdate) && this.field('street').isSet) {
+//     //     let addressString =  `${this.field('street').value} ${this.field('city').value}, ${this.field('state').value} ${this.field('zip').value}`;
+//     //     return addressString;
+//     //   }
+//     // }
+//   },
+//   street: {
+//     type: String,
+//     max: 100,
+//     optional: true,
+//     unique: true,
+//     custom: function() {
+//       console.log(this)
+//       //if street has no value and isSet(), and this has no value, throw error 
+//       let hasAddress = this.field('address').value;
+//       // console.log(this.field('address'));
+//       if (!hasAddress) {
+//         // inserts
+//         if (!this.operator) {
+//           if (!this.isSet || this.value === null || this.value === "") return "required";
+//         }
+//         // updates
+//         else if (this.isSet) {
+//           console.log(this.value)
+//           if (this.operator === "$set" && this.value === null || this.value === "") return "required";
+//           if (this.operator === "$unset") return "required";
+//           if (this.operator === "$rename") return "required";
+//         }
+//       }
+//     }
+//   },
+//   place: {
+//     type: String,
+//     max: 30,
+//     label: 'Apt. #, Floor #, Suite #',
+//     // allowedValues: ["APT", "FL", "STE"]
+//     optional: true
+//   },
+//   city: {
+//     type: String,
+//     max: 50,
+//     optional: true
+//     // defaultValue: 'District of Columbia'
+//   },
+//   state: {
+//     type: String,
+//     allowedValues: ["DC","MD","VA"],
+//     optional: true   
+//     // allowedValues: ["AL","AK","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
+//     // defaultValue: 'DC'
+
+//   },
+//   zip: {
+//     type: String,
+//     regEx: SimpleSchema.RegEx.ZipCode,   
+//     optional: true
+//   },
+//   // country: {
+//   //   type: String,
+//   //   min: 2,
+//   //   max: 3,
+//   //   optional: true,
+//   //   defaultValue: 'US'
+//   // }, 
+// });
 
 Schema.Venue = new SimpleSchema({
   hostId: {
@@ -111,12 +145,23 @@ Schema.Venue = new SimpleSchema({
     label: "What's this place like?",
     max: 240
   },
+  // address: {
+  //   type: Schema.Address,
+  //   unique: true,
+  //   // optional: true,
+  //   label: "Where is this place?"
+  // },
   address: {
-    type: Schema.Address,
+    type: String,
     unique: true,
-    label: "Where is this place?"
   },
-  venueType: { 
+  location: {
+    type: Object,
+    optional: true
+  },
+  'location.lat': String,
+  'location.lng': String,
+  type: { 
     type: String,
     label: 'Type:',
     allowedValues: ["Retail Space", "Apartment", "Condo", "Town Home", "Detached Home", "Office", "Other"],
@@ -124,11 +169,7 @@ Schema.Venue = new SimpleSchema({
   },
   capacity: {
     type: Number,
-    label: "How many people can comfortably fit?",
-    max: 99,
-    uniforms: {
-      step: 1
-    },
+    max: 99
   },
   ownedStatus: {
     type: Boolean,
@@ -441,15 +482,6 @@ Schema.Profile = new SimpleSchema({
     type: Schema.Interests,
     optional: true,
   },
-  // venues: {
-  //   type: Array,
-  //   label: 'Your Venues:',
-  //   optional: true,
-  //   defaultValue: []
-  // },
-  // "venues.$": {
-  //   type: Schema.Venue
-  // },
   talents: {
     type: Array,
     label: 'Add A New Talent!',
@@ -581,7 +613,7 @@ Schema.Event = new SimpleSchema({
   },
   duration: {
     type: Number,
-    label: "How long will this last?",
+    label: "How long will this last? (in hours)",
     min: 2,
     max: 72,
     uniforms: {
@@ -631,7 +663,7 @@ Schema.Event = new SimpleSchema({
     optional: true,
     max: 5550
   },
-  emailTemplate: {
+  purchasedEmail: {
     type: String,
     label: 'Confirmation Email:',
     optional: true
@@ -649,15 +681,9 @@ Schema.Event = new SimpleSchema({
     type: Schema.Address,
     optional: true,
   },
-  // venue: {
-  //   type: Object,
-  //   label: "Where will this take place?",
-  //   blackbox: true,
-  //   optional: true,
-  //   uniforms: (Meteor.isClient ? VenuesForm : null),
-  //   //SOMEHOW SHOW RADIO BOXES WITH NAMES OF VENUES FROM HOSTS VENUEARRAY
-  // },
-  venueId: String,
+  venueId: {
+    type: String
+  },
   contact: {
     type: String,
     label: 'Contact Number',
@@ -705,7 +731,7 @@ Schema.Event = new SimpleSchema({
     type: Boolean,
     optional: true,
     defaultValue: false,
-    label: 'Private Party? (Will not be listed & guests must apply first)'
+    label: 'Private Party? (Will not be listed & guests must apply)'
   },
   featured: {
     type: Boolean, 
@@ -732,7 +758,13 @@ Schema.Event = new SimpleSchema({
   checkedPolicy: {
     type: Boolean,
     defaultValue: false,
-    label: 'Have you reviewed and agreed to our Terms & Conditions? '
+    label: 'Have you reviewed and agreed to our Privacy Policy?',
+    custom: function() {
+      if (this.value !== true) {
+        return "mustRead"
+      }
+    }
+
   },
   partnerLink: {
     type: String,

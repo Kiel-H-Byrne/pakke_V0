@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
+import { withStyles } from '@material-ui/core/styles';
 import { BarLoader } from 'react-spinners';
 import Redirect from 'react-router';
+
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import InputLabel from '@material-ui/core/InputLabel';
 
 import AutoField from 'uniforms-material/AutoField';
 import AutoForm from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
-import Button from '@material-ui/core/Button';
 
 import Events from '../startup/collections/events';
 import TinyInput from './forms/TinyInput.js'
@@ -23,19 +34,33 @@ import LandingPage2 from './UI/PageLanding2';
 import PageError from './PageError';
 
 
-
-
 const styles = {
   profileForm: {
     display: 'none',
     maxWidth:'960px',
     minWidth: '420px',
-    transition: 'visibility 0s, opacity 0.5s linear'
+    transition: 'visibility 0s, opacity 0.5s linear',
+    padding: '1rem',
+    fontSize: '.8rem'
+  },
+  avatar: {
+    height: 0,
+    paddingTop: '56.25%',
+  },
+  card: {
+    width: 250,
+    // display: 'flex',
   }
 }
-class PageProfileComponent extends Component {
-  state = {}
 
+class PageProfileComponent extends Component {
+  constructor(props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+    this.state = {
+      value: 0
+    }
+  }
   static getDerivedStateFromProps(nextProps, prevState) {
     // console.log(nextProps, prevState)
     let eventHost;
@@ -54,8 +79,11 @@ class PageProfileComponent extends Component {
     Meteor.call('editProfile', doc)
   }
   
-  handleClick(e) {
+  handleChange(event,value) {
+    this.setState({value})
+  }
 
+  handleClick = (e) => {
     let x = document.getElementById("profileForm");
     if (x.style.display === "none") {
         x.style.display = "block";
@@ -67,12 +95,14 @@ class PageProfileComponent extends Component {
 
   }
 
-  handleSuccess() {
+  handleSuccess = () => {
     Bert.alert("Your Profile Was Updated!", "success");
-    $('#profileModal').modal('toggle');
+    this.handleClick();
   }
 
   render() {
+    const { value } = this.state;
+    // const { theme } = this.props;
 
     if (this.props.loading) {
       return (
@@ -91,85 +121,91 @@ class PageProfileComponent extends Component {
       return (<PageError />)
     }
 
-    let talentModel = Schema.Talent.clean({})
-    let interestsModel = Schema.Interests.clean({})
-    let venueModel = Schema.Venue.clean({})
+    // let talentModel = Schema.Talent.clean({})
+    // let interestsModel = Schema.Interests.clean({})
+    // let venueModel = Schema.Venue.clean({})
     const thisProfile = this.props.thisUser.profile;
 
     const model = Schema.Profile.clean(thisProfile)
-    // console.log(Schema.Profile.clean({'talents.$.talent': talentModel, 
-    //                                  'interests': interestsModel, 
-    //                                  'venues.$.venue': venueModel, 
-    //                                  ...thisProfile
-    //                                }));
-    // const omitFields = ["talentId", "venue.$.venueId"];
 
-      return (
-        <div>
-
-          <div className='profile-head'>
-            <div className='profile-head-image'>
-              {/*
-              <EditAvatarButton />
-              */}
-              {this.props.thisUser.profile.avatar ? (
-                <img data-toggle="dropdown" className="icon avatar dropdown-toggle" src={this.props.thisUser.profile.avatar} />
+    return (
+      <Grid container
+      direction="column"
+      justify="center"
+      style={{margin:"1rem 0"}}>
+        <Grid item xs={12} container spacing={24} alignItems="center" justify="space-evenly">
+          <Grid item>
+            <Card style={styles.card}>
+              {thisProfile.avatar ? (
+                <CardMedia style={styles.avatar} image={thisProfile.avatar} > 
+                  <EditAvatarButton />
+                </CardMedia>
               ) : (
-                  <img data-toggle="dropdown" className="icon avatar dropdown-toggle" src='/missing_profile.png' />
-                )}
-
-            </div>
-            <div className='profile-head-text'>
-              {(this.props.thisUser.profile.name) ? (
-                <h4>I'm {this.props.thisUser.profile.name}</h4>
-              ) : (
-                  <h4> I'm a new user </h4>
-                )
-              }
-              <Button onClick={this.handleClick} >Edit Profile</Button>
-              <div id="profileForm" role="dialog" style={styles.profileForm}>
-                <h4 >Edit Profile</h4>
-                <AutoForm
-                  schema={Schema.Profile}
-                  model={model}
-                  onSubmit={this.handleSubmit}
-                  onSubmitSuccess={this.handleSuccess}
-                  onSubmitFailure={this.handleFailure} 
-                  className="tinyForm"
-                  >
-
-                  <AutoField name="name" />
-                  <AutoField name="birthDate" />
-                  <AutoField name="social" />
-                  <TinyInput name="bio" />
-                  <SubmitField value="Submit" />
-                  <ErrorsField />
-                </AutoForm>
-              </div>
-            </div>
-          </div>
-
-          <ul className="nav nav-tabs">
-            <li className="active"><a data-toggle="tab" href="#home">Guest</a></li>
-            <li><a data-toggle="tab" href="#menu1">Host</a></li>
-            <li><a data-toggle="tab" href="#menu2">Talent</a></li>
-          </ul>
-
-          <div className="tab-content">
-            <div id="home" className="tab-pane fade in active">
-              <TabGuest user={this.props.thisUser} />
-            </div>
-            <div id="menu1" className="tab-pane fade">
-              <TabHost user={this.props.thisUser}  />
-            </div>
-            <div id="menu2" className="tab-pane fade">
-              <TabTalent user={this.props.thisUser}  />
-            </div>
-          </div>
-        </div>
-      )
-    } 
-  }
+                <CardMedia style={styles.avatar} image='/missing_profile.png' > 
+                  <EditAvatarButton />
+                </CardMedia>
+              )}
+              <CardContent className='profile-head-text'>
+                {(thisProfile.name) ? (
+                  <Typography variant="subheading" align="center">I'm {thisProfile.name}!</Typography>
+                ) : (
+                    <h4> I'm new here! </h4>
+                  )
+                }
+                {thisProfile.birthDate ? (
+                  <Typography variant="caption" align="center">Birthday: {thisProfile.birthDate.toDateString().substring(0, (thisProfile.birthDate.toDateString()).length - 5)}</Typography>
+                  ) : ''}
+                {thisProfile.social && thisProfile.social.facebook ? (
+                  <Typography variant="caption" >FB: <a target="_blank" href={`https://www.facebook.com/${thisProfile.social.facebook}`}>@{thisProfile.social.facebook}</a></Typography>
+                  ) : ''}
+                {thisProfile.social && thisProfile.social.instagram ? (
+                  <Typography variant="caption" >IG: <a target="_blank" href={`https://www.instagram.com/${thisProfile.social.instagram}`}>@{thisProfile.social.instagram}</a></Typography>
+                  ) : ''}
+                {thisProfile.bio ? ( 
+                  <Typography variant="caption" align="left" dangerouslySetInnerHTML={{__html: thisProfile.bio}} />
+                  ) : ''}
+                <Button onClick={this.handleClick} size="small" variant="contained">Edit Profile</Button>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item >
+            <Paper id="profileForm" role="dialog" style={styles.profileForm}>
+              <Typography variant="title">Profile</Typography>
+              <AutoForm
+              schema={Schema.Profile}
+              model={model}
+              onSubmit={this.handleSubmit}
+              onSubmitSuccess={this.handleSuccess}
+              onSubmitFailure={this.handleFailure} 
+              className="tinyForm"
+              >
+                <AutoField name="name" />
+                <AutoField name="birthDate" />
+                <AutoField name="social" />
+                <InputLabel>Describe Yourself!</InputLabel>
+                <TinyInput name="bio" content = {model.bio} />
+                <SubmitField value="Submit" style={{position: 'relative', right: 0}} />
+                <ErrorsField />
+              </AutoForm>
+            </Paper>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Tabs value={value} onChange={this.handleChange} fullWidth centered indicatorColor="secondary" textColor="secondary" style={{backgroundColor: '#fafafa'}} >
+            <Tab label="Guest" />
+            <Tab label="Host" />
+            <Tab label="Talent" />
+          </Tabs>
+        </Grid>
+        <Grid item xs={12}>
+          {value === 0 && <TabGuest user={this.props.thisUser} />}
+          {value === 1 && <TabHost user={this.props.thisUser}  />}
+          {value === 2 && <TabTalent user={this.props.thisUser}  />}
+        </Grid>
+      </Grid>
+    )
+  } 
+}
 
 
 export default PageProfile = withTracker(() => {
@@ -182,4 +218,4 @@ export default PageProfile = withTracker(() => {
     loading,
     thisUser
   };
-})(PageProfileComponent);
+})(withStyles(styles)(PageProfileComponent));

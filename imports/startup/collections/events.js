@@ -34,14 +34,11 @@ if (Meteor.isServer) {
 
   Meteor.publish('events_public', function () {
       const cursor = Events.find({
-        date: {
-          $gte: new Date() 
-        }
+        isPrivate: !!false
       },
       {
         sort: { date: 1 }
       });
-
     // console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] CURRENT EVENTS =-");
     return cursor;
   });

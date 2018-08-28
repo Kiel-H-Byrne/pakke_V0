@@ -1,11 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 const eventPurchasedAdminTemplate = (user,event) => {
-  let service, page;
-  if (user.services.facebook) {
-    service = user.services.facebook;
-  } else {
-    service = user.services.google
-  };
+  // let service, page;
+  // if (user.services.facebook) {
+  //   service = user.services.facebook;
+  // } else {
+  //   service = user.services.google
+  // };
   
   const emailTitle = "EVENTS: TICKET PURCHASED";
   return renderedEmail = 
@@ -303,10 +303,7 @@ const eventPurchasedAdminTemplate = (user,event) => {
                         <table border="0" cellpadding="0" cellspacing="0">
                           <tr>
                             <td>
-                              <p><strong>${user.profile.name}</strong> (${user.emails[0].address}) has purchased a ticket to Event: '${event.byline}' (#${event._id})</p>
-                              <p>${service.name} | ${service.id} </p>
-
-
+                              <p><strong>${user.username}</strong> (${user.emails[0].address}) has purchased a ticket to Event: '${event.byline}' (#${event._id})</p>
                             </td>
                           </tr>
                         </table>

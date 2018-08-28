@@ -5,6 +5,8 @@ import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 
+import Grid from '@material-ui/core/Grid';
+
 import '../../startup/collections/schemas';
 
 // This will render an automatic, validated form, with labelled fields, inline
@@ -41,21 +43,25 @@ class AddTalentForm extends Component {
     return (
       // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}
       // onSubmitFailure={() => console.log('Promise rejected!')}/>
-      <AutoForm  
-      name="TalentProfileForm"
-      ref={(ref) => { this.formRef = ref; }}
-      validate="onChangeAfterSubmit"
-      schema={Schema.Talent} 
-      model={model} 
-      onSubmit={this.handleSubmit} 
-      onSubmitSuccess={this.handleSuccess} 
-      onSubmitFailure={this.handleFailure}
-      margin="dense" >
+      <Grid container alignItems="center" direction="column" >
+        <Grid item >
+          <AutoForm  
+          name="TalentProfileForm"
+          ref={(ref) => { this.formRef = ref; }}
+          validate="onChangeAfterSubmit"
+          schema={Schema.Talent} 
+          model={model} 
+          onSubmit={this.handleSubmit} 
+          onSubmitSuccess={this.handleSuccess} 
+          onSubmitFailure={this.handleFailure}
+          margin="dense" >
 
-      <AutoFields omitFields={omitFields} />
-      <SubmitField value="Submit"  />
-      <ErrorsField />
-      </AutoForm>
+          <AutoFields omitFields={omitFields} />
+          <SubmitField value="Submit"  />
+          <ErrorsField />
+          </AutoForm>
+        </Grid>
+      </Grid>
     );
   }
 }

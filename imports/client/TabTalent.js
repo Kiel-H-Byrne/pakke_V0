@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
+import { BarLoader } from 'react-spinners';
 
 import AddTalentModal from './forms/AddTalentModal';
 import Events from '../startup/collections/events';
@@ -12,7 +13,12 @@ class TabHostComponent extends Component {
     let isTalent = Roles.userIsInRole(Meteor.userId(), ["talent"])
 
     if (!this.props.ready) {
-      return <div>Loading</div>;
+      return <BarLoader 
+              loading={this.props.loading} 
+              color='#2964ff'
+              width={-1}
+              height={10}
+            />;
     } else {
       return (
         

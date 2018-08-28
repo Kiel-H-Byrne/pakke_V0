@@ -22,10 +22,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 import Button from '@material-ui/core/Button';
 
-import Venues from '/imports/startup/collections/venues';
-import PageError from './PageError';
-import EventInterestModal from './forms/EventInterestModal'
-import EventPurchaseModal from './forms/EventPurchaseModal'
+import Venues from '/imports/startup/collections/venues.js';
+import PageError from './PageError.js';
+import EventMap from './EventMap.js'
+import EventInterestModal from './forms/EventInterestModal.js'
+import EventPurchaseModal from './forms/EventPurchaseModal.js'
 
 const styles = {
   grid: {
@@ -65,7 +66,7 @@ class EventDetailsComponent extends Component {
       if (nextProps.event.venueId) {
         // venue = eventHost.profile.venues.filter((v) => (v.venueId === nextProps.event.venueId))
         venue = Venues.find({ events: { $in: [nextProps.event._id] } }).fetch();
-        console.log(venue)
+        // console.log(venue)
       }
       return {
         eventHost: eventHost,
@@ -103,14 +104,19 @@ class EventDetailsComponent extends Component {
       return <PageError />
     }
 
+    const one_day=1000*60*60*24;
+    const realEventDate = new Date((this.props.event.date * 1) + ((new Date().getTimezoneOffset())*60*1000))
+    // const isExpired = (((realEventDate.getTime() - Date.now())/one_day) <= -1) //EVENT DATE IS YESTERDAY (ALLOW TO BUY UP TO DAY AFTER)
+    const isExpired = (realEventDate.getTime() < Date.now()) //EVENT DATE & Time is a milLisecond BEFORE CURRENT TIME (ALLOW TO BUY UP TO EVENT TIME)
+    const isTBD = (((realEventDate.getTime() - Date.now())/one_day) > 364) //DATE IS A YEAR AHEAD 
+
     return (
       <div>
         <Helmet>
           <title>PAKKE Event: {this.props.event.byline}</title>
           <meta name="description" content={this.props.event.description}/>
-          <meta name="keywords" content={`Night Life, Nightlife, Night Out, Social Events, Parties in DC, Events in DC, ${this.props.event.description}`}/>
+          <meta name="keywords" content={`${this.props.event.description}`}/>
           <meta property="og:title" content={this.props.event.byline} />
-          <meta property="og:type" content="website" />
           <meta property="og:image" content={this.props.event.image} />
           <meta property="og:image:secure_url" content={this.props.event.image} />
           <meta property="og:image:type" content="image/png" />
@@ -119,10 +125,6 @@ class EventDetailsComponent extends Component {
           <meta property="og:image:alt" content={this.props.event.byline} />
           <meta property="og:url" content={`https://www.pakke.us/event/${this.props.event._id}`} />
           <meta property="og:description" content={this.props.event.description}/>
-          <meta property="og:determiner" content="auto" />
-          <meta property="og:locale" content="en_US" />
-          <meta property="og:site_name" content="PAKKE" />
-          <meta property="fb:app_id" content="168356840569104" />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={this.props.event.byline} />
           <meta name="twitter:description" content={this.props.event.description} />
@@ -132,8 +134,8 @@ class EventDetailsComponent extends Component {
         <Card className={classes.container}>
           <CardMedia image={this.props.event.image ? this.props.event.image : `""`} title='Event Preview' className={classes.image} />
           <CardContent>
-            <Typography variant="display2" align="center" gutterBottom >{this.props.event.byline}</Typography>
-            <Typography variant="display1" dangerouslySetInnerHTML={{__html: this.props.event.description}} />
+            <Typography variant="display1" align="center" gutterBottom >{this.props.event.byline}</Typography>
+            <Typography dangerouslySetInnerHTML={{__html: this.props.event.description}} />
             <Grid 
             container
             alignItems="center"
@@ -144,16 +146,19 @@ class EventDetailsComponent extends Component {
 
               <Grid item>
               {this.state.eventHost ? (
+                <React.Fragment>
                 <Paper elevation={0}>
                   <Typography variant="headline" align="center">Your Host:</Typography>
                   <img className='host-image' src={this.state.eventHost.profile.avatar} />
                   <Typography variant="title" align="center">{this.state.eventHost.profile.name}</Typography>
                 </Paper> 
-                ) : (
-                  <div >
-                  
-                </div> 
-                )
+                <div className="fb-share-button" 
+                      data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
+                      data-layout="button_count"
+                      data-size="large">
+                    </div>
+                    </React.Fragment>
+                ) : ( '' )
               }
               </Grid>
               <Grid item>
@@ -167,7 +172,7 @@ class EventDetailsComponent extends Component {
                     <TableBody className={classes.table}>
                       <TableRow>
                         <TableCell className={classes.cell}><h5>WHEN:</h5> </TableCell>
-                        <TableCell numeric={true} className={classes.cell}>{this.props.event.date.toDateString().substring(0, (this.props.event.date.toDateString()).length - 5)}</TableCell>
+                        <TableCell numeric={true} className={classes.cell}>{realEventDate.toDateString().substring(0, (realEventDate.toDateString()).length - 5)}</TableCell>
                       </TableRow>
                       <TableRow>
                         <TableCell className={classes.cell}><h5>PRICE:</h5> </TableCell>
@@ -177,9 +182,25 @@ class EventDetailsComponent extends Component {
                   </Table>
                   
                   {this.props.thisUser ? (
+                      isExpired ? (
+                        <Button disabled={true} fullWidth={true} variant="outlined" color="secondary">Sold Out!</Button>
+                      ) : 
                       this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
-                      
+
+                      //USER HAS PURCHASD A TICKET: BELLS & WHISTLES
+                      <React.Fragment>
+                       {/*
+                      <TableRow>
+                        <TableCell className={classes.cell}><h5>WHERE:</h5> </TableCell>
+                        <TableCell  numeric={true} className={classes.cell}>Nowhere</TableCell> 
+                      </TableRow>
+                    */}
+                        <Paper>
+                          <EventMap venueId={this.props.event.venueId} event={this.props.event} />
+                        </Paper>
                         <Button onClick={boughtAlert} disabled={true} fullWidth={true} variant="outlined" color="secondary">Purchased!</Button>
+                      </React.Fragment>
+
                       ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
                       //IF YOU'VE BEEN INVITED, PLEASE BUY A TICKET
                       <EventPurchaseModal  user = {this.props.thisUser} event = {this.props.event}/>
@@ -193,7 +214,9 @@ class EventDetailsComponent extends Component {
                       ) // OTHERWISE, LOGIN TO BUY A TICKET.
                     ) : <Button onClick={loginAlert} fullWidth={true} >Buy Ticket</Button> 
                   }
+                    
                   </div>
+                  
               )}
               </Grid>
             </Grid>
