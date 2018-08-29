@@ -28,6 +28,9 @@ import EventMap from './EventMap.js'
 import EventInterestModal from './forms/EventInterestModal.js'
 import EventPurchaseModal from './forms/EventPurchaseModal.js'
 
+import eventPurchasedTemplate from './email/eventPurchasedTemplate';
+import eventPurchasedAdminTemplate from './email/eventPurchasedAdminTemplate';
+
 const styles = {
   grid: {
     flexGrow: 1,
@@ -49,6 +52,30 @@ const styles = {
     fontSize: 14
   }
 }
+
+let intervalId = 0; 
+function scrollStep() {
+    // Check if we're at the top already. If so, stop scrolling by clearing the interval
+    if (window.pageYOffset === 0) {
+        clearInterval(intervalId);
+    }
+    window.scroll(0, window.pageYOffset - 50);
+}
+function scrollToTop() {
+    // Call the function scrollStep() every 16.66 millisecons
+    intervalId = setInterval(scrollStep, 16.66);
+}
+
+const loginAlert = () => {
+  scrollToTop();   
+  Bert.alert({
+    message: "Please Log In First.", 
+    type: "login-alert",
+    style: "growl-top-left",
+    icon: 'fa-sign-in'
+  });
+}
+const waitAlert = () => Bert.alert("Please Check Your E-mail.", "info", "growl-top-right");
 
 class EventDetailsComponent extends Component {
   constructor(props) {
@@ -80,12 +107,42 @@ class EventDetailsComponent extends Component {
   componentWillUnmount() {
     this.props.handle.stop();
   }
+  handleAddGuest = () => {
+    const user = this.props.thisUser;
+    const event = this.props.event;
+    const userEmail = user.emails[0].address;
+    const userEmailProps = [
+      "noreply@pakke.us",
+      "Ticket Purchase Confirmation",
+      eventPurchasedTemplate(user, event)
+    ];
+    
+    const adminEmailProps = [
+      "noreply@pakke.us",
+      "EVENTS: Ticket Purchase",
+      eventPurchasedAdminTemplate(user, event)
+    ];
 
+    Bert.alert(`Yay! Check your inbox [${userEmail}] for more info!`, "success");
+    Meteor.call('amConfirmed', event._id);
+    if (Meteor.isProduction) {
+      Meteor.call('sendEmail', userEmail, ...userEmailProps);
+      Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
+
+      analytics.track("Joined GuestList", {
+        label: event.byline,
+        commerce: event.price,
+        value: event.price,
+        host: event.hostId,
+      })
+
+    } else {
+      // console.log(token);
+      console.log('emails wouldve been sent if not for development')
+    }
+  }
   render() {
     const { classes } = this.props;
-    const loginAlert = () => Bert.alert("Please Log In First.", "info", "growl-top-right");
-    const waitAlert = () => Bert.alert("Please Check Your E-mail.", "info", "growl-top-right");
-    const boughtAlert = () => Bert.alert("See you Soon!", "info", "growl-top-right");
 
     if (this.props.loading) {
 
@@ -182,14 +239,14 @@ class EventDetailsComponent extends Component {
                       </TableRow>
                     </TableBody>
                   </Table>
-                  
                   {this.props.thisUser ? (
+
+                    //OLD EVENT, DISABLE BUTTON
                       isExpired ? (
                         <Button disabled={true} fullWidth={true} variant="outlined" color="secondary">Sold Out!</Button>
-                      ) : 
-                      this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
-
+                      ) : this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
                       //USER HAS PURCHASD A TICKET: BELLS & WHISTLES
+                      //GET DATE, GET MAP, DISABLE BUTTON, SHOW AS PURCHASED, OUTLINE?
                       <React.Fragment>
                        {/*
                       <TableRow>
@@ -200,21 +257,29 @@ class EventDetailsComponent extends Component {
                         <Paper>
                           <EventMap venueId={this.props.event.venueId} event={this.props.event} />
                         </Paper>
-                        <Button onClick={boughtAlert} disabled={true} fullWidth={true} variant="outlined" color="secondary">Purchased!</Button>
+                        <Button disabled={true} fullWidth={true} variant="outlined">Attending!</Button>
                       </React.Fragment>
 
                       ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
                       //IF YOU'VE BEEN INVITED, PLEASE BUY A TICKET
                       <EventPurchaseModal  user = {this.props.thisUser} event = {this.props.event}/>
                       ) : this.props.event.appliedList.includes(this.props.thisUser._id) ? (
+                      //YOU'VE APPLIED FOR THE PARTY, CHECK EMAIL AND WAIT TO GET ADDED TO INVITED LIST
                         <Button onClick={waitAlert} fullWidth={true}>Applied!</Button>
                       ) : this.props.event.isPrivate ? (
-                      //IF THERE IS A WAITING LIST: "private", PLEASE APPLY FOR A TICKET.
+                      //IF THERE IS A WAITING LIST: (private), PLEASE APPLY FOR A TICKET.
                       <EventInterestModal user = {this.props.thisUser} event = {this.props.event}/>
-                      ) : ( //OTHERWISE, BUY A TICKET TO ANY EVENT (2nd DEFAULT)
+                      ) : this.props.event.price == 0 ? (
+                      // IF PRICE IS 0 , DONATE? AND ADD TO TO LIST FOR PARTY.
+                      <Button onClick={() => {this.handleAddGuest()}} fullWidth={true} >Join Guestlist</Button> 
+                      ) : ( 
+                      //OTHERWISE, OPEN PARTY, BUY A TICKET
                       <EventPurchaseModal user = {this.props.thisUser} event = {this.props.event}/>
-                      ) // OTHERWISE, LOGIN TO BUY A TICKET.
-                    ) : <Button onClick={loginAlert} fullWidth={true} >Buy Ticket</Button> 
+                      ) 
+                    ) : (
+                    // OTHERWISE, JUST LANDED, LOG IN TO BUY A TICKET.
+                    <Button onClick={loginAlert} fullWidth={true} >Buy Ticket</Button> 
+                    )
                   }
                     
                   </div>

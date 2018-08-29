@@ -8,6 +8,7 @@ import MaskedInput from 'react-text-mask'
 import AutoForm    from 'uniforms-material/AutoForm';
 import AutoField  from 'uniforms-material/AutoField';
 import DateField  from 'uniforms-material/DateField';
+import NumField  from 'uniforms-material/NumField';
 import SubmitField from 'uniforms-material/SubmitField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 import LongTextField from 'uniforms-material/LongTextField'; // Choose your theme package.
@@ -118,7 +119,7 @@ class AddEventForm extends Component {
                         <TinyInput name="description" id="event-description"/>
                         <AutoField name="duration"  />
                         <AutoField name="size" />
-                        <AutoField name="price" />
+                        <NumField name="price" decimal={false} max={500} min={0}/>
                         <InputLabel>Upload a picture to use for the cover!</InputLabel>
                         <FileUpload name="image" module="events"/>
                         </div>

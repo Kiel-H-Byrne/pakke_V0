@@ -188,7 +188,7 @@ class VenuesFormComponent extends Component {
                           id={`vri_${venue._id}`}
                           aria-label={venue.nickname}
                           />
-<EditVenueButton venue={venue}/>
+                        <EditVenueButton venue={venue}/>
                         </CardActions>
                       </Card>
                       )

@@ -8,6 +8,7 @@ import EditIcon from '@material-ui/icons/Edit'
 
 import AutoField  from 'uniforms-material/AutoField';
 import HiddenField  from 'uniforms-material/HiddenField';
+import NumField  from 'uniforms-material/NumField';
 import AutoForm    from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
@@ -104,7 +105,7 @@ const styles = theme => ({
             <AutoField name="date" />
             <AutoField name="duration" margin="dense" />
             <AutoField name="size" margin="dense" />
-            <AutoField name="price" margin="dense" disabled={this.state.hasGuests} />
+            <NumField name="price" margin="dense" disabled={this.state.hasGuests} decimal={false} max={500} min={0} />
             <AutoField name="contact" margin="dense" />
             <VenuesForm value={model.venueId} />  
             <InputLabel>Upload a picture to use for the cover!</InputLabel>     

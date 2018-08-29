@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { BarLoader } from 'react-spinners';
+import { Link } from 'react-router-dom';
 
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
@@ -57,6 +58,7 @@ class AdminPanelComponent extends Component {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Date</TableCell>
+            <TableCell>Guests</TableCell>
             <TableCell>ID</TableCell>
             <TableCell>Edit</TableCell>
             <TableCell>Send GuestList</TableCell>
@@ -68,8 +70,9 @@ class AdminPanelComponent extends Component {
           this.props.events.map((event) => {
             return (
               <TableRow key={event._id}>
-                <TableCell><a href={`www.pakke.us/event/${event._id}`}>"{event.byline}"</a></TableCell>
+                <TableCell><Link to={`/event/${event._id}`}>"{event.byline}"</Link></TableCell>
                 <TableCell>{event.date.toDateString()}</TableCell>
+                <TableCell>{event.confirmedList.length}</TableCell>
                 <TableCell>{event._id}</TableCell>
                 <TableCell><EditEventButton event={event}/></TableCell>
                 <TableCell><Button type="button" onClick={() => this.sendGuestList(event._id)}>Send GL </Button> </TableCell>

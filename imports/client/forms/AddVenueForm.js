@@ -115,7 +115,7 @@ class AddVenueForm extends Component {
                   <HiddenField name="address" value={this.state.place.formatted_address} type="hidden" />
                   <HiddenField name="location.lat" value={this.state.place.geometry.location.lat()} type="hidden" />
                   <HiddenField name="location.lng" value={this.state.place.geometry.location.lng()} type="hidden" />
-                  <img src={this.state.place.icon} />
+                 {/*  <img src={this.state.place.icon} /> */}
                 </React.Fragment>
                 ) : ''}
               <InputLabel>Upload a picture to use for the preview!</InputLabel>
