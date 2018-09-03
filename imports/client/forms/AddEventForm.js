@@ -52,7 +52,7 @@ class AddEventForm extends Component {
         //ADD URL TO /PROFILE TO CATCH WHICH TAB I WANT TO NAVIGATE TO
 
         const adminEmailProps = [
-          "EVENTS: EVENT CREATED",
+          `{\u0394 EVENT CREATED: ${doc.byline} \u0394}`,
           eventCreatedAdminTemplate(Meteor.user(), doc)
         ];
         

@@ -313,7 +313,7 @@ const eventCreatedAdminTemplate = (user,event) => {
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="content-block">
-                    <span class="apple-link">PAKKE.us, P.O. Box 420, District of Columbia 20012</span>
+                    <span class="apple-link">PAKKE.us, District of Columbia 20012</span>
                   </td>
                 </tr>
                 <tr>

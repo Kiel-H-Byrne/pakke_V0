@@ -7,6 +7,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import eventPurchasedTemplate from '../email/eventPurchasedTemplate';
 import eventPurchasedAdminTemplate from '../email/eventPurchasedAdminTemplate';
+import eventPurchasedHostTemplate from '../email/eventPurchasedHostTemplate';
 
 class PaymentRequestForm extends React.Component {
   constructor(props) {
@@ -82,7 +83,7 @@ class PaymentRequestForm extends React.Component {
         eventPurchasedHostTemplate(user, event)
       ];
       const adminEmailProps = [
-        "EVENTS: Ticket Purchase",
+        `{\u0394 TICKET PURCHASE: ${event.byline} \u0394}`,
         eventPurchasedAdminTemplate(user, event)
       ];
       try {
@@ -99,9 +100,9 @@ class PaymentRequestForm extends React.Component {
               
               //EMAIL TO VISITOR
               Meteor.call('sendEmail', userEmail, ...userEmailProps);
-              //EMAIL TO HOST
-              let hostEmail = Meteor.users.findOne(event.hostId).emails[0].address;
-              Meteor.call('sendEmail', hostEmail, ...hostEmailProps);
+              //EMAIL TO HOST 
+              // let hostEmail = Meteor.users.findOne(event.hostId).emails[0].address;
+              // Meteor.call('sendEmail', hostEmail, ...hostEmailProps);
               //EMAIL TO ADMIN
               Meteor.call('sendEmail', "noreply@pakke.us", ...adminEmailProps);
 

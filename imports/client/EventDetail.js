@@ -30,6 +30,7 @@ import EventPurchaseModal from './forms/EventPurchaseModal.js'
 
 import eventPurchasedTemplate from './email/eventPurchasedTemplate';
 import eventPurchasedAdminTemplate from './email/eventPurchasedAdminTemplate';
+import eventPurchasedHostTemplate from './email/eventPurchasedHostTemplate';
 
 const styles = {
   grid: {
@@ -123,7 +124,7 @@ class EventDetailsComponent extends Component {
     ];
 
     const adminEmailProps = [
-      "EVENTS: Ticket Purchase",
+      `{\u0394 TICKET PURCHASE: ${event.byline} \u0394}`,
       eventPurchasedAdminTemplate(user, event)
     ];
 
@@ -133,8 +134,8 @@ class EventDetailsComponent extends Component {
       //EMAIL TO VISITOR
       Meteor.call('sendEmail', userEmail, ...userEmailProps);
       //EMAIL TO HOST
-      let hostEmail = Meteor.users.findOne(event.hostId).emails[0].address;
-      Meteor.call('sendEmail', hostEmail, ...hostEmailProps);
+      // let hostEmail = Meteor.users.findOne(event.hostId).emails[0].address;
+      // Meteor.call('sendEmail', hostEmail, ...hostEmailProps);
       //EMAIL TO ADMIN
       Meteor.call('sendEmail', "noreply@pakke.us", ...adminEmailProps);
 
@@ -245,6 +246,12 @@ class EventDetailsComponent extends Component {
                         <TableCell className={classes.cell}><h5>PRICE:</h5> </TableCell>
                         <TableCell  numeric={true} className={classes.cell}>${this.props.event.price}</TableCell>
                       </TableRow>
+                        {this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
+                        <TableRow>
+                          <TableCell className={classes.cell}><h5>WHERE:</h5> </TableCell>
+                          <TableCell  numeric={true} className={classes.cell}>{this.props.venue ? <a target="_blank" rel="noopener"  href={`https://www.google.com/maps/dir/Current+Location/${this.props.venue.address}`} title={`Directions to ${this.props.venue.address}`} >"<em>{this.props.venue.nickname}</em>"</a> : 'TBD' }</TableCell> 
+                        </TableRow>
+                        ):('')}
                     </TableBody>
                   </Table>
                   {this.props.thisUser ? (
@@ -307,12 +314,15 @@ export default EventDetails = withTracker(({ match }) => {
   let handle = Meteor.subscribe('event', match.params.id) && Meteor.subscribe('eventHost', match.params.id) && Meteor.subscribe('currentUser', Meteor.userId());
   let loading = !handle.ready(); 
   const event = Events.findOne( match.params.id );
+  let venue;
+  if (event) {venue = Venues.findOne(event.venueId);}
   const thisUser = Meteor.users.findOne(Meteor.userId());
  
   return {
     handle,
     loading,
-    event, 
+    event,
+    venue, 
     thisUser
   }
 })(withStyles(styles)(EventDetailsComponent));

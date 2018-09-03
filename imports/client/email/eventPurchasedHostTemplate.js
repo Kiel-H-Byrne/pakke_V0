@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-const eventPurchasedAdminHostTemplate = (user,event) => {
+const eventPurchasedHostTemplate = (user,event) => {
   // let service, page;
   // if (user.services.facebook) {
   //   service = user.services.facebook;
@@ -7,7 +7,7 @@ const eventPurchasedAdminHostTemplate = (user,event) => {
   //   service = user.services.google
   // };
   
-  const emailTitle = "EVENTS: TICKET PURCHASED";
+  const emailTitle = "You've got a new guest to your upcoming PAKKE Experience!";
   return renderedEmail = 
     `
       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -318,7 +318,7 @@ const eventPurchasedAdminHostTemplate = (user,event) => {
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="content-block">
-                    <span class="apple-link">PAKKE.us, P.O. Box 420, District of Columbia 20012</span>
+                    <span class="apple-link">PAKKE.us, District of Columbia 20012</span>
                   </td>
                 </tr>
                 <tr>

@@ -297,8 +297,9 @@ const eventCreatedHostTemplate = (user,event) => {
                         <table border="0" cellpadding="0" cellspacing="0">
                           <tr>
                             <td>
-                              <p>Thank you for hosting this experience, <strong>${user.profile.username}</strong>. <br />
-                              '${event.byline}' should be amazing! Please visit the PAKKE site to edit your event. We encourage you to hit the edit button and add a few words to serve as an e-mail to your guests when they purchase a ticket. </p>
+                              <p>Thank you for hosting this experience, <strong>${user.profile.username}</strong>. <br /><br />
+                              '<em>${event.byline}</em>' should be amazing! Please visit the PAKKE site to edit any details of your event. <br />
+                              We encourage you to hit the edit button and add a few words to serve as an e-mail to your guests when they purchase a ticket. </p>
                               <p>Please e-mail the PAKKE team at 'info@pakke.us' for any assistance.</p>
                             </td>
                           </tr>
@@ -314,7 +315,7 @@ const eventCreatedHostTemplate = (user,event) => {
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="content-block">
-                    <span class="apple-link">PAKKE.us, P.O. Box 420, District of Columbia 20012</span>
+                    <span class="apple-link">PAKKE.us, District of Columbia 20012</span>
                   </td>
                 </tr>
                 <tr>
