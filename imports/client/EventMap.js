@@ -59,7 +59,12 @@ class EventMap extends Component {
         size: {width: 15, height: 15},
         scaledSize: {width: 15, height: 15}
       };
+
       const venue = this.props.venue;
+      const infoContent =  `
+        <strong>${venue.nickname}</strong><br />
+        <small>${venue.address}</small>
+      `;
       // GEO.geocode(
       //           { address: venue.address },
       //           (res,err) => {
@@ -77,14 +82,21 @@ class EventMap extends Component {
 
       let marker = new google.maps.Marker({
         animation: google.maps.Animation.DROP,
-        position: this.props.venue.location,
+        position: venue.location,
         map: map.instance,
         title: venue.address,
         // label: venue.address
         // icon: eventImage
         // id: this.props.venue._id,
       }); 
-      
+      marker.info = new google.maps.InfoWindow({
+          content: infoContent,
+          maxWidth: 100,
+          position: venue.location
+        })
+      marker.addListener('click', function() {
+        marker.info.open(map.instance)  
+      });
 
     });
   }

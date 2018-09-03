@@ -120,16 +120,10 @@ class MyMap extends Component {
         }
 
         const markers = {};
-        const infoContent =  `
-        <h3>${thisVenue.nickname}</h3>
-        <p>${thisVenue.address}</p>
-        `;
-        //Hover for Info-Windows
-        google.maps.event.addListener(marker, 'mouseover', function() {     
-          // marker.info.setContent(this.title);
-          marker.info.open(map.instance, this);
-        });
-        
+        let markerInfo = new google.maps.InfoWindow({
+          content: '',
+          maxWidth: 100,
+        })
         Events.find().observeChanges({
           added: function(id,doc) {
             if (doc.venueId) {
@@ -144,12 +138,16 @@ class MyMap extends Component {
                     icon: eventImage,
                     id: id,
                   });
-                  marker.info = new google.maps.InfoWindow({
-                      content: infoContent,
-                      maxWidth: 100,
-                      position: thisVenue.location
-                    })
-                  console.log(marker.info)
+                  let infoContent =  `
+                  <strong>${thisVenue.nickname}</strong><br />
+                  <small>${thisVenue.address}</small>
+                  `;
+
+                  marker.addListener('click', function() {
+                    markerInfo.setContent(infoContent)
+                    markerInfo.setPosition(thisVenue.location)
+                    markerInfo.open(map.instance)  
+                  });
                 
                 // let infoContent= Blaze.toHTMLWithData(Template.infowindow);
                 //console.log(infoContent);        
