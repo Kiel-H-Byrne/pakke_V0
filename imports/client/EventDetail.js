@@ -68,6 +68,7 @@ function scrollToTop() {
 
 const loginAlert = () => {
   scrollToTop();   
+  // window.scrollTo({top: 0, behavior: "smooth"});
   Bert.alert({
     message: "Please Log In First.", 
     type: "login-alert",
