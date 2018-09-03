@@ -22,10 +22,15 @@ import HiddenField from 'uniforms-material/HiddenField';
 
 import '../../startup/collections/schemas';
 import eventCreatedAdminTemplate from '../email/eventCreatedAdminTemplate';
+import eventCreatedHostTemplate from '../email/eventCreatedHostTemplate';
+import DateTime from '../DateTime.js'
+import PageError from '../PageError';
+
 import FileUpload from './FileUpload.js';
 import VenuesForm from './VenuesForm';
 import TinyInput from './TinyInput.js'
-import DateTime from '../DateTime.js'
+
+
 
 
 // This will render an automatic, validated form, with labelled fields, inline
@@ -46,16 +51,21 @@ class AddEventForm extends Component {
         //REDIRECT TO PROFILE/HOSTING PAGE (OR EVENTS PAGE)
         //ADD URL TO /PROFILE TO CATCH WHICH TAB I WANT TO NAVIGATE TO
 
-
         const adminEmailProps = [
-          "noreply@pakke.us",
           "EVENTS: EVENT CREATED",
           eventCreatedAdminTemplate(Meteor.user(), doc)
         ];
+        
+        const hostEmailProps = [
+          "Your new PAKKE Experience has been created!",
+          eventCreatedHostTemplate(Meteor.user(), doc)
+        ];
 
         //send admin email
+        Meteor.call('sendEmail', Meteor.user().emails[0].address, ...hostEmailProps);
         if (Meteor.isProduction) {
-            Meteor.call('sendEmail', "kiel@pakke.us", ...adminEmailProps);
+            // Meteor.call('sendEmail', Meteor.user().emails[0].address, ...hostEmailProps);
+            Meteor.call('sendEmail', "noreply@pakke.us", ...adminEmailProps);
             let crmParams = {
               "Event Owner": Meteor.user().username,
               "Subject": doc.byline ,
@@ -70,7 +80,7 @@ class AddEventForm extends Component {
 
     handleSuccess = () => {
         //redirect; to home
-        window.location.href="https://www.pakke.us/?eventAdded"
+        window.location.href="/?eventAdded"
         Bert.alert("Your Event Was Posted!", "success");
         // this.props.history.push('/?eventAdded');
     };
@@ -90,7 +100,10 @@ class AddEventForm extends Component {
     render() {
         const model = Schema.Event.clean({});
         // console.log(model)
-    
+        
+        if (!Meteor.userId()) {
+          return (<PageError />)
+        }
         return (
             <Grid container alignItems="center" direction="column" style={{width:"inherit", margin: ".5rem"}}>
                 <Grid item >
@@ -112,9 +125,11 @@ class AddEventForm extends Component {
                         <Typography variant="display1" align="center">Step 2. - Describe It</Typography>
                         <Typography variant="subheading" align="center">Let guests know what this experience is about!</Typography>
                         <AutoField name="byline" />
+                        {/*
                         <InputLabel htmlFor="event-date" shrink={true}>When is it...</InputLabel>
-                        {/*<AutoField name="date" id="event-date" component={() => <DateTime /> } /><br />*/}
-                        <AutoField name="date" />
+                        <AutoField name="date" id="event-date" component={() => <DateTime /> } /><br />
+                        */}
+                        <AutoField name="date" type="date" />
                         <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
                         <TinyInput name="description" id="event-description"/>
                         <AutoField name="duration"  />

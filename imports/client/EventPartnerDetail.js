@@ -32,7 +32,16 @@ class EventDetailsComponent extends Component {
 
   render() {
     
-    const loginAlert = () => Bert.alert("Please Log In First.", "info", "growl-top-right");
+    const loginAlert = () => {
+      // scrollToTop();   
+      window.scrollTo({top: 0, behavior: "smooth"});
+      Bert.alert({
+        message: "Please Log In First.", 
+        type: "login-alert",
+        style: "growl-top-left",
+        icon: 'fa-sign-in'
+      });
+    }
     const waitAlert = () => Bert.alert("Please Check Your E-mail.", "info", "growl-top-right");
     const boughtAlert = () => Bert.alert("See you Soon!", "info", "growl-top-right");
 

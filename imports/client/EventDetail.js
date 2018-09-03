@@ -67,8 +67,8 @@ function scrollToTop() {
 }
 
 const loginAlert = () => {
-  scrollToTop();   
-  // window.scrollTo({top: 0, behavior: "smooth"});
+  // scrollToTop();   
+  window.scrollTo({top: 0, behavior: "smooth"});
   Bert.alert({
     message: "Please Log In First.", 
     type: "login-alert",
@@ -113,13 +113,16 @@ class EventDetailsComponent extends Component {
     const event = this.props.event;
     const userEmail = user.emails[0].address;
     const userEmailProps = [
-      "noreply@pakke.us",
       "Ticket Purchase Confirmation",
       eventPurchasedTemplate(user, event)
     ];
     
+    const hostEmailProps = [
+      "You've got a new guest to your upcoming PAKKE Experience!",
+      eventPurchasedHostTemplate(user, event)
+    ];
+
     const adminEmailProps = [
-      "noreply@pakke.us",
       "EVENTS: Ticket Purchase",
       eventPurchasedAdminTemplate(user, event)
     ];
@@ -127,8 +130,13 @@ class EventDetailsComponent extends Component {
     Bert.alert(`Yay! Check your inbox [${userEmail}] for more info!`, "success");
     Meteor.call('amConfirmed', event._id);
     if (Meteor.isProduction) {
+      //EMAIL TO VISITOR
       Meteor.call('sendEmail', userEmail, ...userEmailProps);
-      Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
+      //EMAIL TO HOST
+      let hostEmail = Meteor.users.findOne(event.hostId).emails[0].address;
+      Meteor.call('sendEmail', hostEmail, ...hostEmailProps);
+      //EMAIL TO ADMIN
+      Meteor.call('sendEmail', "noreply@pakke.us", ...adminEmailProps);
 
       analytics.track("Joined GuestList", {
         label: event.byline,
@@ -136,7 +144,6 @@ class EventDetailsComponent extends Component {
         value: event.price,
         host: event.hostId,
       })
-
     } else {
       // console.log(token);
       console.log('emails wouldve been sent if not for development')

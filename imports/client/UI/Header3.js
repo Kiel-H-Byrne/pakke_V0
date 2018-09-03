@@ -64,7 +64,7 @@ class HeaderComponent extends Component {
             } else {
                 Bert.alert("We don't even KNOW you anymore!", "success");
                 // this.props.history.push('/?logout')
-                window.location.href="https://www.pakke.us/?logout"
+                window.location.href="/?logout"
             }
         })
     }
@@ -104,7 +104,7 @@ class HeaderComponent extends Component {
             },
             avatar: {
                 margin: '.5rem .5rem',
-                height: '4rem',
+                height: '3rem',
                 borderRadius: '50%',
             },
             button: {
@@ -125,9 +125,9 @@ class HeaderComponent extends Component {
                     <ListItem
                         disableGutters={true}
                         divider={true}
-                        style={{padding:"0 0 15px"}}
+                        style={{padding:"0 0 3px"}}
                     >
-                        <img src="/ImageLogoBlack.png" className="" alt='Home' style={styles.pakkeLogo} />
+                        <img src="/ImageLogoBlack.png" alt='Home' style={styles.pakkeLogo} />
                     </ListItem>
                     <ListItem button component={Link} to="/">
                         <ListItemIcon>

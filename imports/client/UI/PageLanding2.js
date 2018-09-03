@@ -51,7 +51,16 @@ const styles = theme => ({
 class PageLanding2 extends Component {
 
   render() {
-    const loginAlert = () => Bert.alert("Please Log In First.", "info", "growl-top-right");
+    const loginAlert = () => {
+      // scrollToTop();   
+      window.scrollTo({top: 0, behavior: "smooth"});
+      Bert.alert({
+        message: "Please Log In First.", 
+        type: "login-alert",
+        style: "growl-top-left",
+        icon: 'fa-sign-in'
+      });
+    }
     
     const thisUser = Meteor.user();
     const { classes } = this.props;

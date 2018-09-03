@@ -74,13 +74,14 @@ class PaymentRequestForm extends React.Component {
       // console.log(user)
       const userEmail = user.emails[0].address;
       const userEmailProps = [
-        "noreply@pakke.us",
-        "Ticket Purchase Confirmation",
+        "Congratulations! Your PAKKE experience is just beginning!",
         eventPurchasedTemplate(user, event)
       ];
-      
+      const hostEmailProps = [
+        "You've got a new guest to your upcoming PAKKE Experience!",
+        eventPurchasedHostTemplate(user, event)
+      ];
       const adminEmailProps = [
-        "noreply@pakke.us",
         "EVENTS: Ticket Purchase",
         eventPurchasedAdminTemplate(user, event)
       ];
@@ -96,8 +97,13 @@ class PaymentRequestForm extends React.Component {
             Meteor.call('amConfirmed', event._id);
             if (Meteor.isProduction) {
               
+              //EMAIL TO VISITOR
               Meteor.call('sendEmail', userEmail, ...userEmailProps);
-              Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
+              //EMAIL TO HOST
+              let hostEmail = Meteor.users.findOne(event.hostId).emails[0].address;
+              Meteor.call('sendEmail', hostEmail, ...hostEmailProps);
+              //EMAIL TO ADMIN
+              Meteor.call('sendEmail', "noreply@pakke.us", ...adminEmailProps);
 
               analytics.track("Ticket Purchase", {
                 label: event.byline,
