@@ -73,7 +73,7 @@ class PaymentRequestForm extends React.Component {
       const event = this.props.event
       const handleClose = this.props.handleClose
       // console.log(user)
-      const userEmail = user.emails[0].address;
+      const userEmail = user.profile.preferredEmail.length > 1 ? user.profile.preferredEmail : user.emails[0].address;
       const userEmailProps = [
         "Congratulations! Your PAKKE experience is just beginning!",
         eventPurchasedTemplate(user, event)
@@ -96,10 +96,9 @@ class PaymentRequestForm extends React.Component {
             handleClose();
             Bert.alert(`Yay! Check your inbox [${userEmail}] for more info!`, "success");
             Meteor.call('amConfirmed', event._id);
+            //EMAIL TO VISITOR
+            Meteor.call('sendEmail', userEmail, ...userEmailProps);
             if (Meteor.isProduction) {
-              
-              //EMAIL TO VISITOR
-              Meteor.call('sendEmail', userEmail, ...userEmailProps);
               //EMAIL TO HOST 
               // let hostEmail = Meteor.users.findOne(event.hostId).emails[0].address;
               // Meteor.call('sendEmail', hostEmail, ...hostEmailProps);

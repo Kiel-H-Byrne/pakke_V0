@@ -17,6 +17,7 @@ Meteor.publish('publicUser', function (id) {
   // console.log("-= PUBLISHING: USER DATA  =-");
   return Meteor.users.find({_id: id}, {
     fields: {
+      'username': 1,
       'profile': 1
     }
   });

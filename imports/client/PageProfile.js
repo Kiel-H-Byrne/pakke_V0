@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import AutoField from 'uniforms-material/AutoField';
@@ -127,6 +128,7 @@ class PageProfileComponent extends Component {
     const thisProfile = this.props.thisUser.profile;
 
     const model = Schema.Profile.clean(thisProfile)
+    // const model = Schema.User.clean(Meteor.user())
 
     return (
       <Grid container
@@ -180,6 +182,9 @@ class PageProfileComponent extends Component {
               className="tinyForm"
               >
                 <AutoField name="name" />
+                <AutoField name="preferredEmail" />
+                <InputLabel>Current Email:</InputLabel>
+                <Input value={model.preferredEmail || Meteor.user().emails[0].address} type="text" disabled/>
                 <AutoField name="birthDate" />
                 <AutoField name="social" />
                 <InputLabel>Describe Yourself!</InputLabel>

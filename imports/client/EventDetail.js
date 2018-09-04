@@ -25,6 +25,7 @@ import Button from '@material-ui/core/Button';
 import Venues from '/imports/startup/collections/venues.js';
 import PageError from './PageError.js';
 import EventMap from './EventMap.js'
+import EventGuests from './EventGuests.js'
 import EventInterestModal from './forms/EventInterestModal.js'
 import EventPurchaseModal from './forms/EventPurchaseModal.js'
 
@@ -246,12 +247,12 @@ class EventDetailsComponent extends Component {
                         <TableCell className={classes.cell}><h5>PRICE:</h5> </TableCell>
                         <TableCell  numeric={true} className={classes.cell}>${this.props.event.price}</TableCell>
                       </TableRow>
-                        {this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
+                        {this.props.thisUser && this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
                         <TableRow>
                           <TableCell className={classes.cell}><h5>WHERE:</h5> </TableCell>
                           <TableCell  numeric={true} className={classes.cell}>{this.props.venue ? <a target="_blank" rel="noopener"  href={`https://www.google.com/maps/dir/Current+Location/${this.props.venue.address}`} title={`Directions to ${this.props.venue.address}`} >"<em>{this.props.venue.nickname}</em>"</a> : 'TBD' }</TableCell> 
                         </TableRow>
-                        ):('')}
+                        ):(null)}
                     </TableBody>
                   </Table>
                   {this.props.thisUser ? (
@@ -270,7 +271,7 @@ class EventDetailsComponent extends Component {
                       </TableRow>
                     */}
                         <Paper>
-                          <EventMap venueId={this.props.event.venueId} event={this.props.event} />
+                          <EventMap venueId={this.props.event.venueId} venu={this.state.venue} event={this.props.event} />
                         </Paper>
                         <Button disabled={true} fullWidth={true} variant="outlined">Attending!</Button>
                       </React.Fragment>
@@ -302,6 +303,12 @@ class EventDetailsComponent extends Component {
               )}
               </Grid>
             </Grid>
+            {(this.props.event.hostId == Meteor.userId()) || Roles.userIsInRole(Meteor.userId(), ["admin"]) ? (
+            <div>
+              <Typography variant="display2" align="center">Your Guests:</Typography>
+              <EventGuests event={this.props.event._id}/>
+            </div>
+            ) : '' }
           </CardContent>
         </Card>
       </div>
