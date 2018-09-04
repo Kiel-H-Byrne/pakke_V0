@@ -23,6 +23,15 @@ Meteor.publish('publicUser', function (id) {
   });
 });
 
+Meteor.publish('userList', function(list) {
+  check(list,Array);
+  Meteor.users.find({ _id: { $in: list } },{
+    fields: {
+      'profile': 1
+    }  
+  } )
+});
+
 Meteor.publish('eventHost', function (eventId) {
   // console.log("-= PUBLISHING: HOST USER DATA  =-");
   let event = Events.findOne(eventId);

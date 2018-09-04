@@ -29,19 +29,18 @@ const styles = {
 
 class EventGuests extends Component {
   render() {
+    console.log(this.props)
     return (
       <Grid container direction="row">
-        {!this.props.ready ? (
-          "loading") : this.props.guests.map(function(guest) {
+        {!this.props.guestz.length == 0 ? (this.props.guestz.map( guest => {
             let thisGuest = Meteor.users.findOne(guest);
-            console.log(thisGuest)
-            thisGuest ? (
             <Grid container direction="column" item key={guest}>
               <Grid item align="center"><img className='host-image' src={thisGuest.profile.avatar} width="50" height="50" /></Grid>
               <Grid item align="center"><Typography variant="caption">{thisGuest.profile.name}</Typography></Grid>
             </Grid>
-          ) : (null)
-          })
+          })) : (
+          <p>Loading</p>
+          )
         }
       </Grid>
       )
@@ -61,10 +60,10 @@ class EventGuests extends Component {
 }
 
 export default withTracker(({event}) => {
-  const eventSub = Meteor.subscribe('event', event);
+  let subHandle = Meteor.subscribe('userList', event.confirmedList);
   // let showAll = Session.get('showAll');
   return {
-    ready: eventSub.ready(),
-    guests: Events.findOne(event).confirmedList
+    loading: !subHandle.ready(),
+    guests: Meteor.users.find({ _id: { $in: event.confirmedList } } ).fetch()
   }
 })(EventGuests);

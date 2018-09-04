@@ -306,7 +306,7 @@ class EventDetailsComponent extends Component {
             {(this.props.event.hostId == Meteor.userId()) || Roles.userIsInRole(Meteor.userId(), ["admin"]) ? (
             <div>
               <Typography variant="display2" align="center">Your Guests:</Typography>
-              <EventGuests event={this.props.event._id}/>
+              <EventGuests event={this.props.event} guestz={this.props.guests}/>
             </div>
             ) : '' }
           </CardContent>
@@ -321,8 +321,11 @@ export default EventDetails = withTracker(({ match }) => {
   let handle = Meteor.subscribe('event', match.params.id) && Meteor.subscribe('eventHost', match.params.id) && Meteor.subscribe('currentUser', Meteor.userId());
   let loading = !handle.ready(); 
   const event = Events.findOne( match.params.id );
-  let venue;
-  if (event) {venue = Venues.findOne(event.venueId);}
+  let venue, guests;
+  if (event) {
+    venue = Venues.findOne(event.venueId);
+    guests = Meteor.users.find({ _id: { $in: event.confirmedList } } ).fetch()
+  }
   const thisUser = Meteor.users.findOne(Meteor.userId());
  
   return {
@@ -330,6 +333,7 @@ export default EventDetails = withTracker(({ match }) => {
     loading,
     event,
     venue, 
+    guests,
     thisUser
   }
 })(withStyles(styles)(EventDetailsComponent));
