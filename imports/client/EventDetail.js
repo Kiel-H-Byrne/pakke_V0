@@ -25,8 +25,13 @@ import Button from '@material-ui/core/Button';
 import Venues from '/imports/startup/collections/venues.js';
 import PageError from './PageError.js';
 import EventMap from './EventMap.js'
+import EventGuests from './EventGuests.js'
 import EventInterestModal from './forms/EventInterestModal.js'
 import EventPurchaseModal from './forms/EventPurchaseModal.js'
+
+import eventPurchasedTemplate from './email/eventPurchasedTemplate';
+import eventPurchasedAdminTemplate from './email/eventPurchasedAdminTemplate';
+import eventPurchasedHostTemplate from './email/eventPurchasedHostTemplate';
 
 const styles = {
   grid: {
@@ -49,6 +54,31 @@ const styles = {
     fontSize: 14
   }
 }
+
+let intervalId = 0; 
+function scrollStep() {
+    // Check if we're at the top already. If so, stop scrolling by clearing the interval
+    if (window.pageYOffset === 0) {
+        clearInterval(intervalId);
+    }
+    window.scroll(0, window.pageYOffset - 50);
+}
+function scrollToTop() {
+    // Call the function scrollStep() every 16.66 millisecons
+    intervalId = setInterval(scrollStep, 16.66);
+}
+
+const loginAlert = () => {
+  // scrollToTop();   
+  window.scrollTo({top: 0, behavior: "smooth"});
+  Bert.alert({
+    message: "Please Log In First.", 
+    type: "login-alert",
+    style: "growl-top-left",
+    icon: 'fa-sign-in'
+  });
+}
+const waitAlert = () => Bert.alert("Please Check Your E-mail.", "info", "growl-top-right");
 
 class EventDetailsComponent extends Component {
   constructor(props) {
@@ -80,12 +110,49 @@ class EventDetailsComponent extends Component {
   componentWillUnmount() {
     this.props.handle.stop();
   }
+  handleAddGuest = () => {
+    const user = this.props.thisUser;
+    const event = this.props.event;
+    const userEmail = user.emails[0].address;
+    const userEmailProps = [
+      "Ticket Purchase Confirmation",
+      eventPurchasedTemplate(user, event)
+    ];
+    
+    const hostEmailProps = [
+      "You've got a new guest to your upcoming PAKKE Experience!",
+      eventPurchasedHostTemplate(user, event)
+    ];
 
+    const adminEmailProps = [
+      `{\u0394 TICKET PURCHASE: ${event.byline} \u0394}`,
+      eventPurchasedAdminTemplate(user, event)
+    ];
+
+    Bert.alert(`Yay! Check your inbox [${userEmail}] for more info!`, "success");
+    Meteor.call('amConfirmed', event._id);
+    if (Meteor.isProduction) {
+      //EMAIL TO VISITOR
+      Meteor.call('sendEmail', userEmail, ...userEmailProps);
+      //EMAIL TO HOST
+      // let hostEmail = Meteor.users.findOne(event.hostId).emails[0].address;
+      // Meteor.call('sendEmail', hostEmail, ...hostEmailProps);
+      //EMAIL TO ADMIN
+      Meteor.call('sendEmail', "noreply@pakke.us", ...adminEmailProps);
+
+      analytics.track("Joined GuestList", {
+        label: event.byline,
+        commerce: event.price,
+        value: event.price,
+        host: event.hostId,
+      })
+    } else {
+      // console.log(token);
+      console.log('emails wouldve been sent if not for development')
+    }
+  }
   render() {
     const { classes } = this.props;
-    const loginAlert = () => Bert.alert("Please Log In First.", "info", "growl-top-right");
-    const waitAlert = () => Bert.alert("Please Check Your E-mail.", "info", "growl-top-right");
-    const boughtAlert = () => Bert.alert("See you Soon!", "info", "growl-top-right");
 
     if (this.props.loading) {
 
@@ -114,6 +181,8 @@ class EventDetailsComponent extends Component {
       <div>
         <Helmet>
           <title>PAKKE Event: {this.props.event.byline}</title>
+          <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />  
+          <meta http-equiv="PRAGMA" content="NO-CACHE" /> 
           <meta name="description" content={this.props.event.description}/>
           <meta name="keywords" content={`${this.props.event.description}`}/>
           <meta property="og:title" content={this.props.event.byline} />
@@ -146,16 +215,19 @@ class EventDetailsComponent extends Component {
 
               <Grid item>
               {this.state.eventHost ? (
+                <React.Fragment>
                 <Paper elevation={0}>
                   <Typography variant="headline" align="center">Your Host:</Typography>
                   <img className='host-image' src={this.state.eventHost.profile.avatar} />
                   <Typography variant="title" align="center">{this.state.eventHost.profile.name}</Typography>
                 </Paper> 
-                ) : (
-                  <div >
-                  
-                </div> 
-                )
+                <div className="fb-share-button" 
+                      data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
+                      data-layout="button_count"
+                      data-size="large">
+                    </div>
+                    </React.Fragment>
+                ) : ( '' )
               }
               </Grid>
               <Grid item>
@@ -175,46 +247,68 @@ class EventDetailsComponent extends Component {
                         <TableCell className={classes.cell}><h5>PRICE:</h5> </TableCell>
                         <TableCell  numeric={true} className={classes.cell}>${this.props.event.price}</TableCell>
                       </TableRow>
+                        {this.props.thisUser && this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
+                        <TableRow>
+                          <TableCell className={classes.cell}><h5>WHERE:</h5> </TableCell>
+                          <TableCell  numeric={true} className={classes.cell}>{this.props.venue ? <a target="_blank" rel="noopener"  href={`https://www.google.com/maps/dir/Current+Location/${this.props.venue.address}`} title={`Directions to ${this.props.venue.address}`} >"<em>{this.props.venue.nickname}</em>"</a> : 'TBD' }</TableCell> 
+                        </TableRow>
+                        ):(null)}
                     </TableBody>
                   </Table>
-                  
                   {this.props.thisUser ? (
+
+                    //OLD EVENT, DISABLE BUTTON
                       isExpired ? (
                         <Button disabled={true} fullWidth={true} variant="outlined" color="secondary">Sold Out!</Button>
-                      ) : 
-                      this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
-
+                      ) : this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
                       //USER HAS PURCHASD A TICKET: BELLS & WHISTLES
+                      //GET DATE, GET MAP, DISABLE BUTTON, SHOW AS PURCHASED, OUTLINE?
                       <React.Fragment>
-                        <Button onClick={boughtAlert} disabled={true} fullWidth={true} variant="outlined" color="secondary">Purchased!</Button>
+                       {/*
+                      <TableRow>
+                        <TableCell className={classes.cell}><h5>WHERE:</h5> </TableCell>
+                        <TableCell  numeric={true} className={classes.cell}>Nowhere</TableCell> 
+                      </TableRow>
+                    */}
                         <Paper>
-                          <EventMap venueId={this.props.event.venueId} event={this.props.event} />
+                          <EventMap venueId={this.props.event.venueId} venu={this.state.venue} event={this.props.event} />
                         </Paper>
+                        <Button disabled={true} fullWidth={true} variant="outlined">Attending!</Button>
                       </React.Fragment>
 
                       ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
                       //IF YOU'VE BEEN INVITED, PLEASE BUY A TICKET
                       <EventPurchaseModal  user = {this.props.thisUser} event = {this.props.event}/>
                       ) : this.props.event.appliedList.includes(this.props.thisUser._id) ? (
+                      //YOU'VE APPLIED FOR THE PARTY, CHECK EMAIL AND WAIT TO GET ADDED TO INVITED LIST
                         <Button onClick={waitAlert} fullWidth={true}>Applied!</Button>
                       ) : this.props.event.isPrivate ? (
-                      //IF THERE IS A WAITING LIST: "private", PLEASE APPLY FOR A TICKET.
+                      //IF THERE IS A WAITING LIST: (private), PLEASE APPLY FOR A TICKET.
                       <EventInterestModal user = {this.props.thisUser} event = {this.props.event}/>
-                      ) : ( //OTHERWISE, BUY A TICKET TO ANY EVENT (2nd DEFAULT)
+                      ) : this.props.event.price == 0 ? (
+                      // IF PRICE IS 0 , DONATE? AND ADD TO TO LIST FOR PARTY.
+                      <Button onClick={() => {this.handleAddGuest()}} fullWidth={true} >Join Guestlist</Button> 
+                      ) : ( 
+                      //OTHERWISE, OPEN PARTY, BUY A TICKET
                       <EventPurchaseModal user = {this.props.thisUser} event = {this.props.event}/>
-                      ) // OTHERWISE, LOGIN TO BUY A TICKET.
-                    ) : <Button onClick={loginAlert} fullWidth={true} >Buy Ticket</Button> 
+                      ) 
+                    ) : (
+                    // OTHERWISE, JUST LANDED, LOG IN TO BUY A TICKET.
+                    <Button onClick={loginAlert} fullWidth={true} >Buy Ticket</Button> 
+                    )
                   }
-                    <div className="fb-share-button" 
-                      data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
-                      data-layout="button_count"
-                      data-size="large" data-mobile-iframe="false">
-                    </div>
+                    
                   </div>
                   
               )}
               </Grid>
             </Grid>
+            {(this.props.event.hostId == Meteor.userId()) || Roles.userIsInRole(Meteor.userId(), ["admin"]) ? (
+            <div>
+              <Typography variant="display2" align="center">Your Guests:</Typography>
+              <EventGuests event={this.props.event} guestz={this.props.guests}/>
+            </div>
+            ) : '' }
           </CardContent>
         </Card>
       </div>
@@ -227,12 +321,19 @@ export default EventDetails = withTracker(({ match }) => {
   let handle = Meteor.subscribe('event', match.params.id) && Meteor.subscribe('eventHost', match.params.id) && Meteor.subscribe('currentUser', Meteor.userId());
   let loading = !handle.ready(); 
   const event = Events.findOne( match.params.id );
+  let venue, guests;
+  if (event) {
+    venue = Venues.findOne(event.venueId);
+    guests = Meteor.users.find({ _id: { $in: event.confirmedList } } ).fetch()
+  }
   const thisUser = Meteor.users.findOne(Meteor.userId());
  
   return {
     handle,
     loading,
-    event, 
+    event,
+    venue, 
+    guests,
     thisUser
   }
 })(withStyles(styles)(EventDetailsComponent));

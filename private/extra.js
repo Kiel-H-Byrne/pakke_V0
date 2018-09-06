@@ -2,6 +2,10 @@ Meteor.loginWithPassword("noreply@pakke.us", "pakkeP@RTY")
 
 Meteor.call('getCL', "KnbJ5WkNbHhkLqHHx");
 
+Events.update(id, {
+  $pull: {confirmedList: Meteor.userId()}
+})
+
 analytics.page({
   title: 'Signup Modal',
   url: 'https://segment.com/#signup',

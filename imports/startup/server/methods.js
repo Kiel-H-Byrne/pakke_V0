@@ -164,12 +164,15 @@ Meteor.methods({
     })
   },
   addEvent: function(doc) {
-    let newEventEmailTemplate = `
-      <p>Need template:</p>
-      ${doc.byline} | ${doc.price} ≤br/>
-      HostId: ${doc.hostId} | Host Contact: ${doc.contact} <br/>
-      VeneuId: ${doc.venueId} <br/>
-
+    let hostEmail = Meteor.users.findOne(doc.hostId).emails[0].address;
+    let venue = Venues.findOne(doc.venueId);
+    const newEventEmailTemplate = `
+      <h2>Event & Host Info:</h2>
+      Name: ${doc.byline} - $${doc.price} ≤br/>
+      Host Email: ${doc.hostEmail} | Host Contact #: ${doc.contact} <br/>
+      <h3>Venue:</h3>
+      ${venue.nickname} <br/>
+      ${venue.address} <br/>
     `;
     if (! Roles.userIsInRole(this.userId, ["host"])) {
       Meteor.call('addRole', this.userId, ["host"]);
@@ -181,14 +184,14 @@ Meteor.methods({
 
       } else {
         console.log(`NEW EVENT: ${doc.byline}`);
-
-        Email.send({
-          to: 'kiel@pakke.us', 
-          from: 'noreply@pakke.us', 
-          subject: 'EVENT ALERT: New Event Created', 
-          html: newEventEmailTemplate 
-        });
-
+        if (Meteor.isProduction) {
+          Email.send({
+            to: 'info@pakke.us', 
+            from: 'noreply@pakke.us', 
+            subject: 'EVENT ALERT: New Event Created', 
+            html: newEventEmailTemplate 
+          });
+        }
       }
     });
   },
@@ -349,12 +352,19 @@ Meteor.methods({
   removeFile: function(fileId) {
     Uploads.remove(fileId);
   },
-  sendEmail: function(to, from, subject, html) {
+  sendEmail: function(to, subject, html) {
     // check([to, from, subject, html], [String]);
     this.unblock();
 
     //check if logged in, or else anyone can send email from client
-    Email.send({to, from, subject, html });
+    Email.send({
+      to: to, 
+      cc: "info@pakke.us",
+      bcc: ["kiel@pakke.us"],
+      from: "noreply@pakke.us", 
+      replyTo: "info@pakke.us",
+      subject: subject, 
+      html: html });
   },
   getCL: function(eventId) {
     if (Roles.userIsInRole(this.userId, ["admin"])) {

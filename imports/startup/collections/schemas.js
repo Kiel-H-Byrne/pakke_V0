@@ -459,6 +459,15 @@ Schema.Profile = new SimpleSchema({
     optional: true,
     max: 500
   },
+  preferredEmail: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Email,
+    optional:true,
+    // autoValue: function() {
+    //   console.log(this.field("emails"))
+    //   return this.field("emails[0].address").value
+    // }
+  },
   social: {
     type: Object,
     optional: true,
@@ -666,12 +675,13 @@ Schema.Event = new SimpleSchema({
   purchasedEmail: {
     type: String,
     label: 'Confirmation Email:',
-    optional: true
+    optional: true,
+    defaultValue: ''
   },
   price: {
     type: Number,
     label: "How much is the ticket price?",
-    min: 5,
+    min: 0,
     max: 500,
     uniforms: {
       step: 0.50

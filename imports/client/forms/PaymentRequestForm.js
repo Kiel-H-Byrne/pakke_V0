@@ -7,6 +7,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import eventPurchasedTemplate from '../email/eventPurchasedTemplate';
 import eventPurchasedAdminTemplate from '../email/eventPurchasedAdminTemplate';
+import eventPurchasedHostTemplate from '../email/eventPurchasedHostTemplate';
 
 class PaymentRequestForm extends React.Component {
   constructor(props) {
@@ -72,16 +73,17 @@ class PaymentRequestForm extends React.Component {
       const event = this.props.event
       const handleClose = this.props.handleClose
       // console.log(user)
-      const userEmail = user.emails[0].address;
+      const userEmail = user.profile.preferredEmail.length > 1 ? user.profile.preferredEmail : user.emails[0].address;
       const userEmailProps = [
-        "noreply@pakke.us",
-        "Ticket Purchase Confirmation",
+        "Congratulations! Your PAKKE experience is just beginning!",
         eventPurchasedTemplate(user, event)
       ];
-      
+      const hostEmailProps = [
+        "You've got a new guest to your upcoming PAKKE Experience!",
+        eventPurchasedHostTemplate(user, event)
+      ];
       const adminEmailProps = [
-        "noreply@pakke.us",
-        "EVENTS: Ticket Purchase",
+        `{\u0394 TICKET PURCHASE: ${event.byline} \u0394}`,
         eventPurchasedAdminTemplate(user, event)
       ];
       try {
@@ -94,10 +96,14 @@ class PaymentRequestForm extends React.Component {
             handleClose();
             Bert.alert(`Yay! Check your inbox [${userEmail}] for more info!`, "success");
             Meteor.call('amConfirmed', event._id);
+            //EMAIL TO VISITOR
+            Meteor.call('sendEmail', userEmail, ...userEmailProps);
             if (Meteor.isProduction) {
-              
-              Meteor.call('sendEmail', userEmail, ...userEmailProps);
-              Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
+              //EMAIL TO HOST 
+              // let hostEmail = Meteor.users.findOne(event.hostId).emails[0].address;
+              // Meteor.call('sendEmail', hostEmail, ...hostEmailProps);
+              //EMAIL TO ADMIN
+              Meteor.call('sendEmail', "noreply@pakke.us", ...adminEmailProps);
 
               analytics.track("Ticket Purchase", {
                 label: event.byline,
@@ -155,14 +161,22 @@ class PaymentRequestForm extends React.Component {
       <PaymentRequestButtonElement
         paymentRequest={this.state.paymentRequest}
         className="PaymentRequestButton"
-        style={{
+        style={
+          this.props.event.price > 0 ? ({
           // For more details on how to style the Payment Request Button, see:
           // https://stripe.com/docs/elements/payment-request-button#styling-the-element
           paymentRequestButton: {
             theme: 'light',
             height: '64px'
           },
+        }) : ({
+          paymentRequestButton: {
+            theme: 'dark',
+            height: '64px',
+            type: 'donate'
         }}
+        )
+        }
       />
     ) : (
       <form id="payment-form" onSubmit={this.handleSubmit}>

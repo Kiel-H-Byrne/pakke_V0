@@ -116,7 +116,7 @@ class AutoCompleteContainer extends Component {
           <HiddenField name="formatted_address" value={this.state.place.formatted_address} />
           <HiddenField name="location.lat" />
           <HiddenField name="location.lng" />
-  				<img src={this.state.place.icon} />
+  				{/* <img src={this.state.place.icon} /> */}
         </React.Fragment>
         ) : ''}
 

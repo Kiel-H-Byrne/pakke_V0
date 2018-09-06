@@ -122,9 +122,19 @@ Accounts.validateNewUser(function(user) {
 
         if (existing_user.services.facebook) {
           provider = "Facebook";
+          // Meteor.loginWithFacebook({
+
+          // }, (error) => {
+          //   console.log(error)
+          // })
         }
         if (existing_user.services.google) {
           provider = "Google";
+          // Meteor.loginWithGoogle({
+          //   loginHint: user_email
+          // }, (error) => {
+          //   console.log(error)
+          // })
         }
         console.log("User Exists Already");
         throw new Meteor.Error(500, `You've been here before! Login with ${provider}.`);

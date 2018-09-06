@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-const eventCreatedAdminTemplate = (user,event) => {
+const eventCreatedHostTemplate = (user,event) => {
 
-  const emailTitle = "EVENTS: Event Created";
+  const emailTitle = "Your new PAKKE Experience!";
   return renderedEmail = 
     `
       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -288,7 +288,7 @@ const eventCreatedAdminTemplate = (user,event) => {
           <div class="content">
 
             <!-- START CENTERED WHITE CONTAINER -->
-            <span class="preheader">Thank you for Applying!</span>
+            <span class="preheader">Thank you for Hosting...</span>
             <table class="main">
 
               <!-- START MAIN CONTENT AREA -->
@@ -297,8 +297,10 @@ const eventCreatedAdminTemplate = (user,event) => {
                         <table border="0" cellpadding="0" cellspacing="0">
                           <tr>
                             <td>
-                              <p><strong>${user.profile.username}</strong> (${user.emails[0].address}) has created an event: '${event.byline}' (#${event._id})</p>
-                              <p>We can contact ${user.profile.name} at ${event.contact}</p>
+                              <p>Thank you for hosting this experience, <strong>${user.profile.username}</strong>. <br /><br />
+                              '<em>${event.byline}</em>' should be amazing! Please visit the PAKKE site to edit any details of your event. <br />
+                              We encourage you to hit the edit button and add a few words to serve as an e-mail to your guests when they purchase a ticket. </p>
+                              <p>Please e-mail the PAKKE team at 'info@pakke.us' for any assistance.</p>
                             </td>
                           </tr>
                         </table>
@@ -338,4 +340,4 @@ const eventCreatedAdminTemplate = (user,event) => {
 };
 
 
-export default eventCreatedAdminTemplate;
+export default eventCreatedHostTemplate;

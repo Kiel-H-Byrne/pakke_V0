@@ -11,7 +11,16 @@ class BecomeHostComponent extends Component {
     super(props);
   }
   render() {
-    const loginAlert = () => Bert.alert("Please Log In First.", "info", "growl-top-right");
+    const loginAlert = () => {
+      // scrollToTop();   
+      window.scrollTo({top: 0, behavior: "smooth"});
+      Bert.alert({
+        message: "Please Log In First.", 
+        type: "login-alert",
+        style: "growl-top-left",
+        icon: 'fa-sign-in'
+      });
+    }
     let isHost;
     this.props.thisUser ? isHost = Roles.userIsInRole(this.props.thisUser._id, ["host"]) : false;
 

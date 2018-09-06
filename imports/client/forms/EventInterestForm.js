@@ -23,12 +23,10 @@ export default class EventInterestForm extends Component {
     const userEmail = user.emails[0].address;
     
     const userEmailProps = [
-      "noreply@pakke.us",
       "Thank You for Applying!",
       eventAppliedTemplate(user,event)
     ];
     const adminEmailProps = [
-      "noreply@pakke.us",
       "EVENTS: APPLICATION RECEIVED",
       eventAppliedAdminTemplate(user,event)
 
@@ -48,8 +46,12 @@ export default class EventInterestForm extends Component {
         // Meteor.call('inviteGuests', eventId, emailArray)
         //BO INVITE MULTIPLE PEPLE AT ONCE.
 
+        //EAMIL TO VISITOR
         Meteor.call('sendEmail', userEmail, ...userEmailProps);
-        Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
+        //EMAIL TO HOST
+        // Meteor.call('sendEmail', hostEmail, ...hostEmailProps);
+        //EMAIL TO ADMIN
+        Meteor.call('sendEmail', "noreply@pakke.us", ...adminEmailProps);
         analytics.track("Applied to event", {
           label: event._id,
           value: event.price

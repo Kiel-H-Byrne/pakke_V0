@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { Accounts } from 'meteor/std:accounts-ui';
+import { Accounts, STATES } from 'meteor/std:accounts-ui';
 
 import PageHome from './PageHome';
 import PageAboutPAKKE from './PageAboutPAKKE';
 import PageLanding2 from './UI/PageLanding2';
 import HowItWorks from './UI/HowItWorks'
+import AdminPanel from './admin/AdminPanel';
 import Event from './Event';
 import EventList from './EventList';
 import EventDetails from './EventDetail';
@@ -34,8 +35,6 @@ import PageTest from './old-test/PageTest'
 // import TestLogin from './TestLogin';
 
 
-
-
 class Router extends Component {
     render() {
       return (
@@ -57,9 +56,8 @@ class Router extends Component {
               <Route name="AddVenue" path='/addvenue' component={AddVenueForm} />
               <Route name="AddTalent" path='/addtalent' component={AddTalentForm} />
               <Route name="Marketplace" path='/market' component={Marketplace} />
-              
-
               <Route name="TestPage" path='/test17' component={PageTest} />
+              <Route name="AdminPanel" path='/adminz' component={AdminPanel} />
               <Route name="404Page" component={PageError} />  
           </Switch>
         </React.Fragment>

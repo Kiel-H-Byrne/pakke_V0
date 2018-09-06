@@ -1,7 +1,13 @@
 import { Meteor } from 'meteor/meteor';
-const eventCreatedAdminTemplate = (user,event) => {
-
-  const emailTitle = "EVENTS: Event Created";
+const eventPurchasedHostTemplate = (user,event) => {
+  // let service, page;
+  // if (user.services.facebook) {
+  //   service = user.services.facebook;
+  // } else {
+  //   service = user.services.google
+  // };
+  
+  const emailTitle = "You've got a new guest to your upcoming PAKKE Experience!";
   return renderedEmail = 
     `
       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -297,8 +303,7 @@ const eventCreatedAdminTemplate = (user,event) => {
                         <table border="0" cellpadding="0" cellspacing="0">
                           <tr>
                             <td>
-                              <p><strong>${user.profile.username}</strong> (${user.emails[0].address}) has created an event: '${event.byline}' (#${event._id})</p>
-                              <p>We can contact ${user.profile.name} at ${event.contact}</p>
+                              <p><strong>${user.username}</strong> (${user.emails[0].address}) has purchased a ticket to Event: '${event.byline}' (#${event._id})</p>
                             </td>
                           </tr>
                         </table>
@@ -338,4 +343,4 @@ const eventCreatedAdminTemplate = (user,event) => {
 };
 
 
-export default eventCreatedAdminTemplate;
+export default eventPurchasedHostTemplate;

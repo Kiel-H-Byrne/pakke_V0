@@ -10,10 +10,15 @@ import GoogleMapContainer from './MapGoogle';
 import Events from '../startup/collections/events';
 import Venues from '../startup/collections/venues';
 
+const styles = {
+  map: {
+    width: '100%',
+    height: '300px'
+  }
+}
 
 class MyMap extends Component {
   constructor(props) {
-    console.log(props)
     super(props);
     this.handleOnReady = this.handleOnReady.bind(this);
   }
@@ -115,7 +120,10 @@ class MyMap extends Component {
         }
 
         const markers = {};
-
+        let markerInfo = new google.maps.InfoWindow({
+          content: '',
+          maxWidth: 100,
+        })
         Events.find().observeChanges({
           added: function(id,doc) {
             if (doc.venueId) {
@@ -130,7 +138,24 @@ class MyMap extends Component {
                     icon: eventImage,
                     id: id,
                   });
+                  let infoContent =  `
+                  <strong>${thisVenue.nickname}</strong><br />
+                  <small>${thisVenue.address}</small>
+                  `;
+
+                  marker.addListener('click', function() {
+                    markerInfo.setContent(infoContent)
+                    markerInfo.setPosition(thisVenue.location)
+                    markerInfo.open(map.instance)  
+                  });
                 
+                // let infoContent= Blaze.toHTMLWithData(Template.infowindow);
+                //console.log(infoContent);        
+                // marker.info = new google.maps.InfoWindow({
+                //   content: infoContent,
+                //   maxWidth: 400
+                // });
+
                   markers[id] = marker;  
                 }
                 
@@ -188,6 +213,7 @@ class MyMap extends Component {
       <GoogleMapContainer
         onReady={this.handleOnReady}
         mapOptions={this.handleMapOptions}
+        style={styles.map}
       >
       <BarLoader 
         loading={this.props.loading} 
