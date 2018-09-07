@@ -23,9 +23,9 @@ Meteor.publish('publicUser', function (id) {
   });
 });
 
-Meteor.publish('userList', function(list) {
-  check(list,Array);
-  Meteor.users.find({ _id: { $in: list } },{
+Meteor.publish('event.confirmedList', function(list) {
+  // check(list,Array);
+  return Meteor.users.find({ _id: { $in: list } },{
     fields: {
       'profile': 1
     }  

@@ -25,7 +25,7 @@ import Button from '@material-ui/core/Button';
 import Venues from '/imports/startup/collections/venues.js';
 import PageError from './PageError.js';
 import EventMap from './EventMap.js'
-import EventGuests from './EventGuests.js'
+import EventGuests from './EventGuests2.js'
 import EventInterestModal from './forms/EventInterestModal.js'
 import EventPurchaseModal from './forms/EventPurchaseModal.js'
 
@@ -305,8 +305,7 @@ class EventDetailsComponent extends Component {
             </Grid>
             {(this.props.event.hostId == Meteor.userId()) || Roles.userIsInRole(Meteor.userId(), ["admin"]) ? (
             <div>
-              <Typography variant="display2" align="center">Your Guests:</Typography>
-              <EventGuests event={this.props.event} guestz={this.props.guests}/>
+              <EventGuests event={this.props.event} guests={this.props.guests}/>
             </div>
             ) : '' }
           </CardContent>

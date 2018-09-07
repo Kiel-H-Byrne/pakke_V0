@@ -30,11 +30,11 @@ class EventMap extends Component {
               minZoom: 15,
               maxZoom: 17,
               // mapTypeId:google.maps.MapTypeId.TERRAIN,
-              backgroundColor: "#555",
+              backgroundColor: "#222",
               clickableIcons: false,
               disableDefaultUI: true,
               fullscreenControl: false,
-              zoomControl: true,
+              zoomControl: false,
               zoomControlOptions: {
                   position: google.maps.ControlPosition.RIGHT_BOTTOM
               },
@@ -55,7 +55,8 @@ class EventMap extends Component {
       
       const eventImage = {
         // url: 'img/markers/red_marker_sm.png'
-        url: 'https://www.pakke.us/img/markers/PAKKE_marker_blk.png',
+        // url: 'https://www.pakke.us/img/markers/PAKKE_marker_blk.png',
+        url: '/img/markers/PAKKE_marker_blk.png',
         size: {width: 15, height: 15},
         scaledSize: {width: 15, height: 15}
       };
@@ -65,29 +66,13 @@ class EventMap extends Component {
         <strong>${venue.nickname}</strong><br />
         <small>${venue.address}</small>
       `;
-      // GEO.geocode(
-      //           { address: venue.address },
-      //           (res,err) => {
-      //             console.log(res,err);
-      //             const latLngObj = res[0].geometry.location;
-
-      //             let marker = new google.maps.Marker({
-      //               animation: google.maps.Animation.DROP,
-      //               position: latLngObj,
-      //               map: map.instance,
-      //               icon: eventImage,
-      //               id: venue._id,
-      //             });
-      //         });
-
       let marker = new google.maps.Marker({
         animation: google.maps.Animation.DROP,
         position: venue.location,
         map: map.instance,
         title: venue.address,
         // label: venue.address
-        // icon: eventImage
-        // id: this.props.venue._id,
+        icon: eventImage
       }); 
       marker.info = new google.maps.InfoWindow({
           content: infoContent,
