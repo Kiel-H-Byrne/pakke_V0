@@ -84,29 +84,32 @@ class EventDetailsComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      eventHost: {},
+      // eventHost: {},
       soldOut: false
     }
   }
   
-  static getDerivedStateFromProps(nextProps, prevState) {
-    let eventHost, venue;
-    if (nextProps.event) {
-      eventHost = Meteor.users.findOne(nextProps.event.hostId)
-      if (nextProps.event.venueId) {
-        // venue = eventHost.profile.venues.filter((v) => (v.venueId === nextProps.event.venueId))
-        venue = Venues.find({ events: { $in: [nextProps.event._id] } }).fetch();
-        // console.log(venue)
-      }
-      return {
-        eventHost: eventHost,
-        venue: venue
-      };
-    } else return null
-  }
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   let eventHost, venue;
+  //   if (nextProps.event) {
+  //     eventHost = Meteor.users.findOne(nextProps.event.hostId)
+  //     if (nextProps.event.venueId) {
+  //       // venue = eventHost.profile.venues.filter((v) => (v.venueId === nextProps.event.venueId))
+  //       venue = Venues.find({ events: { $in: [nextProps.event._id] } }).fetch();
+  //       // console.log(venue)
+  //     }
+  //     return {
+  //       eventHost: eventHost,
+  //       venue: venue
+  //     };
+  //   } else return null
+  // }
+
   componentWillmount() {
-    Meteor.subscribe('event_venue', this.props.event._id)
+    Meteor.subscribe('event.venue', this.props.event._id);
+
   }
+
   componentWillUnmount() {
     this.props.handle.stop();
   }
@@ -176,7 +179,8 @@ class EventDetailsComponent extends Component {
     // const isExpired = (((realEventDate.getTime() - Date.now())/one_day) <= -1) //EVENT DATE IS YESTERDAY (ALLOW TO BUY UP TO DAY AFTER)
     const isExpired = (realEventDate.getTime() < Date.now()) //EVENT DATE & Time is a milLisecond BEFORE CURRENT TIME (ALLOW TO BUY UP TO EVENT TIME)
     const isTBD = (((realEventDate.getTime() - Date.now())/one_day) > 364) //DATE IS A YEAR AHEAD 
-
+    
+    console.log(this.props)
     return (
       <div>
         <Helmet>
@@ -214,12 +218,12 @@ class EventDetailsComponent extends Component {
             >
 
               <Grid item>
-              {this.state.eventHost ? (
+              {this.props.eventHost ? (
                 <React.Fragment>
                 <Paper elevation={0}>
                   <Typography variant="headline" align="center">Your Host:</Typography>
-                  <img className='host-image' src={this.state.eventHost.profile.avatar} />
-                  <Typography variant="title" align="center">{this.state.eventHost.profile.name}</Typography>
+                  <img className='host-image' src={this.props.eventHost.profile.avatar} />
+                  <Typography variant="title" align="center">{this.props.eventHost.profile.name}</Typography>
                 </Paper> 
                 <div className="fb-share-button" 
                       data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
@@ -316,24 +320,28 @@ class EventDetailsComponent extends Component {
 }
 
 export default EventDetails = withTracker(({ match }) => {
-
-  let handle = Meteor.subscribe('event', match.params.id) && Meteor.subscribe('eventHost', match.params.id) && Meteor.subscribe('currentUser', Meteor.userId());
-  let loading = !handle.ready(); 
-  const event = Events.findOne( match.params.id );
-  let venue, guests;
+  let eventsHandle = Meteor.subscribe('event', match.params.id);
+  let event = Events.findOne( match.params.id );
+  let venueHandle = Meteor.subscribe('event.venue', match.params.id)
+  let hostHandle = Meteor.subscribe('event.host', match.params.id);
+  let userHandle = Meteor.subscribe('currentUser', Meteor.userId() );
+  let venue, eventHost, guests;
+  let loading = true;
   if (event) {
+    let guestsHandle = Meteor.subscribe('users.confirmedList', event.confirmedList );
+    loading = !eventsHandle.ready() && !hostHandle.ready() && !userHandle.ready() && !guestsHandle.ready(); 
     venue = Venues.findOne(event.venueId);
-    guests = Meteor.users.find({ _id: { $in: event.confirmedList } } ).fetch()
+    eventHost = Meteor.users.findOne(event.hostId);
+    guests = Meteor.users.find({ _id: { $in: event.confirmedList } } ).fetch();
   }
-  const thisUser = Meteor.users.findOne(Meteor.userId());
- 
+   
   return {
-    handle,
     loading,
     event,
-    venue, 
+    venue,
+    eventHost,
     guests,
-    thisUser
+    thisUser: Meteor.users.findOne(Meteor.userId())
   }
 })(withStyles(styles)(EventDetailsComponent));
 

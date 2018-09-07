@@ -34,7 +34,7 @@ class EventGuests extends Component {
       <Grid container direction="row">
         { if (this.props.guests.length > 0) {
           this.props.guests.map( guest => {
-            // let thisGuest = Meteor.users.findOne(guest);
+            let thisGuest = Meteor.users.findOne(guest);
             <Grid container direction="column" item key={guest}>
               <Grid item align="center"><img className='host-image' src={thisGuest.profile.avatar} width="50" height="50" /></Grid>
               <Grid item align="center"><Typography variant="caption">{thisGuest.profile.name}</Typography></Grid>
@@ -42,7 +42,7 @@ class EventGuests extends Component {
           }) }
         }
       </Grid>
-      ) : null
+      ) : <p>Loading</p>
     // console.log(this.props)
     //  this.props.guests ? this.props.guests.map(function(guest) {
     //     console.log(guest);
