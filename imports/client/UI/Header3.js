@@ -22,6 +22,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
+import Avatar from '@material-ui/core/Avatar';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
@@ -104,8 +105,6 @@ class HeaderComponent extends Component {
             },
             avatar: {
                 margin: '.5rem .5rem',
-                height: '3rem',
-                borderRadius: '50%',
             },
             button: {
                 borderRadius: 5, 
@@ -188,7 +187,7 @@ class HeaderComponent extends Component {
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant="title" color="inherit" style={styles.flex}>
-                                <Link to='/'><img src="/ImageLogoBlack.png" className="icon logo" alt='Home' style={styles.pakkeLogo} /></Link>
+                                <Link to='/'><img src="/ImageLogoBlack.png" alt='Home' style={styles.pakkeLogo} /></Link>
                             </Typography>
 
                             {this.props.currentUser ? (
@@ -216,9 +215,9 @@ class HeaderComponent extends Component {
                                         style={{borderRadius: "50%"}}
                                     >
                                         {this.props.currentUser.profile.avatar ? (
-                                            <img data-toggle="dropdown" className="icon dropdown-toggle" style={styles.avatar} src={this.props.currentUser.profile.avatar} />
+                                            <Avatar data-toggle="dropdown"  style={styles.avatar} src={this.props.currentUser.profile.avatar} />
                                         ) : (
-                                                <img data-toggle="dropdown" className="icon dropdown-toggle" src='/missing_profile.png' />
+                                                <Avatar data-toggle="dropdown"  src='/missing_profile.png' />
                                         )}
                                     </ButtonBase>
                                     <Menu 

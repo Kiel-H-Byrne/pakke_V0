@@ -76,6 +76,13 @@ if (Meteor.isServer) {
     return cursor;
   });
 
+  Meteor.publish('my_events', function() {
+    let cursor = Events.find({
+      hostId: this.userId
+    });
+    return cursor;
+  })
+
   Meteor.publish('events_entertained', function (userId) {
     let cursor = Events.find({
       entertainers: { $in: [userId] }
