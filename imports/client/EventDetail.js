@@ -228,13 +228,13 @@ class EventDetailsComponent extends Component {
             <Typography variant="display1" align="center" gutterBottom >{this.props.event.byline}</Typography>
             <Typography dangerouslySetInnerHTML={{__html: this.props.event.description}} style={styles.padded}/>
             <div className="fb-share-button" 
-                          data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
-                          data-layout="button_count"
-                          data-size="large" 
-                          data-mobile-iframe="true"
-                          style={{margin: '1rem auto'}}>
-                          <a target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.pakke.us%2Fevent%2F${this.props.event._id}&amp;src=sdkpreparse`} className="fb-xfbml-parse-ignore">Share</a>
-                          </div>
+              data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
+              data-layout="button_count"
+              data-size="large" 
+              data-mobile-iframe="true"
+              style={{margin: '1rem auto'}}>
+              <a target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.pakke.us%2Fevent%2F${this.props.event._id}&amp;src=sdkpreparse`} className="fb-xfbml-parse-ignore">Share</a>
+              </div>
             <Grid 
             container
             alignItems="center"
@@ -340,16 +340,15 @@ class EventDetailsComponent extends Component {
 }
 
 export default EventDetails = withTracker(({ match }) => {
-  let eventsHandle = Meteor.subscribe('event', match.params.id);
+  let eventHandle = Meteor.subscribe('event', match.params.id);
   let event = Events.findOne( match.params.id );
   let venueHandle = Meteor.subscribe('event.venue', match.params.id)
   let hostHandle = Meteor.subscribe('event.host', match.params.id);
   let userHandle = Meteor.subscribe('currentUser', Meteor.userId() );
+  let loading = !eventHandle.ready() && !hostHandle.ready() && !userHandle.ready()
   let venue, eventHost, guests;
-  let loading = true;
-  if (event) {
+  if ( event ) {
     let guestsHandle = Meteor.subscribe('users.confirmedList', event.confirmedList );
-    loading = !eventsHandle.ready() && !hostHandle.ready() && !userHandle.ready() && !guestsHandle.ready(); 
     venue = Venues.findOne(event.venueId);
     eventHost = Meteor.users.findOne(event.hostId);
     guests = Meteor.users.find({ _id: { $in: event.confirmedList } } ).fetch();
