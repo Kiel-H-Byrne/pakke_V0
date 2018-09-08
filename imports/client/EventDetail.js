@@ -19,13 +19,13 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 
 import Venues from '/imports/startup/collections/venues.js';
 import PageError from './PageError.js';
 import EventMap from './EventMap.js'
-import EventGuests from './EventGuests2.js'
+import EventGuests from './EventGuests.js'
 import EventInterestModal from './forms/EventInterestModal.js'
 import EventPurchaseModal from './forms/EventPurchaseModal.js'
 
@@ -48,10 +48,21 @@ const styles = {
   },
   image: {
     height: 0,
+    margin: 'auto',
     paddingTop: '56.25%'
   },
+  avatar: {
+    width: '90px',
+    height: '90px',
+    margin: '.5rem auto 1rem'
+  },
   cell: {
-    fontSize: 14
+    fontSize: 14,
+    paddingLeft: 'auto',
+    paddingRight: 'auto'
+  },
+  padded: {
+    padding: '0 2rem',
   }
 }
 
@@ -106,13 +117,22 @@ class EventDetailsComponent extends Component {
   // }
 
   componentWillmount() {
-    Meteor.subscribe('event.venue', this.props.event._id);
-
+  // let eventsHandle = Meteor.subscribe('event', match.params.id);
+  // let event = Events.findOne( match.params.id );
+  // let venueHandle = Meteor.subscribe('event.venue', match.params.id)
+  // let hostHandle = Meteor.subscribe('event.host', match.params.id);
+  // let userHandle = Meteor.subscribe('currentUser', Meteor.userId() );
   }
 
   componentWillUnmount() {
-    this.props.handle.stop();
+    // console.log(eventsHandle);
+    // eventsHandle.stop();
+    // event.stop()
+    // venueHandle.stop()
+    // hostHandle.stop();
+    // userHandle.stop()
   }
+
   handleAddGuest = () => {
     const user = this.props.thisUser;
     const event = this.props.event;
@@ -173,14 +193,12 @@ class EventDetailsComponent extends Component {
     if (!this.props.event) {
       return <PageError />
     }
-
     const one_day=1000*60*60*24;
     const realEventDate = new Date((this.props.event.date * 1) + ((new Date().getTimezoneOffset())*60*1000))
     // const isExpired = (((realEventDate.getTime() - Date.now())/one_day) <= -1) //EVENT DATE IS YESTERDAY (ALLOW TO BUY UP TO DAY AFTER)
     const isExpired = (realEventDate.getTime() < Date.now()) //EVENT DATE & Time is a milLisecond BEFORE CURRENT TIME (ALLOW TO BUY UP TO EVENT TIME)
     const isTBD = (((realEventDate.getTime() - Date.now())/one_day) > 364) //DATE IS A YEAR AHEAD 
-    
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div>
         <Helmet>
@@ -208,33 +226,32 @@ class EventDetailsComponent extends Component {
           <CardMedia image={this.props.event.image ? this.props.event.image : `""`} title='Event Preview' className={classes.image} />
           <CardContent>
             <Typography variant="display1" align="center" gutterBottom >{this.props.event.byline}</Typography>
-            <Typography dangerouslySetInnerHTML={{__html: this.props.event.description}} />
+            <Typography dangerouslySetInnerHTML={{__html: this.props.event.description}} style={styles.padded}/>
+            <div className="fb-share-button" 
+                          data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
+                          data-layout="button_count"
+                          data-size="large" 
+                          style={{margin: '1rem auto'}}>Like</div>
             <Grid 
             container
             alignItems="center"
             direction="row"
             justify="center"
-            className={classes.grid}
             >
 
-              <Grid item>
-              {this.props.eventHost ? (
-                <React.Fragment>
-                <Paper elevation={0}>
-                  <Typography variant="headline" align="center">Your Host:</Typography>
-                  <img className='host-image' src={this.props.eventHost.profile.avatar} />
-                  <Typography variant="title" align="center">{this.props.eventHost.profile.name}</Typography>
-                </Paper> 
-                <div className="fb-share-button" 
-                      data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
-                      data-layout="button_count"
-                      data-size="large">
-                    </div>
-                    </React.Fragment>
-                ) : ( '' )
-              }
+              <Grid item xs={12} sm={5}>
+                {this.props.eventHost ? (
+                  <Paper elevation={0}>
+                    <Grid container direction="column" item alignItems="center">
+                      <Grid item ><Typography variant="headline" align="center">Your Host:</Typography></Grid>
+                      <Grid item ><Avatar style={styles.avatar} src={this.props.eventHost.profile.avatar} /></Grid>
+                      <Grid item ><Typography variant="title" align="center">{this.props.eventHost.profile.name}</Typography></Grid>
+                    </Grid>
+                  </Paper> 
+                  ) : ( '' )
+                }
               </Grid>
-              <Grid item>
+              <Grid item xs={12} sm={5}>
               {this.props.event.partner ? (
                 <div> 
                   <Button component={Link} to={this.props.event.partnerLink} target="_blank" className="btn btn-info btn-lg"> Apply </Button>

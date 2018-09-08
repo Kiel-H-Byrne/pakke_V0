@@ -1,68 +1,58 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import Events from '../startup/collections/events';
+import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+
+import Events from '../startup/collections/events';
 
 const styles = {
   grid: {
-    flexGrow: 1,
+    // flexGrow: 1,
   },
-  container: {
-    maxWidth: 960,
-    margin: 'auto',
+  paper: {
+    margin: '.5rem 0',
+    padding: '.5rem' 
   },
-  table: {
-    fontSize: 16,
-    border: 'none',
-    maxWidth: '20rem'
+  avatar: {
+    borderRadius: '50%',
+    border: '1px solid #EEE',
+    maxHeight: '10rem',
+    margin: '0 20px'
   },
-  image: {
-    height: 0,
-    paddingTop: '56.25%'
-  },
-  cell: {
-    fontSize: 14
+  item: {
+    // borderRight: '1px solid red',
+    margin: '0px 3px',
   }
 }
 
 class EventGuests extends Component {
   render() {
-    console.log(this.props)
-    !this.props.loading ? (
-      <Grid container direction="row">
-        { if (this.props.guests.length > 0) {
-          this.props.guests.map( guest => {
-            let thisGuest = Meteor.users.findOne(guest);
-            <Grid container direction="column" item key={guest}>
-              <Grid item align="center"><img className='host-image' src={thisGuest.profile.avatar} width="50" height="50" /></Grid>
-              <Grid item align="center"><Typography variant="caption">{thisGuest.profile.name}</Typography></Grid>
+    return (
+      this.props.guests.length > 0 ? (
+          <Paper style={styles.paper}>
+            <Typography variant="display1" align="center">Your Guests:</Typography>
+            <Grid container justify="space-evenly" direction="row">
+            { this.props.guests.map( guest => {
+              let thisGuest = Meteor.users.findOne(guest);
+              return (
+                <Grid container direction="column" item xs={2} key={guest} style={styles.item}>
+                  <Grid item align="center"><Avatar style={styles.avatar} src={thisGuest.profile.avatar} width="50" height="50" /></Grid>
+                  <Grid item align="center"><Typography variant="caption">{thisGuest.profile.name}</Typography></Grid>
+                </Grid> 
+              )})
+            }
             </Grid>
-          }) }
-        }
-      </Grid>
-      ) : <p>Loading</p>
-    // console.log(this.props)
-    //  this.props.guests ? this.props.guests.map(function(guest) {
-    //     console.log(guest);
-    //     return (
-    //       <div>
-    //         <img src={""} />
-    //         <em></em>
-    //       </div>
-    //       )
-    //     }) : return (
-    //     <div></div>
-    //     )
+          </Paper>
+        ) : (
+        <Paper style={styles.paper}>
+          <Typography variant="display1" align="center">No Guests Yet...</Typography>
+        </Paper>
+        )
+      )
   }
 }
 
-export default withTracker(({event}) => {
-  let subHandle = Meteor.subscribe('event.confirmedList', event.confirmedList);
-  // let showAll = Session.get('showAll');
-  return {
-    loading: !subHandle.ready(),
-    guests: Meteor.users.find({ _id: { $in: event.confirmedList } } ).fetch()
-  }
-})(EventGuests);
+export default EventGuests
