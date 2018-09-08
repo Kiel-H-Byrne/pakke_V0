@@ -15,6 +15,7 @@ import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 import InputLabel from '@material-ui/core/InputLabel';
 
+import DateTime from '../DateTime.js'
 import FileUpload from './FileUpload.js';
 import VenuesForm from './VenuesForm';
 import TinyInput from './TinyInput.js'
@@ -102,7 +103,8 @@ const styles = theme => ({
             <AutoField name="byline" />
             <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
             <TinyInput name="description" content={model.description} />
-            <AutoField name="date" />
+            <InputLabel htmlFor="event-date" shrink={true}>When is it...</InputLabel>
+            <AutoField name="date" component={() => <DateTime /> } />
             <AutoField name="duration" margin="dense" />
             <AutoField name="size" margin="dense" />
             <NumField name="price" margin="dense" disabled={this.state.hasGuests} decimal={false} max={500} min={0} />

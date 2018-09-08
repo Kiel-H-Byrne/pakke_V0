@@ -200,7 +200,7 @@ class EventDetailsComponent extends Component {
     const isTBD = (((realEventDate.getTime() - Date.now())/one_day) > 364) //DATE IS A YEAR AHEAD 
     // console.log(this.props)
     return (
-      <div>
+      <React.Fragment>
         <Helmet>
           <title>PAKKE Event: {this.props.event.byline}</title>
           <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />  
@@ -334,7 +334,7 @@ class EventDetailsComponent extends Component {
             ) : '' }
           </CardContent>
         </Card>
-      </div>
+      </React.Fragment>
     )
   }
 }

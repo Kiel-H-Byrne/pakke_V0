@@ -132,7 +132,7 @@ class AdminPanelComponent extends Component {
 }
 
 export default AdminPanel = withTracker(() => {
-  const subscription = Meteor.subscribe('events_current') && Meteor.subscribe('venues_all');
+  const subscription = Meteor.subscribe('events_all') && Meteor.subscribe('venues_all');
   const loading = !subscription.ready();
 
   return {

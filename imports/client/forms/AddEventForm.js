@@ -5,6 +5,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import { Link } from 'react-router-dom';
 import MaskedInput from 'react-text-mask'
 
+
 import AutoForm    from 'uniforms-material/AutoForm';
 import AutoField  from 'uniforms-material/AutoField';
 import DateField  from 'uniforms-material/DateField';
@@ -125,11 +126,7 @@ class AddEventForm extends Component {
                         <Typography variant="display1" align="center">Step 2. - Describe It</Typography>
                         <Typography variant="subheading" align="center">Let guests know what this experience is about!</Typography>
                         <AutoField name="byline" />
-                        {/*
-                        <InputLabel htmlFor="event-date" shrink={true}>When is it...</InputLabel>
-                        <AutoField name="date" id="event-date" component={() => <DateTime /> } /><br />
-                        */}
-                        <AutoField name="date" type="date" />
+                        <DateTime/><br />
                         <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
                         <TinyInput name="description" id="event-description"/>
                         <AutoField name="duration"  />
