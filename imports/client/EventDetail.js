@@ -231,7 +231,10 @@ class EventDetailsComponent extends Component {
                           data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
                           data-layout="button_count"
                           data-size="large" 
-                          style={{margin: '1rem auto'}}>Like</div>
+                          data-mobile-iframe="true"
+                          style={{margin: '1rem auto'}}>
+                          <a target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.pakke.us%2Fevent%2F${this.props.event._id}&amp;src=sdkpreparse`} className="fb-xfbml-parse-ignore">Share</a>
+                          </div>
             <Grid 
             container
             alignItems="center"

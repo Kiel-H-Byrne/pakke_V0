@@ -13,6 +13,7 @@ import Radio from '@material-ui/core/Radio';
 
 import Events from '../startup/collections/events';
 import Venues from '../startup/collections/venues';
+import AddVenueModal from './forms/AddVenueModal.js'
 import AddEventModal from './forms/AddEventModal.js'
 import EditVenueButton from './forms/EditVenueButton.js'; 
 import Event from './Event2';
@@ -60,6 +61,7 @@ class TabHostComponent extends Component {
           <div>
             <h3>Your Venues:</h3>
             <div className="scroll-wrapper-x">
+            <AddVenueModal />
             {this.props.venues.map((venue) => {
               return (
                 <Card style={styles.card} key={venue._id}>

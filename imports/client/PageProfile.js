@@ -67,7 +67,7 @@ class PageProfileComponent extends Component {
     let eventHost;
     nextProps.event ? eventHost = Meteor.users.findOne(nextProps.event.hostId) : {}
     return {
-      user: Meteor.user(),
+      // user: Meteor.user(),
       eventHost: eventHost
     };
   }
