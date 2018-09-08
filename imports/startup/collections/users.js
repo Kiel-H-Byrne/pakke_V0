@@ -42,7 +42,6 @@ Meteor.publish('users.event_host', function (eventId) {
       'profile': 1
     }
   });
-  // console.log(cursor)
   return cursor;
 });
 

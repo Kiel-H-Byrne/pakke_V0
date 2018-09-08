@@ -343,14 +343,14 @@ export default EventDetails = withTracker(({ match }) => {
   let eventHandle = Meteor.subscribe('event', match.params.id);
   let event = Events.findOne( match.params.id );
   let venueHandle = Meteor.subscribe('event.venue', match.params.id)
-  let hostHandle = Meteor.subscribe('event.host', match.params.id);
+  let hostHandle = Meteor.subscribe('users.event_host', match.params.id);
   let userHandle = Meteor.subscribe('currentUser', Meteor.userId() );
   let loading = !eventHandle.ready() && !hostHandle.ready() && !userHandle.ready()
   let venue, eventHost, guests;
   if ( event ) {
     let guestsHandle = Meteor.subscribe('users.confirmedList', event.confirmedList );
     venue = Venues.findOne(event.venueId);
-    eventHost = Meteor.users.findOne(event.hostId);
+    eventHost = Meteor.users.find({_id: event.hostId}).fetch()[0];
     guests = Meteor.users.find({ _id: { $in: event.confirmedList } } ).fetch();
   }
    
