@@ -27,8 +27,9 @@ class TinyInput extends Component {
           apiKey={Meteor.settings.public.keys.tinymce.key}
           init={{
             selector: `#tiny-description_${this.props.name}`,
-            plugins: 'link, lists, textpattern, emoticons, paste, image',
-            toolbar: 'undo redo paste | styleselect fontselect bold italic | bullist numlist | link image emoticons  ',
+            plugins: 'link, lists, textpattern, emoticons, paste, image, autolink, media',
+            toolbar: 'undo redo paste | styleselect fontselect bold italic | bullist numlist | link image media emoticons  ',
+            default_link_target: "_blank",
             fontsize_formats: "10pt 12pt 14pt 18pt",
             resize: false,
             menubar: false,
@@ -38,7 +39,7 @@ class TinyInput extends Component {
             images_upload_handler:  function (blobInfo, success, failure) {
               console.log(blobInfo)
               if (failure) {
-                console.log(failure())
+                console.log(failure(e))
               } else {
                 console.log(blobInfo)
               }
