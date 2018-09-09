@@ -30,6 +30,7 @@ const styles = {
 
 class EventGuests extends Component {
   render() {
+    console.log(this.props)
     return (
       this.props.guests.length > 0 ? (
           <Paper style={styles.paper}>

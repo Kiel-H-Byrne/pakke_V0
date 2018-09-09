@@ -103,8 +103,7 @@ const styles = theme => ({
             <AutoField name="byline" />
             <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
             <TinyInput name="description" content={model.description} />
-            <InputLabel htmlFor="event-date" shrink={true}>When is it...</InputLabel>
-            <AutoField name="date" component={() => <DateTime /> } />
+            <DateTime />
             <AutoField name="duration" margin="dense" />
             <AutoField name="size" margin="dense" />
             <NumField name="price" margin="dense" disabled={this.state.hasGuests} decimal={false} max={500} min={0} />
