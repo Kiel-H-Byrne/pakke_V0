@@ -51,12 +51,12 @@ class TinyInput extends Component {
             branding: false,
             browser_spellcheck: true,
             images_upload_handler:  function (blobInfo, success, failure) {
-              console.log(blobInfo)
-              if (failure) {
-                console.log(failure)
-              } else {
-                console.log(blobInfo)
-              }
+              console.log(blobInfo, success, failure)
+              // if (failure) {
+              //   console.log(failure)
+              // } else {
+              //   console.log(blobInfo)
+              // }
             }
           }}
           onEditorChange={this.handleEditorChange}

@@ -12,7 +12,7 @@ export default class DateTime extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDate: new Date(),
+      selectedDate: this.props.value || null,
     }
   }
 
@@ -22,7 +22,6 @@ export default class DateTime extends React.Component {
   }
 
   render() {
-    const { selectedDate } = this.state;
     return (
     <React.Fragment>
       <Helmet>
@@ -31,7 +30,7 @@ export default class DateTime extends React.Component {
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <HiddenField name="date" value={this.state.selectedDate} />
           <DateTimePicker style={{width:'100%'}}
-            value={selectedDate}
+            value={this.state.selectedDate}
             label="Select a date"
             openTo="date"
             disablePast
