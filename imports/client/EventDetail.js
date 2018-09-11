@@ -161,7 +161,7 @@ class EventDetailsComponent extends Component {
       // let hostEmail = Meteor.users.findOne(event.hostId).emails[0].address;
       // Meteor.call('sendEmail', hostEmail, ...hostEmailProps);
       //EMAIL TO ADMIN
-      Meteor.call('sendEmail', "noreply@pakke.us", ...adminEmailProps);
+      Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
 
       analytics.track("Joined GuestList", {
         label: event.byline,

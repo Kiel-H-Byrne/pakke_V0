@@ -112,14 +112,13 @@ class VenuesFormComponent extends Component {
 
 
     const adminEmailProps = [
-      "noreply@pakke.us",
       "EVENTS: EVENT CREATED",
       eventCreatedAdminTemplate(Meteor.user(), doc)
     ];
 
     //send admin email
     if (Meteor.isProduction) {
-        Meteor.call('sendEmail', "kiel@pakke.us", ...adminEmailProps);
+        Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
         let crmParams = {
           "Event Owner": Meteor.user().username,
           "Subject": doc.byline ,
@@ -133,7 +132,7 @@ class VenuesFormComponent extends Component {
   }; 
 
   handleSuccess(){
-    Bert.alert("Your Event Was Posted!", "success");
+    Bert.alert("Your Venue was created!", "success");
   };
 
   handleFailure() {

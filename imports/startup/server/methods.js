@@ -355,16 +355,20 @@ Meteor.methods({
   sendEmail: function(to, subject, html) {
     // check([to, from, subject, html], [String]);
     this.unblock();
-
     //check if logged in, or else anyone can send email from client
-    Email.send({
-      to: to, 
-      cc: "info@pakke.us",
-      bcc: ["kiel@pakke.us"],
-      from: "noreply@pakke.us", 
-      replyTo: "info@pakke.us",
-      subject: subject, 
-      html: html });
+    if (Meteor.userId()) {
+      Email.send({
+        to: to, 
+        cc: "info@pakke.us",
+        bcc: ["kiel@pakke.us"],
+        from: "noreply@pakke.us", 
+        replyTo: "info@pakke.us",
+        subject: subject, 
+        html: html 
+      });
+    } else {
+      console.log("MUST LOG IN")
+    }
   },
   getCL: function(eventId) {
     if (Roles.userIsInRole(this.userId, ["admin"])) {

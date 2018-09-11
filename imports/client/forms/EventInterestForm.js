@@ -51,7 +51,7 @@ export default class EventInterestForm extends Component {
         //EMAIL TO HOST
         // Meteor.call('sendEmail', hostEmail, ...hostEmailProps);
         //EMAIL TO ADMIN
-        Meteor.call('sendEmail', "noreply@pakke.us", ...adminEmailProps);
+        Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
         analytics.track("Applied to event", {
           label: event._id,
           value: event.price

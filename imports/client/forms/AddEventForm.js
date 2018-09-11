@@ -66,7 +66,7 @@ class AddEventForm extends Component {
         Meteor.call('sendEmail', Meteor.user().emails[0].address, ...hostEmailProps);
         if (Meteor.isProduction) {
             // Meteor.call('sendEmail', Meteor.user().emails[0].address, ...hostEmailProps);
-            Meteor.call('sendEmail', "noreply@pakke.us", ...adminEmailProps);
+            Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
             let crmParams = {
               "Event Owner": Meteor.user().username,
               "Subject": doc.byline ,
