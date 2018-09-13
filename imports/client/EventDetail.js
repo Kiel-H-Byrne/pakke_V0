@@ -98,6 +98,9 @@ class EventDetailsComponent extends Component {
       // eventHost: {},
       soldOut: false
     }
+
+    //FORCE FACEBOOK API TO PARSE ALL FB_OBJECTS ON PAGE.
+    FB.XFBML.parse()
   }
   
   // static getDerivedStateFromProps(nextProps, prevState) {
