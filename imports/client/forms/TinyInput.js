@@ -40,18 +40,23 @@ class TinyInput extends Component {
           apiKey={Meteor.settings.public.keys.tinymce.key}
           init={{
             selector: `#tiny-description_${this.props.name}`,
-            plugins: 'link lists textpattern emoticons paste image autolink media',
-            toolbar: 'undo redo paste | styleselect fontselect bold italic | bullist numlist | link image media emoticons  ',
+            plugins: 'link lists textpattern emoticons paste image autolink media preview',
+            toolbar: 'undo redo paste | styleselect fontselect | forecolor bold italic | bullist numlist | link image media emoticons preview  ',
             default_link_target: "_blank",
             fontsize_formats: "10pt 12pt 14pt 18pt",
             media_dimensions: false,
             resize: false,
+            paste_data_images: true,
+            image_advtab: true,
             menubar: false,
             contextmenu: false,  
             branding: false,
             browser_spellcheck: true,
             images_upload_handler:  function (blobInfo, success, failure) {
-              console.log(blobInfo, success, failure)
+              console.log(blobInfo.filename(), blobInfo.blobUri(), blobInfo.name(), blobInfo.base64(), blobInfo) 
+              // upload to s3 with name, and then what? how do i get it in the tinymce?
+              //set value of associated tinymce input to image uri?
+              success(blobInfo.filename())
               // if (failure) {
               //   console.log(failure)
               // } else {
