@@ -34,11 +34,13 @@ class TabHostComponent extends Component {
               <div>
                 <h3>Your Talents:</h3>
                 <div>
-                  {this.props.user.profile.talents.map((talent) => {
-                    return <TalentCard talent={talent} key={talent.name}/>
-                    })
+                  {this.props.user.profile.talents.map((talent) => (
+                    <TalentCard talent={talent} key={talent.name}/>
+                    ))
                   }
                 </div>
+                <h4>Add More:</h4>
+                <AddTalentModal />
             </div>
           {/**/}
           </div>

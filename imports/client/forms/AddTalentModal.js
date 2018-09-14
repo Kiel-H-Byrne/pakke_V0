@@ -41,7 +41,7 @@ class AddTalentModalComponent extends Component {
 
     return (
             <div>
-      <Button type="button" onClick={this.handleOpen} className={classes.button}> Register Your Talents! </Button>
+      <Button type="button" onClick={this.handleOpen} className={classes.button}> Add Your Talent </Button>
       <Modal 
         aria-labelledby="Talent Registration Form"
         aria-describedby="Add a new talent."
@@ -49,7 +49,7 @@ class AddTalentModalComponent extends Component {
         onClose={this.handleClose}
       >
       <div className={classes.paper + ' scroll-wrapper-y'}>
-        <Typography variant="title" id="eventPurchaseModal">Register your Talent:</Typography>
+        <Typography variant="title" id="eventPurchaseModal">Add Your Talent:</Typography>
         <AddTalentForm user = {this.props.user}/>
       </div>
     </Modal>

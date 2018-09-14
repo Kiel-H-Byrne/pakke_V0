@@ -33,6 +33,8 @@ class EventGuests extends Component {
     console.log(this.props)
     return (
       this.props.guests.length > 0 ? (
+        <React.Fragment>
+          <hr width="70%"/>
           <Paper style={styles.paper}>
             <Typography variant="display1" align="center">Your Guests:</Typography>
             <Grid container justify="space-evenly" direction="row">
@@ -47,10 +49,12 @@ class EventGuests extends Component {
             }
             </Grid>
           </Paper>
+        </React.Fragment>
         ) : (
-        <Paper style={styles.paper}>
-          <Typography variant="display1" align="center">No Guests Yet...</Typography>
-        </Paper>
+        null 
+          // <Paper style={styles.paper}>
+          //   <Typography variant="headline" align="center">No Guests Yet...</Typography>
+          // </Paper>
         )
       )
   }

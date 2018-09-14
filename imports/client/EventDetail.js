@@ -98,9 +98,6 @@ class EventDetailsComponent extends Component {
       // eventHost: {},
       soldOut: false
     }
-
-    //FORCE FACEBOOK API TO PARSE ALL FB_OBJECTS ON PAGE.
-    FB.XFBML.parse()
   }
   
   // static getDerivedStateFromProps(nextProps, prevState) {
@@ -120,6 +117,9 @@ class EventDetailsComponent extends Component {
   // }
 
   componentWillmount() {
+    
+    //FORCE FACEBOOK API TO PARSE ALL FB_OBJECTS ON PAGE.
+    FB.XFBML.parse()
   // let eventsHandle = Meteor.subscribe('event', match.params.id);
   // let event = Events.findOne( match.params.id );
   // let venueHandle = Meteor.subscribe('event.venue', match.params.id)
