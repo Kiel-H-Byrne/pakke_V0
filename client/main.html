@@ -54,28 +54,33 @@
 
 <body>
   <div id="fb-root"></div>
-  <script type="text/javascript">
+  <script>
+
   //FACEBOOK SDK INIT & PAGEVIEW
     window.fbAsyncInit = function () {
       FB.init({
         appId: Meteor.settings.public.keys.facebookOAuth.app_id,
         status: true,
+        autoLogAppEvents : true,
         xfbml: true,
-        version: 'v2.7'
+        version: 'v3.1'
       });
 
       FB.AppEvents.logPageView();
 
     };
-
+    //GOES AFTER FB.INIT()
     (function (d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) { return; }
       js = d.createElement(s); js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.1&appId=168356840569104&autoLogAppEvents=1";
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-    
+
+    //FORCE FACEBOOK API TO PARSE ALL FB_OBJECTS ON PAGE.
+    // FB.XFBML.parse()    
+
     //CRISP API & WIDGET INIT
     window.$crisp=[];window.CRISP_WEBSITE_ID="540e869a-324f-4260-82ee-be521a8b9f7e";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
     

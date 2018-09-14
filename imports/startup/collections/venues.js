@@ -22,7 +22,7 @@ if (Meteor.isServer) {
     return cursor;
   });
 
-  Meteor.publish('event_venue', function (eventId) {
+  Meteor.publish('event.venue', function (eventId) {
     const cursor = Venues.find({
       events: { $in: [eventId] }
     });

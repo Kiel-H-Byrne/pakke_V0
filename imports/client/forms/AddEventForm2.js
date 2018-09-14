@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Editor } from '@tinymce/tinymce-react';
 import { Link } from 'react-router-dom';
+import {Helmet} from "react-helmet";
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -59,6 +60,10 @@ class ControlledExpansionPanels extends React.Component {
     const model = Schema.Event.clean({});
 
     return (
+            <React.Fragment>
+            <Helmet>
+                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+            </Helmet>
       <AutoForm  
       schema={Schema.Event} 
       model={model} 
@@ -92,7 +97,7 @@ class ControlledExpansionPanels extends React.Component {
               <AutoField name="byline" />
               <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
               <TinyInput name="description"/>
-              <AutoField name="date" component={() => <DateTime /> } />
+              <AutoField name="date" component={DateTime} label={true} />
               <AutoField name="duration"  />
               <AutoField name="size" />
               <AutoField name="price" />
@@ -135,6 +140,7 @@ class ControlledExpansionPanels extends React.Component {
         <SubmitField>Submit</SubmitField>
         <ErrorsField />        
       </AutoForm>
+      </React.Fragment>
     );
   }
 }

@@ -42,7 +42,7 @@ ostrio:files
 aldeed:collection2@3.0.0
 aldeed:schema-deny
 mdg:seo
-std:accounts-ui@1.3.2
+std:accounts-ui
 fourseven:scss@4.9.0
 seba:minifiers-autoprefixer
 themeteorchef:bert

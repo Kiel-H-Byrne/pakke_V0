@@ -2,6 +2,10 @@ Meteor.loginWithPassword("noreply@pakke.us", "pakkeP@RTY")
 
 Meteor.call('getCL', "KnbJ5WkNbHhkLqHHx");
 
+info@pakke.us - PZhA6KsqW5PjLPC6t
+kiel.byrne@gmail.com - qisYxpsy68cKdhmSD
+
+
 Events.update(id, {
   $pull: {confirmedList: Meteor.userId()}
 })

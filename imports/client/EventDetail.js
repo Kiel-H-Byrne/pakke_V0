@@ -19,7 +19,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 
 import Venues from '/imports/startup/collections/venues.js';
@@ -48,10 +48,21 @@ const styles = {
   },
   image: {
     height: 0,
+    margin: 'auto',
     paddingTop: '56.25%'
   },
+  avatar: {
+    width: '90px',
+    height: '90px',
+    margin: '.5rem auto 1rem'
+  },
   cell: {
-    fontSize: 14
+    fontSize: 14,
+    paddingLeft: 'auto',
+    paddingRight: 'auto'
+  },
+  padded: {
+    padding: '0 2rem',
   }
 }
 
@@ -84,32 +95,47 @@ class EventDetailsComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      eventHost: {},
+      // eventHost: {},
       soldOut: false
     }
+
+    //FORCE FACEBOOK API TO PARSE ALL FB_OBJECTS ON PAGE.
+    FB.XFBML.parse()
   }
   
-  static getDerivedStateFromProps(nextProps, prevState) {
-    let eventHost, venue;
-    if (nextProps.event) {
-      eventHost = Meteor.users.findOne(nextProps.event.hostId)
-      if (nextProps.event.venueId) {
-        // venue = eventHost.profile.venues.filter((v) => (v.venueId === nextProps.event.venueId))
-        venue = Venues.find({ events: { $in: [nextProps.event._id] } }).fetch();
-        // console.log(venue)
-      }
-      return {
-        eventHost: eventHost,
-        venue: venue
-      };
-    } else return null
-  }
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   let eventHost, venue;
+  //   if (nextProps.event) {
+  //     eventHost = Meteor.users.findOne(nextProps.event.hostId)
+  //     if (nextProps.event.venueId) {
+  //       // venue = eventHost.profile.venues.filter((v) => (v.venueId === nextProps.event.venueId))
+  //       venue = Venues.find({ events: { $in: [nextProps.event._id] } }).fetch();
+  //       // console.log(venue)
+  //     }
+  //     return {
+  //       eventHost: eventHost,
+  //       venue: venue
+  //     };
+  //   } else return null
+  // }
+
   componentWillmount() {
-    Meteor.subscribe('event_venue', this.props.event._id)
+  // let eventsHandle = Meteor.subscribe('event', match.params.id);
+  // let event = Events.findOne( match.params.id );
+  // let venueHandle = Meteor.subscribe('event.venue', match.params.id)
+  // let hostHandle = Meteor.subscribe('event.host', match.params.id);
+  // let userHandle = Meteor.subscribe('currentUser', Meteor.userId() );
   }
+
   componentWillUnmount() {
-    this.props.handle.stop();
+    // console.log(eventsHandle);
+    // eventsHandle.stop();
+    // event.stop()
+    // venueHandle.stop()
+    // hostHandle.stop();
+    // userHandle.stop()
   }
+
   handleAddGuest = () => {
     const user = this.props.thisUser;
     const event = this.props.event;
@@ -138,7 +164,7 @@ class EventDetailsComponent extends Component {
       // let hostEmail = Meteor.users.findOne(event.hostId).emails[0].address;
       // Meteor.call('sendEmail', hostEmail, ...hostEmailProps);
       //EMAIL TO ADMIN
-      Meteor.call('sendEmail', "noreply@pakke.us", ...adminEmailProps);
+      Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
 
       analytics.track("Joined GuestList", {
         label: event.byline,
@@ -170,15 +196,14 @@ class EventDetailsComponent extends Component {
     if (!this.props.event) {
       return <PageError />
     }
-
     const one_day=1000*60*60*24;
     const realEventDate = new Date((this.props.event.date * 1) + ((new Date().getTimezoneOffset())*60*1000))
     // const isExpired = (((realEventDate.getTime() - Date.now())/one_day) <= -1) //EVENT DATE IS YESTERDAY (ALLOW TO BUY UP TO DAY AFTER)
     const isExpired = (realEventDate.getTime() < Date.now()) //EVENT DATE & Time is a milLisecond BEFORE CURRENT TIME (ALLOW TO BUY UP TO EVENT TIME)
     const isTBD = (((realEventDate.getTime() - Date.now())/one_day) > 364) //DATE IS A YEAR AHEAD 
-
+    // console.log(this.props)
     return (
-      <div>
+      <React.Fragment>
         <Helmet>
           <title>PAKKE Event: {this.props.event.byline}</title>
           <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />  
@@ -204,33 +229,35 @@ class EventDetailsComponent extends Component {
           <CardMedia image={this.props.event.image ? this.props.event.image : `""`} title='Event Preview' className={classes.image} />
           <CardContent>
             <Typography variant="display1" align="center" gutterBottom >{this.props.event.byline}</Typography>
-            <Typography dangerouslySetInnerHTML={{__html: this.props.event.description}} />
+            <Typography dangerouslySetInnerHTML={{__html: this.props.event.description}} style={styles.padded}/>
+            <div className="fb-share-button" 
+              data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
+              data-layout="button_count"
+              data-size="large" 
+              data-mobile-iframe="true"
+              style={{margin: '1rem auto'}}>
+              <a target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.pakke.us%2Fevent%2F${this.props.event._id}&amp;src=sdkpreparse`} className="fb-xfbml-parse-ignore">Share</a>
+              </div>
             <Grid 
             container
             alignItems="center"
             direction="row"
             justify="center"
-            className={classes.grid}
             >
 
-              <Grid item>
-              {this.state.eventHost ? (
-                <React.Fragment>
-                <Paper elevation={0}>
-                  <Typography variant="headline" align="center">Your Host:</Typography>
-                  <img className='host-image' src={this.state.eventHost.profile.avatar} />
-                  <Typography variant="title" align="center">{this.state.eventHost.profile.name}</Typography>
-                </Paper> 
-                <div className="fb-share-button" 
-                      data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
-                      data-layout="button_count"
-                      data-size="large">
-                    </div>
-                    </React.Fragment>
-                ) : ( '' )
-              }
+              <Grid item xs={12} sm={5}>
+                {this.props.eventHost ? (
+                  <Paper elevation={0}>
+                    <Grid container direction="column" item alignItems="center">
+                      <Grid item ><Typography variant="headline" align="center">Your Host:</Typography></Grid>
+                      <Grid item ><Avatar style={styles.avatar} src={this.props.eventHost.profile.avatar} /></Grid>
+                      <Grid item ><Typography variant="title" align="center">{this.props.eventHost.profile.name}</Typography></Grid>
+                    </Grid>
+                  </Paper> 
+                  ) : ( '' )
+                }
               </Grid>
-              <Grid item>
+              <Grid item xs={12} sm={5}>
               {this.props.event.partner ? (
                 <div> 
                   <Button component={Link} to={this.props.event.partnerLink} target="_blank" className="btn btn-info btn-lg"> Apply </Button>
@@ -305,36 +332,38 @@ class EventDetailsComponent extends Component {
             </Grid>
             {(this.props.event.hostId == Meteor.userId()) || Roles.userIsInRole(Meteor.userId(), ["admin"]) ? (
             <div>
-              <Typography variant="display2" align="center">Your Guests:</Typography>
-              <EventGuests event={this.props.event} guestz={this.props.guests}/>
+              <EventGuests event={this.props.event} guests={this.props.guests}/>
             </div>
             ) : '' }
           </CardContent>
         </Card>
-      </div>
+      </React.Fragment>
     )
   }
 }
 
 export default EventDetails = withTracker(({ match }) => {
-
-  let handle = Meteor.subscribe('event', match.params.id) && Meteor.subscribe('eventHost', match.params.id) && Meteor.subscribe('currentUser', Meteor.userId());
-  let loading = !handle.ready(); 
-  const event = Events.findOne( match.params.id );
-  let venue, guests;
-  if (event) {
+  let eventHandle = Meteor.subscribe('event', match.params.id);
+  let event = Events.findOne( match.params.id );
+  let venueHandle = Meteor.subscribe('event.venue', match.params.id)
+  let hostHandle = Meteor.subscribe('users.event_host', match.params.id);
+  let userHandle = Meteor.subscribe('currentUser', Meteor.userId() );
+  let loading = !eventHandle.ready() && !hostHandle.ready() && !userHandle.ready()
+  let venue, eventHost, guests;
+  if ( event ) {
+    let guestsHandle = Meteor.subscribe('users.confirmedList', event.confirmedList );
     venue = Venues.findOne(event.venueId);
-    guests = Meteor.users.find({ _id: { $in: event.confirmedList } } ).fetch()
+    eventHost = Meteor.users.find({_id: event.hostId}).fetch()[0];
+    guests = Meteor.users.find({ _id: { $in: event.confirmedList } } ).fetch();
   }
-  const thisUser = Meteor.users.findOne(Meteor.userId());
- 
+   
   return {
-    handle,
     loading,
     event,
-    venue, 
+    venue,
+    eventHost,
     guests,
-    thisUser
+    thisUser: Meteor.users.findOne(Meteor.userId())
   }
 })(withStyles(styles)(EventDetailsComponent));
 

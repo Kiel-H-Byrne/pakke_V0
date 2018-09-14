@@ -23,30 +23,30 @@ Meteor.publish('publicUser', function (id) {
   });
 });
 
-Meteor.publish('userList', function(list) {
-  check(list,Array);
-  Meteor.users.find({ _id: { $in: list } },{
+Meteor.publish('users.confirmedList', function(list) {
+  // check(list,Array);
+  let cursor = Meteor.users.find({ _id: { $in: list } },{
     fields: {
       'profile': 1
     }  
-  } )
+  })
+  // console.log(cursor);
+  return cursor;
 });
 
-Meteor.publish('eventHost', function (eventId) {
+Meteor.publish('users.event_host', function (eventId) {
   // console.log("-= PUBLISHING: HOST USER DATA  =-");
-  let event = Events.findOne(eventId);
-  if (event) {
-  let eventHost = event.hostId;
-  return Meteor.users.find({_id: eventHost}, {
+  let eventHost = Events.findOne(eventId).hostId;
+  let cursor =  Meteor.users.find({_id: eventHost}, {
     fields: {
       'profile': 1
     }
   });
-}
+  return cursor;
 });
 
 
 Meteor.users.allow({
   update: (uid, doc) => {return uid ;},
-  remove: () => true,
+  remove: () => false,
 });
