@@ -55,7 +55,7 @@ class Router extends Component {
               <Route name="AddEvent" path='/addevent' component={AddEventForm} />
               <Route name="AddVenue" path='/addvenue' component={AddVenueForm} />
               <Route name="AddTalent" path='/addtalent' component={AddTalentForm} />
-              <Route name="Marketplace" path='/market' component={Marketplace} />
+              <Route name="Marketplace" path='/market17' component={Marketplace} />
               <Route name="TestPage" path='/test17' component={PageTest} />
               <Route name="AdminPanel" path='/adminz' component={AdminPanel} />
               <Route name="404Page" component={PageError} />  
