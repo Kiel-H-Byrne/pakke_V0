@@ -1,12 +1,15 @@
+import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
 import React, { Component } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import S3 from 'aws-sdk/clients/s3';
 
 import HiddenField from 'uniforms-material/HiddenField'; 
 import Button from '@material-ui/core/Button';
 
 // =========================================================================================================
 // =========================================================================================================
-// * this workaround makes magic happen
+// * this workaround allows tinyinput window to accept values in links and image upload (and probably others)
 // * thanks @harry: http://stackoverflow.com/questions/18111582/tinymce-4-links-plugin-modal-in-not-editable
 // =========================================================================================================
 $(document).on('focusin', function(e) {
@@ -53,10 +56,26 @@ class TinyInput extends Component {
             branding: false,
             browser_spellcheck: true,
             images_upload_handler:  function (blobInfo, success, failure) {
-              console.log(blobInfo.filename(), blobInfo.blobUri(), blobInfo.name(), blobInfo.base64(), blobInfo) 
               // upload to s3 with name, and then what? how do i get it in the tinymce?
+              let reader = new FileReader();
+              let file = blobInfo.blob();
+              reader.onload = evt => {
+                // console.log(evt.target.result)
+                //result is the DataURL (base64 string)
+                let dataurl = evt.target.result;
+                //upload to s3 and get url for the form's value;
+                // const s3path = `https://s3.amazonaws.com/${Meteor.settings.public.keys.s3.bucket}/api/${this.props.module}/${Random.id(6)}${file.name}`
+                const key = `${Meteor.userId()}/attachments/${Random.id(6)}${file.name}`
+                const s3path = `https://s3.amazonaws.com/${Meteor.settings.public.keys.s3.bucket}/${key}`
+                //UPLOAD TO S3
+                Meteor.call('s3Upload', key, file.type, dataurl);
+                setTimeout(success(s3path), 1000)
+              }
+              //CALL FILEREADER EVENT
+              reader.readAsDataURL(file)
               //set value of associated tinymce input to image uri?
-              success(blobInfo.filename())
+              //then call success(with image uri as string) or failure(with fail message as string)
+              
               // if (failure) {
               //   console.log(failure)
               // } else {

@@ -166,14 +166,8 @@ Meteor.methods({
   addEvent: function(doc) {
     let hostEmail = Meteor.users.findOne(doc.hostId).emails[0].address;
     let venue = Venues.findOne(doc.venueId);
-    const newEventEmailTemplate = `
-      <h2>Event & Host Info:</h2>
-      Name: ${doc.byline} - $${doc.price} ≤br/>
-      Host Email: ${doc.hostEmail} | Host Contact #: ${doc.contact} <br/>
-      <h3>Venue:</h3>
-      ${venue.nickname} <br/>
-      ${venue.address} <br/>
-    `;
+    //TEST THAT VENUE IS FOUND? ELSE newEventEmailTemplate WILL FAIL
+    console.log(venue)
     if (! Roles.userIsInRole(this.userId, ["host"])) {
       Meteor.call('addRole', this.userId, ["host"]);
     }
@@ -185,6 +179,11 @@ Meteor.methods({
       } else {
         console.log(`NEW EVENT: ${doc.byline}`);
         if (Meteor.isProduction) {
+          const newEventEmailTemplate = `
+            <h2>Event & Host Info:</h2>
+            Name: ${doc.byline} - $${doc.price} ≤br/>
+            Host Email: ${doc.hostEmail} | Host Contact #: ${doc.contact} <br/>
+          `;
           Email.send({
             to: 'info@pakke.us', 
             from: 'noreply@pakke.us', 

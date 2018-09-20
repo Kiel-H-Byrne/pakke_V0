@@ -107,7 +107,7 @@ export default class FileUpload extends Component {
         )
       } else if (this.props.value) {
         return (
-          <img width="120px" src={this.props.value}/>)
+          <img height="120px" src={this.props.value}/>)
       }
     }
 
