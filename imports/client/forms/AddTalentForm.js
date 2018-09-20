@@ -28,7 +28,7 @@ class AddTalentForm extends Component {
   handleSuccess() {
       Bert.alert("Your Profile Was Updated!", "success");
       // $('form[name="TalentProfileForm"]').reset()
-              $('#talentProfileModal').modal('toggle');
+              // $('#talentProfileModal').modal('toggle');
 
   };
   
@@ -38,7 +38,7 @@ class AddTalentForm extends Component {
 
   render() {
     const model = Schema.Talent.clean({});
-    const omitFields = ["talentId"];
+    const omitFields = ["talentId", "userId"];
     // console.log(this);
     return (
       // <AutoForm schema={Schema.Event} onSubmit={doc => handleSubmit(doc)} model={model} onSubmitSuccess={() => console.log('Promise resolved!')}

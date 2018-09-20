@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 
 import AddTalentModal from './forms/AddTalentModal';
-import Events from '../startup/collections/events';
-import Event from './Event2';
+
 import TalentCard from './TalentCard';
 
 class TabHostComponent extends Component {
@@ -34,10 +33,11 @@ class TabHostComponent extends Component {
               <div>
                 <h3>Your Talents:</h3>
                 <div>
-                  {this.props.user.profile.talents.map((talent) => (
+                  {this.props.talents.map((talent) => (
                     <TalentCard talent={talent} key={talent.name}/>
                     ))
                   }
+
                 </div>
                 <h4>Add More:</h4>
                 <AddTalentModal />
@@ -46,12 +46,12 @@ class TabHostComponent extends Component {
           </div>
           )
         }
-        {this.props.eventsFromCollection.length !== 0 ? (
+        {this.props.events.length !== 0 ? (
             <div>
               <h3>Your Entertaining these PAKKEs:</h3>
               <div className="scroll-wrapper-x">
-                {this.props.eventsFromCollection.map((event) => {
-                return <Event event={event} key={event._id} />
+                {this.props.events.map((event) => {
+                return <Events event={event} key={event._id} />
                 })}
               </div>
               <div>
@@ -73,12 +73,16 @@ class TabHostComponent extends Component {
 
 
 export default TabHost = withTracker(() => {
-  let eventsSub = Meteor.subscribe('events_all');
+  let talentSub = Meteor.subscribe('talents_all');
+  let eventsSub = Meteor.subscribe('events_entertained');
   let userSub = Meteor.subscribe('currentUser');
   return {
-    ready: eventsSub.ready() && userSub.ready(),
-    eventsFromCollection: Events.find({
+    ready: eventsSub.ready() && talentSub.ready() && userSub.ready(),
+    events: Events.find({
       entertainers: { $in: [Meteor.userId()] }
+    }),
+    talents: Talents.find({
+      userId: Meteor.userId()
     }).fetch(),
   };
 })(TabHostComponent);

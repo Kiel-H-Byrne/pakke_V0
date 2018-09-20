@@ -208,6 +208,10 @@ Schema.Venue = new SimpleSchema({
 });
 
 Schema.Talent = new SimpleSchema({
+  userId: {
+    type: String,
+    autoValue: () => Meteor.userId()
+  },
   talentId: {
     type: String,
     autoValue: () => Random.id()
