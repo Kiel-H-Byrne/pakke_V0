@@ -92,6 +92,6 @@ export default VenueList = withTracker(() => {
 
   return {
     ready: venuesSub.ready(),
-    venues: Venues.find().fetch()
+    venues: Venues.find({}).fetch()
   }
 })(VenueListComponent);

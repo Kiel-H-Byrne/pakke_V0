@@ -80,7 +80,7 @@ export default TabHost = withTracker(() => {
     ready: eventsSub.ready() && talentSub.ready() && userSub.ready(),
     events: Events.find({
       entertainers: { $in: [Meteor.userId()] }
-    }),
+    }).fetch(),
     talents: Talents.find({
       userId: Meteor.userId()
     }).fetch(),

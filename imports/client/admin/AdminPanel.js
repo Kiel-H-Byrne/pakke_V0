@@ -11,13 +11,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 
+import Events from '../../startup/collections/events.js'
+import Venues from '../../startup/collections/venues.js'
+import AddVenueModal from '../forms/AddVenueModal.js'
 import EditEventButton from '../forms/EditEventButton.js'
 import EditVenueButton from '../forms/EditVenueButton.js'
 import PageError from '../PageError';
 
-
-import Events from '../../startup/collections/events.js'
-import Venues from '../../startup/collections/venues.js'
 
 class AdminPanelComponent extends Component {
   constructor(props) {
@@ -92,6 +92,7 @@ class AdminPanelComponent extends Component {
 
 <section>
         <Typography variant="display2" align="center">Venues</Typography>
+        <AddVenueModal />
         <Table>
         <TableHead>
           <TableRow>

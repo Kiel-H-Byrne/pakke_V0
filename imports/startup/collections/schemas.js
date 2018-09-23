@@ -27,8 +27,8 @@ Schema.Address = new SimpleSchema({
     // unique: true,
   },
   location: Object,
-  'location.lat': Number,
-  'location.lng': Number
+  'location.lat': String,
+  'location.lng': String
 })
 
 
@@ -166,6 +166,10 @@ Schema.Venue = new SimpleSchema({
     label: 'Type:',
     allowedValues: ["Retail Space", "Apartment", "Condo", "Town Home", "Detached Home", "Office", "Other"],
     optional: true
+  },
+  isAvailable: {
+    type: Boolean,
+    defaultValue: () => true
   },
   capacity: {
     type: Number,
