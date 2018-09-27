@@ -220,7 +220,7 @@ class PageProfileComponent extends Component {
               className="tinyForm"
               >
                 <AutoField name="name" />
-                <Input value={Meteor.user().emails[0].address} type="email" disabled/><Button onClick={this.handleOpen}>Change E-mail</Button>
+                <Input value={Meteor.user().emails[0] ? Meteor.user().emails[0].address : ''} type="email" disabled/><Button onClick={this.handleOpen}>Change E-mail</Button>
                 <Modal 
                 aria-labelledby="Change Email Form"
                 aria-describedby="Change your e-mail address."
