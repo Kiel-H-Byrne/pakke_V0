@@ -16,6 +16,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+import Modal from '@material-ui/core/Modal';
 
 import AutoField from 'uniforms-material/AutoField';
 import AutoForm from 'uniforms-material/AutoForm';
@@ -35,7 +36,7 @@ import LandingPage2 from './UI/PageLanding2';
 import PageError from './PageError';
 
 
-const styles = {
+const styles = theme => ({
   profileForm: {
     display: 'none',
     maxWidth:'960px',
@@ -51,15 +52,33 @@ const styles = {
   card: {
     width: 250,
     // display: 'flex',
-  }
-}
+  },
+  paper: {
+    position: 'absolute',
+    // width: theme.spacing.unit * 50,
+    width: '60%',
+    minWidth: 360,
+    maxWidth: '85vh',
+    maxHeight: '90vh',
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 1,
+    top: '50%',
+    left: '50%',
+    transform: `translate(-50%, -50%)`,
+  },  
+});
 
 class PageProfileComponent extends Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
+    this.handleEmail = this.handleEmail.bind(this)
+    this.changeEmail = this.changeEmail.bind(this)
     this.state = {
-      value: 0
+      value: 0,
+      preferredEmail: '',
+      open: false,
     }
   }
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -71,6 +90,12 @@ class PageProfileComponent extends Component {
       eventHost: eventHost
     };
   }
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   componentWillUnmount() {
     this.props.handle.stop();
@@ -82,6 +107,18 @@ class PageProfileComponent extends Component {
   
   handleChange(event,value) {
     this.setState({value})
+  }
+  handleEmail(event) {
+    this.setState({preferredEmail: event.target.value});
+  }
+
+  changeEmail(event) {
+  //   show a modal with form to ask for new email address. 
+  //   on submit, call method to 'updateEmailAddress' (server only method to Accounts.addEmail(userId, newEmail, [verified])), then when the email is clicked and verified, the callback should remove the old address so that emails[0] is always verified and used for communication:
+
+  let rgxtest = new RegExp('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
+  rgxtest.test(this.state.preferredEmail) ? Meteor.call('changeEmail', this.state.preferredEmail) : Bert.alert("Invalid Address", "danger", "growl-top-right");
+
   }
 
   handleClick = (e) => {
@@ -95,13 +132,14 @@ class PageProfileComponent extends Component {
     }
 
   }
-
+  
   handleSuccess = () => {
     Bert.alert("Your Profile Was Updated!", "success");
     this.handleClick();
   }
 
   render() {
+    const { classes } = this.props;
     const { value } = this.state;
     // const { theme } = this.props;
 
@@ -137,13 +175,13 @@ class PageProfileComponent extends Component {
       style={{margin:"1rem 0"}}>
         <Grid item xs={12} container spacing={24} alignItems="center" justify="space-evenly">
           <Grid item>
-            <Card style={styles.card}>
+            <Card className={classes.card}>
               {thisProfile.avatar ? (
-                <CardMedia style={styles.avatar} image={thisProfile.avatar} > 
+                <CardMedia className={classes.avatar} image={thisProfile.avatar} > 
                   <EditAvatarButton />
                 </CardMedia>
               ) : (
-                <CardMedia style={styles.avatar} image='/missing_profile.png' > 
+                <CardMedia className={classes.avatar} image='/missing_profile.png' > 
                   <EditAvatarButton />
                 </CardMedia>
               )}
@@ -171,7 +209,7 @@ class PageProfileComponent extends Component {
             </Card>
           </Grid>
           <Grid item >
-            <Paper id="profileForm" role="dialog" style={styles.profileForm}>
+            <Paper id="profileForm" role="dialog" className={classes.profileForm}>
               <Typography variant="title">Profile</Typography>
               <AutoForm
               schema={Schema.Profile}
@@ -182,9 +220,19 @@ class PageProfileComponent extends Component {
               className="tinyForm"
               >
                 <AutoField name="name" />
-                <AutoField name="preferredEmail" />
-                <InputLabel>Current Email:</InputLabel>
-                <Input value={model.preferredEmail || Meteor.user().emails[0].address} type="text" disabled/>
+                <Input value={Meteor.user().emails[0].address} type="email" disabled/><Button onClick={this.handleOpen}>Change E-mail</Button>
+                <Modal 
+                aria-labelledby="Change Email Form"
+                aria-describedby="Change your e-mail address."
+                open={this.state.open}
+                onClose={this.handleClose} 
+                >
+                  <div className={classes.paper}>
+                    <Typography variant="display1" align="center" id="AddEventModal-title">Change & Verify Your Email Address:</Typography>
+                    <Input fullWidth type="email" label="Preferred Email Address" onChange={this.handleEmail}></Input>
+                    <Button type="submit" onClick={this.changeEmail} size="small">Change E-mail</Button>
+                  </div>
+                </Modal>
                 <AutoField name="birthDate" />
                 <AutoField name="social" />
                 <InputLabel>Describe Yourself!</InputLabel>

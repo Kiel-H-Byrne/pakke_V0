@@ -73,7 +73,8 @@ class PaymentRequestForm extends React.Component {
       const event = this.props.event
       const handleClose = this.props.handleClose
       // console.log(user)
-      const userEmail = user.profile.preferredEmail && user.profile.preferredEmail.length > 1 ? user.profile.preferredEmail : user.emails[0].address;
+      const userEmail = user.emails[0].address;
+
       const userEmailProps = [
         "Congratulations! Your PAKKE experience is just beginning!",
         eventPurchasedTemplate(user, event)

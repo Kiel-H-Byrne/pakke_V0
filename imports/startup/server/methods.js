@@ -365,6 +365,16 @@ Meteor.methods({
   removeFile: function(fileId) {
     Uploads.remove(fileId);
   },
+  changeEmail: function(address) {
+      check(address, String);
+      const user = Meteor.user();
+      const oldemail = user.emails;
+      console.log(oldemail)
+      Accounts.removeEmail(user._id, user.emails[0].address)
+      Accounts.addEmail(user._id, address);
+      Accounts.sendVerificationEmail(user._id);
+      return address;
+  },
   sendEmail: function(to, subject, html) {
     // check([to, from, subject, html], [String]);
     this.unblock();

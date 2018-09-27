@@ -62,7 +62,10 @@ Accounts.onLoginFailure(function(error) {
   Bert.alert(error.error.reason, "info", "growl-top-right")
 });
 
-
+Accounts.onEmailVerificationLink(function(token, done){
+  Accounts.verifyEmail(token); //then logs in
+  //remove old emaila address what position is it? 
+});
 
 // Facebook: https://developers.facebook.com/docs/authentication/permissions/
 // Google: https://developers.google.com/identity/protocols/googlescopes

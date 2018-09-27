@@ -467,19 +467,6 @@ Schema.Profile = new SimpleSchema({
     optional: true,
     max: 500
   },
-  preferredEmail: {
-    type: String,
-    regEx: SimpleSchema.RegEx.Email,
-    optional:true,
-    // autoValue: function() {
-    //   console.log(this.field("emails"))
-    //   return this.field("emails[0].address").value
-    // }
-    defaultValue: function() {
-      console.log(this.field("emails"))
-      return this.field("emails[0].address").value
-    }
-  },
   social: {
     type: Object,
     optional: true,
