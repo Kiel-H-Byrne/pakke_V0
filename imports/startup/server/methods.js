@@ -369,7 +369,6 @@ Meteor.methods({
       check(address, String);
       const user = Meteor.user();
       const oldemail = user.emails;
-      console.log(oldemail)
       Accounts.removeEmail(user._id, user.emails[0].address)
       Accounts.addEmail(user._id, address);
       Accounts.sendVerificationEmail(user._id);

@@ -3,6 +3,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
+import PageError from '../PageError';
 import EventList from './EventList';
 import VenueList from './VenueList';
 import TalentList from './TalentList';
@@ -17,6 +18,9 @@ export default class Marketplace extends React.Component {
   }
 
   render() {
+    if (!Roles.userIsInRole(this.props.thisUser, ["admin"])) {
+      return (<PageError />)
+    }
     return (
       <Grid>
         <Typography>Events</Typography>
