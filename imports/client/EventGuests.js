@@ -39,9 +39,9 @@ class EventGuests extends Component {
             <Typography variant="display1" align="center">Your Guests:</Typography>
             <Grid container justify="space-evenly" direction="row">
             { this.props.guests.map( guest => {
-              let thisGuest = Meteor.users.findOne(guest);
+              let thisGuest = Meteor.users.findOne(guest._id);
               return (
-                <Grid container direction="column" item xs={2} key={guest} style={styles.item}>
+                <Grid container direction="column" item xs={2} key={guest._id} style={styles.item}>
                   <Grid item align="center"><Avatar style={styles.avatar} src={thisGuest.profile.avatar} width="50" height="50" /></Grid>
                   <Grid item align="center"><Typography variant="caption">{thisGuest.profile.name}</Typography></Grid>
                 </Grid> 
