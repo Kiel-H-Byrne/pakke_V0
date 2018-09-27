@@ -3,8 +3,9 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session'
 import { GridLoader } from 'react-spinners';
 
-
 import TalentCard from './TalentCard';
+
+import Talents from '/imports/startup/collections/talents';
 
 class TalentListComponent extends Component {
   constructor(props) {
@@ -40,15 +41,17 @@ export default TalentList = withTracker(() => {
 
   return {
     ready: talentsSub.ready(),
-    events: Talents.find({
-      date: {
-          $gte: new Date() 
-        },
-      $or: [
-        {"featured": false},
-        {"isPrivate": false}]
-      }, {
-      sort: { date: 1 }
-    }).fetch()
+    talents: Talents.find(
+    // {
+    //   date: {
+    //       $gte: new Date() 
+    //     },
+    //   $or: [
+    //     {"featured": false},
+    //     {"isPrivate": false}]
+    //   }, {
+    //   sort: { date: 1 }
+    
+    ).fetch()
   }
 })(TalentListComponent);

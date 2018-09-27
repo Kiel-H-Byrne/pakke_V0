@@ -467,6 +467,10 @@ Schema.Profile = new SimpleSchema({
     //   console.log(this.field("emails"))
     //   return this.field("emails[0].address").value
     // }
+    defaultValue: function() {
+      console.log(this.field("emails"))
+      return this.field("emails[0].address").value
+    }
   },
   social: {
     type: Object,
