@@ -35,11 +35,3 @@ export default class Marketplace extends React.Component {
     );
   }
 }
-
-
-//MARKETPLACE HAS VENUES, TALENT, EVENTS LISTED. 
-
-// VENUESLIST
-// talentlist
-// eventslist
-// filter

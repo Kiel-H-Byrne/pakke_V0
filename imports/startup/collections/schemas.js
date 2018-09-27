@@ -27,8 +27,8 @@ Schema.Address = new SimpleSchema({
     // unique: true,
   },
   location: Object,
-  'location.lat': Number,
-  'location.lng': Number
+  'location.lat': String,
+  'location.lng': String
 })
 
 
@@ -167,6 +167,10 @@ Schema.Venue = new SimpleSchema({
     allowedValues: ["Retail Space", "Apartment", "Condo", "Town Home", "Detached Home", "Office", "Other"],
     optional: true
   },
+  isAvailable: {
+    type: Boolean,
+    defaultValue: () => true
+  },
   capacity: {
     type: Number,
     max: 99
@@ -208,6 +212,10 @@ Schema.Venue = new SimpleSchema({
 });
 
 Schema.Talent = new SimpleSchema({
+  userId: {
+    type: String,
+    autoValue: () => Meteor.userId()
+  },
   talentId: {
     type: String,
     autoValue: () => Random.id()

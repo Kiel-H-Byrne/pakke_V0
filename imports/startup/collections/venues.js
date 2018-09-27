@@ -9,7 +9,7 @@ if (Meteor.isServer) {
   // Venues._ensureIndex( { "address.zipcode": 1 } );
 
   Meteor.publish('venues_all', function () {
-    const cursor = Venues.find();
+    const cursor = Venues.find({});
     // console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] Venues =-");
     return cursor;
   });

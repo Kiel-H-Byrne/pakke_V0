@@ -6,6 +6,7 @@ import Zoho from 'zoho';
 
 import Events from '/imports/startup/collections/events';
 import Venues from '/imports/startup/collections/venues';
+import Talents from '/imports/startup/collections/talents';
 import Avatars from '/imports/startup/collections/avatars';
 import MongoCache from '/imports/startup/server/MongoCache';
 
@@ -134,11 +135,24 @@ Meteor.methods({
     if ( !Roles.userIsInRole(uid, ["talent"]) ) {
       Meteor.call('addRole', uid, ["talent"]);
     }
-     Meteor.users.update(uid, {
-      $addToSet: { 
-        "profile.talents" : doc
+    //  Meteor.users.update(uid, {
+    //   $addToSet: { 
+    //     "profile.talents" : doc
+    //   }
+    // });
+    Talents.insert(doc, (err,res) =>{
+      if (err) {
+        console.log(`TALENT INSERT FAILED: ${err}`);
+      } else {
+        console.log(`NEW TALENT: ${doc}`);
       }
     });
+  },
+  editTalent: function(id,doc) {
+    //makre sure old object is added to new object, update rewrites fields.
+    Talents.update({_id: id}, {
+      $set: doc
+    })
   },
   addVenue: function(doc) {
     Venues.insert(doc, (err,res) => {
@@ -355,7 +369,7 @@ Meteor.methods({
     // check([to, from, subject, html], [String]);
     this.unblock();
     //check if logged in, or else anyone can send email from client
-    if (Meteor.userId()) {
+    if (this.userId) {
       Email.send({
         to: to, 
         cc: "info@pakke.us",

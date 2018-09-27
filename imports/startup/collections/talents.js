@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import './schemas';
 
-const Talents = new Mongo.Collection('talents');
+Talents = new Mongo.Collection('talents');
 
 if (Meteor.isServer) {
   // ALLOW FOR SORTING (?) 

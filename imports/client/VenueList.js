@@ -40,6 +40,7 @@ class VenueListComponent extends Component {
           eventHost: {},
           soldOut: false
         }
+        console.log(props)
     }
   render() {
     return (
@@ -91,15 +92,6 @@ export default VenueList = withTracker(() => {
 
   return {
     ready: venuesSub.ready(),
-    venues: Venues.find({
-      // date: {
-      //     $gte: new Date() 
-      //   },
-      // $or: [
-      //   {"featured": false},
-      //   {"isPrivate": false}]
-      // }, {
-      // sort: { date: 1 }
-    }).fetch()
+    venues: Venues.find({}).fetch()
   }
 })(VenueListComponent);

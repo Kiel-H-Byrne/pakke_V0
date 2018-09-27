@@ -9,15 +9,13 @@ import Talents from '/imports/startup/collections/talents';
 
 class TalentListComponent extends Component {
   constructor(props) {
-        super(props)
-        this.state = {
-          eventHost: {},
-          soldOut: false
-        }
-    }
+      super(props)
+      console.log(props)
+  }
   render() {
     return (
         this.props.talents.map((talent) => {
+          console.log(talent)
           if (!this.props.ready) {
             return (
                 <GridLoader 
@@ -28,6 +26,7 @@ class TalentListComponent extends Component {
                 margin='1rem' />
                 )
           } else {
+            console.log("hi")
             return <TalentCard key={talent._id} talent={talent} />
           }
         })
@@ -37,21 +36,10 @@ class TalentListComponent extends Component {
 
 
 export default TalentList = withTracker(() => {
-  let talentsSub = Meteor.subscribe('talents_all');
+let talentsSub = Meteor.subscribe('talents_all');
 
   return {
     ready: talentsSub.ready(),
-    talents: Talents.find(
-    // {
-    //   date: {
-    //       $gte: new Date() 
-    //     },
-    //   $or: [
-    //     {"featured": false},
-    //     {"isPrivate": false}]
-    //   }, {
-    //   sort: { date: 1 }
-    
-    ).fetch()
+    talents: Talents.find().fetch()
   }
 })(TalentListComponent);
