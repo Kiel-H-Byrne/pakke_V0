@@ -169,7 +169,16 @@ Schema.Venue = new SimpleSchema({
   },
   isAvailable: {
     type: Boolean,
-    defaultValue: () => true
+    defaultValue: true
+  },
+  datesAvailable: {
+    type: Array,
+    optional: true,
+    defaultValue: []
+  },
+  'datesAvailable.$': {
+    type: Date,
+    optional: true
   },
   capacity: {
     type: Number,
