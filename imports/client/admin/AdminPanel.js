@@ -16,6 +16,7 @@ import Venues from '../../startup/collections/venues.js'
 import AddVenueModal from '../forms/AddVenueModal.js'
 import EditEventButton from '../forms/EditEventButton.js'
 import EditVenueButton from '../forms/EditVenueButton.js'
+import AdminEditButton from '../forms/AdminEditButton.js'
 import PageError from '../PageError';
 
 
@@ -74,7 +75,7 @@ class AdminPanelComponent extends Component {
                 <TableCell>{event.date.toDateString()}</TableCell>
                 <TableCell>{event.confirmedList.length}</TableCell>
                 <TableCell>{event._id}</TableCell>
-                <TableCell><EditEventButton event={event}/></TableCell>
+                <TableCell><AdminEditButton event={event}/></TableCell>
                 <TableCell><Button type="button" onClick={() => this.sendGuestList(event._id)}>Send GL </Button> </TableCell>
               </TableRow>
               )
@@ -99,6 +100,7 @@ class AdminPanelComponent extends Component {
             <TableCell>Name</TableCell>
             <TableCell>Address</TableCell>
             <TableCell>Type</TableCell>
+            <TableCell>Owner</TableCell>            
             <TableCell>Capacity</TableCell>
             <TableCell>Edit</TableCell>
           </TableRow>
@@ -112,6 +114,7 @@ class AdminPanelComponent extends Component {
                 <TableCell>"{venue.nickname}"</TableCell>
                 <TableCell>{venue.address}</TableCell>
                 <TableCell>{venue.type}</TableCell>
+                <TableCell>{venue.hostId}</TableCell>
                 <TableCell>{venue.capacity}</TableCell>
                 <TableCell><EditVenueButton venue={venue}/></TableCell>
               </TableRow>

@@ -260,7 +260,7 @@ class EventDetailsComponent extends Component {
               <Grid item xs={12} sm={5}>
               {this.props.event.partner ? (
                 <div> 
-                  <Button component={Link} to={this.props.event.partnerLink} target="_blank" className="btn btn-info btn-lg"> Apply </Button>
+                  <Button href={this.props.event.partnerLink} target="_blank" className="btn btn-info btn-lg"> Apply </Button>
                </div>
                 ) : (
                 <div>
