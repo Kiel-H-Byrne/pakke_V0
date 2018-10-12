@@ -42,8 +42,6 @@ class EventDetailsComponent extends Component {
         icon: 'fa-sign-in'
       });
     }
-    const waitAlert = () => Bert.alert("Please Check Your E-mail.", "info", "growl-top-right");
-    const boughtAlert = () => Bert.alert("See you Soon!", "info", "growl-top-right");
 
     if (this.props.loading) {
       return (
@@ -121,9 +119,9 @@ class EventDetailsComponent extends Component {
 }
 
 export default EventDetails = withTracker(({ match }) => {
-  let handle = Meteor.subscribe('eventHost', match.params.id);
+  let handle = Meteor.subscribe('affiliate_event', match.params.id);
   let loading = !handle.ready(); 
-  let event = Events.findOne( match.params.id );
+  let event = AffiliateEvents.findOne( match.params.id );
   
   return {
     handle,

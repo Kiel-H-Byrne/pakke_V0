@@ -140,7 +140,7 @@ class MyMap extends Component {
                   });
                   let infoContent =  `
                   <strong>${thisVenue.nickname}</strong><br />
-                  <small>${thisVenue.address}</small>
+                  <small>${thisVenue.address.split(',')[1]}, ${thisVenue.address.split(',')[2]}</small>
                   `;
 
                   marker.addListener('click', function() {

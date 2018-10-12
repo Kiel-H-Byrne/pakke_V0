@@ -51,7 +51,7 @@ const styles = theme => ({
   }; 
 
   handleSuccess = () => {
-      Bert.alert("Your Event Was Updated.", "success");
+      Bert.alert("Your Event Was Updated.", "pk-success", "fixed-bottom", "fa-thumbs-up");
       this.handleClose();
   }
 

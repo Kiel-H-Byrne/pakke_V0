@@ -52,12 +52,12 @@ const styles = theme => ({
   }; 
 
   handleSuccess = () => {
-      Bert.alert("Your Event Was Updated.", "success");
+      Bert.alert("Your Event Was Updated.", "pk-success", "fixed-bottom", "fa-check");
       this.handleClose();
   }
 
   handleFailure = () => {
-      Bert.alert("Try that again...", "danger", "growl-top-right");
+      Bert.alert("Try that again...", "pk-danger", "fixed-bottom", "growl-top-right");
   }
    handleOpen = () => {
     this.setState({ open: true });
@@ -77,7 +77,7 @@ const styles = theme => ({
 		
 		const { classes } = this.props;
     const model = this.props.event;
-    const omitFields = ["submitted", "venue", "hostId", "categories", "appliedList", "invitedList", "confirmedList", "entertainers", "partner", "featured"];
+    const omitFields = [];
 
 		return (
 			<div>

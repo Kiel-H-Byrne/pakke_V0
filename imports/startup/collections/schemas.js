@@ -695,10 +695,10 @@ Schema.Event = new SimpleSchema({
       step: 0.50
     },
   },
-  eventAddress: {
-    type: Schema.Address,
-    optional: true,
-  },
+  // eventAddress: {
+  //   type: Schema.Address,
+  //   optional: true,
+  // },
   venueId: {
     type: String
   },
@@ -756,11 +756,6 @@ Schema.Event = new SimpleSchema({
     optional: true,
     defaultValue: false,
     label: 'Featured Event',
-    uniforms: {
-      component: function() {
-        return null
-      }
-    },
   },
   partner: {
     type: Boolean, 
@@ -795,4 +790,75 @@ Schema.Event = new SimpleSchema({
       }
     }
   }
+});
+
+Schema.AffiliateEvents = new SimpleSchema({
+
+  // We use `label` to put a custom label for this form field
+  // Otherwise it would default to `Title`
+  // 'optional: false' means that this field is required
+  // If it's blank, the form won't submit and you'll get a red error message
+  // 'type' is where you can set the expected data type for the 'title' key's value
+  date: {
+    type: Date,
+    label: "When is this experience?"
+  },
+  url: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Url,
+    label: 'Event Details & Sales'
+  },
+  byline: {
+    type: String,
+    unique: true,
+    label: 'Give this experience a name!',
+    max: 50
+  },
+  image: {
+    type: String,
+    label: 'Upload an image that illustrates this experience.',
+    optional: true,
+    autoValue: function() {
+      if ( this.field('images').value) {
+        let images = this.field('images').value;
+        console.log(images);
+        return images[0]
+      }
+    }
+  },
+  description: {
+    type: String,
+    label: 'Describe this experience.',
+    optional: true,
+    max: 5550
+  },
+  price: {
+    type: Number,
+    label: "How much is the ticket price?",
+    min: 0,
+    max: 500, 
+    optional: true,
+    uniforms: {
+      step: 0.50
+    },
+  },
+  address: {
+    type: String,
+    optional: true,
+  },
+  categories: {
+    type: Array,
+    label: 'Categories',
+    optional: true,
+    defaultValue: []
+  },
+  'categories.$': {
+    type: String
+  },
+  featured: {
+    type: Boolean, 
+    optional: true,
+    defaultValue: false,
+    label: 'Featured Event'
+  },
 });

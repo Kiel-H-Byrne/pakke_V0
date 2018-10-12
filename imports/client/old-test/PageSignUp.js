@@ -24,7 +24,7 @@ class PageSignUp extends Component {
                     error: err.reason
                 });
             } else {
-                Bert.alert("You successfully created an account and are now logged in", "success")
+                Bert.alert("You successfully created an account and are now logged in", "pk-success", "fixed-bottom", "fa-thumbs-up")
                 this.props.history.push('/');
             }
         });

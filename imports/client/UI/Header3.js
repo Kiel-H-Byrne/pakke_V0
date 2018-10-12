@@ -63,7 +63,7 @@ class HeaderComponent extends Component {
                 console.log(error, this);
                 // this.props.history.push('/')
             } else {
-                Bert.alert("We don't even KNOW you anymore!", "success");
+                Bert.alert("We don't even KNOW you anymore!", "pk-success", "fixed-bottom", "fa-thumbs-up");
                 // this.props.history.push('/?logout')
                 window.location.href="/?logout"
             }

@@ -35,7 +35,7 @@ class AdminPanelComponent extends Component {
         if (err) {
           console.log(err) 
         } else {
-          Bert.alert("GuestList Sent!", "success", "growl-top-right");
+          Bert.alert("GuestList Sent!", "pk-success", "growl-top-right");
         }
       })
     }

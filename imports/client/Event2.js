@@ -23,6 +23,12 @@ const styles = {
                 margin: '.7rem'
                 // display: 'flex',
             },
+            featured: {
+                width: 300,
+                padding: 4,
+                margin: '1rem',
+                boxShadow: '0px 7px 17px rgba(255,65,0,.6)'
+            },
             image: {
                 height: 200,
                 justifyContent: 'flex-start',
@@ -38,7 +44,6 @@ const styles = {
             typo: {
                 marginTop: 5,
             },
-
             media: {
                 height: 0,
                 paddingTop: '56.25%', // 16:9
@@ -126,7 +131,7 @@ export default class Event extends Component {
         
         return (
             <Grid item>
-                    <Card style={styles.card}>
+                    <Card style={this.props.event.featured ? styles.featured : styles.card}>
                         <Link className='event-card-link' to={`/event/${this.props.event._id}`}>
                             <CardMedia style={styles.image} image={this.props.event.image ? this.props.event.image : "" }>
                                 <CardContent style={{padding: "7px"}}>

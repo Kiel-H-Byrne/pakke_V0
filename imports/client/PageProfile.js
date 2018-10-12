@@ -134,7 +134,7 @@ class PageProfileComponent extends Component {
   }
   
   handleSuccess = () => {
-    Bert.alert("Your Profile Was Updated!", "success");
+    Bert.alert("Your Profile Was Updated!", "pk-success", "fixed-bottom", "fa-thumbs-up");
     this.handleClick();
   }
 

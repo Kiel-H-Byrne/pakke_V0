@@ -7,7 +7,7 @@ import AccountsUIWrapper2 from './AccountsUIWrapper2';
 
 class Header extends Component {
     logOut() {
-        Meteor.logout(Bert.alert("You Are Now Logged Out", "success"))
+        Meteor.logout(Bert.alert("You Are Now Logged Out", "pk-success", "fixed-bottom", "fa-thumbs-up"))
         this.props.history.push('/?logout')
     }
 

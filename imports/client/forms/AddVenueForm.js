@@ -49,7 +49,7 @@ class AddVenueForm extends Component {
   }; 
 
   handleSuccess() {
-      Bert.alert("You have a new place!", "success");
+      Bert.alert("You have a new place!", "pk-success", "fixed-bottom", "fa-thumbs-up");
       
   };
 

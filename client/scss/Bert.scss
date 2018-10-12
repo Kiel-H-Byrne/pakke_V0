@@ -1,7 +1,32 @@
-.bert-alert.login-alert {
+.bert-alert.pk-alert {
   // background: #2964ff;
   background: #5729FF;
   color: #fff;
 
   // color: #000;
 }
+.bert-alert.pk-info {
+  // background: #2964ff;
+  background: #4846FF;
+  color: #fff;
+
+  // color: #000;
+}
+.bert-alert.pk-success {
+  background: #2964ff;
+  color: #fff;
+
+  // color: #000;
+}
+.bert-alert.pk-danger {
+  background: #FF4100;
+  color: #fff;
+
+  // color: #000;
+}
+
+// default: 'fa-bell',
+// success: 'fa-check',
+// info: 'fa-info',
+// warning: 'fa-warning',
+// danger: 'fa-remove'

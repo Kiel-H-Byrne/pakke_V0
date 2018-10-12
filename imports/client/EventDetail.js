@@ -19,6 +19,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
+import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 
@@ -63,7 +64,19 @@ const styles = {
   },
   padded: {
     padding: '0 2rem',
-  }
+  },
+  card: {
+      // maxWidth: 240,
+      minWidth: 100,
+      margin: '1rem',
+  },
+  content: {
+    padding: '2px 7px',
+  },
+  media: {
+      height: 0,
+      paddingTop: '56.25%', // 16:9
+  },
 }
 
 let intervalId = 0; 
@@ -84,12 +97,12 @@ const loginAlert = () => {
   window.scrollTo({top: 0, behavior: "smooth"});
   Bert.alert({
     message: "Please Log In First.", 
-    type: "login-alert",
+    type: "pk-alert",
     style: "growl-top-left",
     icon: 'fa-sign-in'
   });
 }
-const waitAlert = () => Bert.alert("Please Check Your E-mail.", "info", "growl-top-right");
+const waitAlert = () => Bert.alert("Please Check Your E-mail.", "fixed-bottom", "growl-top-right");
 
 class EventDetailsComponent extends Component {
   constructor(props) {
@@ -155,7 +168,7 @@ class EventDetailsComponent extends Component {
       eventPurchasedAdminTemplate(user, event)
     ];
 
-    Bert.alert(`Yay! Check your inbox [${userEmail}] for more info!`, "success");
+    Bert.alert(`Yay! Check your inbox [${userEmail}] for more info!`, "pk-success");
     Meteor.call('amConfirmed', event._id);
     if (Meteor.isProduction) {
       //EMAIL TO VISITOR
@@ -181,7 +194,6 @@ class EventDetailsComponent extends Component {
     const { classes } = this.props;
 
     if (this.props.loading) {
-
       return (
         <div>
           <BarLoader 
@@ -193,9 +205,11 @@ class EventDetailsComponent extends Component {
         </div>
       )
     }
+
     if (!this.props.event) {
       return <PageError />
     }
+
     const one_day=1000*60*60*24;
     const realEventDate = new Date((this.props.event.date * 1) + ((new Date().getTimezoneOffset())*60*1000))
     // const isExpired = (((realEventDate.getTime() - Date.now())/one_day) <= -1) //EVENT DATE IS YESTERDAY (ALLOW TO BUY UP TO DAY AFTER)
@@ -260,7 +274,7 @@ class EventDetailsComponent extends Component {
               <Grid item xs={12} sm={5}>
               {this.props.event.partner ? (
                 <div> 
-                  <Button href={this.props.event.partnerLink} target="_blank" className="btn btn-info btn-lg"> Apply </Button>
+                  <Button href={this.props.event.partnerLink} target="_blank" className="btn btn-info btn-lg"> Ticket Info </Button>
                </div>
                 ) : (
                 <div>
@@ -283,10 +297,36 @@ class EventDetailsComponent extends Component {
                     </TableBody>
                   </Table>
                   {this.props.thisUser ? (
-
-                    //OLD EVENT, DISABLE BUTTON
-                      isExpired ? (
-                        <Button disabled={true} fullWidth={true} variant="outlined" color="secondary">Sold Out!</Button>
+                      //OLD EVENT, DISABLE BUTTON
+                        isExpired ? (
+                         this.props.venue ? (
+                       <React.Fragment>
+                          {/*  
+                          //HAD A DISABLED BUTTON, BAD UI PATTERN. 
+                          <Button disabled={true} fullWidth={true} variant="outlined" color="secondary">E!</Button> 
+                          //YOU ATTENDED THE EVENT, SO WHAT DO I SHOW YOU AFTERWORDS?
+                          //PICTURE GALLERY, COMMENTS, RATINGS, ETC...
+                          //VENUECARD INSTEAD, WHICH LEADS TO BOOKING THE VENUE AGAIN.
+                        */}
+                        <Typography variant="title" align="center">
+                              VENUE:
+                            </Typography>
+                        <Card style={styles.card} >
+                          <CardMedia style={styles.media} image={this.props.venue.image ? this.props.venue.image : `/img/holders/holder_venue_200.png` }>
+                            {/* <EditVenueButton /> */}
+                          </CardMedia> 
+                          <CardContent style={styles.content}>
+                            <Typography gutterBottom variant="subheading" align="center">
+                              <em>"{this.props.venue.nickname}"</em>
+                            </Typography>
+                            <Typography component="p" variant="caption" gutterBottom>{this.props.venue.address}</Typography>
+                            <Typography component="p" variant="caption" gutterBottom>{this.props.venue.type}: Holds {this.props.venue.capacity}</Typography>
+                          </CardContent>
+                          <CardActions >
+                            <Button align="center">Book Venue</Button>
+                          </CardActions>
+                        </Card>
+                      </React.Fragment>): ''
                       ) : this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
                       //USER HAS PURCHASD A TICKET: BELLS & WHISTLES
                       //GET DATE, GET MAP, DISABLE BUTTON, SHOW AS PURCHASED, OUTLINE?
@@ -298,7 +338,7 @@ class EventDetailsComponent extends Component {
                       </TableRow>
                     */}
                         <Paper>
-                          <EventMap venueId={this.props.event.venueId} venu={this.state.venue} event={this.props.event} />
+                          <EventMap venueId={this.props.event.venueId} event={this.props.event} />
                         </Paper>
                         <Button disabled={true} fullWidth={true} variant="outlined">Attending!</Button>
                       </React.Fragment>
@@ -352,6 +392,7 @@ export default EventDetails = withTracker(({ match }) => {
   let venue, eventHost, guests;
   if ( event ) {
     let guestsHandle = Meteor.subscribe('users.confirmedList', event.confirmedList );
+    let venueHandle = Meteor.subscribe('venue', event.venueId);
     venue = Venues.findOne(event.venueId);
     eventHost = Meteor.users.find({_id: event.hostId}).fetch()[0];
     guests = Meteor.users.find({ _id: { $in: event.confirmedList } } ).fetch();

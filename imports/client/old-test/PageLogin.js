@@ -22,7 +22,7 @@ class PageLogin extends Component {
                     error: err.reason
                 });
             } else {
-                Bert.alert("You are now logged in", "success")
+                Bert.alert("You are now logged in", "pk-success", "fixed-bottom", "fa-thumbs-up")
                 this.props.history.push('/');
             }
         });

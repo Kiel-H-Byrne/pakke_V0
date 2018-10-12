@@ -21,7 +21,7 @@ class EventForm extends Component {
       this.refs.eventName.value = '';
       this.refs.eventAddress.value = '';
 
-      Bert.alert("Your Event Was Posted!", "success");
+      Bert.alert("Your Event Was Posted!", "pk-success", "fixed-bottom", "fa-thumbs-up");
 
     } else {
 

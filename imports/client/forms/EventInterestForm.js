@@ -37,7 +37,7 @@ export default class EventInterestForm extends Component {
     }; 
 
     const handleSuccess = () => {
-        Bert.alert("Thank you for Applying!", "success");
+        Bert.alert("Thank you for Applying!", "pk-success", "fixed-bottom", "fa-thumbs-up");
         
         Meteor.call('amApplied', event._id, user);
         //AUTO-INVITE AFTER APPLYING TO EVENT SO THEY CAN BUY TICKET....

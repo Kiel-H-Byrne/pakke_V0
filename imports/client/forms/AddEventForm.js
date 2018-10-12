@@ -82,12 +82,12 @@ class AddEventForm extends Component {
     handleSuccess = () => {
         //redirect; to home
         window.location.href="/?eventAdded"
-        Bert.alert("Your Event Was Posted!", "success");
+        Bert.alert("Your Event Was Posted!", "pk-success", "fixed-bottom", "fa-thumbs-up");
         // this.props.history.push('/?eventAdded');
     };
 
     handleFailure() {
-        Bert.alert("Sorry, Something Went Wrong", "danger", "growl-top-right");
+        Bert.alert("Sorry, Something Went Wrong", "danger", "growl-top-right", "fa-frown-open");
     };
     handleInputChange(event) {
         const target = event.target;

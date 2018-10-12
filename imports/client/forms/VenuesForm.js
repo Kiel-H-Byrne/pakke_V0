@@ -132,7 +132,7 @@ class VenuesFormComponent extends Component {
   }; 
 
   handleSuccess(){
-    Bert.alert("Your Venue was created!", "success");
+    Bert.alert("Your Venue was created!", "pk-success", "fixed-bottom", "fa-thumbs-up");
   };
 
   handleFailure() {

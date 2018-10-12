@@ -48,7 +48,7 @@ const styles = theme => ({
   }; 
 
   handleSuccess = () => {
-      Bert.alert("Well done!", "success");
+      Bert.alert("Well done!", "pk-success", "fixed-bottom", "fa-thumbs-up");
 
   }
   handleFailure = () =>  {
