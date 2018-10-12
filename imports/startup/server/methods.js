@@ -208,6 +208,17 @@ Meteor.methods({
       }
     });
   },
+  addAffiliateEvent: function(doc) {
+    
+    AffiliateEvents.insert(doc , function(err, res){
+      if (err) {
+        console.log(`EVENT INSERT FAILED: ${doc.byline}: ${err}`);
+
+      } else {
+        console.log(`NEW AFFILIATE EVENT: ${doc.byline}`);
+      }
+    });
+  },  
   editEvent: function(id,doc) {
     //makre sure old object is added to new object, update rewrites fields.
     Events.update({_id: id}, {
