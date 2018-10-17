@@ -107,10 +107,7 @@ const waitAlert = () => Bert.alert("Please Check Your E-mail.", "fixed-bottom", 
 class EventDetailsComponent extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      // eventHost: {},
-      soldOut: false
-    }
+    this.state = {}
   }
   
   // static getDerivedStateFromProps(nextProps, prevState) {
@@ -215,6 +212,7 @@ class EventDetailsComponent extends Component {
     // const isExpired = (((realEventDate.getTime() - Date.now())/one_day) <= -1) //EVENT DATE IS YESTERDAY (ALLOW TO BUY UP TO DAY AFTER)
     const isExpired = (realEventDate.getTime() < Date.now()) //EVENT DATE & Time is a milLisecond BEFORE CURRENT TIME (ALLOW TO BUY UP TO EVENT TIME)
     const isTBD = (((realEventDate.getTime() - Date.now())/one_day) > 364) //DATE IS A YEAR AHEAD 
+    const isSoldOut = (this.props.event.confirmedList.length >= this.props.event.size);
     // console.log(this.props)
     return (
       <React.Fragment>
@@ -296,68 +294,70 @@ class EventDetailsComponent extends Component {
                         ):(null)}
                     </TableBody>
                   </Table>
-                  {this.props.thisUser ? (
-                      //OLD EVENT, DISABLE BUTTON
-                        isExpired ? (
-                         this.props.venue ? (
-                       <React.Fragment>
-                          {/*  
-                          //HAD A DISABLED BUTTON, BAD UI PATTERN. 
-                          <Button disabled={true} fullWidth={true} variant="outlined" color="secondary">E!</Button> 
-                          //YOU ATTENDED THE EVENT, SO WHAT DO I SHOW YOU AFTERWORDS?
-                          //PICTURE GALLERY, COMMENTS, RATINGS, ETC...
-                          //VENUECARD INSTEAD, WHICH LEADS TO BOOKING THE VENUE AGAIN.
-                        */}
-                        <Typography variant="title" align="center">
-                              VENUE:
-                            </Typography>
-                        <Card style={styles.card} >
-                          <CardMedia style={styles.media} image={this.props.venue.image ? this.props.venue.image : `/img/holders/holder_venue_200.png` }>
-                            {/* <EditVenueButton /> */}
-                          </CardMedia> 
-                          <CardContent style={styles.content}>
-                            <Typography gutterBottom variant="subheading" align="center">
-                              <em>"{this.props.venue.nickname}"</em>
-                            </Typography>
-                            <Typography component="p" variant="caption" gutterBottom>{this.props.venue.address}</Typography>
-                            <Typography component="p" variant="caption" gutterBottom>{this.props.venue.type}: Holds {this.props.venue.capacity}</Typography>
-                          </CardContent>
-                          <CardActions >
-                            <Button align="center">Book Venue</Button>
-                          </CardActions>
-                        </Card>
-                      </React.Fragment>): ''
+                  { //BUTTONS ARE OF TYPE: BUY, GET INFO, HIDDEN (ALREADY BOUGHT), SOLD OUT, 
+                  //LOGGED IN? 
+                    this.props.thisUser ? (
+                      //OLD EVENT && HAS A VENUE? 
+                      isExpired && this.props.venue ? (
+                        <React.Fragment>
+                            {/*  
+                            //HAD A DISABLED BUTTON, BAD UI PATTERN. 
+                            <Button disabled={true} fullWidth={true} variant="outlined" color="secondary">Sold ou!</Button> 
+                            //YOU ATTENDED THE EVENT, SO WHAT DO I SHOW YOU AFTERWORDS?
+                            //PICTURE GALLERY, COMMENTS, RATINGS, ETC...
+                            //VENUECARD INSTEAD, WHICH LEADS TO BOOKING THE VENUE AGAIN.
+                            */}
+                          <Typography variant="title" align="center">
+                            VENUE:
+                          </Typography>
+                          <Card style={styles.card} >
+                            <CardMedia style={styles.media} image={this.props.venue.image ? this.props.venue.image : `/img/holders/holder_venue_200.png` }>
+                              {/* <EditVenueButton /> */}
+                            </CardMedia> 
+                            <CardContent style={styles.content}>
+                              <Typography gutterBottom variant="subheading" align="center">
+                                <em>"{this.props.venue.nickname}"</em>
+                              </Typography>
+                              <Typography component="p" variant="caption" gutterBottom>{this.props.venue.address}</Typography>
+                              <Typography component="p" variant="caption" gutterBottom>{this.props.venue.type}: Holds {this.props.venue.capacity}</Typography>
+                            </CardContent>
+                            <CardActions >
+                              <Button align="center">Book Venue</Button>
+                            </CardActions>
+                          </Card>
+                        </React.Fragment>
                       ) : this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
                       //USER HAS PURCHASD A TICKET: BELLS & WHISTLES
                       //GET DATE, GET MAP, DISABLE BUTTON, SHOW AS PURCHASED, OUTLINE?
-                      <React.Fragment>
-                       {/*
-                      <TableRow>
-                        <TableCell className={classes.cell}><h5>WHERE:</h5> </TableCell>
-                        <TableCell  numeric={true} className={classes.cell}>Nowhere</TableCell> 
-                      </TableRow>
-                    */}
-                        <Paper>
-                          <EventMap venueId={this.props.event.venueId} event={this.props.event} />
-                        </Paper>
-                        <Button disabled={true} fullWidth={true} variant="outlined">Attending!</Button>
-                      </React.Fragment>
-
+                        <React.Fragment>
+                          {/*
+                          <TableRow>
+                            <TableCell className={classes.cell}><h5>WHERE:</h5> </TableCell>
+                            <TableCell  numeric={true} className={classes.cell}>Nowhere</TableCell> 
+                          </TableRow>
+                          */}
+                          <Paper>
+                            <EventMap venueId={this.props.event.venueId} event={this.props.event} />
+                          </Paper>
+                          <Button disabled={true} fullWidth={true} variant="outlined">Attending!</Button>
+                        </React.Fragment>
                       ) : this.props.event.invitedList.includes(this.props.thisUser._id) ? ( 
                       //IF YOU'VE BEEN INVITED, PLEASE BUY A TICKET
-                      <EventPurchaseModal  user = {this.props.thisUser} event = {this.props.event}/>
+                        <EventPurchaseModal  user = {this.props.thisUser} event = {this.props.event}/>
                       ) : this.props.event.appliedList.includes(this.props.thisUser._id) ? (
                       //YOU'VE APPLIED FOR THE PARTY, CHECK EMAIL AND WAIT TO GET ADDED TO INVITED LIST
                         <Button onClick={waitAlert} fullWidth={true}>Applied!</Button>
+                      ) : isSoldOut ? (
+                        <Button disabled={true} fullWidth={true} variant="outlined" color="secondary">Sold Out!</Button>                         
                       ) : this.props.event.isPrivate ? (
                       //IF THERE IS A WAITING LIST: (private), PLEASE APPLY FOR A TICKET.
-                      <EventInterestModal user = {this.props.thisUser} event = {this.props.event}/>
+                        <EventInterestModal user = {this.props.thisUser} event = {this.props.event}/>
                       ) : this.props.event.price == 0 ? (
                       // IF PRICE IS 0 , DONATE? AND ADD TO TO LIST FOR PARTY.
-                      <Button onClick={() => {this.handleAddGuest()}} fullWidth={true} >Join Guestlist</Button> 
+                        <Button onClick={() => {this.handleAddGuest()}} fullWidth={true} >Join Guestlist</Button> 
                       ) : ( 
                       //OTHERWISE, OPEN PARTY, BUY A TICKET
-                      <EventPurchaseModal user = {this.props.thisUser} event = {this.props.event}/>
+                        <EventPurchaseModal user = {this.props.thisUser} event = {this.props.event}/>
                       ) 
                     ) : (
                     // OTHERWISE, JUST LANDED, LOG IN TO BUY A TICKET.
