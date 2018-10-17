@@ -385,12 +385,12 @@ class EventDetailsComponent extends Component {
 export default EventDetails = withTracker(({ match }) => {
   let eventHandle = Meteor.subscribe('event', match.params.id);
   let event = Events.findOne( match.params.id );
-  let venueHandle = Meteor.subscribe('event.venue', match.params.id)
-  let hostHandle = Meteor.subscribe('users.event_host', match.params.id);
+  // let venueHandle = Meteor.subscribe('event.venue', match.params.id)
   let userHandle = Meteor.subscribe('currentUser', Meteor.userId() );
-  let loading = !eventHandle.ready() && !hostHandle.ready() && !userHandle.ready()
+  let loading = !eventHandle.ready() && !userHandle.ready()
   let venue, eventHost, guests;
   if ( event ) {
+    let hostHandle = Meteor.subscribe('users.event_host', match.params.id);
     let guestsHandle = Meteor.subscribe('users.confirmedList', event.confirmedList );
     let venueHandle = Meteor.subscribe('venue', event.venueId);
     venue = Venues.findOne(event.venueId);
