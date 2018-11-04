@@ -2,10 +2,10 @@
   "public": {
     "keys": {
       "googleAnalytics": {"trackingId": "UA-118284508-1"},
-      "googleAPI" : {"key" : "AIzaSyArlnrkA-z5JR0T6C_2z7rGmAZ1Mpl9WSE"},
+      "googleAPI" : {"key" : "AIzaSyCa7QqTqLMM66gRtaW9KPFPdfkXgFAG8pA"},
       "googleOAuth": {
-        "client_id": "481000997753-8e5tpr3k4p2lk9obdg48kig4ml5jp0jp.apps.googleusercontent.com",
-        "client_secret": "hjxBlHWdPtnutOAnJBPs6j0r"
+        "client_id": "725057344980-djrb8tujir69bei00dr3ombilt9lo5s1.apps.googleusercontent.com",
+        "client_secret": "E6tli0QTPCPxvXRBbuuObAFR"
       },
       "facebookOAuth": {
         "app_id": "168356840569104",
@@ -29,7 +29,7 @@
   },
   "private": {
     "keys": {
-      "googleAPI" : {"key" : "AIzaSyB56lMri2dCmcv_oif2Gi9xwbDtT_930Tg"},
+      "googleAPI" : {"key" : "AIzaSyDD85enplLjHQ5DbFZoUbkLP43D6pik1zw"},
       "stripe" : { "key": "sk_live_qzYnkd34cOBX0vN1oj8U3cDB" },
       "zohoCRM": {
         "client_id": "1000.9BQEF6BWR67P55799YLS6S3R4Z17KH",
