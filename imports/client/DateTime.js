@@ -2,9 +2,10 @@ import React from 'react';
 import {Helmet} from "react-helmet";
 
 import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';
-import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+// import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 import DateTimePicker from 'material-ui-pickers/DateTimePicker';
-import {DateTimePickerInline} from 'material-ui-pickers/DateTimePicker';
+import { InlineDateTimePicker } from 'material-ui-pickers/DateTimePicker';
 import HiddenField from 'uniforms-material/HiddenField'; 
 import AutoField  from 'uniforms-material/AutoField';
 
@@ -34,6 +35,8 @@ export default class DateTime extends React.Component {
             label="Select a date"
             openTo="date"
             disablePast
+            autoOk
+            autoSubmit
             showTodayButton
             onChange={this.handleDateChange}
           />

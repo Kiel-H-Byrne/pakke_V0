@@ -42,7 +42,7 @@ const styles = theme => ({
     maxHeight: 50,
   },
   button: {
-    marginBottom: 30,
+    margin: 30,
   }
 
 });
@@ -93,6 +93,18 @@ class PageLanding2 extends Component {
             <Hero />
             <WhatIsPAKKEEvent />
             <HowItWorks />
+            
+            {thisUser ? (
+              <div className='host-button'>
+                {/* <AddEventModal user={thisUser}/> */}
+                <Button component={Link} to="/addevent" className={classes.button}>Create your Experience:</Button> 
+
+              </div>
+            ) : (
+              <div className='host-button'>
+                <Button variant="raised" size="large" className={classes.button} onClick={loginAlert} >Become a Host</Button>
+              </div>
+            )}
 
             <Grid container justify='center' style={{ marginTop: '3%' }}>
               <Paper align={'center'}style={{width: 350}}>
@@ -111,17 +123,19 @@ class PageLanding2 extends Component {
                 */}
                 <EventList  />
             </Grid>
+
             {thisUser ? (
               <div className='host-button'>
                 {/* <AddEventModal user={thisUser}/> */}
-                <Button component={Link} to="/addevent">Create your Experience:</Button> 
-
+                <Button component={Link} to="/addevent" style={{margin: 30, backgroundColor: "#FFC429",color: "#666"}}>Host Your PAKKE!</Button> 
               </div>
             ) : (
               <div className='host-button'>
-                <Button variant="raised" size="large" className={classes.button} onClick={loginAlert} >Become a Host</Button>
+                <Button variant="raised" size="large" style={{margin: 30, backgroundColor: "#FFC429",color: "#666"}} onClick={loginAlert} >Host Your PAKKE!</Button>
               </div>
             )}
+
+
           </div>
       </ParallaxProvider>
       </React.Fragment>
