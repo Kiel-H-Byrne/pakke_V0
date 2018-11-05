@@ -6,6 +6,9 @@ import { withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import PlaceIcon from '@material-ui/icons/Place';
+
 
 import AutoForm    from 'uniforms-material/AutoForm';
 import SubmitField from 'uniforms-material/SubmitField';
@@ -14,6 +17,7 @@ import ErrorsField from 'uniforms-material/ErrorsField';
 import AutoField  from 'uniforms-material/AutoField';
 import HiddenField from 'uniforms-material/HiddenField';
 import LongTextField from 'uniforms-material/LongTextField';
+
 
 import '../../startup/collections/schemas';
 import TinyInput from './TinyInput.js'
@@ -104,22 +108,29 @@ class AddVenueForm extends Component {
           onSubmitFailure={this.handleFailure} 
           >
           <HiddenField name="hostId" />
-            <AutoField name="nickname" margin="dense"/>
+            <AutoField 
+              name="nickname" 
+              margin="dense" 
+            />
             <LongTextField name="description"/>
-              <AutoField name="ownedStatus" margin="dense" />
-              <AutoField name="type" margin="dense" />
-              <AutoField name="capacity" step={1} decimal={false} max={99} min={5} margin="dense" label="How many people can comfortably fit?"/>
-              <Input id={`formatted_address_venues`} ref={`file_input_venues`} fullWidth autoComplete="off" />        
+            <AutoField name="type" margin="dense" />
+            <AutoField name="capacity" step={1} decimal={false} max={99} min={5} margin="dense" label="How many people can comfortably fit?"/>
+            <Input id={`formatted_address_venues`} ref={`file_input_venues`} fullWidth autoComplete="off" 
+            />        
                 {this.state.place ? (
-                <React.Fragment>
+              <React.Fragment>
                   <HiddenField name="address" value={this.state.place.formatted_address} type="hidden" />
                   <HiddenField name="location.lat" value={this.state.place.geometry.location.lat()} type="hidden" />
                   <HiddenField name="location.lng" value={this.state.place.geometry.location.lng()} type="hidden" />
                  {/*  <img src={this.state.place.icon} /> */}
+                 <br />
                 </React.Fragment>
                 ) : ''}
-              <InputLabel>Upload a picture to use for the preview!</InputLabel>
+              <AutoField name="ownedStatus" margin="dense" />
+              <InputLabel>Upload a picture for this event listing</InputLabel>
               <FileUpload name="image" module="venues" />
+              <br />
+
             <SubmitField>Submit</SubmitField>
             <ErrorsField />
           </AutoForm>
