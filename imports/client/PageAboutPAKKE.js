@@ -84,7 +84,12 @@ function PageAboutPAKKE(props) {
             <Grid container justify={'center'} alignItems={'center'} style={styles.wrapper1}>
                 <Grid item style={{ width: '100%', }}>
                     <Grid container justify={'center'} style={{ background: 'theme.palette.text.primary.main' }}>
-                        <Typography align={'center'} variant={'display1'} style={styles.box1}>PAKKE events encourage you to discover unique environments, connect with new people, and experience more in your city.</Typography>
+                        <Typography align={'center'} variant={'title'} style={styles.box1}> 
+                            Here at PAKKE, we don’t believe in following the status quo. We want to pursue our passions. We yearn to explore the uncommon. We’re over doing what’s ordinary and past dealing with superficial social scenes. We think that a little curiosity, a touch of courage and a willingness to shake things up a bit can lead to some phenomenal outcomes. We know that there’s a lot happening in this wacky world of ours, and we want to figure it out where our PAKKE fits into it.
+                            <br /><br />
+                            Discover your surroundings, connect with new communities, experience the unfamiliar.
+
+                        </Typography>
                     </Grid>
                 </Grid>
                 {/* </Paper> */}

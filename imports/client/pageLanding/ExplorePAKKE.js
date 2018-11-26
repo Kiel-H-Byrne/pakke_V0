@@ -23,7 +23,7 @@ class ExplorePAKKE extends Component {
                         style={{
                             maxHeight: '18rem',
                         }}></img>
-                    <h1 className="display-1 font-weight-bold" style={{marginTop: 0}}>It's Happening... Go Find It.</h1>
+                    <h1 className="display-1 font-weight-bold" style={{marginTop: 0}}>An event & experience company.</h1>
                     <p className="display-5"><em>Discover.  Connect.  Experience.</em></p>
                   </div>
                 </div>

@@ -64,7 +64,8 @@ function HowItWorks(props) {
     return (
     <Grid id="HowItWorks" container justify={'center'} style={styles.wrapper}>
         <Paper style={styles.paper}>
-            <Typography variant='display1' align={'center'} style={styles.box1}>How It Works</Typography>
+            <Typography variant='display1' align={'center'} style={styles.box1}>Forget FOMO. Find your PAKKE. 
+</Typography>
 
             <Grid container justify={'center'} style={{ marginTop: '1%' }} direction='row'>
 
