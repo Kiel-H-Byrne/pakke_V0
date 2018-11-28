@@ -36,7 +36,6 @@ accounts-google@1.3.2
 facebook-config-ui@1.0.2
 google-config-ui@1.0.1
 gadicc:blaze-react-component
-useraccounts:bootstrap
 aldeed:schema-index@3.0.0
 ostrio:files
 aldeed:collection2@3.0.0

@@ -58,7 +58,8 @@ if (!SOUP) {
 }
 
 Accounts.config({
-  sendVerificationEmail: true
+  sendVerificationEmail: true,
+  // forbidClientAccountCreation: false
 });
 
 Accounts.onCreateUser(function(options, user) {
@@ -69,6 +70,7 @@ Accounts.onCreateUser(function(options, user) {
   if (options.profile) {
     myUser.profile =  Schema.Profile.clean(options.profile);
   }
+  myUser.profile = {}
   // console.log(user);
   //IF USERNAME EXISTS, APPEND A NUMBER TO IT.
 
@@ -219,6 +221,6 @@ Accounts.emailTemplates.verifyEmail = {
       return "Activate your PAKKE account now!";
    },
    text(user, url) {
-      return `Hey ${user.profile.name}! Verify your e-mail by following this link: ${url}`;
+      return `Hi there! Verify your e-mail by following this link: ${url}`;
    }
 };
