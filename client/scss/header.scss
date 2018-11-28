@@ -85,13 +85,36 @@
 }
 
 .accounts-ui {
-  padding: .5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
   border-color: #225199;
-
-    .fields, .buttons, .password-or-service, .or-sep, .messages {
-      display: none
+ // .or-sep, 
+ .messages  {
+  display: none;
+ }
+  & > * { //all direct children of flex container
+      margin: 3px 0;
+      display: flex;
     }
+  .buttons {
+  a {
+      text-decoration: underline;
+      color: #225199;
+      padding-left: 1rem;
+    }
+  }
+  .password-or-service {
+    text-align: center;
+  }
+
+  label {
+    padding-right: 1.3rem;
+  }
     .social-buttons {
+      display: flex; 
+      justify-content: space-evenly;
+
       button {
         margin: 3px;
         border: none;

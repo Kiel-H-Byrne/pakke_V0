@@ -44,12 +44,12 @@ Bert.defaults = {
 Accounts.ui.config({
   requestPermissions: {
     // facebook: ["email", "user_birthday", "user_location", "user_hometown"],
-    facebook: ["email", "public_profile", "user_friends"],
+    // facebook: ["email", "public_profile", "user_friends"],
     google: [
     "https://www.googleapis.com/auth/userinfo.profile", 
-    "https://www.googleapis.com/auth/user.addresses.read", 
-    "https://www.googleapis.com/auth/user.birthday.read", 
-    "https://www.googleapis.com/auth/user.phonenumbers.read"
+    // "https://www.googleapis.com/auth/user.addresses.read", 
+    // "https://www.googleapis.com/auth/user.birthday.read", 
+    // "https://www.googleapis.com/auth/user.phonenumbers.read"
     ]
   },
   requestOfflineToken: {

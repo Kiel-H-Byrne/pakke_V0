@@ -30,7 +30,6 @@ import AddVenueForm from './forms/AddVenueForm.js'
 // import PageEventMap from './pageEventMap/PageEventMap';
 // import PageSignUp from './PageSignUp';
 // import EventForm from './EventForm2';
-import PageTest from './old-test/PageTest'
 // import { LoginFormContainer } from './accounts/ui/components/LoginForm'
 // import TestLogin from './TestLogin';
 
@@ -56,7 +55,7 @@ class Router extends Component {
               <Route name="AddVenue" path='/addvenue' component={AddVenueForm} />
               <Route name="AddTalent" path='/addtalent' component={AddTalentForm} />
               <Route name="Marketplace" path='/market17' component={Marketplace} />
-              <Route name="TestPage" path='/test17' component={PageTest} />
+  
               <Route name="AdminPanel" path='/adminz' component={AdminPanel} />
               <Route name="404Page" component={PageError} />  
           </Switch>
