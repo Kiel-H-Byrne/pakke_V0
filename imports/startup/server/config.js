@@ -58,28 +58,26 @@ if (!SOUP) {
 }
 
 Accounts.config({
-  sendVerificationEmail: true,
-  // forbidClientAccountCreation: false
+  sendVerificationEmail: true
 });
 
 Accounts.onCreateUser(function(options, user) {
   //CREATE NEW MYUSER OBJECT AND COPY ALL DEFAULT ATTRIBUTS TO IT
+  //LOGIN METHOD NEEDS TO ACCOUNT FOR EACH TYPE, FB, GOOGLE, EMAIL, ETC...
 
   let myUser = Object.assign({}, user);
-
+  myUser.profile = {}
   if (options.profile) {
     myUser.profile =  Schema.Profile.clean(options.profile);
   }
-  myUser.profile = {}
-  // console.log(user);
-  //IF USERNAME EXISTS, APPEND A NUMBER TO IT.
+  //IF USERNAME EXISTS, APPEND A NUMBER TO IT TO MAKE IT UNIQUE
 
 
   //CHECK & MERGE FACEBOOK INFO
   if (user.services.facebook) {
     const fb = user.services.facebook;
     if (!fb.email) {return null}
-    console.log(fb);
+    // console.log(fb);
     if (Accounts.findUserByUsername(fb.name)) {
       myUser.username = fb.name + fb.name.charAt(3);
     } else {
@@ -88,16 +86,17 @@ Accounts.onCreateUser(function(options, user) {
     myUser.emails = [{address: fb.email, verified: true}];
     
     // (fb.picture.data.is_silhouette == false) ? myUser.profile.avatar = fb.picture.data.url : myUser.profile.avatar = "/img/holders/default-avatar.jpg"
-    (fb.picture.data.is_silhouette == false) ? myUser.profile.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=large` : myUser.profile.avatar = "/img/holders/default-avatar.jpg"
-    
-    myUser.profile.birthDate = new Date(fb.birthday) || null;
+    if (!fb.picture.data.is_silhouette) {
+      myUser.profile.avatar = `https://graph.facebook.com/${fb.id}/picture/?type=large`
+    } else {myUser.profile.avatar = "/img/holders/default-avatar.jpg"}
 
+    myUser.profile.birthDate = new Date(fb.birthday) || null;
   }
   //CHECK & MERGE GOOGLE INFO
   if (user.services.google) {
     const gg = user.services.google;
     if (!gg.email) {return null}
-    console.log(gg);
+    // console.log(gg);
     if (Accounts.findUserByUsername(gg.name)) {
       myUser.username = gg.name + gg.name.charAt(3);
     } else {
@@ -107,6 +106,9 @@ Accounts.onCreateUser(function(options, user) {
     myUser.profile.avatar = gg.picture || "/img/holders/default-avatar.jpg";
   }
   // console.log(myUser);
+  if (!user.services) {
+    // Meteor.call('bertAlert', "Verification E-mail Sent!", "success")
+  }
   return myUser;
 });
 
@@ -221,6 +223,13 @@ Accounts.emailTemplates.verifyEmail = {
       return "Activate your PAKKE account now!";
    },
    text(user, url) {
-      return `Hi there! Verify your e-mail by following this link: ${url}`;
+      return `
+      Hi there! 
+
+      Thank you for registering with PAKKE.us.
+
+      Please verify your e-mail address by following this link: 
+      ${url}
+      `;
    }
 };

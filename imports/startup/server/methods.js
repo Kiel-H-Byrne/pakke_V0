@@ -439,6 +439,9 @@ Meteor.methods({
      } else {
       console.log("MUST BE ADMIN TO GET CONFIRMED LIST")
      }
-  }
+  },
+  // bertAlert: function(type, message) {
+  //   Bert.alert(message, `pk=${type}`);
+  // }
   
 });
