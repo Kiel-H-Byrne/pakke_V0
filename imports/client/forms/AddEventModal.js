@@ -14,8 +14,8 @@ const styles = theme => ({
     position: 'absolute',
     // width: theme.spacing.unit * 50,
     width: '60%',
-    minWidth: 360,
-    maxWidth: '85vh',
+    minWidth: '80vw',
+    maxWidth: '95vw',
     maxHeight: '90vh',
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
@@ -47,7 +47,7 @@ class AddEventModalComponent extends Component {
 
     return (
             <div>
-      <Button type="button" onClick={this.handleOpen} variant="raised" size="large" className={classes.button}> Create A New Experience </Button>
+      <Button type="button" onClick={this.handleOpen} variant="contained" size="large" className={classes.button}> Create A New Experience </Button>
       <Modal 
         aria-labelledby="New Event Form"
         aria-describedby="Add a new experience."

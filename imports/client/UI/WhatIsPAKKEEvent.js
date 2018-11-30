@@ -18,7 +18,7 @@ function WhatIsPAKKEEvent(props) {
             padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
         },
         box1: {
-            // padding: `${theme.spacing.unit}em ${theme.spacing.unit * 2}em`,
+            padding: `${theme.spacing.unit * .2}rem ${theme.spacing.unit}rem`,
             color: theme.palette.text.primary,
         },
         paper1: {
@@ -31,11 +31,17 @@ function WhatIsPAKKEEvent(props) {
     return (
     <Grid container justify={'center'} alignItems={'center'} style={styles.wrapper}>
         <Grid item xs={12} lg={8}>
-            <Typography align={'center'} variant={'title'} style={styles.box1}> 
-                Here at PAKKE, we don’t believe in following the status quo. We want to pursue our passions. We yearn to explore the uncommon. We’re over doing what’s ordinary and past dealing with superficial social scenes. We think that a little curiosity, a touch of courage and a willingness to shake things up a bit can lead to some phenomenal outcomes. We know that there’s a lot happening in this wacky world of ours, and we want to figure it out where our PAKKE fits into it.
-                <br /><br />
-                Discover your surroundings, connect with new communities, experience the unfamiliar.
+        <Paper elevation={2}>
+            <Typography align={'justify'} variant={'body1'} paragraph={true} style={styles.box1}> 
+                Here at PAKKE, we don’t believe in following the status quo. We want to pursue our passions. 
+                We yearn to explore the uncommon. We’re done with doing what’s ordinary and past dealing with superficial social scenes. 
+                We think that a little curiosity, a touch of courage and a willingness to shake things up a bit can lead to some phenomenal outcomes. 
+                We know that there’s a lot happening in this wacky world of ours, and we want to figure out where our PAKKE fits into it.
             </Typography>
+            <Typography   variant={'overline'} paragraph={true} style={styles.box1}> 
+                Discover your surroundings, connect with new communities... Experience the unfamiliar.
+            </Typography>
+        </Paper>
         </Grid>
     </Grid>
     );

@@ -56,7 +56,7 @@ function InputWithIcon(props) {
                 aria-label= 'EMail'
             />
             <Button 
-              variant='raised' 
+              variant='contained' 
               color="secondary" 
               style={styles.button} 
               size='large'

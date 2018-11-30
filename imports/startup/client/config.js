@@ -37,8 +37,9 @@ Bert.defaults = {
   style: 'growl-top-right',
   // Accepts: fixed-top, fixed-bottom, growl-top-left,   growl-top-right,
   // growl-bottom-left, growl-bottom-right.
-  type: 'success'
+  type: 'pk-success',
   // Accepts: default, success, info, warning, danger.
+  icon: 'fa-info'
 };
 
 Accounts.ui.config({
@@ -55,11 +56,21 @@ Accounts.ui.config({
   requestOfflineToken: {
     google: true
   },
+  profilePath: '/profile',
+  onSubmitHook: (error, state) => {
+    console.log(error, state);
+    if (!error) { Bert.alert("Please check your e-mail to log-in without a password!", "pk-success", "growl-top-right", "fa-thumbs-up", )  }
+  },
 });
 
 
 Accounts.onLoginFailure(function(error) {
-  Bert.alert(error.error.reason, "info", "growl-top-right")
+  Bert.alert(error.error.reason, "pk-info", "growl-top-right")
+});
+
+Accounts.onLogin(function(loginDetails) {
+  // Bert.alert("Welcome!", "pk-success", "growl-top-right")
+  // console.log(loginDetails)
 });
 
 Accounts.onEmailVerificationLink(function(token, done){

@@ -119,7 +119,7 @@ class PageLanding2 extends Component {
               </div>
             ) : (
               <div className='host-button'>
-                <Button variant="raised" size="large" className={classes.button} onClick={loginAlert} >Become a Host</Button>
+                <Button variant="contained" size="large" className={classes.button} onClick={loginAlert} >Become a Host</Button>
               </div>
             )}
           </div>

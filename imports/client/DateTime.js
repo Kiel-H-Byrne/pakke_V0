@@ -1,10 +1,10 @@
 import React from 'react';
 import {Helmet} from "react-helmet";
 
-import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';
-import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
-import DateTimePicker from 'material-ui-pickers/DateTimePicker';
-import {DateTimePickerInline} from 'material-ui-pickers/DateTimePicker';
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import { DateTimePicker } from 'material-ui-pickers';
+// import { InlineDateTimePicker } from 'material-ui-pickers';
 import HiddenField from 'uniforms-material/HiddenField'; 
 import AutoField  from 'uniforms-material/AutoField';
 

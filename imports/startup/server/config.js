@@ -122,7 +122,7 @@ Accounts.validateNewUser(function(user) {
 
       if (existing_user) {
         // login and merge data! 
-        let provider;
+        let provider = "your E-mail Address";
 
         if (existing_user.services.facebook) {
           provider = "Facebook";

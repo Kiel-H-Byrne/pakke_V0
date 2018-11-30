@@ -24,6 +24,11 @@ const muiTheme = createMuiTheme({
         pointer: {},
         thumb: {}
       },
+      MuiPickerDTHeader: {
+        hourMinuteLabel: {
+          flexDirection: 'row',
+        }
+      },
       MuiPickersDateTimePickerTabs: {
         tabs: {
           color: '#000000'
@@ -51,7 +56,7 @@ const muiTheme = createMuiTheme({
           color: '#fff',
           fontSize: '16px',
         },
-        raised: {
+        contained: {
           backgroundColor: '#2964ff',
           color: '#fff'
         },

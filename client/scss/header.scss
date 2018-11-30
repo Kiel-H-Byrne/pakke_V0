@@ -90,6 +90,21 @@
   padding: 1rem;
   border-color: #225199;
  // .or-sep, 
+ button {
+    margin: 3px;
+    border: none;
+    padding: 11px;
+    color: white;
+    border-radius: 3px;
+    background-color: #2964FF;
+  }
+  .message.warning {
+    color: rgba(255,65,0,1);
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 3px;
+  }
  .messages  {
   display: none;
  }
@@ -97,11 +112,13 @@
       margin: 3px 0;
       display: flex;
     }
-  .buttons {
+  .buttons  {
   a {
       text-decoration: underline;
       color: #225199;
+      padding: 11px;
       padding-left: 1rem;
+      vertical-align: middle;
     }
   }
   .password-or-service {
@@ -115,13 +132,6 @@
       display: flex; 
       justify-content: space-evenly;
 
-      button {
-        margin: 3px;
-        border: none;
-        padding: 11px;
-        color: white;
-        border-radius: 3px;
-      }
       .facebook {
         $color: #3b5998;
         background-color: $color;
