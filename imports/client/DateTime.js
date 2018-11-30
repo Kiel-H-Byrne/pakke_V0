@@ -5,6 +5,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import { DateTimePicker } from 'material-ui-pickers';
 // import { InlineDateTimePicker } from 'material-ui-pickers';
+
 import HiddenField from 'uniforms-material/HiddenField'; 
 import AutoField  from 'uniforms-material/AutoField';
 
@@ -34,6 +35,8 @@ export default class DateTime extends React.Component {
             label="Select a date"
             openTo="date"
             disablePast
+            autoOk
+            autoSubmit
             showTodayButton
             onChange={this.handleDateChange}
           />

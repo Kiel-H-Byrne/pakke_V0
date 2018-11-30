@@ -97,7 +97,7 @@ const loginAlert = () => {
   window.scrollTo({top: 0, behavior: "smooth"});
   Bert.alert({
     message: "Please Log In First.", 
-    type: "pk-alert",
+    type: "login-alert",
     style: "growl-top-left",
     icon: 'fa-sign-in'
   });

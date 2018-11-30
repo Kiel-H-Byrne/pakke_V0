@@ -60,7 +60,8 @@ class AdminPanelComponent extends Component {
             <TableCell>Name</TableCell>
             <TableCell>Date</TableCell>
             <TableCell>Guests</TableCell>
-            <TableCell>ID</TableCell>
+            <TableCell>Venue ID</TableCell>
+            <TableCell>Host ID</TableCell>
             <TableCell>Edit</TableCell>
             <TableCell>Send GuestList</TableCell>
           </TableRow>
@@ -74,7 +75,8 @@ class AdminPanelComponent extends Component {
                 <TableCell><Link to={`/event/${event._id}`}>"{event.byline}"</Link></TableCell>
                 <TableCell>{event.date.toDateString()}</TableCell>
                 <TableCell>{event.confirmedList.length}</TableCell>
-                <TableCell>{event._id}</TableCell>
+                <TableCell>{event.venueId}</TableCell>
+                <TableCell>{event.hostId}</TableCell>
                 <TableCell><AdminEditButton event={event}/></TableCell>
                 <TableCell><Button type="button" onClick={() => this.sendGuestList(event._id)}>Send GL </Button> </TableCell>
               </TableRow>
@@ -111,7 +113,7 @@ class AdminPanelComponent extends Component {
           this.props.venues.map((venue) => {
             return (
               <TableRow key={venue._id}>
-                <TableCell>"{venue.nickname}"</TableCell>
+                <TableCell>"{venue.nickname}"-{venue._id}</TableCell>
                 <TableCell>{venue.address}</TableCell>
                 <TableCell>{venue.type}</TableCell>
                 <TableCell>{venue.hostId}</TableCell>
@@ -119,7 +121,7 @@ class AdminPanelComponent extends Component {
                 <TableCell><EditVenueButton venue={venue}/></TableCell>
               </TableRow>
               )
-            })) : <TableRow><TableCell variant="body"><BarLoader 
+            })) : <TableRow><TableCell variant="body1"><BarLoader 
                       loading={this.props.loading} 
                       color='#2964ff'
                       width={-1}
