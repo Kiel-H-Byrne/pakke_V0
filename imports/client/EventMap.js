@@ -79,7 +79,8 @@ class EventMap extends Component {
           maxWidth: 100,
           position: venue.location
         })
-      marker.addListener('click', function() {
+      marker.info.open(map.instance) 
+      marker.addListener('clicked', function() {
         marker.info.open(map.instance)  
       });
 
