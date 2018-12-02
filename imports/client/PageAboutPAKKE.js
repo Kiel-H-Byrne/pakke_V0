@@ -83,9 +83,9 @@ function PageAboutPAKKE(props) {
 
         <div id="PageAboutPAKKE">
             <Grid container justify={'center'} alignItems={'center'} style={styles.wrapper1}>
-                <Grid item style={{ width: '100%', }}>
+                <Typography variant='headline' align={'center'} style={styles.box1}>What is PAKKE?</Typography>
+                <Grid item xs={12}>
                     <Grid container justify={'center'} style={{ background: 'theme.palette.text.primary.main' }}>
-                        <Typography variant='headline' align={'center'} style={styles.box1}>What is PAKKE?</Typography>
                         <Typography align={'justify'} variant={'body1'} paragraph={true} style={styles.box1}> 
                             Here at PAKKE, we don’t believe in following the status quo. We want to pursue our passions. 
                             We yearn to explore the uncommon. We’re done with doing what’s ordinary and past dealing with superficial social scenes. 
