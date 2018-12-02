@@ -98,8 +98,8 @@ class PaymentRequestForm extends React.Component {
             Bert.alert(`Yay! Check your inbox [${userEmail}] for more info!`, "pk-success", "fixed-bottom", "fa-thumbs-up");
             Meteor.call('amConfirmed', event._id);
             //EMAIL TO VISITOR
-            Meteor.call('sendEmail', userEmail, ...userEmailProps);
             if (Meteor.isProduction) {
+              Meteor.call('sendEmail', userEmail, ...userEmailProps);
               //EMAIL TO HOST 
               // let hostEmail = Meteor.users.findOne(event.hostId).emails[0].address;
               // Meteor.call('sendEmail', hostEmail, ...hostEmailProps);

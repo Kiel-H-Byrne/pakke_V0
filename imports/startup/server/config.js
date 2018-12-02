@@ -36,7 +36,8 @@ if (!SOUP) {
   const soupId = Accounts.createUser({
       "username": "PAKKE",
       "email": "noreply@pakke.us",
-      "password": "pakkeP@RTY"
+      "password": "pakkeP@RTY",
+      "profile": {}
   });
 } else {
     // console.log(SOUP);
