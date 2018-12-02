@@ -184,18 +184,18 @@ class PaymentRequestForm extends React.Component {
         <fieldset>
           <div className="row">
             <label htmlFor="card-name" >Name</label>
-            <input id="card-name" type="text" placeholder={this.props.user.username || "Jane Dough"}  required="" />
+            <input id="card-name" type="text" placeholder={this.props.user.username || "Your Name?"}  required="" />
           </div>
         </fieldset>
         <fieldset>
             <div className="row">
-            <label htmlFor="card-phone" >Phone</label>
+            <label htmlFor="card-phone" >Contact Number?</label>
             <input id="card-phone" type="tel" placeholder={this.props.user.phone || ""}  required="" />
           </div>        
         </fieldset>
         <fieldset>
           <div id="card-element" className="row">
-            <CardElement style={{base: {fontSize: '20px'}}} />
+            <CardElement style={{base: {fontSize: '16px'}}} />
           </div>
           <div id="card-errors" role="alert"></div>    
         </fieldset>

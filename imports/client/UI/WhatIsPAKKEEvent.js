@@ -18,7 +18,7 @@ function WhatIsPAKKEEvent(props) {
             padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
         },
         box1: {
-            padding: `${theme.spacing.unit * .2}rem ${theme.spacing.unit}rem`,
+            padding: `2rem 5%`,
             color: theme.palette.text.primary,
         },
         paper1: {
