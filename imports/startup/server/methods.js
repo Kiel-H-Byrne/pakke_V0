@@ -464,7 +464,7 @@ Meteor.methods({
 
       Email.send({
         'to': ["info@pakke.us"],
-        'cc': ["amy@pakke.us", "emmett@pakke.us", "zach@pakke.us", "kiel@pakke.us"],
+        'cc': ["amy@pakke.us", "emmett@pakke.us", "kiel@pakke.us"],
         'from': "noreply@pakke.us", 
         'subject': "-<{ GUEST LIST: " + event.byline + " }>-", 
         'html': template

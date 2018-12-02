@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import { withTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 
@@ -84,11 +85,15 @@ function PageAboutPAKKE(props) {
             <Grid container justify={'center'} alignItems={'center'} style={styles.wrapper1}>
                 <Grid item style={{ width: '100%', }}>
                     <Grid container justify={'center'} style={{ background: 'theme.palette.text.primary.main' }}>
-                        <Typography align={'center'} variant={'title'} style={styles.box1}> 
-                            Here at PAKKE, we don’t believe in following the status quo. We want to pursue our passions. We yearn to explore the uncommon. We’re over doing what’s ordinary and past dealing with superficial social scenes. We think that a little curiosity, a touch of courage and a willingness to shake things up a bit can lead to some phenomenal outcomes. We know that there’s a lot happening in this wacky world of ours, and we want to figure it out where our PAKKE fits into it.
-                            <br /><br />
-                            Discover your surroundings, connect with new communities, experience the unfamiliar.
-
+                        <Typography variant='headline' align={'center'} style={styles.box1}>What is PAKKE?</Typography>
+                        <Typography align={'justify'} variant={'body1'} paragraph={true} style={styles.box1}> 
+                            Here at PAKKE, we don’t believe in following the status quo. We want to pursue our passions. 
+                            We yearn to explore the uncommon. We’re done with doing what’s ordinary and past dealing with superficial social scenes. 
+                            We think that a little curiosity, a touch of courage and a willingness to shake things up a bit can lead to some phenomenal outcomes. 
+                            We know that there’s a lot happening in this wacky world of ours, and we want to figure out where our PAKKE fits into it.
+                        </Typography>
+                        <Typography   variant={'overline'} paragraph={true} style={styles.box1}> 
+                            Discover your surroundings, connect with new communities... Experience the unfamiliar.
                         </Typography>
                     </Grid>
                 </Grid>
@@ -104,14 +109,14 @@ function PageAboutPAKKE(props) {
                                 <Launch style={styles.icon} />
                             <Typography align={'center'} style={styles.box1} variant="title" component="h1">Guests</Typography>
                             <hr style={styles.divider} />
-                            <Typography align={'center'} style={styles.box2} variant="subheading">PAKKE’s vision is to focus on the overall experience of how we socialize and more importantly, where and with who. As a guest, this is your opportunity to meet new people, learn about your city, and save money.</Typography>
+                            <Typography align={'center'} style={styles.box2} variant="caption">PAKKE’s vision is to focus on the overall experience of how we socialize and more importantly, where and with who. As a guest, this is your opportunity to meet new people, learn about your city, and save money.</Typography>
                         </Grid>
 
                         <Grid item xs={12} md={4}>
                                 <EventAvailable style={styles.icon} />
                             <Typography align={'center'} style={styles.box1} variant="title">Hosts</Typography>
                             <hr style={styles.divider} />
-                            <Typography align={'center'} style={styles.box2} variant='subheading'>The physical environment is just as important to a day or night out that, if done right, we are willing to open our doors as hosts for curated events. For all hosts, there will be a dedicated experience curator that will provide professional support so your event is successful and profitable.</Typography>
+                            <Typography align={'center'} style={styles.box2} variant='caption'>The physical environment is just as important to a day or night out that, if done right, we are willing to open our doors as hosts for curated events. For all hosts, there will be a dedicated experience curator that will provide professional support so your event is successful and profitable.</Typography>
                         </Grid>
 
                         <Grid item xs={12} md={4}>
@@ -119,7 +124,7 @@ function PageAboutPAKKE(props) {
                             <Typography align={'center'} style={styles.box1} variant="title">Talent</Typography>
                             <hr style={styles.divider} />
 
-                            <Typography align={'center'} style={styles.box2} variant='subheading'>PAKKE believes in the power of experiences but finding ways to tap into a unique social outting, we need creative people to guide us there. This is why we pay very close attention to our talented professionals who choose PAKKE as a way to bring their art, craft or trade to our communities. Join us today and see how your talent can earn recognition and money.</Typography>
+                            <Typography align={'center'} style={styles.box2} variant='caption'>PAKKE believes in the power of experiences but finding ways to tap into a unique social outting, we need creative people to guide us there. This is why we pay very close attention to our talented professionals who choose PAKKE as a way to bring their art, craft or trade to our communities. Join us today and see how your talent can earn recognition and money.</Typography>
                         </Grid>
 
                     </Grid>
@@ -129,31 +134,31 @@ function PageAboutPAKKE(props) {
 
             <Grid container justify={'center'} style={styles.wrapper}>
                 <Paper style={styles.paper}>
-                            <Typography variant='headline' component="h1" align={'center'} style={styles.box1}>Who is PAKKE</Typography>
+                            <Typography variant='headline' component="h1" align={'center'} style={styles.box1}>Who is PAKKE?</Typography>
                     <Grid container justify={'center'} style={{ marginTop: '1%' }}>
 
                         <Grid item style={styles.cofounderBox}>
-                            <Typography align={'center'} style={styles.box1} variant="title" component="h1">Emmett Ferra</Typography>
+                            <a href="https://www.linkedin.com/in/emmett-ferra-54231a31/"><Typography align={'center'} style={styles.box1} variant="title" component="h1">Emmett Ferra</Typography></a>
                             <hr style={styles.divider} />
                             <Typography align={'center'} style={styles.box2} variant="subheading">He brings the vision</Typography>
                         </Grid>
 
                         <Grid item style={styles.cofounderBox}>
-                            <Typography align={'center'} style={styles.box1} variant="title">Kiel Byrne</Typography>
+                            <a href="https://www.linkedin.com/in/kielbyrne/"><Typography align={'center'} style={styles.box1} variant="title">Kiel Byrne</Typography></a>
                             <hr style={styles.divider} />
                             <Typography align={'center'} style={styles.box2} variant='subheading'>He brings the tech</Typography>
                         </Grid>
 
                         <Grid item style={styles.cofounderBox}>
-                            <Typography align={'center'} style={styles.box1} variant="title">Amy Morse</Typography>
+                            <a href="https://www.linkedin.com/in/amy-mcgovern-morse-9b0aa63/"><Typography align={'center'} style={styles.box1} variant="title">Amy Morse</Typography></a>
                             <hr style={styles.divider} />
-                            <Typography align={'center'} style={styles.box2} variant='subheading'>She brings the hustle</Typography>
+                            <Typography align={'center'} style={styles.box2} variant='subheading'>Chief Experience Coordinator</Typography>
                         </Grid>
 
                         <Grid item style={styles.cofounderBox}>
-                            <Typography align={'center'} style={styles.box1} variant="title">Zach Clement</Typography>
+                            <a href="https://www.linkedin.com/in/samuelfeigenbaum/"><Typography align={'center'} style={styles.box1} variant="title">Sam Feigenbaum</Typography></a>
                             <hr style={styles.divider} />
-                            <Typography align={'center'} style={styles.box2} variant='subheading'>He brings the rest</Typography>
+                            <Typography align={'center'} style={styles.box2} variant='subheading'>Coding Wizard</Typography>
                         </Grid>
 
                     </Grid>
