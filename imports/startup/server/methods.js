@@ -328,45 +328,79 @@ Meteor.methods({
   createCharge: async function(email,amount, description, token) {
     const stripe = require("stripe")(Meteor.settings.private.keys.stripe.key);
     description = `PAKKE EVENT: ${description}`;
-    
     // console.log(token);
-    console.log("CREATING CHARGE: " + description)
-    await stripe.charges.create({
-      amount: amount*100,
-      currency: 'usd',
-      description: description,
-      source: token.id,
-      receipt_email: email,
-      capture: false
-    // }, (err,charge) => {
-    //   if (err) {
-    //     console.log("err",err.message)
-    //     let error = err.message;
-    //     return false
-    //     throw new Meteor.Error(err.)
-    //   } else {
-    //     console.log('Payment Received: ' + description)
-    //     return charge;
-    //   }
-    // })
-    }).then(
-    result => {
-      // console.log(result)
-      // analytics.track("Ticket Purchase", {
-      //   label: description,
-      //   commerce: amount*100,
-      //   value: amount*100,
-      //   guest: email,
-      // })
-      console.log("SUCCESS")
-      return result
-    }).catch(
-    err => {
-      // console.log(err.code + ' - ' + err.message)
-      console.log("FAILED: ", err.message)
-      throw new Meteor.Error(err.code, err.message)
-    });
 
+    await stripe.charges.create({
+        amount: amount*100,
+        currency: 'usd',
+        description: description,
+        source: token.id,
+        // customer: customer.id,
+        receipt_email: email,
+        capture: false
+      // }, (err,charge) => {
+      //   if (err) {
+      //     console.log("err",err.message)
+      //     let error = err.message;
+      //     return false
+      //     throw new Meteor.Error(err.)
+      //   } else {
+      //     console.log('Payment Received: ' + description)
+      //     return charge;
+      //   }
+      // })
+      }).then(
+      result => {
+        console.log("SUCCESS")
+        return result
+      }).catch(
+      err => {
+        // console.log(err.code + ' - ' + err.message)
+        console.log("FAILED: ", err.message)
+        throw new Meteor.Error(err.code, err.message)
+      });
+  },
+  createCustomer: async function(email, token) {
+    const stripe = require("stripe")(Meteor.settings.private.keys.stripe.key);
+    //SEARCH FOR CUSTOMER, 
+    //IF NOT EXIST, CREATE AND RETURN ID
+    //IF EXIST RETURN ID
+    
+    const consumer = await stripe.customers.list({email: email}, async function(error, customers) {
+      if (error) {console.log("error", error)}
+      if (customers) {
+        return customers.data[0];
+      } else { 
+        const consumer = await stripe.customers.create({
+          source: token.id,
+          email: email
+        }, (error, customer) => {
+          if (error) console.log(error)
+          console.log(customer)
+          return customer;
+        })
+      }
+    });
+  },
+  chargeCustomer: async function(customer, amount, description, email) {
+    await stripe.charges.create({
+        amount: amount*100,
+        currency: 'usd',
+        description: description,
+        // source: token.id,
+        customer: customer.id,
+        receipt_email: customer.email,
+        capture: false
+      }).then(
+      result => {
+        console.log("SUCCESS")
+        return result
+      }).catch(
+      err => {
+        // console.log(err.code + ' - ' + err.message)
+        console.log("FAILED: ", err.message)
+        throw new Meteor.Error(err.code, err.message)
+      });
   },
   uploadFile: function(obj) {
     let upload =  Avatars.insert(obj, false);
@@ -430,7 +464,7 @@ Meteor.methods({
 
       Email.send({
         'to': ["info@pakke.us"],
-        'cc': ["amy@pakke.us", "emmett@pakke.us", "zach@pakke.us", "kiel@pakke.us"],
+        'cc': ["amy@pakke.us", "emmett@pakke.us", "kiel@pakke.us"],
         'from': "noreply@pakke.us", 
         'subject': "-<{ GUEST LIST: " + event.byline + " }>-", 
         'html': template

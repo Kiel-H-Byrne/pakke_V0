@@ -39,7 +39,7 @@ function HowItWorks(props) {
             // width: '100%',
         },
         box1: {
-            padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+            padding: `${theme.spacing.unit *1.5}px ${theme.spacing.unit * 2}px`,
         },
         box2: {
             padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
@@ -84,11 +84,11 @@ function HowItWorks(props) {
                     <Typography align={'center'} style={styles.box2} variant='subheading'>Selections are made using a lottery system. Once you are selected, you will be able to purchase your ticket.</Typography>
                 </Grid>
 
-                <Grid item xs={12}  md={4}>
+                <Grid item xs={12} md={4}>
                     <ConfirmationNumber style={styles.icon} />
                     <Typography align={'center'} style={styles.box1} variant="headline">3. Buy Ticket</Typography>
                     <hr style={styles.divider} />
-                    <Typography align={'center'} style={styles.box2} variant='subheading'>Purchase your ticket to receive the event location and other important party details.</Typography>
+                    <Typography align={'center'} style={styles.box2} variant='subheading'>Purchase your ticket to gain access to event details, features, and important party details.</Typography>
                 </Grid>
             </Grid>
         </Paper>

@@ -83,7 +83,7 @@ class HeaderComponent extends Component {
                 flexGrow: 1,
             },
             flex: {
-                flex: 1,
+                flex: .5,
 
                 // width: 50,
             },
@@ -94,7 +94,7 @@ class HeaderComponent extends Component {
             },
             menuButton: {
                 marginLeft: -12,
-                marginRight: 20,
+                // marginRight: 20,
             },
             list: {
                 width: 250,
@@ -186,10 +186,10 @@ class HeaderComponent extends Component {
                             >
                                 <MenuIcon />
                             </IconButton>
-                            <Typography variant="title" color="inherit" style={styles.flex}>
-                                <Link to='/'><img src="/ImageLogoBlack.png" alt='Home' style={styles.pakkeLogo} /></Link>
+                            <Typography variant="title" style={styles.flex}>
+                                <Link to='/'><img src="/ImageLogoBlack.png" alt='PAKKE Home' style={styles.pakkeLogo} /></Link>
                             </Typography>
-
+                            <Typography variant="caption" style={styles.flex}><i>An Events & Experiences Company</i></Typography>
                             {this.props.currentUser ? (
                                 <div>
                             {/*

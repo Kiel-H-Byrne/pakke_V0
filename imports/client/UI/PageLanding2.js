@@ -61,7 +61,14 @@ class PageLanding2 extends Component {
         icon: 'fa-sign-in'
       });
     }
-    
+    const trackClick = (name, source, color, text) => {
+      analytics.track("Button Clicked", {
+        name: name,
+        source: source,
+        color: color,
+        text: text
+      });
+    }
     const thisUser = Meteor.user();
     const { classes } = this.props;
 
@@ -97,12 +104,12 @@ class PageLanding2 extends Component {
             {thisUser ? (
               <div className='host-button'>
                 {/* <AddEventModal user={thisUser}/> */}
-                <Button component={Link} to="/addevent" className={classes.button}>Create your Experience:</Button> 
+                <Button component={Link} to="/addevent" className={classes.button} onMouseUp={trackClick("Top LoggedIn Host Button Clicked", "Home Page","#FFC429","Create your Experience")}>Create your Experience</Button> 
 
               </div>
             ) : (
               <div className='host-button'>
-                <Button variant="raised" size="large" className={classes.button} onClick={loginAlert} >Become a Host</Button>
+                <Button variant="contained" size="large" className={classes.button} onClick={loginAlert} onMouseUp={trackClick("Top Host Button Clicked", "Home Page","#FFC429","Become a Host!")}>Become a Host</Button>
               </div>
             )}
 
@@ -127,11 +134,13 @@ class PageLanding2 extends Component {
             {thisUser ? (
               <div className='host-button'>
                 {/* <AddEventModal user={thisUser}/> */}
-                <Button component={Link} to="/addevent" style={{margin: 30, backgroundColor: "#FFC429",color: "#666"}}>Host Your PAKKE!</Button> 
+                <Button component={Link} to="/addevent" style={{margin: 30, backgroundColor: "#FFC429",color: "#666"} } onClick={trackClick("Bottom LoggedIn Host Button Clicked", "Home Page","#FFC429","Host Your PAKKE!")}>Host Your PAKKE!</Button> 
               </div>
             ) : (
               <div className='host-button'>
-                <Button variant="contained" size="large" style={{margin: 30, backgroundColor: "#FFC429",color: "#666"}} onClick={loginAlert} >Host Your PAKKE!</Button>
+                <Button variant="contained" size="large" style={{margin: 30, backgroundColor: "#FFC429",color: "#666"}} 
+                  onClick={loginAlert} onMouseUp={trackClick("Bottom Host Button Clicked", "Home Page","#FFC429","Host Your PAKKE!")} >
+                  Host Your PAKKE!</Button>
               </div>
             )}
 
