@@ -43,6 +43,7 @@ Bert.defaults = {
 };
 
 Accounts.ui.config({
+  passwordSignupFields: 'EMAIL_ONLY',
   requestPermissions: {
     // facebook: ["email", "user_birthday", "user_location", "user_hometown"],
     // facebook: ["email", "public_profile", "user_friends"],
@@ -56,7 +57,7 @@ Accounts.ui.config({
   requestOfflineToken: {
     google: true
   },
-  profilePath: '/profile',
+  // profilePath: '/profile',
   onSubmitHook: (error, state) => {
     console.log(error, state);
     
@@ -68,7 +69,7 @@ Accounts.ui.config({
     // }
     if (Meteor.user() ) {
       // console.log(Meteor.user());
-      return
+      // return
     }
     if (!error) { Bert.alert("Check your inbox for a sign-in link!", 
       "pk-success", "growl-top-right", "fa-thumbs-up", )  } 
@@ -76,15 +77,15 @@ Accounts.ui.config({
     if (error) {Bert.alert(error.reason || error.message, 
       "pk-danger", "growl-top-right", "fa-thumbs-down", )}
   },
-  onPreSignUpHook: (options) => {
-    console.log(options)
-  },
-  onPostSignUpHook: (options, user) => {
-    console.log(options)
-  },
-  onSignedInHook: () => {
-    // console.log("signedin")
-  }
+  // onPreSignUpHook: (options) => {
+  //   console.log(options)
+  // },
+  // onPostSignUpHook: (options, user) => {
+  //   console.log(options)
+  // },
+  // onSignedInHook: () => {
+  //   // console.log("signedin")
+  // }
 });
 
 Accounts.onLoginFailure(function(error) {
