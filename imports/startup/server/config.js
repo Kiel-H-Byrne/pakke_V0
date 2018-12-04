@@ -113,7 +113,6 @@ Accounts.onCreateUser(function(options, user) {
   return myUser;
 });
 
-
 Accounts.validateNewUser(function(user) {
     console.log('Checking for Existing E-mail...');
     if (user && user.emails) {
@@ -180,6 +179,31 @@ Accounts.validateNewUser(function(user) {
       throw new Meteor.Error(403, 'There must be an e-mail address associated with this account.');
     }
 });
+
+
+Accounts.validateLoginAttempt(function (data) {
+  // console.log(data)
+  if (!data.allowed) {
+    throw new Meteor.Error(data.error.error, data.error.reason);
+    return false
+  };
+  if (data.type == 'resume') return true;
+
+    if (data.methodName == 'createUser') {
+      const diff = new Date() - new Date(data.user.createdAt)
+      if (diff < 2000) {
+        // console.info('New User, denying autologin. Must verify first');
+        // Bert.alert("", 
+      // "pk-success", "growl-top-right", "fa-thumbs-up", )
+      throw new Meteor.Error(500, "Check your inbox for a sign-in link!")
+        return false;
+      } else {
+        return true
+      }
+    }
+
+})
+
 
 // Accounts.onLogin(function(user) {
 //   console.log(user);

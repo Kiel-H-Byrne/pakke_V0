@@ -39,7 +39,7 @@ Bert.defaults = {
   // growl-bottom-left, growl-bottom-right.
   type: 'pk-info',
   // Accepts: default, success, info, warning, danger.
-  icon: 'fa-info'
+  icon: 'fa-info-circle'
 };
 
 Accounts.ui.config({
@@ -67,11 +67,11 @@ Accounts.ui.config({
       // console.log(Meteor.user());
       return
     }
-    if (!error) { Bert.alert("Check your inbox for a sign-in link!", 
-      "pk-success", "growl-top-right", "fa-thumbs-up", )  } 
+    // if (!error) { Bert.alert("Check your inbox for a sign-in link!", 
+    //   "pk-success", "growl-top-right", "fa-thumbs-up", )  } 
 
-    if (error) {Bert.alert(error.reason || error.message, 
-      "pk-danger", "growl-top-right", "fa-thumbs-down", )}
+    // if (error) {Bert.alert(error.reason || error.message, 
+    //   "pk-danger", "growl-top-right", "fa-thumbs-down", )}
   },
   onPreSignUpHook: (options) => {
     console.log(options)
@@ -85,7 +85,7 @@ Accounts.ui.config({
 });
 
 Accounts.onLoginFailure(function(error) {
-  Bert.alert(error.error.reason, "pk-info", "growl-top-right")
+  Bert.alert(error.error.reason, "pk-info", "growl-top-right", "fa-info")
 });
 
 Accounts.onLogin(function(loginDetails) {
