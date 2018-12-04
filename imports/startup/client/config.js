@@ -59,6 +59,9 @@ Accounts.ui.config({
   profilePath: '/profile',
   onSubmitHook: (error, state) => {
     console.log(error, state);
+    
+    // if (!error && state == "symbol(SIGN_IN)") { Bert.alert("Please check your e-mail to log-in without a password!", "pk-success", "growl-top-right", "fa-thumbs-up", )  }
+
     // if (state = "Symbol(SIGN_IN)") {
     //   console.log("true"); 
     //   return;
