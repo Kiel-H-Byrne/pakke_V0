@@ -58,45 +58,54 @@ Accounts.ui.config({
   },
   profilePath: '/profile',
   onSubmitHook: (error, state) => {
-    console.log(error, state);
+    console.info("onSubmitHook")
+    // console.log(error, state);
     // if (state = "Symbol(SIGN_IN)") {
-    //   console.log("true"); 
+    //   console.log("logging in.."); 
     //   return;
     // }
     if (Meteor.user() ) {
       // console.log(Meteor.user());
       return
     }
-    // if (!error) { Bert.alert("Check your inbox for a sign-in link!", 
-    //   "pk-success", "growl-top-right", "fa-thumbs-up", )  } 
+    if (!error) { Bert.alert("Check your inbox for a sign-in link!", 
+      "pk-success", "growl-top-right", "fa-thumbs-up", )  } 
 
-    // if (error) {Bert.alert(error.reason || error.message, 
-    //   "pk-danger", "growl-top-right", "fa-thumbs-down", )}
+    if (error) {Bert.alert(error.reason || error.message, 
+      "pk-danger", "growl-top-right", "fa-thumbs-down", )}
+    // console.info("still running...")
+    return 
   },
-  onPreSignUpHook: (options) => {
-    console.log(options)
-  },
-  onPostSignUpHook: (options, user) => {
-    console.log(options)
-  },
-  onSignedInHook: () => {
-    // console.log("signedin")
-  }
+  // onPreSignUpHook: (options) => {
+  //       console.info("onPreSignUpHook")
+
+  //   // console.log(options)
+  // },
+  // onPostSignUpHook: (options, user) => {
+  //       console.info("onPostSignUpHook")
+
+  //   // console.log(options)
+  // },
+  // onSignedInHook: () => {
+  //       console.info("onSignedInHook")
+
+  //   // console.log("signedin")
+  // }
 });
 
 Accounts.onLoginFailure(function(error) {
   Bert.alert(error.error.reason, "pk-info", "growl-top-right", "fa-info")
 });
 
-Accounts.onLogin(function(loginDetails) {
-  // Bert.alert("Welcome!", "pk-success", "growl-top-right")
-  // console.log(loginDetails)
-});
+// Accounts.onLogin(function(loginDetails) {
+//   Bert.alert("Welcome!", "pk-success", "growl-top-left")
+//   console.log(loginDetails)
+// });
 
-Accounts.onEmailVerificationLink(function(token, done){
-  Accounts.verifyEmail(token); //then logs in
-  //remove old emaila address what position is it? 
-});
+// Accounts.onEmailVerificationLink(function(token, done){
+//   Accounts.verifyEmail(token); //then logs in
+//   //remove old emaila address what position is it? 
+// });
 
 // Facebook: https://developers.facebook.com/docs/authentication/permissions/
 // Google: https://developers.google.com/identity/protocols/googlescopes

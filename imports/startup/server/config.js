@@ -58,9 +58,9 @@ if (!SOUP) {
     }
 }
 
-Accounts.config({
-  sendVerificationEmail: true
-});
+// Accounts.config({
+//   sendVerificationEmail: true
+// });
 
 Accounts.onCreateUser(function(options, user) {
   //CREATE NEW MYUSER OBJECT AND COPY ALL DEFAULT ATTRIBUTS TO IT
@@ -140,7 +140,7 @@ Accounts.validateNewUser(function(user) {
           //   console.log(error)
           // })
         }
-        console.log("User Exists Already");
+        // console.log("Existing");
         throw new Meteor.Error(500, `You've been here before! Login with ${provider}.`);
       } else {
         console.log(`-= NEW USER: ${user_email}=- `);
@@ -180,10 +180,11 @@ Accounts.validateNewUser(function(user) {
     }
 });
 
-
 Accounts.validateLoginAttempt(function (data) {
-  // console.log(data)
+  // console.info("Validating Login...")
+  // console.log(data) 
   if (!data.allowed) {
+    console.log("oh no!!!!!!!!!!!!")
     throw new Meteor.Error(data.error.error, data.error.reason);
     return false
   };
@@ -197,11 +198,9 @@ Accounts.validateLoginAttempt(function (data) {
       // "pk-success", "growl-top-right", "fa-thumbs-up", )
       throw new Meteor.Error(500, "Check your inbox for a sign-in link!")
         return false;
-      } else {
-        return true
       }
     }
-
+    return true;
 })
 
 
