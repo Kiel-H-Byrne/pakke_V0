@@ -33,8 +33,12 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=qA32pelesv">
   <!--link rel="apple-touch-startup-image" href="/img/brand/Pakke_1024.png" /-->
   <link rel="mask-icon" href="/icons/safari-pinned-tab.svg?v=qA32pelesv" color="#2964ff">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+
+  <!-- link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" / -->
+
   <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
   <noscript>
     <style>
       body {
@@ -48,11 +52,12 @@
         content: "Please enable Javascript to properly use this site.";
       }
     </style>
-    Please enable Javascript to properly use this site.
+    This website utilizes Javascript. It must be enabled to properly use this site.
   </noscript>
 </head>
 
 <body>
+  <div id="render-target"></div>
   <div id="fb-root"></div>
   <script>
 
@@ -86,8 +91,12 @@
     
     $crisp.push(["safe", true])
 
+    WebFont.load({
+      google: {
+        families: ['Roboto', 'Material Icons']
+      }
+    });
   </script>
-  
 
-  <div id="render-target"></div>
+
 </body>

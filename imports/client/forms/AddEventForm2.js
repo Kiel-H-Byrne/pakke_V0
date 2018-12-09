@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Editor } from '@tinymce/tinymce-react';
 import { Link } from 'react-router-dom';
-import {Helmet} from "react-helmet";
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -61,9 +60,6 @@ class ControlledExpansionPanels extends React.Component {
 
     return (
             <React.Fragment>
-            <Helmet>
-                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-            </Helmet>
       <AutoForm  
       schema={Schema.Event} 
       model={model} 

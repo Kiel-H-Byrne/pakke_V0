@@ -14,6 +14,7 @@ import SubmitField from 'uniforms-material/SubmitField';
 import TextField   from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 import InputLabel from '@material-ui/core/InputLabel';
+import Fab from '@material-ui/core/Fab';
 
 import DateTime from '../DateTime.js'
 import FileUpload from './FileUpload.js';
@@ -80,9 +81,7 @@ const styles = theme => ({
 
 		return (
 			<div>
-	    <Button variant="fab" mini aria-label="edit" className={classes.button} onClick={this.handleOpen}> 
-				<EditIcon />
-			</Button>
+	    <Fab size="small" aria-label="edit" color="secondary" className={classes.button} onClick={this.handleOpen}><EditIcon /></Fab> 
 			<Modal 
         aria-labelledby="Edit Event"
         aria-describedby="Edit your event."

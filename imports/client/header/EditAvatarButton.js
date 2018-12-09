@@ -4,6 +4,7 @@ import { Random } from 'meteor/random';
 
 import Button from '@material-ui/core/Button'
 import EditIcon from '@material-ui/icons/Edit'
+import Fab from '@material-ui/core/Fab';
 
 const styles = {
   editIcon: {
@@ -84,7 +85,7 @@ class EditAvatarButton extends Component {
     return (
       <React.Fragment>
         <input type="file" id="avatar_input" hidden ref="avatar_input" onChange={this.uploadIt} style={{display:'none'}}/>
-        <Button variant="fab" mini onClick={this.handleClick} style={styles.editIcon}><EditIcon style={{color:'none'}} /></Button>
+        <Fab size="small" onClick={this.handleClick} style={styles.editIcon}><EditIcon style={{color:'none'}} /></Fab>
       </React.Fragment>
     );
   }

@@ -184,7 +184,7 @@ Accounts.validateLoginAttempt(function (data) {
   // console.info("Validating Login...")
   // console.log(data) 
   if (!data.allowed) {
-    console.log("oh no!!!!!!!!!!!!")
+    console.log("login error....")
     throw new Meteor.Error(data.error.error, data.error.reason);
     return false
   };

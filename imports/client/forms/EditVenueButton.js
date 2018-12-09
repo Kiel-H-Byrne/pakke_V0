@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import EditIcon from '@material-ui/icons/Edit'
 import InputLabel from '@material-ui/core/InputLabel';
+import Fab from '@material-ui/core/Fab';
 
 import AutoField  from 'uniforms-material/AutoField';
 import AutoForm    from 'uniforms-material/AutoForm';
@@ -75,9 +76,9 @@ const styles = theme => ({
     // console.log(model)
     return (
       <div>
-        <Button variant="fab" mini onClick={this.handleOpen}>
+        <Fab size="small" onClick={this.handleOpen}>
           <EditIcon />
-        </Button>
+        </Fab>
       <Modal 
         aria-labelledby="Edit Venue"
         aria-describedby="Edit your Venue"

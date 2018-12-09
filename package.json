@@ -64,8 +64,8 @@
     "simpl-schema": "^1.5.3",
     "stripe": "^5.8.0",
     "typeface-roboto": "0.0.54",
-    "uniforms": "^1.25.0",
-    "uniforms-material": "^1.25.0",
+    "uniforms": "^1.29.0",
+    "uniforms-material": "^1.29.0",
     "zoho": "^1.0.0"
   }
 }

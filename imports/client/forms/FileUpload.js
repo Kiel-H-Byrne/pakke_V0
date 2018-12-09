@@ -19,6 +19,7 @@ import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto'
+import Fab from '@material-ui/core/Fab';
 
 import { BarLoader } from 'react-spinners';
 // import VenueImages from '/imports/startup/collections/VenueImages.js';
@@ -128,7 +129,7 @@ export default class FileUpload extends Component {
         <Grid item xs={12}>
           <HiddenField name={this.props.name} value={this.state.s3path ? this.state.s3path : this.props.value} />
           <input type="file" id={`file_input_${this.props.module}`} hidden ref={`file_input_${this.props.module}`} onChange={this.putIt} accept="image/*"/>
-          <Button variant="fab" mini onClick={this.handleClick}><AddAPhotoIcon/></Button>
+          <Fab size="small" aria-label="Add" onClick={this.handleClick}><AddAPhotoIcon/></Fab>
         </Grid>
 
         <Grid item xs={12} className="">

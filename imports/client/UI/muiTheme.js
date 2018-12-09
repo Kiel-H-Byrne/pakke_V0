@@ -64,10 +64,10 @@ const muiTheme = createMuiTheme({
           backgroundColor: '#A3A7B2',
           color: '#fff'
         },
-        fab: {
-          backgroundColor: '#2964ff',
-          color:' #ffc429'
-        },
+        // fab: {
+        //   backgroundColor: '#2964ff',
+        //   color:' #ffc429'
+        // },
         focusVisible: {
           backgroundColor: '#266199'
         },

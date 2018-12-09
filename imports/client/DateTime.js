@@ -1,5 +1,4 @@
 import React from 'react';
-import {Helmet} from "react-helmet";
 
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
@@ -13,7 +12,7 @@ export default class DateTime extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDate: this.props.value || null,
+      selectedDate: this.props.value || new Date(),
     }
   }
 
@@ -25,11 +24,8 @@ export default class DateTime extends React.Component {
   render() {
     return (
     <React.Fragment>
-      <Helmet>
-          <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-      </Helmet>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <HiddenField name="date" value={this.state.selectedDate} />
+          <HiddenField name="date" value={this.state.selectedDate}  />
           <DateTimePicker style={{width:'100%'}}
             value={this.state.selectedDate}
             label="Select a date"
@@ -37,7 +33,6 @@ export default class DateTime extends React.Component {
             disablePast
             autoOk
             autoSubmit
-            showTodayButton
             onChange={this.handleDateChange}
           />
       </MuiPickersUtilsProvider>

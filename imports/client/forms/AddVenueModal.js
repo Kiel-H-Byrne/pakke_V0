@@ -65,8 +65,7 @@ class AddVenueModalComponent extends Component {
     const { classes } = this.props;
 
     return (
-        <ButtonBase focusRipple className={classes.button} >
-      {/* <Button variant="fab" onClick={this.handleOpen} className={classes.button}> <AddLocationIcon /> </Button> */}
+      <ButtonBase focusRipple className={classes.button} >
       <Card elevation={5} onClick={this.handleOpen} className={classes.card}  >
         <CardMedia className={classes.media} image="/img/holders/holder_venue_200.png" />
         <CardContent className={classes.content}>

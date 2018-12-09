@@ -101,7 +101,7 @@ class VenuesFormComponent extends Component {
   // }
 
   handleChange = event => {
-    this.setState({ selected: event.target.value });
+    this.setState({ selected: event.target.value || '' });
   }
   handleSubmit = doc => {
     // console.log(doc)

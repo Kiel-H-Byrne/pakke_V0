@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import AddLocationIcon from '@material-ui/icons/AddLocation'
+import Fab from '@material-ui/core/Fab';
 
 import AddVenueForm from './AddVenueForm.js'
 
@@ -43,7 +44,7 @@ class AddVenueModalComponent extends Component {
 
     return (
             <React.Fragment>
-      <Button variant="fab" onClick={this.handleOpen} className={classes.button}> <AddLocationIcon /> </Button>
+      <Fab onClick={this.handleOpen} className={classes.button}> <AddLocationIcon /> </Fab>
       <Modal 
         aria-labelledby="Add Venue Form"
         aria-describedby="Add a new venue from which to host an experience."

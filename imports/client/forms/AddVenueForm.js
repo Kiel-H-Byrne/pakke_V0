@@ -77,11 +77,11 @@ class AddVenueForm extends Component {
         completeAddress.addListener('place_changed', function() {
           // fillInAddress(this);
           const place = this.getPlace()
-          console.log(place)
+          // console.log(place)
           self.setState({
             place: place
           })
-          console.log(place.geometry.location.lat())
+          // console.log(place.geometry.location.lat())
           // getGeo(this)
           // $(".address_group label").css('hide');
         });
@@ -92,7 +92,7 @@ class AddVenueForm extends Component {
     const { classes } = this.props;
 
     const model = Schema.Venue.clean({});
-    console.log(model);
+    // console.log(model);
     //ALLOWS FOR DEFAULT VALUES TO GET PULLED INTO FORM VALUES FOR VALIDATION/SUBMISSION. 
     //WITHOUT THIS, AUTOVALUES/DEFAULTVALUES ARE EMPTY WHEN FORM IS SUBMITTED!!!
     return (

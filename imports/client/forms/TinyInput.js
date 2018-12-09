@@ -24,7 +24,7 @@ $(document).on('focusin', function(e) {
 class TinyInput extends Component {
   constructor(props) {
     super(props);
-    this.state = { content: props.content || '' };
+    this.state = { content: props.content || '...' };
     this.handleEditorChange = this.handleEditorChange.bind(this);
   }
 
