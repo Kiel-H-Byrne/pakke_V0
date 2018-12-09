@@ -38,9 +38,9 @@ function InputWithIcon(props) {
           "Email" : value,
           "Lead Source": "HomePage Form"
         };
-        Bert.alert("Thank you! You can also Sign in with Facebook or Google.", "pk-success", "fixed-bottom", "fa-thumbs-up");
-        Meteor.call('crmInsert', 'leads', crmParams);
-     } else {
+      Bert.alert("Thank you! You can also Sign in with Facebook or Google.", "pk-success", "fixed-bottom", "fa-thumbs-up");
+        Meteor.call('crmInsert', 'leads', crmParams)
+      } else {
         Bert.alert("Invalid E-mail Address", "danger");
       };
     }
@@ -62,7 +62,7 @@ function InputWithIcon(props) {
               size='large'
               type='submit'
               className={classes.input}
-            >Join Us</Button>
+            >Subscribe</Button>
       </form>
     );
 }

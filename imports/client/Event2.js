@@ -110,7 +110,8 @@ export default class Event extends Component {
                 // if (remainingTickets === 0) {this.setState({soldOut: true})}
         
         const one_day=1000*60*60*24;
-        const realEventDate = new Date((this.props.event.date * 1) + ((new Date().getTimezoneOffset())*60*1000))
+        // const realEventDate = new Date((this.props.event.date * 1) + ((new Date().getTimezoneOffset())*60*1000))
+        const realEventDate = this.props.event.date;
         const isExpired = (realEventDate.getTime() < Date.now())
         // const isExpired = (((realEventDate.getTime() - Date.now())/one_day) <= -1) //DATE IS YESTERDAY
         const isTBD = (((realEventDate.getTime() - Date.now())/one_day) > 364)

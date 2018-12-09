@@ -22,6 +22,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import DateFnsUtils from '@date-io/date-fns';
 
 import Venues from '/imports/startup/collections/venues.js';
 import PageError from './PageError.js';
@@ -188,8 +189,6 @@ class EventDetailsComponent extends Component {
     }
   }
   render() {
-    const { classes } = this.props;
-
     if (this.props.loading) {
       return (
         <div>
@@ -207,11 +206,17 @@ class EventDetailsComponent extends Component {
       return <PageError />
     }
 
+    const datefns = new DateFnsUtils();
+    const { classes } = this.props;
     const one_day=1000*60*60*24;
-    const realEventDate = new Date((this.props.event.date * 1) + ((new Date().getTimezoneOffset())*60*1000))
+    let eventDate = this.props.event.date;
+    // const realEventDate = new Date((this.props.event.date * 1) + ((new Date().getTimezoneOffset())*60*1000))
+    // const realEventDate = this.props.event.date;eventDate
+
+    // console.log(this.props.event.date, realEventDate);
     // const isExpired = (((realEventDate.getTime() - Date.now())/one_day) <= -1) //EVENT DATE IS YESTERDAY (ALLOW TO BUY UP TO DAY AFTER)
-    const isExpired = (realEventDate.getTime() < Date.now()) //EVENT DATE & Time is a milLisecond BEFORE CURRENT TIME (ALLOW TO BUY UP TO EVENT TIME)
-    const isTBD = (((realEventDate.getTime() - Date.now())/one_day) > 364) //DATE IS A YEAR AHEAD 
+    const isExpired = (eventDate.getTime() < Date.now()) //EVENT DATE & Time is a milLisecond BEFORE CURRENT TIME (ALLOW TO BUY UP TO EVENT TIME)
+    const isTBD = (((eventDate.getTime() - Date.now())/one_day) > 364) //DATE IS A YEAR AHEAD 
     const isSoldOut = (this.props.event.confirmedList.length >= this.props.event.size);
     // console.log(this.props)
     return (
@@ -280,7 +285,9 @@ class EventDetailsComponent extends Component {
                     <TableBody className={classes.table}>
                       <TableRow>
                         <TableCell className={classes.cell}><h5>WHEN:</h5> </TableCell>
-                        <TableCell numeric={true} className={classes.cell}>{realEventDate.toDateString().substring(0, (realEventDate.toDateString()).length - 5)}</TableCell>
+                        <TableCell numeric={true} className={classes.cell}>
+                        {`${datefns.format(eventDate, 'EEEE MMM do @ h:mmaaaaa')}`}
+                        </TableCell>
                       </TableRow>
                       <TableRow>
                         <TableCell className={classes.cell}><h5>PRICE:</h5> </TableCell>

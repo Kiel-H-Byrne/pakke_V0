@@ -305,16 +305,45 @@ Meteor.methods({
       return response;
     }
   }, 
-  crmInsert: function(module, params, callback) {
+  crmInsert: function(module, params) {
       check(module, String);
       check(params, Object);
     // crm_modules = [leads,accounts, contacts, potentials, campaingns, cases, solutions, products, price books, quotes, invoices, saleds orders, vendors, purchase orders, events, takss, calls]
-    zcrm.createRecord(module, params, function(err,data) {
-      if (err) {
-        console.log(err);
+    
+    zcrm.searchRecords(module, {criteria: `(Email: ${params.Email})`}, function(err,data) {
+      if (err && (err.code =="4422")) {
+        // console.log(err)
+        // no user, do something
+        zcrm.createRecord(module, params, function(err,data) {
+          if (err) {
+            // console.log(err);
+            return false
+          }
+          console.log(`-= NEW ${module.toUpperCase()}! =- `);
+          return true
+        });
+        // console.log('new lead')
+        return true
+      } else {
+        // console.log(data.data.Leads.row)
+        // throw new Meteor.Error(300, "You've subscribed to our newsletter! Time to log in!");
+        return false
       }
-      console.log(`-= NEW ${module.toUpperCase()}! =- `);
     });
+    // if (!Accounts.findUserByEmail(params.Email)) {
+    //   zcrm.createRecord(module, params, function(err,data) {
+    //     if (err) {
+    //       console.log(err);
+    //       return false
+    //     }
+    //     console.log(`-= NEW ${module.toUpperCase()}! =- `);
+    //     return true
+    //   });
+    // } else {
+    //   
+    //   return false
+    // }
+    // return 
   },
   crmGet: function(module, params, callback) {
     zcrm.getRecords(module, params, function(err,res) {
@@ -436,6 +465,9 @@ Meteor.methods({
     } else {
       console.log("MUST LOG IN")
     }
+  },
+  ifUserExists: function(email) {
+    return Accounts.findUserByEmail(email)
   },
   getCL: function(eventId) {
     if (Roles.userIsInRole(this.userId, ["admin"])) {
