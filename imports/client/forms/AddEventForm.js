@@ -41,7 +41,6 @@ import TinyInput from './TinyInput.js'
 //ALLOWS FOR DEFAULT VALUES TO GET PULLED INTO FORM VALUES FOR VALIDATION/SUBMISSION. 
 //WITHOUT THIS, AUTOVALUES/DEFAULTVALUES ARE EMPTY WHEN FORM IS SUBMITTED!!!
 
-
 class AddEventForm extends Component {
     state = {mask: ''}
     handleSubmit = doc => {
@@ -106,7 +105,7 @@ class AddEventForm extends Component {
         }
         return (
             <Grid container alignItems="center" direction="column" style={{width:"inherit", margin: ".5rem"}}>
-                <Grid item >
+                <Grid item xs={12}>
                     <AutoForm  
                     schema={Schema.Event} 
                     model={model} 
@@ -116,6 +115,7 @@ class AddEventForm extends Component {
                     className="tinyForm"
                     id="addeventForm"
                     autoComplete="off"
+                    style={styles.form}
                     >   
                         <div>
                             <Typography variant="display1" align="center">Step 1. - Locate It</Typography>
