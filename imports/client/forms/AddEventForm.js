@@ -115,7 +115,6 @@ class AddEventForm extends Component {
                     className="tinyForm"
                     id="addeventForm"
                     autoComplete="off"
-                    style={styles.form}
                     >   
                         <div>
                             <Typography variant="display1" align="center">Step 1. - Locate It</Typography>
