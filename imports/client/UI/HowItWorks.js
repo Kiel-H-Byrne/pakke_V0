@@ -72,23 +72,23 @@ function HowItWorks(props) {
                 <Grid item xs={12} md={4}>
                     <Launch style={styles.icon} />
                     <Typography align={'center'} style={styles.box1} variant="headline">
-                    1. Apply for Ticket</Typography>
+                    1. Find Your Community</Typography>
                     <hr style={styles.divider} />
-                    <Typography align={'center'} style={styles.box2} variant="subheading">Its free to apply, just sign in! Apply up until the day before the event.</Typography>
+                    <Typography align={'center'} style={styles.box2} variant="subheading">Search for a local experience and do something new (instead of going to that same old bar....again).</Typography>
                 </Grid>
 
                 <Grid item xs={12}  md={4}>
                     <EventAvailable style={styles.icon} />
-                    <Typography align={'center'} style={styles.box1} variant="headline">2. Get Selected</Typography>
+                    <Typography align={'center'} style={styles.box1} variant="headline">2. Buy Ticket </Typography>
                     <hr style={styles.divider} />
-                    <Typography align={'center'} style={styles.box2} variant='subheading'>Selections are made using a lottery system. Once you are selected, you will be able to purchase your ticket.</Typography>
+                    <Typography align={'center'} style={styles.box2} variant='subheading'>Purchase your ticket to gain access to event details, features, and important party details.</Typography>
                 </Grid>
 
                 <Grid item xs={12} md={4}>
                     <ConfirmationNumber style={styles.icon} />
-                    <Typography align={'center'} style={styles.box1} variant="headline">3. Buy Ticket</Typography>
+                    <Typography align={'center'} style={styles.box1} variant="headline">3. Connect with Community</Typography>
                     <hr style={styles.divider} />
-                    <Typography align={'center'} style={styles.box2} variant='subheading'>Purchase your ticket to gain access to event details, features, and important party details.</Typography>
+                    <Typography align={'center'} style={styles.box2} variant='subheading'>Bring something to share, meet a new friend, meet awesome people in your community!</Typography>
                 </Grid>
             </Grid>
         </Paper>

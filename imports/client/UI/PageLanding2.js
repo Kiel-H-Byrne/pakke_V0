@@ -24,8 +24,7 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     // background: 'black',
-    background: 'url(https://www.designbolts.com/wp-content/uploads/2013/02/Sandbag-Grey-Seamless-Pattern-For-Website-Background.jpg)',
-
+    background: 'url(img/holders/grey_sandbag.png)'
   },
   cards: {
     marginTop: theme.spacing.unit * 5,
