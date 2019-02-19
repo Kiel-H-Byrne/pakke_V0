@@ -18,9 +18,9 @@ export default class Marketplace extends React.Component {
   }
 
   render() {
-    if (!Roles.userIsInRole(this.props.thisUser, ["admin"])) {
-      return (<PageError />)
-    }
+    // if (!Roles.userIsInRole(this.props.thisUser, ["admin"])) {
+    //   return (<PageError />)
+    // }
     return (
       <Grid>
         <Typography>Events</Typography>

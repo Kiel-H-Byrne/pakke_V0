@@ -36,7 +36,7 @@ class EventGuests extends Component {
         <React.Fragment>
           <hr width="70%"/>
           <Paper style={styles.paper}>
-            <Typography variant="display1" align="center">Your Guests:</Typography>
+            <Typography variant="h4" align="center">Your Guests:</Typography>
             <Grid container justify="space-evenly" direction="row">
             { this.props.guests.map( guest => {
               let thisGuest = Meteor.users.findOne(guest._id);
@@ -53,7 +53,7 @@ class EventGuests extends Component {
         ) : (
         null 
           // <Paper style={styles.paper}>
-          //   <Typography variant="headline" align="center">No Guests Yet...</Typography>
+          //   <Typography variant="h5" align="center">No Guests Yet...</Typography>
           // </Paper>
         )
       )

@@ -65,7 +65,7 @@ function Hero(props) {
                     <Grid container justify={'center'} >
                         <img src="/ImageTriangleWhite.png" className={classes.triangle}></img>
                     </Grid>
-                    {/* <Typography className={classes.headlineText} align={'center'} variant='display2' gutterBottom>An Events & Experiences Company</Typography> */} <Typography className={classes.subheadingText} align={'center'} variant='display1'> Discover. Connect. Experience. </Typography>
+                    {/* <Typography className={classes.headlineText} align={'center'} variant='h3' gutterBottom>An Events & Experiences Company</Typography> */} <Typography className={classes.subheadingText} align={'center'} variant='h4'> Discover. Connect. Experience. </Typography>
                     {/* */}
                     <Grid container style={{ marginTop: '1rem' }} justify={'center'} alignItems ={'center'} direction={'column'}>
                         <Grid item xs={12}>

@@ -154,11 +154,11 @@ export default class Event extends Component {
                             </CardMedia>
 
                             <CardContent>
-                                <Typography gutterBottom variant="headline" component="h2">{this.props.event.byline}</Typography>
+                                <Typography gutterBottom variant="h5" component="h2">{this.props.event.byline}</Typography>
                                 <Typography gutterBottom variant="caption" dangerouslySetInnerHTML={{__html: this.props.event.description.substring(0, 100)+'...'}} />
                                 
                                 {/*
-                                <Typography variant="headline" component="h3">{this.props.event.eventAddress.state}, {this.props.event.eventAddress.zip} </Typography>
+                                <Typography variant="h5" component="h3">{this.props.event.eventAddress.state}, {this.props.event.eventAddress.zip} </Typography>
                                 <Typography variant='headline' component='p'><strong>{this.props.event.size}</strong> tickets available 
                                      <strong>{remainingTickets}</strong> remain
                                 </Typography>

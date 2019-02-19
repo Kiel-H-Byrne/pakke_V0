@@ -27,9 +27,9 @@ class ZarahnaDetails extends Component {
        </Grid>
        <Grid item xs={12}>
         <Paper align={'center'} style={{ width: '80%', margin: '2% auto'}}>
-         <Typography gutterBottom variant="display3">Micro Wellness Retreat in the Land of Zarahna</Typography>
-         <Typography gutterBottom variant="display1"><address>Land of Zarahna</address> </Typography>
-         <Typography gutterBottom variant="body2">
+         <Typography gutterBottom variant="h2">Micro Wellness Retreat in the Land of Zarahna</Typography>
+         <Typography gutterBottom variant="h4"><address>Land of Zarahna</address> </Typography>
+         <Typography gutterBottom variant="body1">
          <p><em>If you love health, wellness and a little adventure, check out the PAKKE/Owluma Micro Wellness Retreat in the otherworldly Land of Zarahna on Saturday, July 21-22. We will pick you up in DC on Saturday at 1:30pm, and whisk you away for 24 hours to our tree-secluded retreat cove for a beautiful sunset on the Potomac and the following experiences:</em></p>
          <ul>
            <li>Three delicious vegan meals</li>

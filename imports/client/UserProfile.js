@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withStyles } from '@material-ui/core/styles';
 import { BarLoader } from 'react-spinners';
-import Redirect from 'react-router';
+// import Redirect from 'react-router';
 import { Link } from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
@@ -80,7 +80,7 @@ class UserProfileComponent extends Component {
           )}
           <CardContent className='profile-head-text'>
             {(thisProfile.name) ? (
-              <Typography variant="subheading" align="center">I'm {thisProfile.name}!</Typography>
+              <Typography variant="subtitle1" align="center">I'm {thisProfile.name}!</Typography>
             ) : (
                 <h4> I'm new here! </h4>
               )

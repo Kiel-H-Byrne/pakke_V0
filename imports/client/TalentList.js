@@ -26,7 +26,6 @@ class TalentListComponent extends Component {
                 margin='1rem' />
                 )
           } else {
-            console.log("hi")
             return <TalentCard key={talent._id} talent={talent} />
           }
         })

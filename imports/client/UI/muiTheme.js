@@ -1,7 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
-
-
 const muiTheme = createMuiTheme({
     overrides: {
       MuiPickersToolbar: {
@@ -38,9 +36,9 @@ const muiTheme = createMuiTheme({
         day: {
           color: "#768fff",
         },
-        selected: {
-          backgroundColor: "#768fff",
-        },
+        // "&$selected": {
+        //   backgroundColor: "#768fff",
+        // },
         current: {
           color: "#768fff",
         },
@@ -60,10 +58,10 @@ const muiTheme = createMuiTheme({
           backgroundColor: '#2964ff',
           color: '#fff'
         },
-        disabled: {
-          backgroundColor: '#A3A7B2',
-          color: '#fff'
-        },
+        //   "&$disabled": {
+        //   backgroundColor: '#A3A7B2',
+        //   color: '#fff'
+        // },
         // fab: {
         //   backgroundColor: '#2964ff',
         //   color:' #ffc429'
@@ -104,11 +102,11 @@ const muiTheme = createMuiTheme({
         dark: '#226199',
       },
     },
-    typography: {
-    // Tell Material-UI what's the font-size on the html element is.
-    // fontSize: 14,
-    // htmlFontSize: 16,
-  },
+  //   typography: {
+  //   // Tell Material-UI what's the font-size on the html element is.
+  //   // fontSize: 14,
+  //   // htmlFontSize: 16,
+  // },
   });
 
   export default muiTheme;

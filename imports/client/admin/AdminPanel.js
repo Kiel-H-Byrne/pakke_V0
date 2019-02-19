@@ -53,7 +53,7 @@ class AdminPanelComponent extends Component {
     return (
       <div>
         <section>
-        <Typography variant="display2" align="center">Events</Typography>
+        <Typography variant="h3" align="center">Events</Typography>
         <Table>
         <TableHead>
           <TableRow>
@@ -94,7 +94,7 @@ class AdminPanelComponent extends Component {
 
 
 <section>
-        <Typography variant="display2" align="center">Venues</Typography>
+        <Typography variant="h3" align="center">Venues</Typography>
         <AddVenueModal />
         <Table>
         <TableHead>

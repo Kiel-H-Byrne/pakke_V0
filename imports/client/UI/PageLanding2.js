@@ -114,7 +114,7 @@ class PageLanding2 extends Component {
 
             <Grid container justify='center' style={{ marginTop: '3%' }}>
               <Paper align={'center'}style={{width: 350}}>
-                <Typography style={{margin: '3%'}} variant='display1'> Local Experiences</Typography>
+                <Typography style={{margin: '3%'}} variant='h4'> Local Experiences</Typography>
               </Paper>
             </Grid>
             <Grid container alignItems="baseline" style={styles.cards} wrap="nowrap" className="scroll-wrapper-x" >
@@ -122,7 +122,7 @@ class PageLanding2 extends Component {
                 <div className={classes.featured} > 
                   <FeaturedEventList /> 
                    <Paper justify='center' align={'center'} style={{width: '100%', display:'block', clear: 'both'}}>
-                    <Typography style={{backgroundColor: '#2964ff', color: 'white'}} variant='display2'> Featured</Typography>
+                    <Typography style={{backgroundColor: '#2964ff', color: 'white'}} variant='h3'> Featured</Typography>
                   </Paper>
                 
                 </div>

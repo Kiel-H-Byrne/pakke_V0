@@ -88,8 +88,8 @@ class ControlledExpansionPanels extends React.Component {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
           <Grid container direction="column">
-              <Typography variant="display1" align="center">Step 2. - Describe It</Typography>
-              <Typography variant="subheading" align="center">Let guests know what this experience is about!</Typography>
+              <Typography variant="h4" align="center">Step 2. - Describe It</Typography>
+              <Typography variant="subtitle1" align="center">Let guests know what this experience is about!</Typography>
               <AutoField name="byline" />
               <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
               <TinyInput name="description"/>

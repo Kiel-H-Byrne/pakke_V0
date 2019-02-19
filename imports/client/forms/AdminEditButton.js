@@ -93,7 +93,7 @@ const styles = theme => ({
 
       > 
         <div className={classes.paper + ' scroll-wrapper-y'}>
-          <Typography variant="display2" align="center" id="eventPurchaseModal">Edit Event:</Typography>
+          <Typography variant="h3" align="center" id="eventPurchaseModal">Edit Event:</Typography>
           <AutoForm  
   	      schema={Schema.Event} 
   	      onSubmit={this.handleSubmit} 

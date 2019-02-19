@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withStyles } from '@material-ui/core/styles';
 import { BarLoader } from 'react-spinners';
-import Redirect from 'react-router';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -187,7 +186,7 @@ class PageProfileComponent extends Component {
               )}
               <CardContent className='profile-head-text'>
                 {(thisProfile.name) ? (
-                  <Typography variant="subheading" align="center">I'm {thisProfile.name}!</Typography>
+                  <Typography variant="subtitle1" align="center">I'm {thisProfile.name}!</Typography>
                 ) : (
                     <h4> I'm new here! </h4>
                   )
@@ -210,7 +209,7 @@ class PageProfileComponent extends Component {
           </Grid>
           <Grid item >
             <Paper id="profileForm" role="dialog" className={classes.profileForm}>
-              <Typography variant="title">Profile</Typography>
+              <Typography variant="h6">Profile</Typography>
               <AutoForm
               schema={Schema.Profile}
               model={model}
@@ -228,7 +227,7 @@ class PageProfileComponent extends Component {
                 onClose={this.handleClose} 
                 >
                   <div className={classes.paper}>
-                    <Typography variant="display1" align="center" id="AddEventModal-title">Change & Verify Your Email Address:</Typography>
+                    <Typography variant="h4" align="center" id="AddEventModal-title">Change & Verify Your Email Address:</Typography>
                     <Input fullWidth type="email" label="Preferred Email Address" onChange={this.handleEmail}></Input>
                     <Button type="submit" onClick={this.changeEmail} size="small">Change E-mail</Button>
                   </div>

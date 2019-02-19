@@ -240,6 +240,12 @@ Schema.Talent = new SimpleSchema({
     unique: true,
     optional: true
   },
+  description: {
+    type: String,
+    label: 'Describe your talent!',
+    optional: true,
+    max: 1000
+  },
   sample: {
     type: String,
     optional: true,

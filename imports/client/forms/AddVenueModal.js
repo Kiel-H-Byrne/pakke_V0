@@ -69,7 +69,7 @@ class AddVenueModalComponent extends Component {
       <Card elevation={5} onClick={this.handleOpen} className={classes.card}  >
         <CardMedia className={classes.media} image="/img/holders/holder_venue_200.png" />
         <CardContent className={classes.content}>
-          <Typography gutterBottom variant="subheading" align="center">
+          <Typography gutterBottom variant="subtitle1" align="center">
             Add New Place
           </Typography>
           <Typography component="p" variant="caption" gutterBottom>Add your home, business, or office where you will host your next event!</Typography>
@@ -82,7 +82,7 @@ class AddVenueModalComponent extends Component {
         onClose={this.handleClose}
       >
       <div className={classes.paper + ' scroll-wrapper-y'}>
-        <Typography variant="display1" align="center" id="AddVenueForm-title">Add New Place:</Typography>
+        <Typography variant="h4" align="center" id="AddVenueForm-title">Add New Place:</Typography>
         <AddVenueForm handleClose={this.handleClose}/>
       </div>
     </Modal>

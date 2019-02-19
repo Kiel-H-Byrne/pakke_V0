@@ -186,7 +186,7 @@ class HeaderComponent extends Component {
                             >
                                 <MenuIcon />
                             </IconButton>
-                            <Typography variant="title" style={styles.flex}>
+                            <Typography variant="h6" style={styles.flex}>
                                 <Link to='/'><img src="/ImageLogoBlack.png" alt='PAKKE Home' style={styles.pakkeLogo} /></Link>
                             </Typography>
                             <Typography variant="caption" style={styles.flex}><i>An Events & Experiences Company</i></Typography>

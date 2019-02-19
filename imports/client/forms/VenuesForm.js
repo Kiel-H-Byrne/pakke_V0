@@ -161,7 +161,7 @@ class VenuesFormComponent extends Component {
       	<div className="venuesList" >
           { (this.props.venues && this.props.venues.length) ? (
             <React.Fragment>
-              <Typography variant="subheading" align="center">Select a Place for your PAKKE. </Typography>
+              <Typography variant="subtitle1" align="center">Select a Place for your PAKKE. </Typography>
               <div style={styles.flexRow}>
                   <AddVenueModal />
         		      {this.props.venues.map((venue) => {
@@ -171,7 +171,7 @@ class VenuesFormComponent extends Component {
                           
                         </CardMedia> 
                         <CardContent style={styles.content}>
-                          <Typography gutterBottom variant="subheading" align="center">
+                          <Typography gutterBottom variant="subtitle1" align="center">
                             <em>"{venue.nickname}"</em>
                           </Typography>
                           <Typography component="p" variant="caption" gutterBottom>{venue.address}</Typography>
@@ -199,7 +199,7 @@ class VenuesFormComponent extends Component {
             </React.Fragment>
             ) : (
             <React.Fragment>
-            <Typography variant="subheading" align="center">Add a new place and use it later!</Typography>
+            <Typography variant="subtitle1" align="center">Add a new place and use it later!</Typography>
             <div style={styles.flexRow}>
               <AddVenueModal />
             </div>
