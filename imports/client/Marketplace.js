@@ -23,15 +23,15 @@ export default class Marketplace extends React.Component {
     // }
     return (
       <Grid>
-        <Typography>Events</Typography>
+        <Typography variant="h4">Experiences & Events</Typography>
         <Grid item container direction="row">
           <EventList />
         </Grid>
-        <Typography>Venues</Typography>
+        <Typography variant="h4">Places & Spaces</Typography>
         <Grid item container direction="row">
           <VenueList />
         </Grid>
-        <Typography>Entertainment</Typography>
+        <Typography variant="h4">Talented Partners & Vendors</Typography>
         <Grid item container direction="row">
           <TalentList />
         </Grid>

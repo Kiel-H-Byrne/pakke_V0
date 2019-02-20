@@ -243,7 +243,7 @@ class PageProfileComponent extends Component {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Tabs value={value} onChange={this.handleChange} fullWidth centered indicatorColor="secondary" textColor="secondary" style={{backgroundColor: '#fafafa'}} >
+          <Tabs value={value} onChange={this.handleChange} variant="fullWidth" centered indicatorColor="secondary" textColor="secondary" style={{backgroundColor: '#fafafa'}} >
             <Tab label="Guest" />
             <Tab label="Host" />
             <Tab label="Talent" />

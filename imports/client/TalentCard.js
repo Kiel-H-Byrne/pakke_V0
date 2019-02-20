@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
@@ -12,7 +13,8 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = {
   card: {
-    maxWidth: 175,
+    margin: 11,
+    maxWidth: 275,
   },
   title: {
     marginBottom: 16,
@@ -21,6 +23,18 @@ const styles = {
   pos: {
     marginBottom: 12,
   },
+  image: {
+    position: "relative",
+    height: 160
+  },
+  priceBadge: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    margin: 11,
+    fontSize: ".8rem",
+    backgroundColor: "#226199"
+  }
 };
 
 
@@ -36,21 +50,17 @@ class TalentCard extends Component {
               <Grid item>
                     <Card style={talent.featured ? styles.featured : styles.card}>
                         <Link className='event-card-link' to={`/event/${talent._id}`}>
-                            <CardMedia style={styles.image} image="https://picsum.photos/200/300/?random" } />
+                            <CardMedia style={styles.image} image="https://picsum.photos/200/300/?random">
+                              <Avatar style={styles.priceBadge}>${talent.fee}</Avatar>
+                            </CardMedia>
+
                             <CardContent>
-                                <Typography gutterBottom variant="h5" component="h2">{talent.name}</Typography>
-                                <Typography gutterBottom variant="caption" dangerouslySetInnerHTML={{}} />
-                                {/*
-                                                                  // __html: talent.description.substring(0, 100)+'...
-                                <Typography variant="h5" component="h3">{talent.eventAddress.state}, {talent.eventAddress.zip} </Typography>
-                                <Typography variant='headline' component='p'><strong>{talent.size}</strong> tickets available 
-                                     <strong>{remainingTickets}</strong> remain
+                                <Typography gutterBottom variant="body1" component="p"><strong>{talent.name}</strong> has {talent.experience} years of experience as a <em style={{color: "#ffa07a"}}>{talent.talentType}</em>. They prefer an audience size of around {talent.audienceSize} people.
                                 </Typography>
-                                */}
                             </CardContent>
                         </Link>
                         <CardActions style={styles.actions}>
-                            <Button component={Link} to={`/event/${talent._id}`}>View Details</Button>
+                            <Button component={Link} to={`/event/${talent._id}`}>Book Artist</Button>
                         </CardActions>
                     </Card>
             </Grid>

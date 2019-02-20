@@ -15,7 +15,7 @@ import Venues from '/imports/startup/collections/venues';
 
 const styles = {
     card: {
-        maxWidth: 140,
+        maxWidth: 160,
         minWidth: 100,
         margin: '1rem',
     },
@@ -66,7 +66,8 @@ class VenueListComponent extends Component {
                           <Typography component="p" variant="caption" gutterBottom>{venue.address}</Typography>
                           <Typography component="p" variant="caption" gutterBottom>{venue.type}: Holds {venue.capacity}</Typography>
                         </CardContent>
-                        {/* <CardActions >
+                         <CardActions >
+                         {/*
                           <Radio 
                           style={styles.radio}
                           checked={this.state.selected === venue._id} 
@@ -77,7 +78,9 @@ class VenueListComponent extends Component {
                           aria-label={venue.nickname}
                           />
                            <EditVenueButton venue={venue}/> 
-                        </CardActions> */}
+                           */}
+                           <Button type="contained" color="primary">Reserve Space</Button>
+                        </CardActions> 
                       </Card>
 
           }
