@@ -289,12 +289,8 @@ class HeaderComponent extends Component {
                                           horizontal: 'right',
                                         }}
                                         open={Boolean(anchorEl)}
-                                        onClose={this.handleClose}
-
-                                    >
-                                            <MenuItem
-                                            component={Accounts.ui.LoginForm}
-                                             />
+                                        onClose={this.handleClose} >
+                                            <MenuItem component={Accounts.ui.LoginForm} />
                                         </Menu>
                                     </div>
                                 )}
