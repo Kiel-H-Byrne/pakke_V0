@@ -64,11 +64,12 @@
   //FACEBOOK SDK INIT & PAGEVIEW
     window.fbAsyncInit = function () {
       FB.init({
-        appId: Meteor.settings.public.keys.facebookOAuth.app_id,
+        // appId: Meteor.settings.public.keys.facebookOAuth.app_id,
+        appId: '168356840569104',
         status: true,
         autoLogAppEvents : true,
         xfbml: true,
-        version: 'v3.1'
+        version: 'v3.2'
       });
 
       FB.AppEvents.logPageView();
