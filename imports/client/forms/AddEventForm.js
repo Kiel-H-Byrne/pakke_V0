@@ -117,13 +117,13 @@ class AddEventForm extends Component {
                     autoComplete="off"
                     >   
                         <div>
-                            <Typography variant="display1" align="center">Step 1. - Locate It</Typography>
+                            <Typography variant="h4" align="center">Step 1. - Locate It</Typography>
                             <VenuesForm form="addeventForm"/>
                           </div>
                             
                           <div >
-                            <Typography variant="display1" align="center">Step 2. - Describe It</Typography>
-                            <Typography variant="subheading" align="center">Let guests know what this experience is about!</Typography>
+                            <Typography variant="h4" align="center">Step 2. - Describe It</Typography>
+                            <Typography variant="subtitle1" align="center">Let guests know what this experience is about!</Typography>
                             <AutoField name="byline" />
                             <div><DateTime/></div>
                             <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
@@ -136,7 +136,7 @@ class AddEventForm extends Component {
                           </div>
                             
                           <div >
-                            <Typography variant="display1" align="center">Step 3. - Publish It</Typography>
+                            <Typography variant="h4" align="center">Step 3. - Publish It</Typography>
                             {/*
                             <InputLabel>Contact Number:</InputLabel>
                             <Input

@@ -217,7 +217,7 @@ class PaymentRequestForm extends React.Component {
               <path className="checkmark" strokeLinecap="round" strokeLinejoin="round" d="M23.375 42.5488281 36.8840688 56.0578969 64.891932 28.0500338" strokeWidth="4" stroke="#000" fill="none"></path>
             </svg>
           </div>
-          <h3 className="title">Payment successful</h3>
+          <h3 className="h6">Payment successful</h3>
           <p className="message">
             <span>See You Soon!</span>
           </p>

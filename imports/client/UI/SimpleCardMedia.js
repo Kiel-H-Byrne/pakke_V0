@@ -33,15 +33,15 @@ function SimpleMediaCard(props) {
         <CardMedia className={classes.image} image="https://webapp.blackscreen1.com/img/blackscreen1logo.jpg" >
           <CardContent className={classes.cardContent}>
               
-              <Typography align={'center'} variant={'display2'} color={'secondary'}> May</Typography>
-              <Typography align={'center'} variant={'display2'} color={'secondary'}>9th</Typography>
+              <Typography align={'center'} variant={'h3'} color={'secondary'}> May</Typography>
+              <Typography align={'center'} variant={'h3'} color={'secondary'}>9th</Typography>
               
                 
           </CardContent>
         </CardMedia>
 
         <CardContent>
-          <Typography gutterBottom variant="headline" component="h2">
+          <Typography gutterBottom variant="h5" component="h2">
             PAKKE Launch Event
           </Typography>
           

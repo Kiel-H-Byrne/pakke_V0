@@ -38,7 +38,7 @@ const muiTheme = createMuiTheme({
         day: {
           color: "#768fff",
         },
-        selected: {
+        "&$selected": {
           backgroundColor: "#768fff",
         },
         current: {
@@ -60,10 +60,10 @@ const muiTheme = createMuiTheme({
           backgroundColor: '#2964ff',
           color: '#fff'
         },
-        disabled: {
-          backgroundColor: '#A3A7B2',
-          color: '#fff'
-        },
+        // "&$disabled": {
+        //   backgroundColor: '#A3A7B2',
+        //   color: '#fff'
+        // },
         // fab: {
         //   backgroundColor: '#2964ff',
         //   color:' #ffc429'
@@ -103,12 +103,7 @@ const muiTheme = createMuiTheme({
         main: '#2964ff',
         dark: '#226199',
       },
-    },
-    typography: {
-    // Tell Material-UI what's the font-size on the html element is.
-    // fontSize: 14,
-    // htmlFontSize: 16,
-  },
+    }
   });
 
   export default muiTheme;

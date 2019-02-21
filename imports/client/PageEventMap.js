@@ -25,7 +25,7 @@ class LandingPage extends Component {
                 <Grid container justify="center" alignItems="center" direction="column">
                     <Map />
                     <Paper align={'center'} style={{ marginTop: '1rem', width: '22rem' }}>
-                        <Typography style={{ margin: '.5rem' }} variant='display1'>Local Experiences</Typography>
+                        <Typography style={{ margin: '.5rem' }} variant='h4'>Local Experiences</Typography>
                     </Paper>
                 </Grid>
                 <Grid container alignItems="baseline" style={styles.cards} wrap="nowrap" className="scroll-wrapper-x" >
@@ -36,7 +36,7 @@ class LandingPage extends Component {
 {/*
             <Grid container justify={'center'} style={{ marginTop: '10%' }}>
               <Paper align={'center'}style={{width: 350}}>
-                <Typography style={{margin: '2%'}} variant='display2'>Featured Events</Typography>
+                <Typography style={{margin: '2%'}} variant='h3'>Featured Events</Typography>
               </Paper>
             </Grid>
    

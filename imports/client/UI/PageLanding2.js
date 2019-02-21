@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 
 import muiTheme from '../UI/muiTheme';
 import WhatIsPAKKEEvent from '../UI/WhatIsPAKKEEvent';
-import HowItWorks from '../UI/HowItWorks';
+import CoreValues from '../UI/CoreValues';
 import Hero from '../UI/Hero';
 import EventList from '../EventList';
 import FeaturedEventList from '../FeaturedEventList';
@@ -98,7 +98,7 @@ class PageLanding2 extends Component {
           <div className={classes.root}>
             <Hero />
             <WhatIsPAKKEEvent />
-            <HowItWorks />
+            <CoreValues />
             
             {thisUser ? (
               <div className='host-button'>
@@ -114,20 +114,11 @@ class PageLanding2 extends Component {
 
             <Grid container justify='center' style={{ marginTop: '3%' }}>
               <Paper align={'center'}style={{width: 350}}>
-                <Typography style={{margin: '3%'}} variant='display1'> Local Experiences</Typography>
+                <Typography style={{margin: '3%'}} variant='h4'> Local Experiences</Typography>
               </Paper>
             </Grid>
             <Grid container alignItems="baseline" style={styles.cards} wrap="nowrap" className="scroll-wrapper-x" >
-                {/*
-                <div className={classes.featured} > 
-                  <FeaturedEventList /> 
-                   <Paper justify='center' align={'center'} style={{width: '100%', display:'block', clear: 'both'}}>
-                    <Typography style={{backgroundColor: '#2964ff', color: 'white'}} variant='display2'> Featured</Typography>
-                  </Paper>
-                
-                </div>
-                */}
-                <EventList  />
+                <EventList />
             </Grid>
 
             {thisUser ? (

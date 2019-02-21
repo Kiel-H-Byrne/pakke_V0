@@ -245,7 +245,7 @@ class EventDetailsComponent extends Component {
         <Card className={classes.container}>
           <CardMedia image={this.props.event.image ? this.props.event.image : `""`} title='Event Preview' className={classes.image} />
           <CardContent>
-            <Typography variant="display1" align="center" gutterBottom >{this.props.event.byline}</Typography>
+            <Typography variant="h4" align="center" gutterBottom >{this.props.event.byline}</Typography>
             <Typography dangerouslySetInnerHTML={{__html: this.props.event.description}} style={styles.padded}/>
             <div className="fb-share-button" 
               data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
@@ -266,9 +266,9 @@ class EventDetailsComponent extends Component {
                 {this.props.eventHost ? (
                   <Paper elevation={0}>
                     <Grid container direction="column" item alignItems="center">
-                      <Grid item ><Typography variant="headline" align="center">Your Host:</Typography></Grid>
+                      <Grid item ><Typography variant="h5" align="center">Your Host:</Typography></Grid>
                       <Grid item ><Avatar style={styles.avatar} src={this.props.eventHost.profile.avatar} /></Grid>
-                      <Grid item ><Typography variant="title" align="center">{this.props.eventHost.profile.name}</Typography></Grid>
+                      <Grid item ><Typography variant="h6" align="center">{this.props.eventHost.profile.name}</Typography></Grid>
                     </Grid>
                   </Paper> 
                   ) : ( '' )
@@ -314,7 +314,7 @@ class EventDetailsComponent extends Component {
                             //PICTURE GALLERY, COMMENTS, RATINGS, ETC...
                             //VENUECARD INSTEAD, WHICH LEADS TO BOOKING THE VENUE AGAIN.
                             */}
-                          <Typography variant="title" align="center">
+                          <Typography variant="h6" align="center">
                             VENUE:
                           </Typography>
                           <Card style={styles.card} >
@@ -322,7 +322,7 @@ class EventDetailsComponent extends Component {
                               {/* <EditVenueButton /> */}
                             </CardMedia> 
                             <CardContent style={styles.content}>
-                              <Typography gutterBottom variant="subheading" align="center">
+                              <Typography gutterBottom variant="subtitle1" align="center">
                                 <em>"{this.props.venue.nickname}"</em>
                               </Typography>
                               <Typography component="p" variant="caption" gutterBottom>{this.props.venue.address}</Typography>

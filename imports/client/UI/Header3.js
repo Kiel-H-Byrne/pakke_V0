@@ -141,12 +141,6 @@ class HeaderComponent extends Component {
                         </ListItemIcon>
                         <ListItemText inset disableTypography primary="About PAKKE" />
                     </ListItem>
-                    <ListItem button component={Link} to="/howitworks">
-                        <ListItemIcon>
-                            <HelpIcon />
-                        </ListItemIcon>
-                        <ListItemText inset disableTypography primary="How It Works" />
-                    </ListItem>
                     <ListItem button component={Link} to="/host">
                         <ListItemIcon>
                             <AccessibilityIcon />
@@ -186,7 +180,7 @@ class HeaderComponent extends Component {
                             >
                                 <MenuIcon />
                             </IconButton>
-                            <Typography variant="title" style={styles.flex}>
+                            <Typography variant="h6" style={styles.flex}>
                                 <Link to='/'><img src="/ImageLogoBlack.png" alt='PAKKE Home' style={styles.pakkeLogo} /></Link>
                             </Typography>
                             <Typography variant="caption" style={styles.flex}><i>An Events & Experiences Company</i></Typography>

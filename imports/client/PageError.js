@@ -28,9 +28,9 @@ class PageError extends Component {
       
         <div className="container-fluid text-center" style={styles.container} >
           <div className="container-fluid" >
-            <Typography variant="display2" align="center" gutterBottom={true}>I Can't Find That Page...</Typography>
+            <Typography variant="h3" align="center" gutterBottom={true}>I Can't Find That Page...</Typography>
             <iframe className="giphy-embed" src="https://giphy.com/embed/9J7tdYltWyXIY?html5=true" width="100%" height="480" frameBorder="0" allowFullScreen="" style={styles.frame}></iframe>
-            <Typography variant="headline" align="center" paragraph={true} ><em>Try <Link to="/events" style={{color:"#FFC229"}}>searching for some local events</Link> instead...</em></Typography>
+            <Typography variant="h5" align="center" paragraph={true} ><em>Try <Link to="/events" style={{color:"#FFC229"}}>searching for some local events</Link> instead...</em></Typography>
           </div>
           
         </div>

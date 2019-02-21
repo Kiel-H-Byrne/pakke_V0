@@ -60,7 +60,7 @@ class VenueListComponent extends Component {
                           {/* <EditVenueButton /> */}
                         </CardMedia> 
                         <CardContent style={styles.content}>
-                          <Typography gutterBottom variant="subheading" align="center">
+                          <Typography gutterBottom variant="subtitle1" align="center">
                             <em>"{venue.nickname}"</em>
                           </Typography>
                           <Typography component="p" variant="caption" gutterBottom>{venue.address}</Typography>
