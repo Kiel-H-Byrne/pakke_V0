@@ -45,8 +45,8 @@ function WhatIsPAKKEEvent(props) {
                 <Paper elevation={2}>
                     <Typography variant='h4' align={'center'} style={styles.box1}>What is PAKKE?</Typography>
                     <Typography align={'justify'} variant={'subtitle1'} style={styles.box1}> 
-                        PAKKE is the catalyst for building social capital. We curate experiential events and build tools so you can do it too! We believe that creativity and curiosity build trust & connect communities--which is why we facilitate unique experiences, with local artists, in all kinds of places! <br /><br />
-                        Connect with us if you are an artist, or own an inclusive space to host amazing experiences. <br /><br />
+                        PAKKE curates and promotes unique events. We believe that creativity and curiosity build trust and connect communities. That's why we build tools so you can too. PAKKE’s platform enables unique experiences with local artists, chefs and musicians - in all kinds of spaces.  <br /><br />
+                        Connect with us if you would like to share creative work or have access to a space to host. Join our mailing list for invitations to attend awesome events.<br /><br />
                     </Typography>
                     <Grid container justify={'center'} alignItems ={'center'} direction={'column'}>
                         <Grid item xs={12}>
