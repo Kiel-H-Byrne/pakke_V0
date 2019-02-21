@@ -60,7 +60,7 @@ function Hero(props) {
 
     return (
     <Card className={classes.hero}>
-        <CardMedia className={classes.image} image="/ImageHero.jpg" >
+        <CardMedia className={classes.image} image="/ImageHero.jpg?v=2" >
             <CardContent className={classes.cardContent}>
                 <Parallax offsetYMax={20} offsetYMin={-20} slowerScrollRate tag="figure">
                     <Grid container justify={'center'} >

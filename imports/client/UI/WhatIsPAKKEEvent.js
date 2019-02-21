@@ -44,12 +44,14 @@ function WhatIsPAKKEEvent(props) {
             <Grid item xs={12} sm={8}>
                 <Paper elevation={2}>
                     <Typography variant='h4' align={'center'} style={styles.box1}>What is PAKKE?</Typography>
-                    <Typography align={'justify'} variant={'body1'} style={styles.box1}> 
-                        PAKKE is the catalyst for building social capital. We curate experiential events and build tools so you can do it too! We believe that creativity and curiosity build trust connect communities--which is why we enable unique experienceds, with local artists, in all kinds of places! <br /><br />
-                        Connect with us if you are an artist looking to entertain, or own an inclusive space to host amazing experiences. <br /><br />
-                        Sign up to stay connected.<br />
+                    <Typography align={'justify'} variant={'subtitle1'} style={styles.box1}> 
+                        PAKKE is the catalyst for building social capital. We curate experiential events and build tools so you can do it too! We believe that creativity and curiosity build trust & connect communities--which is why we facilitate unique experiences, with local artists, in all kinds of places! <br /><br />
+                        Connect with us if you are an artist, or own an inclusive space to host amazing experiences. <br /><br />
                     </Typography>
                     <Grid container justify={'center'} alignItems ={'center'} direction={'column'}>
+                        <Grid item xs={12}>
+                            <Typography variant="h6" >Sign up to stay connected.</Typography>
+                        </Grid>
                         <Grid item xs={12}>
                             <EmailForm />
                         </Grid>

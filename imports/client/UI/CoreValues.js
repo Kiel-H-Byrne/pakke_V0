@@ -102,7 +102,7 @@ function CoreValues(props) {
                     Implementation of sustainable practices to preserve, protect, & promote the health of the planet.</Typography>
                 </Grid>
 
-                <Grid item xs={6} sm={2}>
+                <Grid item xs={12} sm={2}>
                     <Extension style={styles.icon} />
                     <Typography align={'center'} style={styles.box1} variant="h5">
                     Member of the Community</Typography>
