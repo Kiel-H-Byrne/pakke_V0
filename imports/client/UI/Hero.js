@@ -54,13 +54,11 @@ const styles = theme => ({
 // https://images.unsplash.com/photo-1506774518161-b710d10e2733?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2ff076230a3aea325e5b1ce3f6a7a208&auto=format&fit=crop&w=2100&q=80
 
 function Hero(props) {
-
-
     const { classes } = props;
 
     return (
     <Card className={classes.hero}>
-        <CardMedia className={classes.image} image="/ImageHero.jpg?v=2" >
+        <CardMedia className={classes.image} image="/ImageHero.jpg" >
             <CardContent className={classes.cardContent}>
                 <Parallax offsetYMax={20} offsetYMin={-20} slowerScrollRate tag="figure">
                     <Grid container justify={'center'} >

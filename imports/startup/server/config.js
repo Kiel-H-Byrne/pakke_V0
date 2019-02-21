@@ -183,24 +183,23 @@ Accounts.validateNewUser(function(user) {
 Accounts.validateLoginAttempt(function (data) {
   // console.info("Validating Login...")
   // console.log(data) 
+  if (data.type == 'resume') return true;
   if (!data.allowed) {
-    console.log("login error....")
+    console.log("login error....", data)
     throw new Meteor.Error(data.error.error, data.error.reason);
     return false
   };
-  if (data.type == 'resume') return true;
-
-    if (data.methodName == 'createUser') {
-      const diff = new Date() - new Date(data.user.createdAt)
-      if (diff < 2000) {
-        // console.info('New User, denying autologin. Must verify first');
-        // Bert.alert("", 
-      // "pk-success", "growl-top-right", "fa-thumbs-up", )
-      throw new Meteor.Error(500, "Check your inbox for a sign-in link!")
-        return false;
-      }
+  if (data.methodName == 'createUser') {
+    const diff = new Date() - new Date(data.user.createdAt)
+    if (diff < 2000) {
+      // console.info('New User, denying autologin. Must verify first');
+      // Bert.alert("", 
+    // "pk-success", "growl-top-right", "fa-thumbs-up", )
+    throw new Meteor.Error(500, "Check your inbox for a sign-in link!")
+      return false;
     }
-    return true;
+  }
+  return true;
 })
 
 
