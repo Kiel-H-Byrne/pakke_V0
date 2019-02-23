@@ -297,7 +297,7 @@ const eventAppliedTemplate = (user,event) => {
                         <table border="0" cellpadding="0" cellspacing="0">
                           <tr>
                             <td>
-                              <p>Hi there <strong>${user.profile.name}</strong>!</p>
+                              <p>Hi there!</p>
                               <p>PAKKE.us and the host of <strong>'${event.byline}'</strong> would like to thank you for applying!
                               <br />
                               Now we wait until some more folks join the event. PAKKE will then ensure that the party is full of diverse and fun folks, and once the final guest list is confirmed you can buy your ticket! 
