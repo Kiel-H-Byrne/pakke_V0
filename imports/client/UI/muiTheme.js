@@ -36,9 +36,9 @@ const muiTheme = createMuiTheme({
         day: {
           color: "#768fff",
         },
-        // "&$selected": {
-        //   backgroundColor: "#768fff",
-        // },
+        "&$selected": {
+          backgroundColor: "#768fff",
+        },
         current: {
           color: "#768fff",
         },
@@ -58,7 +58,7 @@ const muiTheme = createMuiTheme({
           backgroundColor: '#2964ff',
           color: '#fff'
         },
-        //   "&$disabled": {
+        // "&$disabled": {
         //   backgroundColor: '#A3A7B2',
         //   color: '#fff'
         // },

@@ -288,7 +288,7 @@ const eventPurchasedTemplate = (user,event) => {
           <div class="content">
 
             <!-- START CENTERED WHITE CONTAINER -->
-            <span class="preheader">Thank you for Purchasing!</span>
+            <span class="preheader">You're in!</span>
             <table class="main">
 
               <!-- START MAIN CONTENT AREA -->
@@ -297,7 +297,7 @@ const eventPurchasedTemplate = (user,event) => {
                   <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <p>Hi there ${user.username}!</p>
+                        <p>Hi there!</p>
                         <p>Thanks for registering for "<em>${event.byline}</em>". We are excited to explore this unique experience with you.</p>
                         ${event.purchasedEmail}
                         <p>Looking forward to seeing you. Please revisit the Event Details page for more information.</p>             

@@ -141,12 +141,6 @@ class HeaderComponent extends Component {
                         </ListItemIcon>
                         <ListItemText inset disableTypography primary="About PAKKE" />
                     </ListItem>
-                    <ListItem button component={Link} to="/howitworks">
-                        <ListItemIcon>
-                            <HelpIcon />
-                        </ListItemIcon>
-                        <ListItemText inset disableTypography primary="How It Works" />
-                    </ListItem>
                     <ListItem button component={Link} to="/host">
                         <ListItemIcon>
                             <AccessibilityIcon />

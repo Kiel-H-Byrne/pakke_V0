@@ -89,7 +89,9 @@
   flex-direction: column;
   padding: 1rem;
   border-color: #225199;
- // .or-sep, 
+ .fields, .buttons, .password-or-service, .or-sep, .messages {
+    display: none
+  }
  button {
     margin: 3px;
     border: none;
@@ -105,16 +107,16 @@
     text-align: center;
     padding: 3px;
   }
- .messages  {
-  display: none;
- }
+ // .messages  {
+ //  display: none;
+ // }
   & > * { //all direct children of flex container
       margin: 3px 0;
       display: flex;
     }
   .buttons  {
   a {
-      display: none;
+    // display: none;
       text-decoration: underline;
       color: #225199;
       padding: 11px;

@@ -15,7 +15,9 @@ import EmailForm from './EmailInput';
 // import image1 from './ImageHero.jpg';
 
 const styles = theme => ({
-
+    hero: {
+        marginBottom: "3%"
+    },
     image: {
         // height: '100%',
         // width: '100%',
@@ -28,19 +30,18 @@ const styles = theme => ({
     cardContent: {
         textShadow: "1px 1px #555",
     },
-    headlineText: {
+    h5Text: {
         color: 'white',
         fontWeight: 500,
         letterSpacing: 1
     },
-    subheadingText: {
+    subtitle1Text: {
         color: 'white',
         
     },
     triangle: {
         marginTop: '.5rem',
         maxHeight: '13rem',
-        
     },
 
 });
@@ -53,27 +54,18 @@ const styles = theme => ({
 // https://images.unsplash.com/photo-1506774518161-b710d10e2733?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2ff076230a3aea325e5b1ce3f6a7a208&auto=format&fit=crop&w=2100&q=80
 
 function Hero(props) {
-
-
     const { classes } = props;
 
     return (
-    <Card>
+    <Card className={classes.hero}>
         <CardMedia className={classes.image} image="/ImageHero.jpg" >
             <CardContent className={classes.cardContent}>
                 <Parallax offsetYMax={20} offsetYMin={-20} slowerScrollRate tag="figure">
                     <Grid container justify={'center'} >
                         <img src="/ImageTriangleWhite.png" className={classes.triangle}></img>
                     </Grid>
-                    {/* <Typography className={classes.headlineText} align={'center'} variant='h3' gutterBottom>An Events & Experiences Company</Typography> */} <Typography className={classes.subheadingText} align={'center'} variant='h4'> Discover. Connect. Experience. </Typography>
-                    {/* */}
-                    <Grid container style={{ marginTop: '1rem' }} justify={'center'} alignItems ={'center'} direction={'column'}>
-                        <Grid item xs={12}>
-                            <EmailForm />
-                        </Grid>
-                    </Grid>
-                    {/* */}
-
+                    <Typography className={classes.subtitle1Text} align={'center'} variant='h4'> Discover. Connect. Experience. 
+                    </Typography>
                 </Parallax>
             </CardContent>
         </CardMedia>

@@ -139,13 +139,13 @@ export default class Event extends Component {
                                     <Card style={styles.date}>
                                     { isTBD ? (
                                         <React.Fragment>
-                                        <Typography align={'center'} variant='headline' color={'secondary'}>TBD</Typography>
+                                        <Typography align={'center'} variant='h5' color={'secondary'}>TBD</Typography>
                                         </React.Fragment>
                                         ) : (
                                         <React.Fragment>
-                                        <Typography style={styles.typo} align={'center'} variant='title' color={'secondary'}> {eventDate.month}</Typography>
-                                        <Typography align={'center'} variant='title'>{ eventDate.date}<span style={styles.ordinal}> {nth(eventDate.date) }</span></Typography>
-                                        <Typography align={'center'} variant='title' color={'secondary'}>{eventDate.day}</Typography>
+                                        <Typography style={styles.typo} align={'center'} variant="h6" color={'secondary'}> {eventDate.month}</Typography>
+                                        <Typography align={'center'} variant="h6">{ eventDate.date}<span style={styles.ordinal}> {nth(eventDate.date) }</span></Typography>
+                                        <Typography align={'center'} variant="h6" color={'secondary'}>{eventDate.day}</Typography>
                                         </React.Fragment>
                                         )
                                     }
@@ -159,7 +159,7 @@ export default class Event extends Component {
                                 
                                 {/*
                                 <Typography variant="h5" component="h3">{this.props.event.eventAddress.state}, {this.props.event.eventAddress.zip} </Typography>
-                                <Typography variant='headline' component='p'><strong>{this.props.event.size}</strong> tickets available 
+                                <Typography variant='h5' component='p'><strong>{this.props.event.size}</strong> tickets available 
                                      <strong>{remainingTickets}</strong> remain
                                 </Typography>
                                 */}

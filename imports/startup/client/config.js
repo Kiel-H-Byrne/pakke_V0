@@ -45,7 +45,7 @@ Bert.defaults = {
 Accounts.ui.config({
   requestPermissions: {
     // facebook: ["email", "user_birthday", "user_location", "user_hometown"],
-    // facebook: ["email", "public_profile", "user_friends"],
+    facebook: ["email", "public_profile", "user_friends"],
     google: [
     "https://www.googleapis.com/auth/userinfo.profile", 
     // "https://www.googleapis.com/auth/user.addresses.read", 
@@ -58,8 +58,7 @@ Accounts.ui.config({
   },
   profilePath: '/profile',
   onSubmitHook: (error, state) => {
-    console.info("onSubmitHook")
-    // console.log(error, state);
+    console.log(error, state);
     // if (state = "Symbol(SIGN_IN)") {
     //   console.log("logging in.."); 
     //   return;
