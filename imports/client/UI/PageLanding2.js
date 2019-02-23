@@ -6,7 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import { ParallaxProvider } from 'react-scroll-parallax';
 import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
@@ -93,7 +92,6 @@ class PageLanding2 extends Component {
         <meta name="twitter:url" content="https://www.pakke.us" />
         <meta name="twitter:image" content="https://www.pakke.us/img/brand/PAKKE_LOGO_black.png" />        
       </Helmet>
-      <ParallaxProvider>
         {/* <MuiThemeProvider theme={muiTheme}> */}
           <div className={classes.root}>
             <Hero />
@@ -135,7 +133,6 @@ class PageLanding2 extends Component {
 
 
           </div>
-      </ParallaxProvider>
       </React.Fragment>
     );
 

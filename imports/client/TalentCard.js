@@ -50,12 +50,12 @@ class TalentCard extends Component {
               <Grid item>
                     <Card style={talent.featured ? styles.featured : styles.card}>
                         <Link className='event-card-link' to={`/event/${talent._id}`}>
-                            <CardMedia style={styles.image} image="https://picsum.photos/200/300/?random">
+                            <CardMedia style={styles.image} image={ talent.avatar || `https://picsum.photos/200/300/?random&${Math.floor(Math.random() * Math.floor(100))}`}>
                               <Avatar style={styles.priceBadge}>${talent.fee}</Avatar>
                             </CardMedia>
 
                             <CardContent>
-                                <Typography gutterBottom variant="body1" component="p"><strong>{talent.name}</strong> has {talent.experience} years of experience as a <em style={{color: "#ffa07a"}}>{talent.talentType}</em>. They prefer an audience size of around {talent.audienceSize} people.
+                                <Typography gutterBottom variant="body1" component="p">"<Typography inline variant="overline" color="textSecondary">{talent.name}</Typography>" has {talent.experience} years of experience as a <em style={{color: "#ffa07a"}}>{talent.talentType}</em>. They prefer an audience size of around {talent.audienceSize} people.
                                 </Typography>
                             </CardContent>
                         </Link>

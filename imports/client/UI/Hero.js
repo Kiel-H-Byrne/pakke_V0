@@ -9,7 +9,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
-import { Parallax } from 'react-scroll-parallax';
 // import image2 from './triangleWhite.png';
 import EmailForm from './EmailInput';
 // import image1 from './ImageHero.jpg';
@@ -60,13 +59,11 @@ function Hero(props) {
     <Card className={classes.hero}>
         <CardMedia className={classes.image} image="/ImageHero.jpg" >
             <CardContent className={classes.cardContent}>
-                <Parallax offsetYMax={20} offsetYMin={-20} slowerScrollRate tag="figure">
                     <Grid container justify={'center'} >
                         <img src="/ImageTriangleWhite.png" className={classes.triangle}></img>
                     </Grid>
                     <Typography className={classes.subtitle1Text} align={'center'} variant='h4'> Discover. Connect. Experience. 
                     </Typography>
-                </Parallax>
             </CardContent>
         </CardMedia>
     </Card>
