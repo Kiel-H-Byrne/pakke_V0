@@ -1,4 +1,5 @@
 import React from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -8,7 +9,7 @@ import EventList from './EventList';
 import VenueList from './VenueList';
 import TalentList from './TalentList';
 
-export default class Marketplace extends React.Component {
+class Marketplace extends React.Component {
   static propTypes = {
     // name: React.PropTypes.string,
   };
@@ -18,6 +19,7 @@ export default class Marketplace extends React.Component {
   }
 
   render() {
+    const { thisUser, loading } = this.props;
     // if (!Roles.userIsInRole(this.props.thisUser, ["admin"])) {
     //   return (<PageError />)
     // }
@@ -39,3 +41,12 @@ export default class Marketplace extends React.Component {
     );
   }
 }
+
+export default withTracker(() => {
+  const subscription = Meteor.subscribe('roles');
+  const loading = !subscription.ready();
+    return {
+      loading,
+      thisUser: Meteor.userId()
+    }
+})(Marketplace)

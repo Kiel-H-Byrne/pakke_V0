@@ -10,7 +10,7 @@ if (Meteor.isServer) {
 
   Meteor.publish('venues_all', function () {
     const cursor = Venues.find({});
-    // console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] Venues =-");
+    console.log("-= PUBLISHING: ALL ["+ cursor.count() +"] Venues =-");
     return cursor;
   });
 

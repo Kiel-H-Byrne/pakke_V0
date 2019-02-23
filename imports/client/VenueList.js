@@ -40,7 +40,7 @@ class VenueListComponent extends Component {
           eventHost: {},
           soldOut: false
         }
-        console.log(props)
+        // console.log(props)
     }
   render() {
     return (

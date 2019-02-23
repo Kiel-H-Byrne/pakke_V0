@@ -46,10 +46,11 @@ class AdminPanelComponent extends Component {
     // console.log(this)
   }
   render() {
+    const { thisUser } = this.props;
+    console.log(thisUser, Roles.userIsInRole(thisUser, ["admin"]))
     if (!Roles.userIsInRole(this.props.thisUser, ["admin"])) {
       return (<PageError />)
     }
-
     return (
       <div>
         <section>
@@ -138,7 +139,7 @@ class AdminPanelComponent extends Component {
 }
 
 export default AdminPanel = withTracker(() => {
-  const subscription = Meteor.subscribe('events_all') && Meteor.subscribe('venues_all');
+  const subscription = Meteor.subscribe('roles') && Meteor.subscribe('events_all') && Meteor.subscribe('venues_all');
   const loading = !subscription.ready();
 
   return {
