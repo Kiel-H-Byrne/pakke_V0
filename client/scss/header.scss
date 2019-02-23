@@ -89,7 +89,9 @@
   flex-direction: column;
   padding: 1rem;
   border-color: #225199;
- // .or-sep, 
+ .fields, .buttons, .password-or-service, .or-sep, .messages {
+    display: none
+  }
  button {
     margin: 3px;
     border: none;
