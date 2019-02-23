@@ -10,12 +10,11 @@ import Talents from '/imports/startup/collections/talents';
 class TalentListComponent extends Component {
   constructor(props) {
       super(props)
-      console.log(props)
   }
   render() {
     return (
         this.props.talents.map((talent) => {
-          console.log(talent)
+          // console.log(talent)
           if (!this.props.ready) {
             return (
                 <GridLoader 
@@ -26,7 +25,6 @@ class TalentListComponent extends Component {
                 margin='1rem' />
                 )
           } else {
-            console.log("hi")
             return <TalentCard key={talent._id} talent={talent} />
           }
         })

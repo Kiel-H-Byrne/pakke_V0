@@ -471,6 +471,7 @@ Meteor.methods({
   },
   getCL: function(eventId) {
     if (Roles.userIsInRole(this.userId, ["admin"])) {
+      // const doc = newjsPDF()
       const event = Events.findOne({_id: eventId});
       const CL = event.confirmedList;
       let htmlRowsArray = [];
@@ -501,7 +502,9 @@ Meteor.methods({
         'subject': "-<{ GUEST LIST: " + event.byline + " }>-", 
         'html': template
       });
-      //send email to kiel@Pakke.us with this info
+      //save to pdf & download
+      
+
      } else {
       console.log("MUST BE ADMIN TO GET CONFIRMED LIST")
      }
