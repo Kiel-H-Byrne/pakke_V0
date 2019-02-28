@@ -185,8 +185,8 @@ Accounts.validateLoginAttempt(function (data) {
   // console.log(data) 
   if (data.type == 'resume') return true;
   if (!data.allowed) {
-    console.log("login error....", data)
-    throw new Meteor.Error(data.error.error, data.error.reason);
+    console.log("login error....", data.error.reason, data.methodArguments[0].email)
+    throw new Meteor.Error("login-error", data.error.reason);
     return false
   };
   if (data.methodName == 'createUser') {

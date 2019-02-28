@@ -285,18 +285,18 @@ class EventDetailsComponent extends Component {
                     <TableBody className={classes.table}>
                       <TableRow>
                         <TableCell className={classes.cell}><h5>WHEN:</h5> </TableCell>
-                        <TableCell numeric={true} className={classes.cell}>
+                        <TableCell align="right" className={classes.cell}>
                         {`${datefns.format(eventDate, 'EEEE MMM do @ h:mmaaaaa')}`}
                         </TableCell>
                       </TableRow>
                       <TableRow>
                         <TableCell className={classes.cell}><h5>PRICE:</h5> </TableCell>
-                        <TableCell  numeric={true} className={classes.cell}>${this.props.event.price}</TableCell>
+                        <TableCell  align="right" className={classes.cell}>${this.props.event.price}</TableCell>
                       </TableRow>
                         {this.props.thisUser && this.props.event.confirmedList.includes(this.props.thisUser._id) ? (
                         <TableRow>
                           <TableCell className={classes.cell}><h5>WHERE:</h5> </TableCell>
-                          <TableCell  numeric={true} className={classes.cell}>{this.props.venue ? <a target="_blank" rel="noopener"  href={`https://www.google.com/maps/dir/Current+Location/${this.props.venue.address}`} title={`Directions to ${this.props.venue.address}`} >"<em>{this.props.venue.nickname}</em>"</a> : 'TBD' }</TableCell> 
+                          <TableCell  align="right" className={classes.cell}>{this.props.venue ? <a target="_blank" rel="noopener"  href={`https://www.google.com/maps/dir/Current+Location/${this.props.venue.address}`} title={`Directions to ${this.props.venue.address}`} >"<em>{this.props.venue.nickname}</em>"</a> : 'TBD' }</TableCell> 
                         </TableRow>
                         ):(null)}
                     </TableBody>
@@ -340,7 +340,7 @@ class EventDetailsComponent extends Component {
                           {/*
                           <TableRow>
                             <TableCell className={classes.cell}><h5>WHERE:</h5> </TableCell>
-                            <TableCell  numeric={true} className={classes.cell}>Nowhere</TableCell> 
+                            <TableCell  align="right" className={classes.cell}>Nowhere</TableCell> 
                           </TableRow>
                           */}
                           <Paper>
