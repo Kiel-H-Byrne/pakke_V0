@@ -474,6 +474,7 @@ Meteor.methods({
       // const doc = newjsPDF()
       const event = Events.findOne({_id: eventId});
       const CL = event.confirmedList;
+      let csvArray = []; 
       let htmlRowsArray = [];
       CL.map((uid) => {
         let u = Meteor.users.findOne({_id: uid});
@@ -484,7 +485,6 @@ Meteor.methods({
             <td><img style="border-radius:50%" src="${u.profile.avatar}" height="50" width="50" /></td>
           </tr>
         `);
-
       });
       let htmlRows = htmlRowsArray.join('');
       const template = `
@@ -495,15 +495,14 @@ Meteor.methods({
           </tbody></table>`;
       // console.log(template)
 
-      Email.send({
-        'to': ["info@pakke.us"],
-        'cc': ["amy@pakke.us", "emmett@pakke.us", "kiel@pakke.us"],
-        'from': "noreply@pakke.us", 
-        'subject': "-<{ GUEST LIST: " + event.byline + " }>-", 
-        'html': template
-      });
+      // Email.send({
+      //   'to': ["info@pakke.us"],
+      //   'cc': ["amy@pakke.us", "emmett@pakke.us", "kiel@pakke.us"],
+      //   'from': "noreply@pakke.us", 
+      //   'subject': "-<{ GUEST LIST: " + event.byline + " }>-", 
+      //   'html': template
+      // });
       //save to pdf & download
-      
 
      } else {
       console.log("MUST BE ADMIN TO GET CONFIRMED LIST")

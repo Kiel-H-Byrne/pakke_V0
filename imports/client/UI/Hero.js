@@ -21,8 +21,8 @@ const styles = theme => ({
     image: {
         // height: '100%',
         // width: '100%',
-        maxHeight: 300,
-        minHeight: 700,
+        maxHeight: 600,
+        minHeight: 500,
         // minWidth: '100%',
         // objectFit: 'cover',
         // zIndex: -1,
@@ -60,7 +60,7 @@ function Hero(props) {
     <Card className={classes.hero}>
         <CardMedia className={classes.image} image="/ImageHero.jpg" >
             <CardContent className={classes.cardContent}>
-                <Parallax offsetYMax={20} offsetYMin={-20} slowerScrollRate tag="figure">
+                <Parallax offsetYMax={30} offsetYMin={-30} slowerScrollRate tag="figure">
                     <Grid container justify={'center'} >
                         <img src="/ImageTriangleWhite.png" className={classes.triangle}></img>
                     </Grid>

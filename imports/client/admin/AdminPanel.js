@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 
 import Events from '../../startup/collections/events.js'
 import Venues from '../../startup/collections/venues.js'
+import { downloadCSV } from '../../startup/client/CSVMethods';
 import AddVenueModal from '../forms/AddVenueModal.js'
 import EditEventButton from '../forms/EditEventButton.js'
 import EditVenueButton from '../forms/EditVenueButton.js'
@@ -29,16 +30,29 @@ class AdminPanelComponent extends Component {
   }
 
   sendGuestList(id) {
-    console.log("Calling getCL method with id " + id)
-    if (confirm('Are you sure you want to send this e-mail?')) {
-      Meteor.call('getCL', id, (err, res) => {
-        if (err) {
-          console.log(err) 
-        } else {
-          Bert.alert("GuestList Sent!", "pk-success", "growl-top-right");
-        }
-      })
-    }
+    const event = Events.findOne({_id: id});
+    const CL = event.confirmedList;
+    let csvArray = []; 
+    console.log(CL)
+    CL.map((uid) => {
+      let u = Meteor.users.findOne({_id: uid});
+      csvArray.push({
+        "Email": u.emails[0].address,
+        "Name": u.username || "Anonymous",
+        "UserId": u._id
+      });
+    });
+    csvArray.length && downloadCSV({data: csvArray, filename: `${event.byline} GuestList.csv`})
+    // console.log("Calling getCL method with id " + id);
+    // if (confirm('Are you sure you want to send this e-mail?')) {
+    //   Meteor.call('getCL', id, (err, res) => {
+    //     if (err) {
+    //       console.log(err) 
+    //     } else {
+    //       Bert.alert("GuestList Sent!", "pk-success", "growl-top-right");
+    //     }
+    //   })
+    // }
 
 
   }
@@ -47,7 +61,7 @@ class AdminPanelComponent extends Component {
   }
   render() {
     const { thisUser } = this.props;
-    console.log(thisUser, Roles.userIsInRole(thisUser, ["admin"]))
+    // console.log(thisUser, Roles.userIsInRole(thisUser, ["admin"]))
     if (!Roles.userIsInRole(this.props.thisUser, ["admin"])) {
       return (<PageError />)
     }
@@ -73,13 +87,13 @@ class AdminPanelComponent extends Component {
           this.props.events.map((event) => {
             return (
               <TableRow key={event._id}>
-                <TableCell><Link to={`/event/${event._id}`}>"{event.byline}"</Link></TableCell>
+                <TableCell><Link to={`/event/${event._id}`}>"{event.byline} | {event._id}"</Link></TableCell>
                 <TableCell>{event.date.toDateString()}</TableCell>
                 <TableCell>{event.confirmedList.length}</TableCell>
                 <TableCell>{event.venueId}</TableCell>
                 <TableCell>{event.hostId}</TableCell>
                 <TableCell><AdminEditButton event={event}/></TableCell>
-                <TableCell><Button type="button" onClick={() => this.sendGuestList(event._id)}>Send GL </Button> </TableCell>
+                <TableCell><Button type="button" onClick={() => this.sendGuestList(event._id)}>Download GL </Button> </TableCell>
               </TableRow>
               )
             })) : <TableRow><TableCell variant="body"><BarLoader 
@@ -139,7 +153,7 @@ class AdminPanelComponent extends Component {
 }
 
 export default AdminPanel = withTracker(() => {
-  const subscription = Meteor.subscribe('roles') && Meteor.subscribe('events_all') && Meteor.subscribe('venues_all');
+  const subscription = Meteor.subscribe('roles') && Meteor.subscribe('events_all') && Meteor.subscribe('venues_all') && Meteor.subscribe('users_all');
   const loading = !subscription.ready();
 
   return {

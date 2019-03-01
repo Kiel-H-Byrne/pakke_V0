@@ -13,6 +13,16 @@ Meteor.publish('currentUser', function () {
   });
 });
 
+Meteor.publish('users_all', function () {
+  // console.log("-= PUBLISHING: USER DATA  =-");
+  return Meteor.users.find({}, {
+    fields: {
+      'username': 1,
+      'emails': 1
+    }
+  });
+});
+
 Meteor.publish('publicUser', function (id) {
   // console.log("-= PUBLISHING: USER DATA  =-");
   return Meteor.users.find({_id: id}, {
