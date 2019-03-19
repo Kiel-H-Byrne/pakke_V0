@@ -110,9 +110,9 @@
     padding: 3px;
   }
 
-  // .messages  {
-  //   display: none;
-  // }
+  .messages  {
+    display: none;
+  }
   
   & > * { //all direct children of flex container
     margin: 3px 0;
