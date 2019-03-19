@@ -4,6 +4,9 @@ import { withTracker } from 'meteor/react-meteor-data';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
+import AddVenueModal from './forms/AddVenueModal';
+import AddTalentModal from './forms/AddTalentModal';
+import AddEventModal from './forms/AddEventModal';
 import PageError from './PageError';
 import EventList from './EventList';
 import VenueList from './VenueList';
@@ -28,13 +31,16 @@ class Marketplace extends React.Component {
         <Typography variant="h4">Experiences & Events</Typography>
         <Grid item container direction="row">
           <EventList />
+          <AddEventModal />
         </Grid>
         <Typography variant="h4">Places & Spaces</Typography>
         <Grid item container direction="row">
+          <AddVenueModal />
           <VenueList />
         </Grid>
         <Typography variant="h4">Talented Partners & Vendors</Typography>
         <Grid item container direction="row">
+          <AddTalentModal />
           <TalentList />
         </Grid>
       </Grid>
