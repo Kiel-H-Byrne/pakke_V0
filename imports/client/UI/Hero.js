@@ -20,8 +20,8 @@ const styles = theme => ({
     image: {
         // height: '100%',
         // width: '100%',
-        maxHeight: 300,
-        minHeight: 700,
+        maxHeight: 600,
+        minHeight: 500,
         // minWidth: '100%',
         // objectFit: 'cover',
         // zIndex: -1,

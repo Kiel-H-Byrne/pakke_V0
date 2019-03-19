@@ -109,7 +109,7 @@ class PaymentRequestForm extends React.Component {
               analytics.track("Ticket Purchase", {
                 label: event.byline,
                 commerce: event.price,
-                value: event.price,
+                value: event.price - ((event.price*.029)+.30),
                 host: event.hostId,
               })
 

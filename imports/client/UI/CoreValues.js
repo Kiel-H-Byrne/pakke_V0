@@ -37,11 +37,11 @@ function CoreValues(props) {
         },
         box1: {
             // padding: `${theme.spacing.unit *1.5}px ${theme.spacing.unit * 2}px`,
-            padding: "1rem",
+            padding: ".5rem",
         },
         box2: {
-            padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
-            marginBottom: '5%',
+            padding: `${theme.spacing.unit}px ${theme.spacing.unit * 1}px`,
+            marginBottom: '2%',
         },
         icon: {
             display: 'block',
@@ -54,61 +54,65 @@ function CoreValues(props) {
             // border: 'blue',
             // background: 'blue',
             borderColor: theme.palette.secondary.light,
-            width: '15%',
+            width: '35%',
             // borderStyle: 'blue',
         }
     };
 
     return (
-    <Grid id="CoreValues" container justify={'center'} style={styles.wrapper}>
+    <Grid id="CoreValues" container style={styles.wrapper}>
         <Paper style={styles.paper}>
             <Typography variant='h4' align={'center'} style={styles.box1}>What We Value:
             </Typography>
-            <Grid container justify={'center'} style={{ marginTop: '1%' }} direction='row'>
+            <Grid container justify={'space-between'} style={{ marginTop: '1%' }} direction='row'>
 
-                <Grid item xs={12} sm={2}>
+                <Grid item xs={12} sm={4} lg={2}>
                     <GroupWork style={styles.icon}/>
                     <Typography align={'center'} style={styles.box1} variant="h5">
                     Foster Community</Typography>
-                    <hr style={styles.divider} />
-                    <Typography align={'center'} style={styles.box2} variant="subtitle1">
+                    <Typography align={'justify'} style={styles.box2} variant="subtitle1">
                     Interconnect members of the community, reinvest in the community, pool resources from the community.</Typography>
+                                        <hr style={styles.divider} />
                 </Grid>
 
-                <Grid item xs={12} sm={2}>
+                <Grid item xs={12} sm={4} lg={2}>
                     <Palette style={styles.icon} />
                     <Typography align={'center'} style={styles.box1} variant="h5">
                     Champion for Creativity</Typography>
-                    <hr style={styles.divider} />
-                    <Typography align={'center'} style={styles.box2} variant='subtitle1'>
+                    
+                    <Typography align={'justify'} style={styles.box2} variant='subtitle1'>
                     Champion for people and communities to express their creativity.</Typography>
+                    <hr style={styles.divider} />
                 </Grid>
 
-                <Grid item xs={12} sm={2}>
+                <Grid item xs={12} sm={4} lg={2}>
                     <AllInclusive style={styles.icon} />
                     <Typography align={'center'} style={styles.box1} variant="h5">
                     Diversity & Inclusion</Typography>
-                    <hr style={styles.divider} />
-                    <Typography align={'center'} style={styles.box2} variant='subtitle1'>
+                    
+                    <Typography align={'justify'} style={styles.box2} variant='subtitle1'>
                     We strive to create inclusive, respectful, and safe spaces for everyone to showcase their true selves.</Typography>
+                    <hr style={styles.divider} />
                 </Grid>
 
-                <Grid item xs={12} sm={2}>
+                <Grid item xs={12} sm={4} lg={2}>
                     <NaturePeople style={styles.icon} />
                     <Typography align={'center'} style={styles.box1} variant="h5">
                     Stewards for the Planet</Typography>
-                    <hr style={styles.divider} />
-                    <Typography align={'center'} style={styles.box2} variant='subtitle1'>
+                    
+                    <Typography align={'justify'} style={styles.box2} variant='subtitle1'>
                     Implementation of sustainable practices to preserve, protect, & promote the health of the planet.</Typography>
+                    <hr style={styles.divider} />
                 </Grid>
 
-                <Grid item xs={12} sm={2}>
+                <Grid item xs={12} sm={4} lg={2}>
                     <Extension style={styles.icon} />
                     <Typography align={'center'} style={styles.box1} variant="h5">
                     Member of the Community</Typography>
-                    <hr style={styles.divider} />
-                    <Typography align={'center'} style={styles.box2} variant='subtitle1'>
+                    
+                    <Typography align={'justify'} style={styles.box2} variant='subtitle1'>
                     We want to learn & grow with the community by leveraging volunteered data and constantly matching our offerings to the needs & demands of the local community.</Typography>
+                    <hr style={styles.divider} />
                 </Grid>
             </Grid>
         </Paper>

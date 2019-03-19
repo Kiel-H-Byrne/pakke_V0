@@ -23,15 +23,14 @@ import TinyInput from './TinyInput.js'
 
 const styles = theme => ({
 	paper: {
-    position: 'absolute',
+    position: 'relative',
+    margin: 'auto',
     // width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 1,
-    maxHeight: '90vh',
-    top: '50%',
-    left: '50%',
-    transform: `translate(-50%, -50%)`,
+    maxHeight: '90%',
+    maxWidth: '90%',
   },
 })
 
@@ -100,7 +99,7 @@ const styles = theme => ({
           className="tinyForm"
   	      >
             <AutoField name="byline" />
-            <InputLabel htmlFor="event-description" shrink={true}>Describe this experience...</InputLabel>
+            <InputLabel htmlFor="description" shrink={true}>Describe this experience:</InputLabel>
             <TinyInput name="description" content={model.description} />
             <DateTime value={model.date}/>
             <AutoField name="duration" margin="dense" />
@@ -111,6 +110,7 @@ const styles = theme => ({
             <InputLabel>Upload a picture to use for the cover!</InputLabel>     
             <FileUpload name="image" module="events" value={model.image}/>
             <AutoField name="isPrivate" />
+            <InputLabel htmlFor="purchasedEmail" shrink={true}>Confirmation E-mail Text:</InputLabel>
             <TinyInput name="purchasedEmail" content={model.purchasedEmail}/>
             <HiddenField name="checkedPolicy" value="true" margin="dense" />
             <HiddenField name="hostId" />

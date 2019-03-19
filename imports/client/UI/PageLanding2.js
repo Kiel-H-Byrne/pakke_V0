@@ -61,6 +61,7 @@ class PageLanding2 extends Component {
     }
     const trackClick = (name, source, color, text) => {
       analytics.track("Button Clicked", {
+        label: name,
         name: name,
         source: source,
         color: color,

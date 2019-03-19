@@ -58,7 +58,7 @@ Accounts.ui.config({
   },
   profilePath: '/profile',
   onSubmitHook: (error, state) => {
-    console.log(error, state);
+    console.log(state)
     // if (state = "Symbol(SIGN_IN)") {
     //   console.log("logging in.."); 
     //   return;
@@ -68,10 +68,13 @@ Accounts.ui.config({
       return
     }
     if (!error) { Bert.alert("Check your inbox for a sign-in link!", 
-      "pk-success", "growl-top-right", "fa-thumbs-up", )  } 
+      "pk-success", "growl-top-left", "fa-thumbs-up", )  
+    } 
 
-    if (error) {Bert.alert(error.reason || error.message, 
-      "pk-danger", "growl-top-right", "fa-thumbs-down", )}
+    if (error) {
+      console.warn(error.error);
+      Bert.alert(error.reason || error.split('.')[2], 
+      "pk-info", "growl-top-right", "fa-exclamation-triangle")}
     // console.info("still running...")
     return 
   },

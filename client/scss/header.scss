@@ -89,17 +89,19 @@
   flex-direction: column;
   padding: 1rem;
   border-color: #225199;
- .fields, .buttons, .password-or-service, .or-sep, .messages {
-    display: none
-  }
- button {
+ // .fields, .buttons, .password-or-service, .or-sep, .messages {
+ //    display: none
+ //  }
+  button {
+    font-size: 1rem;
     margin: 3px;
     border: none;
     padding: 11px;
     color: white;
     border-radius: 3px;
     background-color: #2964FF;
-  }
+  }  
+
   .message.warning {
     color: rgba(255,65,0,1);
     display: block;
@@ -107,21 +109,30 @@
     text-align: center;
     padding: 3px;
   }
- // .messages  {
- //  display: none;
- // }
+
+  // .messages  {
+  //   display: none;
+  // }
+  
   & > * { //all direct children of flex container
-      margin: 3px 0;
-      display: flex;
-    }
-  .buttons  {
-  a {
-    // display: none;
-      text-decoration: underline;
+    margin: 3px 0;
+    display: flex;
+  }
+  .buttons {  
+    a {
+      // display: none;
+      line-height: 1rem;
+      font-size: 1rem;
+      height: 1rem;
+      display: inline-flex;
+      border-radius: 3px;
+      background-color: #bacbac;
       color: #225199;
-      padding: 11px;
-      padding-left: 1rem;
+      padding: .8rem;
       vertical-align: middle;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
   .password-or-service {
