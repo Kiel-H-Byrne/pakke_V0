@@ -107,6 +107,8 @@ class PaymentRequestForm extends React.Component {
               Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
 
               analytics.track("Ticket Purchase", {
+                category: 'Checkout',
+                step: 2,
                 label: event.byline,
                 commerce: event.price,
                 value: event.price - ((event.price*.029)+.30),
@@ -114,6 +116,9 @@ class PaymentRequestForm extends React.Component {
               })
 
               analytics.track('Order Completed', {
+                category: 'Checkout',
+                step: 3,
+                shippingMethod: '',
                 total: event.price,
                 revenue: event.price - ((event.price*.029)+.30),
                 currency: 'USD',

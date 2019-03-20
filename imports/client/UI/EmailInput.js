@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Input, { InputLabel, InputAdornment } from '@material-ui/core/Input';
-// import TextField from 'material-ui/TextField';
+
+import analytics from '/lib/analytics/analytics.min.js';
 import TextField from 'uniforms-material/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -40,6 +41,11 @@ function InputWithIcon(props) {
         };
       Bert.alert("Thank you! You can also Sign in with Facebook or Google.", "pk-success", "fixed-bottom", "fa-thumbs-up");
         Meteor.call('crmInsert', 'leads', crmParams)
+        analytics.track("New Email Subscribe", {
+          category: 'Marketing',
+          label: "From HomePage",
+          value: value
+        })
       } else {
         Bert.alert("Invalid E-mail Address", "danger");
       };

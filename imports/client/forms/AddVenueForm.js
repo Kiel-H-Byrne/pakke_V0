@@ -18,7 +18,7 @@ import AutoField  from 'uniforms-material/AutoField';
 import HiddenField from 'uniforms-material/HiddenField';
 import LongTextField from 'uniforms-material/LongTextField';
 
-
+import analytics from '/lib/analytics/analytics.min.js';
 import '../../startup/collections/schemas';
 import TinyInput from './TinyInput.js'
 import ImagesUpload from './ImagesUpload.js'; 
@@ -46,15 +46,16 @@ class AddVenueForm extends Component {
     // console.log(doc)
       Meteor.call('addVenue', doc);
       this.props.handleClose();
-      analytics.track("Applied to event", {
-        label: "New Venue",
-        value: doc.address
+      analytics.track("Added New Venue", {
+        category: 'Venues',
+        label: doc.byline,
+        value: (doc.capacity * 24)
       })
   }; 
 
   handleSuccess() {
       Bert.alert("You have a new place!", "pk-success", "fixed-bottom", "fa-thumbs-up");
-      
+      //get 
   };
 
   handleFailure() {

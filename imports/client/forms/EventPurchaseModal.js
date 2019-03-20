@@ -41,6 +41,8 @@ class EventPurchaseModalComponent extends Component {
   handleOpen() {
     this.setState({ open: true });
     analytics.track('Product Viewed', {
+      category: 'Checkout',
+      step: 1,
       label: this.props.event.byline,
       product_id: this.props.event._id,
       name: this.props.event.byline,
