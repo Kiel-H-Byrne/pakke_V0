@@ -20,6 +20,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
 import HiddenField from 'uniforms-material/HiddenField'; 
 
+import analytics from '/lib/analytics/analytics.min.js';
 import '../../startup/collections/schemas';
 import eventCreatedAdminTemplate from '../email/eventCreatedAdminTemplate';
 import eventCreatedHostTemplate from '../email/eventCreatedHostTemplate';
@@ -72,14 +73,21 @@ class AddEventForm extends Component {
               "End DateTime": doc.date + doc.duration
             };
             Meteor.call('crmInsert', 'event', crmParams);
+            analytics.track("New Event Listed", {
+              category: "Events",
+              label: doc.byline,
+              value: doc.price,
+              commerce: doc.price,
+              host: Meteor.user().username,
+            })
         } else {
             console.log (doc)
         }
     }; 
 
-    handleSuccess = () => {
+    handleSuccess() {
         //redirect; to home
-        window.location.href="/?eventAdded"
+        window.location.href="/?eventAdded";
         Bert.alert("Your Event Was Posted!", "pk-success", "fixed-bottom", "fa-thumbs-up");
         // this.props.history.push('/?eventAdded');
     };

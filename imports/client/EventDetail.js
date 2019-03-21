@@ -24,6 +24,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import DateFnsUtils from '@date-io/date-fns';
 
+import analytics from '/lib/analytics/analytics.min.js';
 import Venues from '/imports/startup/collections/venues.js';
 import PageError from './PageError.js';
 import EventMap from './EventMap.js'
@@ -137,7 +138,6 @@ class EventDetailsComponent extends Component {
   // let hostHandle = Meteor.subscribe('event.host', match.params.id);
   // let userHandle = Meteor.subscribe('currentUser', Meteor.userId() );
   }
-
   componentWillUnmount() {
     // console.log(eventsHandle);
     // eventsHandle.stop();
@@ -176,11 +176,11 @@ class EventDetailsComponent extends Component {
       // Meteor.call('sendEmail', hostEmail, ...hostEmailProps);
       //EMAIL TO ADMIN
       Meteor.call('sendEmail', "info@pakke.us", ...adminEmailProps);
-
-      analytics.track("Joined GuestList", {
+      analytics.track("New Attendee", {
+        category: "Events",
         label: event.byline,
-        commerce: event.price,
         value: event.price,
+        commerce: event.price,
         host: event.hostId,
       })
     } else {
@@ -247,14 +247,24 @@ class EventDetailsComponent extends Component {
           <CardContent>
             <Typography variant="h4" align="center" gutterBottom >{this.props.event.byline}</Typography>
             <Typography dangerouslySetInnerHTML={{__html: this.props.event.description}} style={styles.padded}/>
-            <div className="fb-share-button" 
+            {/* 
+            <div className="fb-share-button" id="fb-share-btn" 
               data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
               data-layout="button_count"
               data-size="large" 
               data-mobile-iframe="true"
               style={{margin: '1rem auto'}}>
               <a target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.pakke.us%2Fevent%2F${this.props.event._id}&amp;src=sdkpreparse`} className="fb-xfbml-parse-ignore">Share</a>
-              </div>
+            </div>
+            */}
+              <div className="fb-like"
+                data-href={`https://www.pakke.us/event/${this.props.event._id}`} 
+                data-layout="button_count" 
+                data-action="recommend" 
+                data-size="small" 
+                data-show-faces="true" 
+                data-share="true"
+                ></div>
             <Grid 
             container
             alignItems="center"

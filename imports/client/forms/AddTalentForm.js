@@ -7,6 +7,7 @@ import ErrorsField from 'uniforms-material/ErrorsField';
 
 import Grid from '@material-ui/core/Grid';
 
+import analytics from '/lib/analytics/analytics.min.js';
 import '../../startup/collections/schemas';
 
 // This will render an automatic, validated form, with labelled fields, inline
@@ -23,6 +24,11 @@ class AddTalentForm extends Component {
 
   handleSubmit(doc) {
     Meteor.call('addTalent', doc);
+    analytics.track("New Talent Listed", {
+        category: "Talents",
+        label: doc.byline,
+        value: doc.fee
+      })
   }; 
 
   handleSuccess() {

@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { StripeProvider, Elements } from 'react-stripe-elements';
-import analytics from '/lib/analytics/analytics.min.js';
 
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 
+import analytics from '/lib/analytics/analytics.min.js';
 import PaymentRequestForm from './PaymentRequestForm'
 // import EventPurchaseForm from './EventPurchaseForm.js'
 

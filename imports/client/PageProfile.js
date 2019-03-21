@@ -23,6 +23,7 @@ import SubmitField from 'uniforms-material/SubmitField';
 import TextField from 'uniforms-material/TextField';
 import ErrorsField from 'uniforms-material/ErrorsField';
 
+import analytics from '/lib/analytics/analytics.min.js';
 import Events from '../startup/collections/events';
 import TinyInput from './forms/TinyInput.js'
 import VenuesForm from './forms/VenuesForm';
@@ -134,6 +135,11 @@ class PageProfileComponent extends Component {
   
   handleSuccess = () => {
     Bert.alert("Your Profile Was Updated!", "pk-success", "fixed-bottom", "fa-thumbs-up");
+    analytics.track("Profile Updated", {
+        category: "Users",
+        label: "Modified Profile Page",
+        value: Meteor.userId()
+      })
     this.handleClick();
   }
 

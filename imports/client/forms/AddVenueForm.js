@@ -49,7 +49,7 @@ class AddVenueForm extends Component {
       analytics.track("Added New Venue", {
         category: 'Venues',
         label: doc.byline,
-        value: (doc.capacity * 24)
+        value: (doc.capacity * 25)
       })
   }; 
 

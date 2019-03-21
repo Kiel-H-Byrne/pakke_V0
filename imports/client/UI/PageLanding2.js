@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
+import analytics from '/lib/analytics/analytics.min.js';
 import muiTheme from '../UI/muiTheme';
 import WhatIsPAKKEEvent from '../UI/WhatIsPAKKEEvent';
 import CoreValues from '../UI/CoreValues';
