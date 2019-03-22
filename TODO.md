@@ -65,3 +65,11 @@ EventPurchaseModal
   card info & payment button, 
   get email & modal on send  with thanks & instructions.
   
+some ideas:
+-demo page
+-bootstrap page in md (dev onboarding)
+-privacy policy like Goodfynd
+
+app review!
+show fb profile link w/ avatar in event chatroom
+
