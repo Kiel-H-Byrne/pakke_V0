@@ -92,6 +92,6 @@ Utilizing Google Maps API,
 ## Database
 
 MongoDB, 
-utilizing [mLab](mlab.com) for live database, tied to "kiel@pakke.us"
+utilizing [mLab](mlab.com) for live database
 
 
